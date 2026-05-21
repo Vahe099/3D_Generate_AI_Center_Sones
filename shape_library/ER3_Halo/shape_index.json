@@ -1,0 +1,39 @@
+{
+  "CU": {
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER3_Halo\\ER3_Halo_CU.3dm",
+    "mutable_object_indices": [
+      1,
+      2,
+      3,
+      20,
+      37,
+      38,
+      39,
+      40,
+      41,
+      43,
+      44,
+      45,
+      46
+    ],
+    "mutable_object_count": 13
+  },
+  "RD": {
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER3_Halo\\ER3_Halo_RD.3dm",
+    "mutable_object_indices": [
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      35,
+      69,
+      70,
+      71
+    ],
+    "mutable_object_count": 12
+  }
+}

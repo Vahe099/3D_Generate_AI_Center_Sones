@@ -1,0 +1,100 @@
+{
+  "AS": {
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_11\\AD11_ArtDeco AS P.3dm",
+    "mutable_object_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "mutable_object_count": 18
+  },
+  "EM": {
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_11\\AD11_ArtDeco EM P.3dm",
+    "mutable_object_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "mutable_object_count": 19
+  },
+  "PR": {
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_11\\AD11_ArtDeco PR P.3dm",
+    "mutable_object_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "mutable_object_count": 18
+  },
+  "RA": {
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_11\\AD11_ArtDeco RA P.3dm",
+    "mutable_object_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "mutable_object_count": 19
+  }
+}

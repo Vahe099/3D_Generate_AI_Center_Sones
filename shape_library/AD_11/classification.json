@@ -1,0 +1,113 @@
+{
+  "family": "AD_11",
+  "exact_static_hashes": [
+    "8fff40ba0907"
+  ],
+  "fuzzy_static_hashes": [],
+  "combined_static_hashes": [
+    "8fff40ba0907"
+  ],
+  "mutable_hashes": [
+    "16423cf1856b",
+    "3278261ff879",
+    "bccaeb7b3012"
+  ],
+  "unmatched_hashes": [
+    "0cada5099dbc",
+    "0dcd94e6954f",
+    "1438f3cd6bcd",
+    "14438e5e68cd",
+    "1454fe9e4565",
+    "25427e1c242b",
+    "271c90d2b17e",
+    "2bd9543b9897",
+    "2eda48734131",
+    "33148c269891",
+    "37407e3daa20",
+    "37fbedfe32a4",
+    "3f54e3b03da6",
+    "4155483cb36d",
+    "4355e27e5fe7",
+    "454f04996ddb",
+    "48ef0adc3612",
+    "499d20fca968",
+    "51322d7a2993",
+    "546facdf1874",
+    "5c917bcf92c1",
+    "600f5ad462f1",
+    "6ab697aaf658",
+    "6eb58e2dac21",
+    "6ee912230853",
+    "708dd5a6edee",
+    "7488012810d0",
+    "8136f1c5ec75",
+    "818dac7a2755",
+    "821e3d9e3ccf",
+    "825fab2f59b5",
+    "858048dcb1d3",
+    "88627b9e9e83",
+    "8f2f8ca0e697",
+    "9361571fd8f3",
+    "98cfd2605160",
+    "9a7a1ef4d067",
+    "9bc65ed9b447",
+    "abaa7357d093",
+    "ac91118cc72b",
+    "ae87112cfd04",
+    "afc97ebd042f",
+    "b1b0ad979e14",
+    "b5fc5007ac38",
+    "b7a0958cced9",
+    "b8fa74e77cd6",
+    "befedd24441b",
+    "bfe76ad04d16",
+    "c5bdfbb316dc",
+    "c626130aa641",
+    "c7d50bc32fce",
+    "cb6e8a16c9b8",
+    "cbb781576e75",
+    "ce34fad546e4",
+    "d0108ca9fa88",
+    "d1cae5bd33eb",
+    "d3ba2e2ec241",
+    "d7a242d89af2",
+    "db9381b1ad15",
+    "df29ae5b1c21",
+    "e0b713e76c24",
+    "e23d27d20113",
+    "e2cd1f875fba",
+    "e8289853df9e",
+    "ebcf242c30ff",
+    "f1c719173af7",
+    "f86e57eff1f7",
+    "fb997955fc3a"
+  ],
+  "shape_to_hashes": {
+    "AS": [
+      "16423cf1856b"
+    ],
+    "EM": [
+      "3278261ff879",
+      "bccaeb7b3012"
+    ],
+    "PR": [
+      "16423cf1856b"
+    ],
+    "RA": [
+      "3278261ff879",
+      "bccaeb7b3012"
+    ]
+  },
+  "total_files_used": 4,
+  "source_files": {
+    "AS": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_11\\AD11_ArtDeco AS P.3dm",
+    "EM": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_11\\AD11_ArtDeco EM P.3dm",
+    "PR": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_11\\AD11_ArtDeco PR P.3dm",
+    "RA": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_11\\AD11_ArtDeco RA P.3dm"
+  },
+  "tolerances": {
+    "center_mm": 0.2,
+    "size_mm": 0.2,
+    "vol": "inf"
+  }
+}
