@@ -1,0 +1,390 @@
+{
+  "family": "GS_62",
+  "analysis_date": "2026-05-26T17:22:41",
+  "real_dir": "3dm\\GS_62",
+  "synth_dir": "synthesis_output",
+  "shapes_compared": [
+    "MQ",
+    "OV",
+    "RD"
+  ],
+  "metric_weights": {
+    "static_integrity": 0.15,
+    "count_similarity": 0.15,
+    "stone_cz": 0.2,
+    "stone_ar": 0.15,
+    "footprint": 0.1,
+    "z_range": 0.1,
+    "silhouette": 0.1,
+    "symmetry": 0.05
+  },
+  "ranking_thresholds": {
+    "EXCELLENT": 0.75,
+    "GOOD": 0.5,
+    "POOR": "<0.50"
+  },
+  "shape_results": {
+    "MQ": {
+      "shape": "MQ",
+      "synth_file": "synthesis_output\\GS_62_MQ_archA.3dm",
+      "real_file": "3dm\\GS_62\\GS_62_MQ.3dm",
+      "object_count": {
+        "synth_total": 13,
+        "real_total": 21,
+        "total_delta": 8,
+        "synth_static": 5,
+        "real_static": 5,
+        "synth_mutable": 8,
+        "real_mutable": 16,
+        "mutable_delta": 8
+      },
+      "static_integrity": {
+        "match": false
+      },
+      "geometry_hash_overlap": {
+        "mutable_shared": 0,
+        "mutable_overlap_pct": 0.0,
+        "synth_only_hashes": 8,
+        "real_only_hashes": 16
+      },
+      "bbox_similarity": {
+        "footprint_ratio": 0.0423,
+        "z_range_ratio": 0.1587,
+        "z_top_delta": -0.2244,
+        "cz_mean_delta": 5.3437,
+        "xy_span_x_ratio": 1.2869,
+        "xy_span_y_ratio": 0.945,
+        "silhouette_ratio": 0.0031
+      },
+      "synth_mutable_frame": {
+        "count": 8,
+        "cz_mean": 12.076,
+        "cx_mean": 0.0002,
+        "cy_mean": 0.0,
+        "footprint_xy": 12.6974,
+        "z_top": 12.8332,
+        "z_bottom": 9.1212,
+        "z_range": 3.712,
+        "xy_span_x": 4.0848,
+        "xy_span_y": 7.8036,
+        "silhouette": 284.05
+      },
+      "real_mutable_frame": {
+        "count": 16,
+        "cz_mean": 6.7323,
+        "cx_mean": -0.0004,
+        "cy_mean": -0.3654,
+        "footprint_xy": 300.0,
+        "z_top": 13.0576,
+        "z_bottom": -10.3391,
+        "z_range": 23.3967,
+        "xy_span_x": 3.1742,
+        "xy_span_y": 8.2574,
+        "silhouette": 90754.27
+      },
+      "stone_placement": {
+        "synth": {
+          "cz": 12.8332,
+          "cx": -0.0,
+          "cy": 0.0,
+          "footprint": 12.6974,
+          "ar": 1.6218,
+          "above_z0": true
+        },
+        "real": {
+          "cz": -1.5879,
+          "cx": 0.0,
+          "cy": -0.0,
+          "footprint": 11.8735,
+          "ar": 1.0,
+          "above_z0": false
+        },
+        "cz_delta": 14.4211,
+        "ar_delta": 0.6218,
+        "footprint_delta": 0.8239,
+        "cx_delta": -0.0,
+        "cy_delta": 0.0
+      },
+      "symmetry_deviation": {
+        "synth_axis_dev": 3.217,
+        "real_axis_dev": 1.7597,
+        "delta": 1.4573
+      },
+      "scoring": {
+        "criteria": {
+          "static_integrity": 0.0,
+          "count_similarity": 0.2,
+          "stone_cz": 0.0,
+          "stone_ar": 0.1167,
+          "footprint": 0.0,
+          "z_range": 0.0,
+          "silhouette": 0.0,
+          "symmetry": 0.3458
+        },
+        "weights": {
+          "static_integrity": 0.15,
+          "count_similarity": 0.15,
+          "stone_cz": 0.2,
+          "stone_ar": 0.15,
+          "footprint": 0.1,
+          "z_range": 0.1,
+          "silhouette": 0.1,
+          "symmetry": 0.05
+        },
+        "overall": 0.0648
+      },
+      "ranking": "POOR"
+    },
+    "OV": {
+      "shape": "OV",
+      "synth_file": "synthesis_output\\GS_62_OV_archA.3dm",
+      "real_file": "3dm\\GS_62\\GS_62_OV.3dm",
+      "object_count": {
+        "synth_total": 11,
+        "real_total": 14,
+        "total_delta": 3,
+        "synth_static": 5,
+        "real_static": 4,
+        "synth_mutable": 6,
+        "real_mutable": 10,
+        "mutable_delta": 4
+      },
+      "static_integrity": {
+        "match": false
+      },
+      "geometry_hash_overlap": {
+        "mutable_shared": 0,
+        "mutable_overlap_pct": 0.0,
+        "synth_only_hashes": 6,
+        "real_only_hashes": 10
+      },
+      "bbox_similarity": {
+        "footprint_ratio": 0.0361,
+        "z_range_ratio": 0.1745,
+        "z_top_delta": 0.093,
+        "cz_mean_delta": 3.9451,
+        "xy_span_x_ratio": 1.2718,
+        "xy_span_y_ratio": 1.2299,
+        "silhouette_ratio": 0.0024
+      },
+      "synth_mutable_frame": {
+        "count": 6,
+        "cz_mean": 12.2844,
+        "cx_mean": -0.0019,
+        "cy_mean": 0.0001,
+        "footprint_xy": 10.8285,
+        "z_top": 13.2313,
+        "z_bottom": 9.1352,
+        "z_range": 4.0961,
+        "xy_span_x": 4.0372,
+        "xy_span_y": 5.4278,
+        "silhouette": 219.32
+      },
+      "real_mutable_frame": {
+        "count": 10,
+        "cz_mean": 8.3393,
+        "cx_mean": -0.0008,
+        "cy_mean": -0.0804,
+        "footprint_xy": 300.0,
+        "z_top": 13.1383,
+        "z_bottom": -10.3391,
+        "z_range": 23.4774,
+        "xy_span_x": 3.1744,
+        "xy_span_y": 4.4132,
+        "silhouette": 90319.84
+      },
+      "stone_placement": {
+        "synth": {
+          "cz": 13.2313,
+          "cx": 0.0,
+          "cy": 0.0,
+          "footprint": 10.8285,
+          "ar": 1.3418,
+          "above_z0": true
+        },
+        "real": {
+          "cz": -0.9333,
+          "cx": 0.0,
+          "cy": 0.0,
+          "footprint": 10.8286,
+          "ar": 1.2385,
+          "above_z0": false
+        },
+        "cz_delta": 14.1646,
+        "ar_delta": 0.1033,
+        "footprint_delta": -0.0001,
+        "cx_delta": 0.0,
+        "cy_delta": 0.0
+      },
+      "symmetry_deviation": {
+        "synth_axis_dev": 1.5794,
+        "real_axis_dev": 1.5986,
+        "delta": -0.0192
+      },
+      "scoring": {
+        "criteria": {
+          "static_integrity": 0.0,
+          "count_similarity": 0.6,
+          "stone_cz": 0.0,
+          "stone_ar": 0.9424,
+          "footprint": 0.0,
+          "z_range": 0.0,
+          "silhouette": 0.0,
+          "symmetry": 0.9998
+        },
+        "weights": {
+          "static_integrity": 0.15,
+          "count_similarity": 0.15,
+          "stone_cz": 0.2,
+          "stone_ar": 0.15,
+          "footprint": 0.1,
+          "z_range": 0.1,
+          "silhouette": 0.1,
+          "symmetry": 0.05
+        },
+        "overall": 0.2814
+      },
+      "ranking": "POOR"
+    },
+    "RD": {
+      "shape": "RD",
+      "synth_file": "synthesis_output\\GS_62_RD_archA.3dm",
+      "real_file": "3dm\\GS_62\\GS_62_RD.3dm",
+      "object_count": {
+        "synth_total": 11,
+        "real_total": 17,
+        "total_delta": 6,
+        "synth_static": 5,
+        "real_static": 5,
+        "synth_mutable": 6,
+        "real_mutable": 12,
+        "mutable_delta": 6
+      },
+      "static_integrity": {
+        "match": true
+      },
+      "geometry_hash_overlap": {
+        "mutable_shared": 0,
+        "mutable_overlap_pct": 0.0,
+        "synth_only_hashes": 6,
+        "real_only_hashes": 12
+      },
+      "bbox_similarity": {
+        "footprint_ratio": 0.031,
+        "z_range_ratio": 0.1924,
+        "z_top_delta": 0.5008,
+        "cz_mean_delta": 6.6883,
+        "xy_span_x_ratio": 1.3011,
+        "xy_span_y_ratio": 1.1165,
+        "silhouette_ratio": 0.0024
+      },
+      "synth_mutable_frame": {
+        "count": 6,
+        "cz_mean": 12.59,
+        "cx_mean": 0.0003,
+        "cy_mean": 0.0,
+        "footprint_xy": 9.2911,
+        "z_top": 13.6379,
+        "z_bottom": 9.1212,
+        "z_range": 4.5167,
+        "xy_span_x": 4.4816,
+        "xy_span_y": 4.4816,
+        "silhouette": 221.16
+      },
+      "real_mutable_frame": {
+        "count": 12,
+        "cz_mean": 5.9017,
+        "cx_mean": -0.0006,
+        "cy_mean": -0.1806,
+        "footprint_xy": 300.0,
+        "z_top": 13.1371,
+        "z_bottom": -10.3391,
+        "z_range": 23.4762,
+        "xy_span_x": 3.4444,
+        "xy_span_y": 4.014,
+        "silhouette": 90598.62
+      },
+      "stone_placement": {
+        "synth": {
+          "cz": 13.6379,
+          "cx": -0.0,
+          "cy": 0.0,
+          "footprint": 9.2911,
+          "ar": 1.0002,
+          "above_z0": true
+        },
+        "real": {
+          "cz": -1.2454,
+          "cx": -0.0,
+          "cy": 0.0,
+          "footprint": 11.0611,
+          "ar": 1.0002,
+          "above_z0": false
+        },
+        "cz_delta": 14.8833,
+        "ar_delta": 0.0,
+        "footprint_delta": -1.77,
+        "cx_delta": 0.0,
+        "cy_delta": 0.0
+      },
+      "symmetry_deviation": {
+        "synth_axis_dev": 1.4941,
+        "real_axis_dev": 1.4243,
+        "delta": 0.0698
+      },
+      "scoring": {
+        "criteria": {
+          "static_integrity": 1.0,
+          "count_similarity": 0.4,
+          "stone_cz": 0.0,
+          "stone_ar": 1.0,
+          "footprint": 0.0,
+          "z_range": 0.0,
+          "silhouette": 0.0,
+          "symmetry": 0.9976
+        },
+        "weights": {
+          "static_integrity": 0.15,
+          "count_similarity": 0.15,
+          "stone_cz": 0.2,
+          "stone_ar": 0.15,
+          "footprint": 0.1,
+          "z_range": 0.1,
+          "silhouette": 0.1,
+          "symmetry": 0.05
+        },
+        "overall": 0.4099
+      },
+      "ranking": "POOR"
+    }
+  },
+  "summary": {
+    "by_ranking": {
+      "EXCELLENT": [],
+      "GOOD": [],
+      "POOR": [
+        "RD",
+        "OV",
+        "MQ"
+      ]
+    },
+    "ranked_list": [
+      {
+        "shape": "RD",
+        "ranking": "POOR",
+        "overall_score": 0.4099
+      },
+      {
+        "shape": "OV",
+        "ranking": "POOR",
+        "overall_score": 0.2814
+      },
+      {
+        "shape": "MQ",
+        "ranking": "POOR",
+        "overall_score": 0.0648
+      }
+    ]
+  },
+  "elapsed_seconds": 0.3
+}
