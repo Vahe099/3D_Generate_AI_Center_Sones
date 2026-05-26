@@ -540,6 +540,155 @@ def expected_confidence(score: float, risks: list[dict]) -> str:
 
 
 # ─────────────────────────────────────────────────────────────
+#  Automatic Donor Intelligence helpers
+# ─────────────────────────────────────────────────────────────
+
+def recommend_filters(
+    donor_family: str,
+    shape: str,
+    affine_params: dict,
+    cache: dict,
+    target_family: str | None = None,
+) -> dict:
+    """
+    Predict synthesis filters needed for this donor→shape pair.
+
+    Compares the donor's post-transform z_bottom against the target family's
+    known z_bottom minimum. Only recommends min_z_guard when the donor lands
+    more than 2 mm below the deepest known target shape — a signal that
+    sub-plane geometry is anomalously deep relative to the target ring style.
+    Normal ring geometry that dips below Z=0 (prongs, basket) should NOT
+    trigger a guard because the z_range weight in compare_vs_real is small
+    (0.10) and removing those objects collapses z_range coverage.
+    Returns {"min_z_guard": {shape: 0.0} | {}, "z_filter": None}
+    """
+    key = f"{donor_family}|{shape}"
+    donor_frame = cache.get(key)
+    if not donor_frame or not affine_params:
+        return {"min_z_guard": {}, "z_filter": None}
+
+    z_bottom_pre  = donor_frame.get("z_bottom", 0.0)
+    sz            = affine_params.get("scale_z",     1.0)
+    dz            = affine_params.get("translate_z", 0.0)
+    post_z_bottom = z_bottom_pre * sz + dz
+
+    # Derive the guard threshold from the target family's known shapes.
+    # guard fires only when donor is > 2 mm below the target's deepest known shape.
+    guard_threshold = -2.0  # conservative default when no target data available
+    if target_family:
+        known_zbs = [
+            v.get("z_bottom", 0.0)
+            for k, v in cache.items()
+            if k.startswith(f"{target_family}|") and "z_bottom" in v
+        ]
+        if known_zbs:
+            guard_threshold = min(known_zbs) - 2.0
+
+    min_z_guard = {shape: 0.0} if post_z_bottom < guard_threshold else {}
+    return {"min_z_guard": min_z_guard, "z_filter": None}
+
+
+def auto_select_arch(
+    shape: str,
+    donor_score: float,
+    affine_params: dict,
+    risks: list[dict],
+) -> list[str]:
+    """
+    Choose synthesis architecture(s) from donor quality and scale risk.
+
+    Returns ["B"] when affine is reliable, ["A","B"] when uncertain,
+    ["A"] when confidence is too low for affine to add value.
+    architecture_strategy.json overrides this for explicitly mapped shapes.
+    """
+    high_scale = any(
+        r["factor"] in {"SCALE_XY_HIGH", "SCALE_XY_LOW", "SCALE_Z_HIGH"}
+        for r in risks
+    )
+    if donor_score >= 0.65 and not high_scale:
+        return ["B"]
+    elif donor_score >= 0.45:
+        return ["A", "B"]
+    else:
+        return ["A"]
+
+
+def production_decision(
+    meta: dict,
+    shape_result: dict | None,
+) -> dict:
+    """
+    Rule-based accept / review / reject for a synthesized shape.
+
+    meta        : synthesis *_meta.json dict
+    shape_result: shape entry from compare-vs-real report, or None
+    Returns {"decision": str, "reasons": list, "score": float|None,
+             "ranking": str|None, "confidence": str, "filter_rate": float|None}
+    """
+    confidence   = meta.get("expected_confidence", "LOW")
+    risk_factors = meta.get("risk_factors", [])
+    high_risks   = [r for r in risk_factors if r.get("severity") == "HIGH"]
+    style_risks  = [r for r in risk_factors if r.get("factor", "").startswith("STYLE_")]
+    result       = meta.get("result", {})
+    mut_added    = result.get("mutable_added",   0)
+    mut_filtered = result.get("mutable_filtered", 0)
+    mut_total    = mut_added + mut_filtered
+    filter_rate  = (mut_filtered / mut_total) if mut_total > 0 else 0.0
+
+    decision = "REVIEW_NEEDED"
+    reasons: list[str] = []
+    score_out:   float | None = None
+    ranking_out: str   | None = None
+
+    if high_risks:
+        decision = "REJECT"
+        reasons.append("HIGH risks: " + ", ".join(r["factor"] for r in high_risks))
+    elif shape_result is not None:
+        scoring   = shape_result.get("scoring", {})
+        overall   = scoring.get("overall", 0.0)
+        ranking   = shape_result.get("ranking", "POOR")
+        static_ok = shape_result.get("static_integrity", {}).get("match", False)
+        score_out, ranking_out = overall, ranking
+
+        if not static_ok:
+            decision = "REJECT"
+            reasons.append("static_integrity=False")
+        elif ranking == "POOR":
+            decision = "REJECT"
+            reasons.append(f"score={overall:.3f} POOR < 0.50 threshold")
+        elif ranking == "EXCELLENT" and confidence == "HIGH":
+            decision = "AUTO_ACCEPT"
+            reasons.append(f"score={overall:.3f} EXCELLENT, confidence=HIGH, no HIGH risks")
+        else:
+            decision = "REVIEW_NEEDED"
+            if ranking == "GOOD":
+                reasons.append(f"score={overall:.3f} GOOD < 0.75 EXCELLENT threshold")
+            if confidence == "MEDIUM":
+                reasons.append("confidence=MEDIUM")
+    else:
+        decision = "REVIEW_NEEDED"
+        reasons.append("compare-vs-real not available; metadata-only decision")
+
+    if style_risks and decision == "AUTO_ACCEPT":
+        decision = "REVIEW_NEEDED"
+        reasons.append("style mismatch: " + style_risks[0]["factor"])
+
+    if filter_rate > 0.15:
+        if decision == "AUTO_ACCEPT":
+            decision = "REVIEW_NEEDED"
+        reasons.append(f"filter_rate={filter_rate:.0%} exceeds 15% threshold")
+
+    return {
+        "decision":    decision,
+        "reasons":     reasons,
+        "score":       score_out,
+        "ranking":     ranking_out,
+        "confidence":  confidence,
+        "filter_rate": round(filter_rate, 3) if mut_total > 0 else None,
+    }
+
+
+# ─────────────────────────────────────────────────────────────
 #  Cache helpers
 # ─────────────────────────────────────────────────────────────
 
@@ -1015,21 +1164,23 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
             dn_bf        = cache.get(f"{fam}|{bridge}")
             dn_tf        = cache.get(f"{fam}|{miss}")
 
-            affine = estimate_affine(dn_bf, hm_bf) if dn_bf else {}
-            risks  = identify_risks(affine, dn_tf, dn_tgt_count,
-                                    hm_count_mean, score, miss, fam)
-            conf   = expected_confidence(score, risks)
+            affine  = estimate_affine(dn_bf, hm_bf) if dn_bf else {}
+            risks   = identify_risks(affine, dn_tf, dn_tgt_count,
+                                     hm_count_mean, score, miss, fam)
+            conf    = expected_confidence(score, risks)
+            rec_flt = recommend_filters(fam, miss, affine, cache, target_family)
+            auto_arch_sel = auto_select_arch(miss, score, affine, risks)
 
             candidates.append({
-                "rank":                rank,
-                "donor_family":        fam,
-                "donor_score":         score,
-                "score_breakdown":     row["score_breakdown"],
-                "bridge_shape_used":   bridge,
-                "donor_target_count":  dn_tgt_count,
-                "hm_expected_count":   round(hm_count_mean, 1),
-                "affine_params":       affine,
-                "donor_target_frame":  {
+                "rank":                  rank,
+                "donor_family":          fam,
+                "donor_score":           score,
+                "score_breakdown":       row["score_breakdown"],
+                "bridge_shape_used":     bridge,
+                "donor_target_count":    dn_tgt_count,
+                "hm_expected_count":     round(hm_count_mean, 1),
+                "affine_params":         affine,
+                "donor_target_frame":    {
                     "stone_ar":         dn_tf.get("stone_ar"),
                     "stone_cz":         dn_tf.get("stone_cz"),
                     "footprint_xy":     dn_tf.get("footprint_xy"),
@@ -1037,11 +1188,13 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
                     "prong_count_est":  dn_tf.get("prong_count_est"),
                     "count":            dn_tf.get("count"),
                 } if dn_tf else None,
-                "expected_confidence": conf,
-                "risk_factors":        risks,
-                "risk_count":          {"HIGH": sum(1 for r in risks if r["severity"]=="HIGH"),
-                                        "MEDIUM": sum(1 for r in risks if r["severity"]=="MEDIUM"),
-                                        "LOW": sum(1 for r in risks if r["severity"]=="LOW")},
+                "expected_confidence":   conf,
+                "risk_factors":          risks,
+                "risk_count":            {"HIGH":   sum(1 for r in risks if r["severity"]=="HIGH"),
+                                          "MEDIUM": sum(1 for r in risks if r["severity"]=="MEDIUM"),
+                                          "LOW":    sum(1 for r in risks if r["severity"]=="LOW")},
+                "recommended_filters":   rec_flt,
+                "auto_arch":             auto_arch_sel,
             })
 
         high_conf = sum(1 for d in candidates if d["expected_confidence"] == "HIGH")
@@ -1815,6 +1968,242 @@ def compare_vs_real(
 
 
 # ─────────────────────────────────────────────────────────────
+#  Acceptance report writer
+# ─────────────────────────────────────────────────────────────
+
+def write_acceptance_report(
+    family:       str,
+    plan_path:    Path,
+    synth_dir:    Path,
+    compare_path: Path | None,
+    out_path:     Path,
+) -> None:
+    """
+    Produce {family}_acceptance_report.json by running production_decision()
+    for every synthesized shape, merging synthesis metadata with compare-vs-real results.
+    """
+    t0 = time.time()
+    plan = json.loads(plan_path.read_text(encoding="utf-8")) if plan_path.exists() else {}
+    known_shapes   = plan.get("known_shapes", [])
+    missing_shapes = plan.get("missing_shapes", [])
+
+    # Load compare-vs-real shape results if available
+    compare_results: dict = {}
+    if compare_path and compare_path.exists():
+        try:
+            cr = json.loads(compare_path.read_text(encoding="utf-8"))
+            compare_results = cr.get("shape_results", {})
+        except Exception:
+            pass
+
+    # Find best arch file per shape in synth_dir
+    def _best_meta(shape: str) -> dict | None:
+        for arch in ("B", "A"):
+            p = synth_dir / f"{family}_{shape}_arch{arch}_meta.json"
+            if p.exists():
+                try:
+                    return json.loads(p.read_text(encoding="utf-8"))
+                except Exception:
+                    pass
+        return None
+
+    shape_decisions: dict = {}
+    for shape in missing_shapes:
+        meta         = _best_meta(shape)
+        shape_result = compare_results.get(shape)
+
+        if meta is None:
+            shape_decisions[shape] = {
+                "decision":   "REVIEW_NEEDED",
+                "reasons":    ["no synthesis output found"],
+                "score":      None,
+                "ranking":    None,
+                "confidence": "UNKNOWN",
+                "filter_rate": None,
+                "donor":      None,
+                "filters_applied": {},
+            }
+            continue
+
+        dec = production_decision(meta, shape_result)
+        shape_decisions[shape] = {
+            **dec,
+            "donor":           meta.get("donor_family"),
+            "architecture":    meta.get("architecture"),
+            "filters_applied": {
+                "z_filter":    meta.get("affine_params"),   # z_filter stored in synthesis run
+                "min_z_guard": {shape: 0.0}
+                               if (meta.get("result", {}).get("mutable_filtered", 0) > 0
+                                   and meta.get("result", {}).get("mutable_filtered", 0) !=
+                                       (meta.get("result", {}).get("mutable_added", 0) +
+                                        meta.get("result", {}).get("mutable_filtered", 0)) * 0)
+                               else {},
+            },
+        }
+
+    summary: dict[str, list] = {"AUTO_ACCEPT": [], "REVIEW_NEEDED": [], "REJECT": []}
+    for shape, dec in shape_decisions.items():
+        summary[dec["decision"]].append(shape)
+
+    report = {
+        "family":          family,
+        "run_date":        datetime.now().isoformat(timespec="seconds"),
+        "known_shapes":    known_shapes,
+        "missing_shapes":  missing_shapes,
+        "shape_decisions": shape_decisions,
+        "summary":         summary,
+        "elapsed_seconds": round(time.time() - t0, 2),
+    }
+    out_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
+
+    print("=" * 60)
+    print(f"  Acceptance Report — {family}")
+    print("=" * 60)
+    col_w = 8
+    print(f"  {'Shape':<6}  {'Decision':<14}  {'Score':>5}  {'Rank':<10}  Reasons")
+    print("  " + "-" * 70)
+    for shape in missing_shapes:
+        d = shape_decisions.get(shape, {})
+        dec_str  = d.get("decision", "?")
+        sc       = d.get("score")
+        sc_str   = f"{sc:.3f}" if sc is not None else "  N/A"
+        rank_str = (d.get("ranking") or "N/A")[:10]
+        rsn      = "; ".join(d.get("reasons", []))[:60]
+        print(f"  {shape:<6}  {dec_str:<14}  {sc_str:>5}  {rank_str:<10}  {rsn}")
+    print("=" * 60)
+    print(f"  AUTO_ACCEPT   : {summary['AUTO_ACCEPT']}")
+    print(f"  REVIEW_NEEDED : {summary['REVIEW_NEEDED']}")
+    print(f"  REJECT        : {summary['REJECT']}")
+    print(f"  Report -> {out_path}  ({round(time.time()-t0,1)}s)")
+
+
+# ─────────────────────────────────────────────────────────────
+#  auto-onboard orchestrator
+# ─────────────────────────────────────────────────────────────
+
+def auto_onboard(
+    family:      str,
+    plan_path:   Path,
+    out_dir:     Path,
+    real_dir:    Path | None,
+    strategy:    Path | None,
+    dry_run:     bool,
+    no_compare:  bool,
+) -> None:
+    """
+    Single-command onboarding: analyze → synthesize → compare → accept/reject.
+
+    Reads recommended_filters and auto_arch from the transfer plan (populated
+    by analyze()) and applies them automatically in the synthesis step.
+    """
+    t0 = time.time()
+    compare_path = Path(f"{family.lower().replace(' ', '_')}_real_vs_generated.json")
+    report_path  = Path(f"{family.lower().replace(' ', '_')}_acceptance_report.json")
+
+    print("=" * 60)
+    print(f"  auto-onboard : {family}  {'[DRY RUN]' if dry_run else ''}")
+    print("=" * 60)
+
+    # ── Step 1: ensure frame cache is populated ───────────────
+    print("\n[1/5] Frame cache check ...")
+    if not CACHE_FILE.exists():
+        print("  Cache missing — building ...")
+        if not dry_run:
+            build_frame_db(rebuild=False)
+    else:
+        print(f"  Cache exists ({CACHE_FILE})")
+
+    # ── Step 2: analyze ────────────────────────────────────────
+    print(f"\n[2/5] Analyze {family} ...")
+    if not dry_run:
+        analyze(family, plan_path, forced_bridge=None, rebuild_cache=False)
+    if not plan_path.exists():
+        print("  ERROR: transfer plan not found after analyze step.")
+        return
+
+    # ── Step 3: read plan → extract recommended filters + arch ─
+    print("\n[3/5] Extracting filter and arch recommendations from plan ...")
+    plan = json.loads(plan_path.read_text(encoding="utf-8"))
+    missing_shapes = plan.get("missing_shapes", [])
+
+    # Collect auto min_z_guards and per-shape arch from rank-1 candidate
+    auto_min_z_guards: dict[str, float] = {}
+    shape_arch_map:    dict[str, list]  = {}
+    for sp in plan.get("missing_shape_plans", []):
+        shape = sp["missing_shape"]
+        cands = sp.get("top_candidates", [])
+        if not cands:
+            continue
+        best = cands[0]
+        rec_flt  = best.get("recommended_filters", {})
+        auto_arc = best.get("auto_arch", ["B"])
+        auto_min_z_guards.update(rec_flt.get("min_z_guard", {}))
+        shape_arch_map[shape] = auto_arc
+
+    if auto_min_z_guards:
+        print(f"  min_z guards recommended: {auto_min_z_guards}")
+    else:
+        print("  No min_z guards needed.")
+
+    # Determine which architectures to run per shape (strategy file overrides)
+    strategy_data = _load_strategy(strategy)
+    for shape in missing_shapes:
+        if strategy_data and shape in strategy_data.get("shape_routing", {}):
+            shape_arch_map[shape] = strategy_data["shape_routing"][shape] or ["B"]
+
+    # ── Step 4: synthesize ─────────────────────────────────────
+    print(f"\n[4/5] Synthesize missing shapes: {missing_shapes} ...")
+    if not dry_run:
+        synthesize(
+            family      = family,
+            plan_path   = plan_path,
+            out_dir     = out_dir,
+            default_arch= "B",
+            target_shapes = missing_shapes,
+            strategy_path = strategy,
+            donor_rank  = 1,
+            z_filter    = None,
+            min_z_guards= auto_min_z_guards or None,
+        )
+    else:
+        for shape in missing_shapes:
+            archs = shape_arch_map.get(shape, ["B"])
+            guard = auto_min_z_guards.get(shape)
+            guard_str = f"  min_z_guard={guard}" if guard is not None else ""
+            print(f"  [dry] {shape}: arch={'+'.join(archs)}{guard_str}")
+
+    # ── Step 5: compare vs real (optional) ────────────────────
+    if real_dir and not no_compare:
+        print(f"\n[5a/5] Compare vs real ({real_dir}) ...")
+        if not dry_run:
+            compare_vs_real(
+                family     = family,
+                real_dir   = real_dir,
+                synth_dir  = out_dir,
+                out_path   = compare_path,
+                strategy_path = strategy,
+            )
+    else:
+        print("\n[5a/5] Skipping compare-vs-real (no --real-dir or --no-compare).")
+        compare_path = None
+
+    # ── Step 6: produce acceptance report ─────────────────────
+    print(f"\n[5b/5] Generating acceptance report ...")
+    if not dry_run:
+        write_acceptance_report(
+            family       = family,
+            plan_path    = plan_path,
+            synth_dir    = out_dir,
+            compare_path = compare_path,
+            out_path     = report_path,
+        )
+    else:
+        print(f"  [dry] Would write {report_path}")
+
+    print(f"\n  auto-onboard complete in {round(time.time()-t0,1)}s")
+
+
+# ─────────────────────────────────────────────────────────────
 #  CLI
 # ─────────────────────────────────────────────────────────────
 
@@ -1926,6 +2315,58 @@ def main():
         synthesize(family, plan, out_dir, arch, shapes, strategy, donor_rank, z_filter,
                    min_z_guards or None)
 
+    elif cmd == "auto-onboard":
+        if len(sys.argv) < 3:
+            print("Usage: python cross_family_transfer.py auto-onboard <family> [options]")
+            sys.exit(1)
+        family     = sys.argv[2]
+        plan       = Path("transfer_plan.json")
+        out_dir    = Path("synthesis_output")
+        real_dir   = None
+        strategy   = None
+        dry_run    = False
+        no_compare = False
+        i = 3
+        while i < len(sys.argv):
+            if sys.argv[i] == "--plan" and i+1 < len(sys.argv):
+                plan = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--out-dir" and i+1 < len(sys.argv):
+                out_dir = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--real-dir" and i+1 < len(sys.argv):
+                real_dir = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--strategy" and i+1 < len(sys.argv):
+                strategy = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--dry-run":
+                dry_run = True; i += 1
+            elif sys.argv[i] == "--no-compare":
+                no_compare = True; i += 1
+            else:
+                i += 1
+        auto_onboard(family, plan, out_dir, real_dir, strategy, dry_run, no_compare)
+
+    elif cmd == "acceptance-report":
+        if len(sys.argv) < 3:
+            print("Usage: python cross_family_transfer.py acceptance-report <family> [options]")
+            sys.exit(1)
+        family       = sys.argv[2]
+        plan         = Path("transfer_plan.json")
+        out_dir      = Path("synthesis_output")
+        compare_path = Path(f"{family.lower().replace(' ', '_')}_real_vs_generated.json")
+        out_path     = Path(f"{family.lower().replace(' ', '_')}_acceptance_report.json")
+        i = 3
+        while i < len(sys.argv):
+            if sys.argv[i] == "--plan" and i+1 < len(sys.argv):
+                plan = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--out-dir" and i+1 < len(sys.argv):
+                out_dir = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--compare" and i+1 < len(sys.argv):
+                compare_path = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--out" and i+1 < len(sys.argv):
+                out_path = Path(sys.argv[i+1]); i += 2
+            else:
+                i += 1
+        write_acceptance_report(family, plan, out_dir, compare_path, out_path)
+
     else:
         print("Usage:")
         print("  python cross_family_transfer.py analyze <family> [--out plan.json] [--bridge EM] [--rebuild-cache]")
@@ -1933,6 +2374,13 @@ def main():
         print("  python cross_family_transfer.py synthesize <family> [--plan transfer_plan.json]")
         print("    [--out-dir synthesis_output] [--arch A|B] [--shapes AS,OV,PE]")
         print("    [--strategy architecture_strategy.json]")
+        print("  python cross_family_transfer.py auto-onboard <family>")
+        print("    [--plan transfer_plan.json] [--out-dir synthesis_output]")
+        print("    [--real-dir 3dm/<family>] [--strategy architecture_strategy.json]")
+        print("    [--dry-run] [--no-compare]")
+        print("  python cross_family_transfer.py acceptance-report <family>")
+        print("    [--plan transfer_plan.json] [--out-dir synthesis_output]")
+        print("    [--compare <report.json>] [--out <output.json>]")
         print("  python cross_family_transfer.py debug-stone-detection [--out=stone_detection_report.json]")
         sys.exit(1)
 
