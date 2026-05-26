@@ -1,0 +1,1941 @@
+"""
+cross_family_transfer.py  --  diagnostic / planning tool
+
+Usage:
+    python cross_family_transfer.py analyze <family>
+    python cross_family_transfer.py analyze <family> --out transfer_plan.json
+    python cross_family_transfer.py analyze <family> --bridge CU
+    python cross_family_transfer.py analyze <family> --rebuild-cache
+
+Reads shape libraries and source .3dm files.
+Produces transfer_plan.json describing donor candidates for every missing shape.
+Does NOT generate any .3dm output files.
+"""
+
+import sys, json, os, subprocess, math, time
+from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime
+
+# ─────────────────────────────────────────────────────────────
+#  Configuration
+# ─────────────────────────────────────────────────────────────
+
+LIBRARY_DIR        = Path("shape_library")
+CACHE_FILE         = Path("_cf_frame_cache.json")
+WORKER_FILE        = Path("_cf_frame_worker.py")
+SYNTH_WORKER_FILE  = Path("_cf_synth_worker.py")
+COMPARE_WORKER_FILE = Path("_cf_compare_worker.py")
+MAX_WORKERS      = 8      # parallel subprocess slots
+TOP_N            = 15     # candidates to report per missing shape
+PRESCORE_KEEP    = 20     # donors to load target frames for (>= TOP_N)
+
+ALL_SHAPES = ["AS", "CU", "ELCU", "EM", "MQ", "OV", "PE", "PR", "RA", "RD"]
+
+# Expected stone aspect ratio ranges per shape (long/short)
+STONE_AR = {
+    "RD":   (0.92, 1.08),
+    "OV":   (1.25, 1.75),
+    "EM":   (1.25, 1.75),
+    "MQ":   (1.75, 2.60),
+    "AS":   (0.92, 1.10),
+    "PR":   (0.92, 1.10),
+    "PE":   (1.35, 2.10),
+    "RA":   (1.25, 1.80),
+    "CU":   (0.90, 1.18),
+    "ELCU": (1.18, 1.65),
+}
+
+# ─────────────────────────────────────────────────────────────
+#  Embedded worker: extract mutable frame from a .3dm file
+# ─────────────────────────────────────────────────────────────
+
+FRAME_WORKER_SRC = """\
+import sys, json, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(sys.argv[0])))
+import rhino3dm
+from jewelry_transform import fingerprint_object
+
+path            = sys.argv[1]
+mutable_indices = set(json.loads(sys.argv[2]))
+
+model = rhino3dm.File3dm.Read(path)
+if not model:
+    print(json.dumps({"error": "cannot_read"}))
+    sys.exit(0)
+
+fps, idx = [], 0
+for obj in model.Objects:
+    fp = fingerprint_object(obj)
+    if fp is None:
+        continue
+    if idx in mutable_indices:
+        fps.append(fp)
+    idx += 1
+
+if not fps:
+    print(json.dumps({"error": "no_mutables", "count": 0}))
+    sys.exit(0)
+
+cxs  = [f["cx"] for f in fps]
+cys  = [f["cy"] for f in fps]
+czs  = [f["cz"] for f in fps]
+sxs  = [f["sx"] for f in fps]
+sys_ = [f["sy"] for f in fps]
+szs  = [f["sz"] for f in fps]
+nsrf = [f.get("n_surfaces") or 0 for f in fps]
+
+n   = len(fps)
+zmx = max(czs)
+
+# Stone detection: H7 combined rank
+# Prefer objects above z=0; use weighted rank across XY area, volume, cz, n_surfaces.
+# This avoids selecting basket/seat components that have large XY footprints below z=0.
+import math as _math
+
+def _rank(vals, ascending=True):
+    order = sorted(range(len(vals)), key=lambda i: vals[i], reverse=not ascending)
+    r = {}
+    for rank, idx in enumerate(order):
+        r[idx] = rank
+    return r
+
+areas   = [sxs[i] * sys_[i] for i in range(n)]
+volumes = [sxs[i] * sys_[i] * szs[i] for i in range(n)]
+dists   = [_math.sqrt(cxs[i]**2 + cys[i]**2) for i in range(n)]
+dr      = [szs[i] / max(max(sxs[i], sys_[i]), 0.001) for i in range(n)]
+
+r_xy  = _rank(areas,   ascending=False)
+r_vol = _rank(volumes, ascending=False)
+r_nsf = _rank(nsrf,    ascending=False)
+r_cz  = _rank(czs,     ascending=False)
+
+scores = []
+for i in range(n):
+    cent_bonus = -n * 0.10 * _math.exp(-(dists[i]**2) / (2 * 1.5**2))
+    flat_pen   = n * 0.10 if dr[i] < 0.15 else 0.0
+    s = (0.25 * r_xy[i] + 0.25 * r_vol[i] + 0.15 * r_nsf[i] +
+         0.25 * r_cz[i] + cent_bonus + flat_pen)
+    scores.append(s)
+
+st_idx   = scores.index(min(scores))
+stone_sx = sxs[st_idx]
+stone_sy = sys_[st_idx]
+stone_ar = max(stone_sx, stone_sy) / max(min(stone_sx, stone_sy), 0.001)
+
+# Prong estimate: high-Z objects with small XY footprint vs stone
+prong_est = sum(
+    1 for i in range(n)
+    if czs[i] > zmx * 0.85 and max(sxs[i], sys_[i]) < stone_sx * 0.6
+)
+
+print(json.dumps({
+    "count":          n,
+    "cx_mean":        round(sum(cxs)/n, 4),
+    "cy_mean":        round(sum(cys)/n, 4),
+    "cz_mean":        round(sum(czs)/n, 4),
+    "sx_mean":        round(sum(sxs)/n, 4),
+    "sy_mean":        round(sum(sys_)/n, 4),
+    "sz_mean":        round(sum(szs)/n, 4),
+    "footprint_xy":   round(max(max(sxs), max(sys_)), 4),
+    "z_top":          round(zmx, 4),
+    "z_bottom":       round(min(czs), 4),
+    "z_range":        round(zmx - min(czs), 4),
+    "stone_sx":       round(stone_sx, 4),
+    "stone_sy":       round(stone_sy, 4),
+    "stone_cz":       round(czs[st_idx], 4),
+    "stone_ar":       round(stone_ar, 4),
+    "prong_count_est": prong_est,
+    "nsrf_mean":      round(sum(nsrf)/max(n,1), 2),
+}))
+"""
+
+# ─────────────────────────────────────────────────────────────
+#  Embedded worker: per-object mutable detail for stone debug
+# ─────────────────────────────────────────────────────────────
+
+DEBUG_WORKER_SRC = """\
+import sys, json, os, math
+sys.path.insert(0, os.path.dirname(os.path.abspath(sys.argv[0])))
+import rhino3dm
+from jewelry_transform import fingerprint_object
+
+path            = sys.argv[1]
+mutable_indices = set(json.loads(sys.argv[2]))
+
+model = rhino3dm.File3dm.Read(path)
+if not model:
+    print(json.dumps({"error": "cannot_read"}))
+    sys.exit(0)
+
+objs = []
+fp_idx = 0
+for obj in model.Objects:
+    fp = fingerprint_object(obj)
+    if fp is None:
+        continue
+    if fp_idx in mutable_indices:
+        cx, cy, cz = fp["cx"], fp["cy"], fp["cz"]
+        sx, sy, sz = fp["sx"], fp["sy"], fp["sz"]
+        nsrf = fp.get("n_surfaces") or 0
+        objs.append({
+            "fp_idx":      fp_idx,
+            "sig_hash":    fp["sig_hash"][:8],
+            "object_type": fp.get("object_type", "?"),
+            "cx": round(cx,4), "cy": round(cy,4), "cz": round(cz,4),
+            "sx": round(sx,4), "sy": round(sy,4), "sz": round(sz,4),
+            "n_surfaces":  nsrf,
+            "xy_area":     round(sx*sy, 4),
+            "volume":      round(sx*sy*sz, 4),
+            "ar_xy":       round(max(sx,sy)/max(min(sx,sy),0.001), 4),
+            "depth_ratio": round(sz/max(max(sx,sy),0.001), 4),
+            "dist_center": round(math.sqrt(cx**2+cy**2), 4),
+            "above_z0":    cz > 0,
+        })
+    fp_idx += 1
+
+print(json.dumps({"mutable_objects": objs, "count": len(objs)}))
+"""
+
+# ─────────────────────────────────────────────────────────────
+#  Embedded worker: cross-family synthesis (Architecture A / B)
+# ─────────────────────────────────────────────────────────────
+
+SYNTH_WORKER_SRC = """\
+import sys, json, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(sys.argv[0])))
+import rhino3dm
+from jewelry_transform import fingerprint_object
+
+args            = json.loads(sys.argv[1])
+static_src      = args["static_src"]
+donor_src       = args["donor_src"]
+mutable_indices = set(args["mutable_indices"])
+static_hashes   = set(args["static_hashes"])
+output_path     = args["output_path"]
+affine          = args.get("affine")
+z_filter        = args.get("z_filter")   # float threshold or None
+min_z_guard     = args.get("min_z_guard")  # float or None — drop if bbox.Min.Z < threshold
+
+static_model = rhino3dm.File3dm.Read(static_src)
+donor_model  = rhino3dm.File3dm.Read(donor_src)
+if not static_model or not donor_model:
+    print(json.dumps({"error": "cannot_read", "ok": False}))
+    sys.exit(0)
+
+out = rhino3dm.File3dm()
+for layer in static_model.Layers:
+    out.Layers.Add(layer)
+for mat in static_model.Materials:
+    out.Materials.Add(mat)
+
+def _add(model, obj):
+    geom  = obj.Geometry
+    attrs = obj.Attributes
+    t = str(geom.ObjectType)
+    try:
+        if "Brep" in t:
+            model.Objects.AddBrep(geom, attrs)
+        elif "Curve" in t or "NurbsCurve" in t:
+            model.Objects.AddCurve(geom, attrs)
+        else:
+            model.Objects.Add(geom, attrs)
+    except Exception:
+        try:
+            model.Objects.Add(geom, attrs)
+        except Exception:
+            pass
+
+# Build affine transform (Architecture B only)
+affine_xf = None
+if affine:
+    sxy = float(affine.get("scale_xy", 1.0))
+    sz  = float(affine.get("scale_z",  1.0))
+    dx  = float(affine.get("translate_x", 0.0))
+    dy  = float(affine.get("translate_y", 0.0))
+    dz  = float(affine.get("translate_z", 0.0))
+    try:
+        plane0   = rhino3dm.Plane(
+            rhino3dm.Point3d(0, 0, 0),
+            rhino3dm.Vector3d(1, 0, 0),
+            rhino3dm.Vector3d(0, 1, 0)
+        )
+        scale_xf = rhino3dm.Transform.Scale(plane0, sxy, sxy, sz)
+        trans_xf = rhino3dm.Transform.Translation(
+            rhino3dm.Vector3d(dx, dy, dz)
+        )
+        affine_xf = rhino3dm.Transform.Multiply(trans_xf, scale_xf)
+    except Exception as e:
+        print(json.dumps({"error": "affine_build_failed: " + str(e), "ok": False}))
+        sys.exit(0)
+
+# Add static objects from HM source file
+static_added = 0
+for obj in static_model.Objects:
+    fp = fingerprint_object(obj)
+    if fp is None:
+        continue
+    if fp["sig_hash"] in static_hashes:
+        _add(out, obj)
+        static_added += 1
+
+# Add mutable objects from donor file
+mutable_added = 0
+mutable_filtered = 0
+fp_idx = 0
+for obj in donor_model.Objects:
+    fp = fingerprint_object(obj)
+    if fp is None:
+        continue
+    if fp_idx in mutable_indices:
+        if affine_xf is not None:
+            try:
+                obj.Geometry.Transform(affine_xf)
+            except Exception:
+                pass
+        if z_filter is not None:
+            try:
+                bb = obj.Geometry.GetBoundingBox()
+                cz = (bb.Min.Z + bb.Max.Z) / 2
+                if cz < z_filter or (min_z_guard is not None and bb.Min.Z < min_z_guard):
+                    mutable_filtered += 1
+                    fp_idx += 1
+                    continue
+            except Exception:
+                pass
+        _add(out, obj)
+        mutable_added += 1
+    fp_idx += 1
+
+os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+ok = out.Write(output_path, 7)
+print(json.dumps({
+    "ok":               ok,
+    "static_added":     static_added,
+    "mutable_added":    mutable_added,
+    "mutable_filtered": mutable_filtered,
+    "total":            static_added + mutable_added,
+}))
+"""
+
+# ─────────────────────────────────────────────────────────────
+#  Subprocess runner
+# ─────────────────────────────────────────────────────────────
+
+def _run_frame(src: Path, mutable_indices: list) -> dict | None:
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+    try:
+        r = subprocess.run(
+            [sys.executable, str(WORKER_FILE), str(src), json.dumps(mutable_indices)],
+            capture_output=True, text=True, encoding="utf-8",
+            errors="replace", timeout=120, env=env,
+        )
+    except Exception:
+        return None
+    if not r.stdout.strip():
+        return None
+    try:
+        d = json.loads(r.stdout.strip())
+        return None if "error" in d else d
+    except Exception:
+        return None
+
+
+def _run_parallel(tasks: list[tuple]) -> dict:
+    """
+    tasks: [(key, src_path, mutable_indices), ...]
+    Returns {key: frame_dict_or_None}
+    """
+    results = {}
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+        futures = {
+            ex.submit(_run_frame, src, idx): key
+            for key, src, idx in tasks
+        }
+        for fut in as_completed(futures):
+            key = futures[fut]
+            try:
+                results[key] = fut.result()
+            except Exception:
+                results[key] = None
+    return results
+
+
+# ─────────────────────────────────────────────────────────────
+#  Library loader
+# ─────────────────────────────────────────────────────────────
+
+def load_all_libraries() -> dict:
+    """Return {family: {cls, idx, shapes, static_count}} for every library."""
+    libs = {}
+    for cls_f in sorted(LIBRARY_DIR.glob("*/classification.json")):
+        fam   = cls_f.parent.name
+        idx_f = cls_f.parent / "shape_index.json"
+        if not idx_f.exists():
+            continue
+        try:
+            cls = json.loads(cls_f.read_text(encoding="utf-8"))
+            idx = json.loads(idx_f.read_text(encoding="utf-8"))
+            libs[fam] = {
+                "cls":          cls,
+                "idx":          idx,
+                "shapes":       list(idx.keys()),
+                "static_count": len(cls.get("exact_static_hashes", [])),
+            }
+        except Exception:
+            pass
+    return libs
+
+
+# ─────────────────────────────────────────────────────────────
+#  Scoring
+# ─────────────────────────────────────────────────────────────
+
+def _gauss(delta: float, sigma: float) -> float:
+    return math.exp(-(delta ** 2) / (2 * sigma ** 2))
+
+
+def score_donor(
+    hm_bf:  dict,        # HM bridge-shape frame
+    dn_bf:  dict,        # donor bridge-shape frame
+    dn_tgt_count: int,   # donor mutable count for target shape
+    hm_count_mean: float,
+    hm_known: list,
+    dn_shapes: list,
+) -> tuple[float, dict]:
+    """Composite score in [0,1] plus per-criterion breakdown."""
+
+    # C1 (0.40) — frame similarity: Z height, footprint size, Z range
+    c1 = (
+        _gauss(dn_bf["cz_mean"]      - hm_bf["cz_mean"],      1.5) *
+        _gauss(dn_bf["footprint_xy"] - hm_bf["footprint_xy"], 2.0) *
+        _gauss(dn_bf["z_range"]      - hm_bf["z_range"],      1.5)
+    )
+
+    # C2 (0.20) — target shape object count vs HM expected
+    c2 = max(0.0, 1.0 - abs(dn_tgt_count - hm_count_mean) / max(hm_count_mean, 1))
+
+    # C3 (0.20) — footprint/z_top ratio (ring-size normalised setting size)
+    r_dn = dn_bf["footprint_xy"] / max(dn_bf["z_top"], 0.01)
+    r_hm = hm_bf["footprint_xy"] / max(hm_bf["z_top"], 0.01)
+    c3 = _gauss(r_dn - r_hm, 0.30)
+
+    # C4 (0.20) — shared known shapes with HM
+    c4 = len(set(dn_shapes) & set(hm_known)) / max(len(hm_known), 1)
+
+    composite = round(0.40*c1 + 0.20*c2 + 0.20*c3 + 0.20*c4, 4)
+    breakdown = {
+        "frame_similarity": round(c1, 4),
+        "count_sim":        round(c2, 4),
+        "spatial_ratio":    round(c3, 4),
+        "shared_shapes":    round(c4, 4),
+    }
+    return composite, breakdown
+
+
+# ─────────────────────────────────────────────────────────────
+#  Affine parameter estimate
+# ─────────────────────────────────────────────────────────────
+
+def estimate_affine(dn_bf: dict, hm_bf: dict) -> dict:
+    """
+    Estimate the scale+translate that maps donor geometry
+    into High_Mira's coordinate frame, derived from bridge-shape comparison.
+    """
+    sxy = hm_bf["footprint_xy"] / max(dn_bf["footprint_xy"], 0.001)
+    sz  = hm_bf["z_range"]      / max(dn_bf["z_range"],      0.001)
+    dx  = hm_bf["cx_mean"] - sxy * dn_bf["cx_mean"]
+    dy  = hm_bf["cy_mean"] - sxy * dn_bf["cy_mean"]
+    dz  = hm_bf["cz_mean"] - sz  * dn_bf["cz_mean"]
+    return {
+        "scale_xy":    round(sxy, 4),
+        "scale_z":     round(sz,  4),
+        "translate_x": round(dx,  4),
+        "translate_y": round(dy,  4),
+        "translate_z": round(dz,  4),
+    }
+
+
+# ─────────────────────────────────────────────────────────────
+#  Risk identification
+# ─────────────────────────────────────────────────────────────
+
+def identify_risks(
+    affine:        dict,
+    dn_tgt_frame:  dict | None,
+    dn_tgt_count:  int,
+    hm_count_mean: float,
+    score:         float,
+    target_shape:  str,
+    donor_family:  str,
+) -> list[dict]:
+    risks = []
+
+    sxy = affine["scale_xy"]
+    if sxy > 1.50:
+        risks.append({"factor": "SCALE_XY_HIGH", "severity": "HIGH",
+                      "detail": f"Donor needs {sxy:.2f}x scale-up -- geometry distortion likely"})
+    elif sxy < 0.67:
+        risks.append({"factor": "SCALE_XY_LOW", "severity": "HIGH",
+                      "detail": f"Donor needs {sxy:.2f}x scale-down -- distortion likely"})
+    elif sxy > 1.25 or sxy < 0.80:
+        risks.append({"factor": "SCALE_XY_MODERATE", "severity": "MEDIUM",
+                      "detail": f"XY scale factor {sxy:.2f} -- moderate distortion risk"})
+
+    sz = affine["scale_z"]
+    if sz > 1.50 or sz < 0.67:
+        risks.append({"factor": "SCALE_Z_HIGH", "severity": "MEDIUM",
+                      "detail": f"Z scale factor {sz:.2f} -- vertical geometry will be stretched"})
+
+    dz = affine["translate_z"]
+    if abs(dz) > 2.5:
+        risks.append({"factor": "Z_OFFSET_HIGH", "severity": "HIGH",
+                      "detail": f"Z translation {dz:+.2f}mm -- stone height mismatch"})
+    elif abs(dz) > 1.0:
+        risks.append({"factor": "Z_OFFSET_MODERATE", "severity": "MEDIUM",
+                      "detail": f"Z translation {dz:+.2f}mm -- verify prong alignment"})
+
+    cnt_diff = abs(dn_tgt_count - hm_count_mean)
+    if cnt_diff > 8:
+        risks.append({"factor": "COUNT_MISMATCH_HIGH", "severity": "HIGH",
+                      "detail": f"Donor has {dn_tgt_count} mutable objects vs HM ~{hm_count_mean:.0f} (delta={cnt_diff:.0f})"})
+    elif cnt_diff > 4:
+        risks.append({"factor": "COUNT_MISMATCH_MODERATE", "severity": "MEDIUM",
+                      "detail": f"Object count off by {cnt_diff:.0f} from HM average"})
+
+    if dn_tgt_frame:
+        ar     = dn_tgt_frame.get("stone_ar", 1.0)
+        lo, hi = STONE_AR.get(target_shape, (0.9, 2.5))
+        if not (lo <= ar <= hi):
+            risks.append({"factor": "STONE_AR_MISMATCH", "severity": "MEDIUM",
+                          "detail": f"Donor stone AR {ar:.2f} outside expected [{lo}, {hi}] for {target_shape}"})
+
+    if score < 0.35:
+        risks.append({"factor": "LOW_SIMILARITY", "severity": "HIGH",
+                      "detail": f"Score {score:.3f} -- no geometrically close donor found"})
+    elif score < 0.50:
+        risks.append({"factor": "MODERATE_SIMILARITY", "severity": "MEDIUM",
+                      "detail": f"Score {score:.3f} -- moderate match, review recommended"})
+
+    if donor_family.startswith("TM"):
+        risks.append({"factor": "STYLE_TWO_STONE", "severity": "MEDIUM",
+                      "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"})
+    elif donor_family.startswith("TS"):
+        risks.append({"factor": "STYLE_THREE_STONE", "severity": "LOW",
+                      "detail": "Three-stone family -- side settings may introduce extra objects"})
+
+    return risks
+
+
+def expected_confidence(score: float, risks: list[dict]) -> str:
+    high = sum(1 for r in risks if r["severity"] == "HIGH")
+    med  = sum(1 for r in risks if r["severity"] == "MEDIUM")
+    if high:
+        return "LOW"
+    if score >= 0.65 and med == 0:
+        return "HIGH"
+    if score >= 0.45:
+        return "MEDIUM"
+    return "LOW"
+
+
+# ─────────────────────────────────────────────────────────────
+#  Cache helpers
+# ─────────────────────────────────────────────────────────────
+
+def load_cache() -> dict:
+    if CACHE_FILE.exists():
+        try:
+            return json.loads(CACHE_FILE.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return {}
+
+
+def save_cache(cache: dict) -> None:
+    CACHE_FILE.write_text(json.dumps(cache, indent=2), encoding="utf-8")
+
+
+# ─────────────────────────────────────────────────────────────
+#  Stone detection heuristics
+# ─────────────────────────────────────────────────────────────
+
+# Short labels and descriptions for the 7 heuristics
+_H_NOTES = {
+    "H1_max_xy_area":      "CURRENT -- largest XY footprint (broken: picks flat base components)",
+    "H2_max_volume":       "largest 3D bounding-box volume",
+    "H3_max_nsurfaces":    "most NURBS surfaces (faceted gem has many)",
+    "H4_highest_cz":       "highest centroid Z (stone sits at top of setting)",
+    "H5_max_xy_above_z0":  "largest XY area restricted to objects above Z=0",
+    "H6_max_vol_not_flat": "largest volume excluding flat objects (depth_ratio <= 0.15)",
+    "H7_combined":         "RECOMMENDED -- weighted rank: XY(0.25)+vol(0.25)+nsrf(0.15)+cz(0.25)+centrality(0.10)+flat-penalty",
+}
+
+
+def apply_heuristics(objs: list, shape: str) -> dict:
+    """Apply 7 stone-detection heuristics and return ranked candidates + analysis."""
+    n = len(objs)
+    if n == 0:
+        return {"error": "no_mutable_objects"}
+
+    all_i     = list(range(n))
+    above     = [i for i in all_i if objs[i]["above_z0"]]
+    not_flat  = [i for i in all_i if objs[i]["depth_ratio"] > 0.15]
+
+    s_xy   = sorted(all_i,  key=lambda i: -objs[i]["xy_area"])
+    s_vol  = sorted(all_i,  key=lambda i: -objs[i]["volume"])
+    s_nsrf = sorted(all_i,  key=lambda i: -objs[i]["n_surfaces"])
+    s_cz   = sorted(all_i,  key=lambda i: -objs[i]["cz"])
+    s_xy_ab = sorted(above,    key=lambda i: -objs[i]["xy_area"])
+    s_vol_nf = sorted(not_flat, key=lambda i: -objs[i]["volume"])
+
+    r_xy  = {idx: r for r, idx in enumerate(s_xy)}
+    r_vol = {idx: r for r, idx in enumerate(s_vol)}
+    r_nsf = {idx: r for r, idx in enumerate(s_nsrf)}
+    r_cz  = {idx: r for r, idx in enumerate(s_cz)}
+
+    # Combined rank score — lower = more likely to be the stone
+    for i in all_i:
+        dist  = objs[i]["dist_center"]
+        depth = objs[i]["depth_ratio"]
+        # Centrality reward: closer to ring axis (x=0,y=0) is better
+        cent_bonus   = -n * 0.10 * math.exp(-(dist**2) / (2 * 1.5**2))
+        # Flat penalty: depth_ratio < 0.15 → likely a prong-base plate, not a stone
+        flat_penalty = n * 0.10 if depth < 0.15 else 0.0
+        objs[i]["_comb"] = (
+            0.25 * r_xy.get(i, n) +
+            0.25 * r_vol.get(i, n) +
+            0.15 * r_nsf.get(i, n) +
+            0.25 * r_cz.get(i, n) +
+            cent_bonus + flat_penalty
+        )
+
+    s_comb = sorted(all_i, key=lambda i: objs[i]["_comb"])
+
+    def pick(lst): return lst[0] if lst else None
+
+    picks = {
+        "H1_max_xy_area":      pick(s_xy),
+        "H2_max_volume":       pick(s_vol),
+        "H3_max_nsurfaces":    pick(s_nsrf),
+        "H4_highest_cz":       pick(s_cz),
+        "H5_max_xy_above_z0":  pick(s_xy_ab),
+        "H6_max_vol_not_flat": pick(s_vol_nf),
+        "H7_combined":         pick(s_comb),
+    }
+
+    def fmt(i):
+        if i is None:
+            return None
+        o = objs[i]
+        return {
+            "mutable_idx":  i,
+            "sig_hash":     o["sig_hash"],
+            "object_type":  o["object_type"],
+            "cx":  o["cx"],  "cy": o["cy"],  "cz": o["cz"],
+            "sx":  o["sx"],  "sy": o["sy"],  "sz": o["sz"],
+            "n_surfaces":   o["n_surfaces"],
+            "xy_area":      o["xy_area"],
+            "volume":       o["volume"],
+            "ar_xy":        o["ar_xy"],
+            "depth_ratio":  o["depth_ratio"],
+            "above_z0":     o["above_z0"],
+            "dist_center":  o["dist_center"],
+        }
+
+    sel_vals  = [v for v in picks.values() if v is not None]
+    dominant  = max(set(sel_vals), key=sel_vals.count) if sel_vals else None
+    agreement = sel_vals.count(dominant) if dominant is not None else 0
+    h1        = picks["H1_max_xy_area"]
+    h7        = picks["H7_combined"]
+    diverge   = h1 != h7
+
+    # Suspicious: below z=0 AND large XY area — likely cause of broken H1
+    suspicious = [
+        {k: v for k, v in o.items() if not k.startswith("_")}
+        for o in objs if not o["above_z0"] and o["xy_area"] > 20.0
+    ]
+
+    top5 = []
+    for rank_i, obj_i in enumerate(s_comb[:5]):
+        entry = fmt(obj_i)
+        if entry:
+            entry["rank"] = rank_i + 1
+            entry["selected_by"] = [name for name, sel in picks.items() if sel == obj_i]
+        top5.append(entry)
+
+    return {
+        "heuristic_results": {
+            name: {
+                "selected_idx": sel,
+                "object":       fmt(sel),
+                "note":         _H_NOTES.get(name, ""),
+            }
+            for name, sel in picks.items()
+        },
+        "consensus": {
+            "dominant_idx":    dominant,
+            "dominant_object": fmt(dominant),
+            "agreement":       f"{agreement}/{len(picks)} heuristics",
+            "h1_vs_h7_diverge": diverge,
+            "diverge_reason":  (
+                f"H1 picks idx={h1} cz={objs[h1]['cz']:.3f} depth={objs[h1]['depth_ratio']:.3f} above_z0={objs[h1]['above_z0']}"
+                if diverge and h1 is not None else "H1 and H7 agree"
+            ),
+        },
+        "top5_candidates": top5,
+        "suspicious_objects_below_z0": suspicious,
+        "stats": {
+            "total_mutable":    n,
+            "above_z0_count":   len(above),
+            "not_flat_count":   len(not_flat),
+            "cz_min":           min(o["cz"] for o in objs),
+            "cz_max":           max(o["cz"] for o in objs),
+            "xy_area_max":      max(o["xy_area"] for o in objs),
+            "volume_max":       max(o["volume"] for o in objs),
+            "n_surfaces_max":   max(o["n_surfaces"] for o in objs),
+        },
+    }
+
+
+# ─────────────────────────────────────────────────────────────
+#  Debug: stone detection command
+# ─────────────────────────────────────────────────────────────
+
+_DEBUG_FAMILIES = ["SP5", "SP6", "TS25", "ER1_Hidden", "ER2_Pave_H_Shank"]
+_DEBUG_SHAPES   = {"AS", "OV", "PE", "PR", "RA", "RD", "EM"}  # EM = bridge for cross-check
+
+
+def debug_stone_detection(out_path: Path) -> None:
+    t0 = time.time()
+    print("Loading libraries...")
+    libs = load_all_libraries()
+
+    # Build task list: (family, shape, src, mutable_indices)
+    tasks = []
+    for fam in _DEBUG_FAMILIES:
+        if fam not in libs:
+            print(f"  WARNING: {fam} not in libraries")
+            continue
+        fam_idx = libs[fam]["idx"]
+        for shp in sorted(fam_idx):
+            if shp in _DEBUG_SHAPES:
+                src     = Path(fam_idx[shp]["source_file"])
+                mut_idx = fam_idx[shp]["mutable_object_indices"]
+                tasks.append((fam, shp, src, mut_idx))
+
+    print(f"  {len(tasks)} (family, shape) files to inspect")
+
+    WORKER_FILE.write_text(DEBUG_WORKER_SRC, encoding="utf-8")
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+
+    def _run_debug(src, mut_idx):
+        try:
+            r = subprocess.run(
+                [sys.executable, str(WORKER_FILE), str(src), json.dumps(mut_idx)],
+                capture_output=True, text=True, encoding="utf-8",
+                errors="replace", timeout=120, env=env,
+            )
+        except Exception:
+            return None
+        if not r.stdout.strip():
+            return None
+        try:
+            d = json.loads(r.stdout.strip())
+            return None if "error" in d else d
+        except Exception:
+            return None
+
+    raw: dict[tuple, dict | None] = {}
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+        futures = {
+            ex.submit(_run_debug, src, mut_idx): (fam, shp)
+            for fam, shp, src, mut_idx in tasks
+        }
+        for fut in as_completed(futures):
+            key = futures[fut]
+            try:
+                raw[key] = fut.result()
+            except Exception:
+                raw[key] = None
+
+    WORKER_FILE.unlink(missing_ok=True)
+    print(f"  Loaded {sum(1 for v in raw.values() if v)} / {len(tasks)} files ok")
+
+    # Apply heuristics per file
+    families_out: dict[str, dict] = {}
+    h1_h7_total, h1_h7_agree = 0, 0
+    h1_below_z0_count = 0
+
+    for fam, shp, src, _ in sorted(tasks, key=lambda t: (t[0], t[1])):
+        result = raw.get((fam, shp))
+        if not result:
+            continue
+        objs     = result["mutable_objects"]
+        analysis = apply_heuristics(objs, shp)
+
+        h1_h7_total += 1
+        if not analysis.get("consensus", {}).get("h1_vs_h7_diverge", False):
+            h1_h7_agree += 1
+        h1_obj = analysis.get("heuristic_results", {}).get("H1_max_xy_area", {}).get("object")
+        if h1_obj and not h1_obj.get("above_z0", True):
+            h1_below_z0_count += 1
+
+        if fam not in families_out:
+            families_out[fam] = {}
+        families_out[fam][shp] = {
+            "source_file":    str(src),
+            "mutable_count":  len(objs),
+            "analysis":       analysis,
+        }
+
+    report = {
+        "purpose":           "Center-stone detection heuristic diagnostic -- no synthesis",
+        "analysis_date":     datetime.now().isoformat(timespec="seconds"),
+        "families_analyzed": _DEBUG_FAMILIES,
+        "shapes_checked":    sorted(_DEBUG_SHAPES),
+        "aggregate": {
+            "total_files":          h1_h7_total,
+            "h1_h7_agree":          h1_h7_agree,
+            "h1_h7_disagree":       h1_h7_total - h1_h7_agree,
+            "h1_picks_below_z0":    h1_below_z0_count,
+            "h1_below_z0_pct":      round(100 * h1_below_z0_count / max(h1_h7_total, 1), 1),
+        },
+        "heuristic_guide": _H_NOTES,
+        "families": families_out,
+        "elapsed_seconds": round(time.time() - t0, 1),
+    }
+
+    out_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
+    print(f"\nReport -> {out_path}  ({round(time.time()-t0,1)}s)")
+
+    _print_debug_summary(families_out, report["aggregate"])
+
+
+def _print_debug_summary(fam_data: dict, agg: dict) -> None:
+    print("\n" + "=" * 96)
+    print("  Stone Detection Diagnostic")
+    print("=" * 96)
+    print(f"  Aggregate: {agg['total_files']} files  "
+          f"H1==H7: {agg['h1_h7_agree']}/{agg['total_files']}  "
+          f"H1 picks below-z0: {agg['h1_picks_below_z0']} ({agg['h1_below_z0_pct']}%)")
+    print("")
+    hdr = (f"  {'Family':<22} {'Shp':<5} {'N':>3}  "
+           f"{'H1.cz':>7} {'H7.cz':>7}  {'H1==H7':>6}  "
+           f"{'H1.ab':>5} {'H1.dep':>6} {'H1.nsrf':>7} {'H1.vol':>8}  "
+           f"{'Susp':>4}  {'Top risk'}")
+    print(hdr)
+    print("  " + "-" * 94)
+
+    for fam in sorted(fam_data):
+        for shp in sorted(fam_data[fam]):
+            d    = fam_data[fam][shp]
+            a    = d["analysis"]
+            hr   = a.get("heuristic_results", {})
+            h1o  = hr.get("H1_max_xy_area",  {}).get("object")
+            h7o  = hr.get("H7_combined",     {}).get("object")
+            con  = a.get("consensus", {})
+            sts  = a.get("stats", {})
+            n    = d["mutable_count"]
+            susp = len(a.get("suspicious_objects_below_z0", []))
+
+            h1cz  = f"{h1o['cz']:+.3f}" if h1o else "    ---"
+            h7cz  = f"{h7o['cz']:+.3f}" if h7o else "    ---"
+            agree = "YES" if not con.get("h1_vs_h7_diverge", False) else "NO "
+            h1ab  = ("Y" if h1o and h1o.get("above_z0") else "N") if h1o else "-"
+            h1dep = f"{h1o['depth_ratio']:.3f}" if h1o else "  ---"
+            h1nsr = str(h1o["n_surfaces"]) if h1o else "  ---"
+            h1vol = f"{h1o['volume']:.1f}"  if h1o else "    ---"
+
+            flag  = "  <-- H1 WRONG" if h1o and not h1o.get("above_z0") else ""
+            print(f"  {fam:<22} {shp:<5} {n:>3}  "
+                  f"{h1cz:>7} {h7cz:>7}  {agree:>6}  "
+                  f"{h1ab:>5} {h1dep:>6} {h1nsr:>7} {h1vol:>8}  "
+                  f"{susp:>4}{flag}")
+
+    print("=" * 96)
+    print("  Key: H1=max_xy_area(current)  H7=combined(recommended)")
+    print("  H1.ab=above_z0  H1.dep=depth_ratio  H1.nsrf=n_surfaces  Susp=objects_below_z0_large_xy")
+
+
+# ─────────────────────────────────────────────────────────────
+#  Main analysis
+# ─────────────────────────────────────────────────────────────
+
+def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebuild_cache: bool) -> None:
+    t0 = time.time()
+
+    # ── 1. Load all libraries ──────────────────────────────────
+    print("Loading libraries...")
+    libs = load_all_libraries()
+    if target_family not in libs:
+        print(f"ERROR: '{target_family}' not found in {LIBRARY_DIR}/")
+        sys.exit(1)
+
+    hm       = libs[target_family]
+    hm_known = hm["shapes"]
+    hm_idx   = hm["idx"]
+
+    missing = [s for s in ALL_SHAPES if s not in hm_known]
+    print(f"  Target  : {target_family}")
+    print(f"  Known   : {hm_known}")
+    print(f"  Missing : {missing}")
+
+    # ── 2. Choose bridge shape ─────────────────────────────────
+    if forced_bridge:
+        if forced_bridge not in hm_known:
+            print(f"ERROR: bridge shape '{forced_bridge}' not in {target_family}'s known shapes {hm_known}")
+            sys.exit(1)
+        bridge = forced_bridge
+    else:
+        # Pick known shape with highest coverage across all libraries
+        coverage = {}
+        for s in hm_known:
+            coverage[s] = sum(1 for f, fd in libs.items() if s in fd["shapes"])
+        bridge = max(coverage, key=coverage.get)
+        print(f"  Bridge  : {bridge} (coverage {coverage[bridge]}/{len(libs)} families)")
+
+    # ── 3. Build donor pools per missing shape ─────────────────
+    pools: dict[str, list[str]] = {}
+    for miss in missing:
+        pool = [
+            fam for fam, fd in libs.items()
+            if fam != target_family and bridge in fd["shapes"] and miss in fd["shapes"]
+        ]
+        pools[miss] = pool
+        print(f"    {miss}: {len(pool)} donors with bridge={bridge}")
+
+    # ── 4. Phase 1 — load bridge frames for all unique donors ──
+    all_donor_fams = set(fam for pool in pools.values() for fam in pool)
+    cache = {} if rebuild_cache else load_cache()
+
+    # HM bridge + known shapes
+    hm_frame_tasks = []
+    for s in hm_known:
+        key = f"{target_family}|{s}"
+        if key not in cache:
+            src  = Path(hm_idx[s]["source_file"])
+            idxs = hm_idx[s]["mutable_object_indices"]
+            hm_frame_tasks.append((key, src, idxs))
+
+    # Donor bridge frames
+    bridge_tasks = []
+    for fam in all_donor_fams:
+        key = f"{fam}|{bridge}"
+        if key not in cache:
+            src  = Path(libs[fam]["idx"][bridge]["source_file"])
+            idxs = libs[fam]["idx"][bridge]["mutable_object_indices"]
+            bridge_tasks.append((key, src, idxs))
+
+    total_p1 = len(hm_frame_tasks) + len(bridge_tasks)
+    print(f"\nPhase 1: loading {total_p1} bridge frames ({len(hm_frame_tasks)} HM + {len(bridge_tasks)} donors)...")
+
+    WORKER_FILE.write_text(FRAME_WORKER_SRC, encoding="utf-8")
+    try:
+        p1_results = _run_parallel(hm_frame_tasks + bridge_tasks)
+    finally:
+        WORKER_FILE.write_text(FRAME_WORKER_SRC, encoding="utf-8")  # keep for phase 2
+
+    cache.update(p1_results)
+    print(f"  Phase 1 done ({sum(1 for v in p1_results.values() if v)} / {total_p1} ok)")
+
+    # ── 5. Pre-score all donors using bridge frames ────────────
+    hm_bf = cache.get(f"{target_family}|{bridge}")
+    if not hm_bf:
+        print(f"ERROR: Could not load bridge frame for {target_family}|{bridge}")
+        sys.exit(1)
+
+    hm_counts      = [hm_idx[s]["mutable_object_count"] for s in hm_known if s in hm_idx]
+    hm_count_mean  = sum(hm_counts) / max(len(hm_counts), 1)
+
+    prescored: dict[str, list] = {}
+    for miss in missing:
+        rows = []
+        for fam in pools[miss]:
+            dn_bf = cache.get(f"{fam}|{bridge}")
+            if not dn_bf:
+                continue
+            dn_tgt_count = libs[fam]["idx"].get(miss, {}).get("mutable_object_count", 0)
+            score, breakdown = score_donor(hm_bf, dn_bf, dn_tgt_count,
+                                           hm_count_mean, hm_known, libs[fam]["shapes"])
+            rows.append({
+                "donor_family":       fam,
+                "donor_score":        score,
+                "score_breakdown":    breakdown,
+                "donor_target_count": dn_tgt_count,
+            })
+        rows.sort(key=lambda x: x["donor_score"], reverse=True)
+        prescored[miss] = rows
+        print(f"    {miss}: top scorer = {rows[0]['donor_family']} ({rows[0]['donor_score']:.4f})" if rows else f"    {miss}: NO donors scored")
+
+    # ── 6. Phase 2 — load target frames for top-N donors ──────
+    target_frame_tasks = []
+    for miss in missing:
+        for row in prescored[miss][:PRESCORE_KEEP]:
+            fam = row["donor_family"]
+            key = f"{fam}|{miss}"
+            if key not in cache:
+                src  = Path(libs[fam]["idx"][miss]["source_file"])
+                idxs = libs[fam]["idx"][miss]["mutable_object_indices"]
+                target_frame_tasks.append((key, src, idxs))
+
+    print(f"\nPhase 2: loading {len(target_frame_tasks)} target frames for top-{PRESCORE_KEEP} donors...")
+    try:
+        p2_results = _run_parallel(target_frame_tasks)
+    finally:
+        WORKER_FILE.unlink(missing_ok=True)
+
+    cache.update(p2_results)
+    save_cache(cache)
+    print(f"  Phase 2 done ({sum(1 for v in p2_results.values() if v)} / {len(target_frame_tasks)} ok). Cache saved.")
+
+    # ── 7. Build per-shape plans ───────────────────────────────
+    hm_known_frames = {
+        s: {
+            "mutable_count": cache.get(f"{target_family}|{s}", {}).get("count"),
+            "cz_mean":       cache.get(f"{target_family}|{s}", {}).get("cz_mean"),
+            "footprint_xy":  cache.get(f"{target_family}|{s}", {}).get("footprint_xy"),
+            "z_range":       cache.get(f"{target_family}|{s}", {}).get("z_range"),
+            "stone_ar":      cache.get(f"{target_family}|{s}", {}).get("stone_ar"),
+        }
+        for s in hm_known
+        if cache.get(f"{target_family}|{s}")
+    }
+
+    shape_plans = []
+    for miss in missing:
+        rows     = prescored[miss]
+        top_rows = rows[:TOP_N]
+        candidates = []
+
+        for rank, row in enumerate(top_rows, 1):
+            fam          = row["donor_family"]
+            score        = row["donor_score"]
+            dn_tgt_count = row["donor_target_count"]
+            dn_bf        = cache.get(f"{fam}|{bridge}")
+            dn_tf        = cache.get(f"{fam}|{miss}")
+
+            affine = estimate_affine(dn_bf, hm_bf) if dn_bf else {}
+            risks  = identify_risks(affine, dn_tf, dn_tgt_count,
+                                    hm_count_mean, score, miss, fam)
+            conf   = expected_confidence(score, risks)
+
+            candidates.append({
+                "rank":                rank,
+                "donor_family":        fam,
+                "donor_score":         score,
+                "score_breakdown":     row["score_breakdown"],
+                "bridge_shape_used":   bridge,
+                "donor_target_count":  dn_tgt_count,
+                "hm_expected_count":   round(hm_count_mean, 1),
+                "affine_params":       affine,
+                "donor_target_frame":  {
+                    "stone_ar":         dn_tf.get("stone_ar"),
+                    "stone_cz":         dn_tf.get("stone_cz"),
+                    "footprint_xy":     dn_tf.get("footprint_xy"),
+                    "z_range":          dn_tf.get("z_range"),
+                    "prong_count_est":  dn_tf.get("prong_count_est"),
+                    "count":            dn_tf.get("count"),
+                } if dn_tf else None,
+                "expected_confidence": conf,
+                "risk_factors":        risks,
+                "risk_count":          {"HIGH": sum(1 for r in risks if r["severity"]=="HIGH"),
+                                        "MEDIUM": sum(1 for r in risks if r["severity"]=="MEDIUM"),
+                                        "LOW": sum(1 for r in risks if r["severity"]=="LOW")},
+            })
+
+        high_conf = sum(1 for d in candidates if d["expected_confidence"] == "HIGH")
+        med_conf  = sum(1 for d in candidates if d["expected_confidence"] == "MEDIUM")
+
+        shape_plans.append({
+            "missing_shape":           miss,
+            "donor_pool_size":         len(pools[miss]),
+            "scored_donors":           len(rows),
+            "best_score":              rows[0]["donor_score"] if rows else None,
+            "high_confidence_in_top15": high_conf,
+            "medium_confidence_in_top15": med_conf,
+            "top_candidates":          candidates,
+        })
+
+    # ── 8. Assemble and write plan ─────────────────────────────
+    plan = {
+        "target_family":     target_family,
+        "analysis_date":     datetime.now().isoformat(timespec="seconds"),
+        "known_shapes":      hm_known,
+        "missing_shapes":    missing,
+        "bridge_shape":      bridge,
+        "target_frame":      {
+            "bridge_shape":   bridge,
+            "cz_mean":        hm_bf.get("cz_mean"),
+            "footprint_xy":   hm_bf.get("footprint_xy"),
+            "z_range":        hm_bf.get("z_range"),
+            "z_top":          hm_bf.get("z_top"),
+            "stone_ar":       hm_bf.get("stone_ar"),
+            "mutable_count":  hm_bf.get("count"),
+            "mutable_count_mean_all_shapes": round(hm_count_mean, 2),
+        },
+        "known_shape_frames": hm_known_frames,
+        "missing_shape_plans": shape_plans,
+        "library_count":     len(libs),
+        "elapsed_seconds":   round(time.time() - t0, 1),
+    }
+
+    out_path.write_text(json.dumps(plan, indent=2), encoding="utf-8")
+    print(f"\nReport written -> {out_path}")
+
+    # ── 9. Console summary table ───────────────────────────────
+    print("")
+    print("=" * 80)
+    print(f"  Transfer Plan Summary for: {target_family}")
+    print("=" * 80)
+    print(f"  Bridge shape : {bridge}")
+    print(f"  HM frame     : cz={hm_bf.get('cz_mean'):.3f}  footprint={hm_bf.get('footprint_xy'):.3f}  z_range={hm_bf.get('z_range'):.3f}  count={hm_bf.get('count')}")
+    print(f"  Expected obj count (mean across known shapes): {hm_count_mean:.1f}")
+    print("")
+    hdr = f"  {'Shape':<6}  {'Pool':>4}  {'Best Donor':<22}  {'Score':>5}  {'Conf':<4}  {'sXY':>5}  {'dZ':>6}  {'High/Med Risks'}"
+    print(hdr)
+    print("  " + "-" * (len(hdr) - 2))
+    for sp in shape_plans:
+        miss = sp["missing_shape"]
+        pool = sp["donor_pool_size"]
+        if sp["top_candidates"]:
+            best  = sp["top_candidates"][0]
+            donor = best["donor_family"][:22]
+            score = f"{best['donor_score']:.3f}"
+            conf  = best["expected_confidence"][:4]
+            sxy   = f"{best['affine_params'].get('scale_xy', 0):.3f}" if best["affine_params"] else "  ---"
+            dz    = f"{best['affine_params'].get('translate_z', 0):+.2f}" if best["affine_params"] else "  ---"
+            hr    = best["risk_count"]["HIGH"]
+            mr    = best["risk_count"]["MEDIUM"]
+            risks_str = f"{hr} HIGH, {mr} MED"
+        else:
+            donor, score, conf, sxy, dz, risks_str = "NO DONORS FOUND", "  ---", "----", "  ---", "  ---", "---"
+        print(f"  {miss:<6}  {pool:>4}  {donor:<22}  {score:>5}  {conf:<4}  {sxy:>5}  {dz:>6}  {risks_str}")
+    print("=" * 80)
+    print(f"  Elapsed: {round(time.time()-t0, 1)}s")
+
+
+# ─────────────────────────────────────────────────────────────
+#  Phase 1: build full frame database for all families x shapes
+# ─────────────────────────────────────────────────────────────
+
+def build_frame_db(rebuild: bool) -> None:
+    t0 = time.time()
+    print("=" * 60)
+    print("  Building Full Frame Database")
+    print("=" * 60)
+    libs = load_all_libraries()
+
+    cache = {} if rebuild else load_cache()
+
+    tasks: list[tuple] = []
+    already = 0
+    for fam, lib in libs.items():
+        for shp, shp_info in lib["idx"].items():
+            key = f"{fam}|{shp}"
+            if key in cache:
+                already += 1
+                continue
+            src  = Path(shp_info["source_file"])
+            idxs = shp_info["mutable_object_indices"]
+            tasks.append((key, src, idxs))
+
+    total_pairs = sum(len(lib["idx"]) for lib in libs.values())
+    print(f"  {len(libs)} families  |  {total_pairs} (family,shape) pairs total")
+    print(f"  In cache : {already}  |  To load: {len(tasks)}")
+
+    if not tasks:
+        print("  Cache is already complete. Use --rebuild-cache to force rebuild.")
+        print(f"  Elapsed: {round(time.time()-t0, 1)}s")
+        return
+
+    WORKER_FILE.write_text(FRAME_WORKER_SRC, encoding="utf-8")
+    try:
+        results = _run_parallel(tasks)
+    finally:
+        WORKER_FILE.unlink(missing_ok=True)
+
+    ok_count = sum(1 for v in results.values() if v is not None)
+    cache.update(results)
+    save_cache(cache)
+
+    fail_keys = [k for k, v in results.items() if v is None]
+    print(f"\n  Loaded : {ok_count}/{len(tasks)} ok  |  Failed: {len(fail_keys)}")
+    if fail_keys:
+        print(f"  Failed (first 10): {fail_keys[:10]}")
+    print(f"  Total cache entries: {len(cache)}")
+    print(f"  Elapsed: {round(time.time()-t0, 1)}s")
+
+
+# ─────────────────────────────────────────────────────────────
+#  Phase 2/3: synthesis (Architecture A = no-transform, B = affine)
+# ─────────────────────────────────────────────────────────────
+
+def _run_synth(args: dict) -> dict | None:
+    """Run SYNTH_WORKER_SRC in a subprocess; return parsed JSON or None."""
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+    SYNTH_WORKER_FILE.write_text(SYNTH_WORKER_SRC, encoding="utf-8")
+    try:
+        r = subprocess.run(
+            [sys.executable, str(SYNTH_WORKER_FILE), json.dumps(args)],
+            capture_output=True, text=True, encoding="utf-8",
+            errors="replace", timeout=180, env=env,
+        )
+    except Exception:
+        return None
+    if not r.stdout.strip():
+        return None
+    try:
+        d = json.loads(r.stdout.strip())
+        return None if d.get("error") else d
+    except Exception:
+        return None
+
+
+def _load_strategy(strategy_path: Path | None) -> dict | None:
+    """Load architecture_strategy.json if it exists."""
+    p = strategy_path or Path("architecture_strategy.json")
+    if p.exists():
+        try:
+            return json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return None
+
+
+def _archs_for_shape(shape: str, strategy: dict | None, default_arch: str) -> list[str]:
+    """Return list of architectures to run for this shape per strategy (or [default_arch])."""
+    if strategy:
+        routing = strategy.get("shape_routing", {})
+        if shape in routing:
+            return routing[shape]  # may be [], ["A"], ["B"], or ["A","B"]
+    return [default_arch]
+
+
+def synthesize(
+    family: str,
+    plan_path: Path,
+    out_dir: Path,
+    default_arch: str,
+    target_shapes: list | None,
+    strategy_path: Path | None = None,
+    donor_rank: int = 1,
+    z_filter: float | None = None,
+    min_z_guards: dict | None = None,
+) -> None:
+    t0 = time.time()
+
+    strategy = _load_strategy(strategy_path)
+    strategy_note = f" (strategy: {strategy_path or 'architecture_strategy.json'})" if strategy else ""
+    print("=" * 60)
+    print(f"  Cross-Family Synthesis{strategy_note}")
+    print("=" * 60)
+
+    if not plan_path.exists():
+        print(f"ERROR: Plan file not found: {plan_path}")
+        print("  Run: python cross_family_transfer.py analyze <family> first.")
+        sys.exit(1)
+
+    plan = json.loads(plan_path.read_text(encoding="utf-8"))
+    if plan["target_family"] != family:
+        print(f"WARNING: Plan is for '{plan['target_family']}', not '{family}'")
+
+    libs = load_all_libraries()
+    if family not in libs:
+        print(f"ERROR: '{family}' not in libraries.")
+        sys.exit(1)
+
+    fam_lib = libs[family]
+    fam_cls = fam_lib["cls"]
+    fam_idx = fam_lib["idx"]
+
+    static_hashes = (
+        set(fam_cls.get("exact_static_hashes", [])) |
+        set(fam_cls.get("fuzzy_static_hashes",  []))
+    )
+
+    known_shapes = plan["known_shapes"]
+    if not known_shapes:
+        print("ERROR: No known shapes in plan.")
+        sys.exit(1)
+    static_src = str(Path(fam_idx[known_shapes[0]]["source_file"]))
+
+    # Compute z_filter threshold for SYNTH_WORKER
+    # None  → auto from known-shape z_bottom envelope (default)
+    # -1e9  → disabled (--no-z-filter)
+    # float → explicit threshold
+    if z_filter is None:
+        cache = json.loads(CACHE_FILE.read_text(encoding="utf-8")) if CACHE_FILE.exists() else {}
+        zbs = [cache[f"{family}|{s}"]["z_bottom"]
+               for s in known_shapes if f"{family}|{s}" in cache and "z_bottom" in cache[f"{family}|{s}"]]
+        _z_filter: float | None = (round(min(zbs) - 0.5, 4)) if zbs else None
+    elif z_filter <= -1e8:
+        _z_filter = None  # disabled — pass None to worker so no filtering occurs
+    else:
+        _z_filter = z_filter
+
+    missing_shapes = plan["missing_shapes"]
+    if target_shapes:
+        missing_shapes = [s for s in target_shapes if s in missing_shapes]
+        if not missing_shapes:
+            print(f"ERROR: Specified shapes {target_shapes} not in missing: {plan['missing_shapes']}")
+            sys.exit(1)
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    print(f"  Family      : {family}")
+    print(f"  Known       : {known_shapes}")
+    print(f"  Synthesize  : {missing_shapes}")
+    print(f"  Static src  : {static_src}")
+    print(f"  Static hashes: {len(static_hashes)}")
+    print(f"  Output dir  : {out_dir}")
+    if _z_filter is not None:
+        print(f"  Z-filter    : cz < {_z_filter} mm will be dropped")
+    if min_z_guards:
+        for _s, _t in min_z_guards.items():
+            print(f"  min_z guard : {_s} — drop if bbox.Min.Z < {_t} mm")
+    if strategy:
+        print(f"  Routing     :", end="")
+        for s in missing_shapes:
+            archs = _archs_for_shape(s, strategy, default_arch)
+            print(f"  {s}:{'+'.join(archs) or 'SKIP'}", end="")
+        print()
+    print()
+
+    shape_plan_by_name = {sp["missing_shape"]: sp for sp in plan["missing_shape_plans"]}
+    results = []
+
+    for miss in missing_shapes:
+        archs_to_run = _archs_for_shape(miss, strategy, default_arch)
+
+        if not archs_to_run:
+            print(f"  {miss}: SKIP (strategy routes to no architectures)")
+            results.append({"shape": miss, "status": "SKIP", "reason": "strategy_empty"})
+            continue
+
+        sp = shape_plan_by_name.get(miss)
+        if not sp or not sp["top_candidates"]:
+            print(f"  {miss}: NO CANDIDATES -- skipping")
+            results.append({"shape": miss, "status": "SKIP", "reason": "no_candidates"})
+            continue
+
+        cands     = sp["top_candidates"]
+        pick_idx  = min(donor_rank - 1, len(cands) - 1)
+        best      = cands[pick_idx]
+        donor_fam = best["donor_family"]
+        score     = best["donor_score"]
+        conf      = best["expected_confidence"]
+
+        if donor_fam not in libs:
+            print(f"  {miss}: donor '{donor_fam}' missing from libs -- skipping")
+            results.append({"shape": miss, "status": "SKIP", "reason": "donor_not_in_libs"})
+            continue
+
+        donor_idx = libs[donor_fam]["idx"]
+        if miss not in donor_idx:
+            print(f"  {miss}: donor '{donor_fam}' has no {miss} shape -- skipping")
+            results.append({"shape": miss, "status": "SKIP", "reason": "donor_missing_shape"})
+            continue
+
+        donor_src = str(Path(donor_idx[miss]["source_file"]))
+        mut_idxs  = donor_idx[miss]["mutable_object_indices"]
+
+        print(f"  {miss}: donor={donor_fam} score={score:.3f} conf={conf}"
+              f" mut={len(mut_idxs)}  archs=[{'+'.join(archs_to_run)}]")
+
+        # Remove stale arch files only when using canonical rank-1 donor
+        for obsolete_arch in ("A", "B"):
+            if donor_rank > 1:
+                break  # never clobber canonical files when experimenting with alt donors
+            if obsolete_arch not in archs_to_run:
+                stale = out_dir / f"{family}_{miss}_arch{obsolete_arch}.3dm"
+                stale_meta = out_dir / f"{family}_{miss}_arch{obsolete_arch}_meta.json"
+                if stale.exists():
+                    try:
+                        stale.unlink()
+                        print(f"       removed stale arch{obsolete_arch}: {stale.name}")
+                    except PermissionError:
+                        print(f"       WARNING: cannot remove {stale.name} (file in use -- close it in Rhino)")
+                if stale_meta.exists():
+                    try:
+                        stale_meta.unlink()
+                    except PermissionError:
+                        pass
+
+        for arch in archs_to_run:
+            affine_p = best["affine_params"] if arch == "B" else None
+
+            rank_tag = f"_r{donor_rank}" if donor_rank > 1 else ""
+            out_stem = f"{family}_{miss}_arch{arch}{rank_tag}"
+            out_3dm  = out_dir / f"{out_stem}.3dm"
+            out_meta = out_dir / f"{out_stem}_meta.json"
+
+            affine_note = ""
+            if arch == "B" and affine_p:
+                affine_note = (f" sxy={affine_p['scale_xy']:.3f}"
+                               f" sz={affine_p['scale_z']:.3f}"
+                               f" dz={affine_p['translate_z']:+.2f}mm")
+
+            synth_args = {
+                "static_src":      static_src,
+                "donor_src":       donor_src,
+                "mutable_indices": mut_idxs,
+                "static_hashes":   list(static_hashes),
+                "output_path":     str(out_3dm),
+                "affine":          affine_p,
+                "z_filter":        _z_filter,
+                "min_z_guard":     min_z_guards.get(miss) if min_z_guards else None,
+            }
+
+            t_shape = time.time()
+            result  = _run_synth(synth_args)
+            elapsed = round(time.time() - t_shape, 1)
+
+            if result and result.get("ok"):
+                size_kb  = out_3dm.stat().st_size // 1024 if out_3dm.exists() else 0
+                filtered = result.get("mutable_filtered", 0)
+                flt_note = f" filtered={filtered}" if filtered else ""
+                print(f"       [arch{arch}]{affine_note}  "
+                      f"static={result['static_added']} mutable={result['mutable_added']}"
+                      f"{flt_note} total={result['total']} ({size_kb} KB) [{elapsed}s]")
+                status = "OK"
+            else:
+                print(f"       [arch{arch}] FAIL  [{elapsed}s]")
+                status = "FAIL"
+
+            meta = {
+                "target_family":         family,
+                "target_shape":          miss,
+                "architecture":          arch,
+                "synthesis_date":        datetime.now().isoformat(timespec="seconds"),
+                "donor_family":          donor_fam,
+                "donor_score":           score,
+                "expected_confidence":   conf,
+                "risk_factors":          best.get("risk_factors", []),
+                "affine_params":         affine_p,
+                "static_hashes_count":   len(static_hashes),
+                "mutable_indices_count": len(mut_idxs),
+                "result":                result,
+                "status":                status,
+                "output_file":           str(out_3dm),
+            }
+            out_meta.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+            results.append({
+                "shape": miss, "arch": arch, "status": status,
+                "donor": donor_fam, "conf": conf,
+            })
+
+    SYNTH_WORKER_FILE.unlink(missing_ok=True)
+
+    print()
+    print("=" * 60)
+    print(f"  Synthesis Complete -- {family}")
+    print("=" * 60)
+    ok_count = sum(1 for r in results if r["status"] == "OK")
+    print(f"  {ok_count}/{len(results)} outputs generated successfully")
+    for r in results:
+        mark  = "OK" if r["status"] == "OK" else "--"
+        donor = r.get("donor", "---")
+        conf  = r.get("conf",  "---")
+        arch  = r.get("arch",  "?")
+        print(f"  [{mark}] {r['shape']:<5} arch{arch}  donor={donor:<20}  conf={conf}")
+    print(f"  Output : {out_dir}/")
+    print(f"  Elapsed: {round(time.time()-t0, 1)}s")
+
+
+# ─────────────────────────────────────────────────────────────
+#  Real-vs-generated comparison
+# ─────────────────────────────────────────────────────────────
+
+COMPARE_WORKER_SRC = """\
+import sys, json, os, math
+sys.path.insert(0, os.path.dirname(os.path.abspath(sys.argv[0])))
+import rhino3dm
+from jewelry_transform import fingerprint_object
+
+args          = json.loads(sys.argv[1])
+synth_path    = args["synth_path"]
+real_path     = args["real_path"]
+static_hashes = set(args["static_hashes"])
+shape         = args["shape"]
+
+def read_fps(path):
+    model = rhino3dm.File3dm.Read(path)
+    if not model:
+        return None
+    fps = []
+    for obj in model.Objects:
+        fp = fingerprint_object(obj)
+        if fp is not None:
+            fps.append(fp)
+    return fps
+
+synth_fps = read_fps(synth_path)
+real_fps  = read_fps(real_path)
+if synth_fps is None or real_fps is None:
+    print(json.dumps({"error": "cannot_read"}))
+    sys.exit(0)
+
+def split(fps):
+    st = [f for f in fps if f["sig_hash"] in static_hashes]
+    mu = [f for f in fps if f["sig_hash"] not in static_hashes]
+    return st, mu
+
+s_st, s_mu = split(synth_fps)
+r_st, r_mu = split(real_fps)
+
+# 1. Object counts
+count_delta        = abs(len(synth_fps) - len(real_fps))
+mutable_count_delta = abs(len(s_mu) - len(r_mu))
+
+# 2. Static integrity
+s_sh = set(f["sig_hash"] for f in s_st)
+r_sh = set(f["sig_hash"] for f in r_st)
+static_match = s_sh == r_sh
+
+# 5. Geometry hash overlap (mutable)
+s_mh = set(f["sig_hash"] for f in s_mu)
+r_mh = set(f["sig_hash"] for f in r_mu)
+shared_mu      = s_mh & r_mh
+mu_overlap_n   = len(shared_mu)
+mu_overlap_pct = round(mu_overlap_n / max(len(r_mh), 1) * 100, 1)
+
+# 3. Bbox similarity
+def mframe(fps):
+    if not fps:
+        return None
+    czs  = [f["cz"] for f in fps]
+    sxs  = [f["sx"] for f in fps]
+    sys_ = [f["sy"] for f in fps]
+    szs  = [f["sz"] for f in fps]
+    cxs  = [f["cx"] for f in fps]
+    cys  = [f["cy"] for f in fps]
+    return {
+        "count":        len(fps),
+        "cz_mean":      round(sum(czs)/len(fps), 4),
+        "cx_mean":      round(sum(cxs)/len(fps), 4),
+        "cy_mean":      round(sum(cys)/len(fps), 4),
+        "footprint_xy": round(max(max(sxs), max(sys_)), 4),
+        "z_top":        round(max(czs), 4),
+        "z_bottom":     round(min(czs), 4),
+        "z_range":      round(max(czs) - min(czs), 4),
+        "xy_span_x":    round(max(cxs) - min(cxs), 4),
+        "xy_span_y":    round(max(cys) - min(cys), 4),
+        "silhouette":   round(sum(f["sx"]*f["sy"] for f in fps), 2),
+    }
+
+sf = mframe(s_mu)
+rf = mframe(r_mu)
+bbox = {}
+if sf and rf:
+    bbox = {
+        "footprint_ratio":  round(sf["footprint_xy"] / max(rf["footprint_xy"], 0.001), 4),
+        "z_range_ratio":    round(sf["z_range"]      / max(rf["z_range"],      0.001), 4),
+        "z_top_delta":      round(sf["z_top"]    - rf["z_top"],    4),
+        "cz_mean_delta":    round(sf["cz_mean"]  - rf["cz_mean"],  4),
+        "xy_span_x_ratio":  round(sf["xy_span_x"] / max(rf["xy_span_x"], 0.001), 4),
+        "xy_span_y_ratio":  round(sf["xy_span_y"] / max(rf["xy_span_y"], 0.001), 4),
+        "silhouette_ratio": round(sf["silhouette"] / max(rf["silhouette"], 0.001), 4),
+    }
+
+# 4. Center-stone placement (H7)
+def detect_stone(fps):
+    n = len(fps)
+    if n == 0:
+        return None
+    czs  = [f["cz"] for f in fps];  sxs  = [f["sx"] for f in fps]
+    sys_ = [f["sy"] for f in fps];  szs  = [f["sz"] for f in fps]
+    cxs  = [f["cx"] for f in fps];  cys  = [f["cy"] for f in fps]
+    nsrf = [f.get("n_surfaces") or 0 for f in fps]
+    areas   = [sxs[i]*sys_[i]       for i in range(n)]
+    volumes = [sxs[i]*sys_[i]*szs[i] for i in range(n)]
+    dists   = [math.sqrt(cxs[i]**2+cys[i]**2) for i in range(n)]
+    dr      = [szs[i]/max(max(sxs[i],sys_[i]),0.001) for i in range(n)]
+    def rank(vals, asc=True):
+        order = sorted(range(n), key=lambda i: vals[i], reverse=not asc)
+        return {idx: r for r, idx in enumerate(order)}
+    r_xy  = rank(areas,   asc=False);  r_vol = rank(volumes, asc=False)
+    r_nsf = rank(nsrf,    asc=False);  r_cz  = rank(czs,     asc=False)
+    scores = []
+    for i in range(n):
+        cb  = -n*0.10*math.exp(-(dists[i]**2)/(2*1.5**2))
+        fpp = n*0.10 if dr[i] < 0.15 else 0.0
+        scores.append(0.25*r_xy[i]+0.25*r_vol[i]+0.15*r_nsf[i]+0.25*r_cz[i]+cb+fpp)
+    st = scores.index(min(scores))
+    sx, sy = sxs[st], sys_[st]
+    return {
+        "cz": round(czs[st],4), "cx": round(cxs[st],4), "cy": round(cys[st],4),
+        "footprint": round(max(sx,sy),4),
+        "ar":        round(max(sx,sy)/max(min(sx,sy),0.001), 4),
+        "above_z0":  czs[st] > 0,
+    }
+
+s_stone = detect_stone(s_mu)
+r_stone = detect_stone(r_mu)
+stone = {}
+if s_stone and r_stone:
+    stone = {
+        "synth":            s_stone,
+        "real":             r_stone,
+        "cz_delta":         round(s_stone["cz"]        - r_stone["cz"],        4),
+        "ar_delta":         round(s_stone["ar"]         - r_stone["ar"],        4),
+        "footprint_delta":  round(s_stone["footprint"]  - r_stone["footprint"], 4),
+        "cx_delta":         round(s_stone["cx"]         - r_stone["cx"],        4),
+        "cy_delta":         round(s_stone["cy"]         - r_stone["cy"],        4),
+    }
+
+# 6. Silhouette similarity (in bbox above)
+
+# 7. Symmetry deviation
+def sym_dev(fps):
+    if not fps:
+        return None
+    return round(sum(abs(f["cx"])+abs(f["cy"]) for f in fps)/len(fps), 4)
+sym = {
+    "synth_axis_dev": sym_dev(s_mu),
+    "real_axis_dev":  sym_dev(r_mu),
+    "delta":          round((sym_dev(s_mu) or 0)-(sym_dev(r_mu) or 0), 4),
+}
+
+# Scoring
+def c01(x): return max(0.0, min(1.0, x))
+sc = {}
+sc["static_integrity"] = 1.0 if static_match else 0.0
+sc["count_similarity"] = c01(1.0 - mutable_count_delta / 10.0)
+sc["stone_cz"]   = math.exp(-(stone.get("cz_delta",99)**2)/(2*2.0**2))  if stone else 0.0
+sc["stone_ar"]   = math.exp(-(stone.get("ar_delta",99)**2)/(2*0.3**2))  if stone else 0.0
+sc["footprint"]  = c01(1.0 - abs(bbox.get("footprint_ratio",0)-1.0)/0.3) if bbox else 0.0
+sc["z_range"]    = c01(1.0 - abs(bbox.get("z_range_ratio",0) -1.0)/0.3) if bbox else 0.0
+sc["silhouette"] = c01(1.0 - abs(bbox.get("silhouette_ratio",0)-1.0)/0.5) if bbox else 0.0
+sc["symmetry"]   = math.exp(-(sym["delta"]**2)/(2*1.0**2)) if sym["delta"] is not None else 0.0
+
+W = {"static_integrity":0.15,"count_similarity":0.15,"stone_cz":0.20,
+     "stone_ar":0.15,"footprint":0.10,"z_range":0.10,"silhouette":0.10,"symmetry":0.05}
+overall = round(sum(sc[k]*W[k] for k in W), 4)
+ranking = "EXCELLENT" if overall >= 0.75 else ("GOOD" if overall >= 0.50 else "POOR")
+
+print(json.dumps({
+    "shape":          shape,
+    "synth_file":     synth_path,
+    "real_file":      real_path,
+    "object_count": {
+        "synth_total": len(synth_fps), "real_total": len(real_fps),
+        "total_delta": count_delta,
+        "synth_static": len(s_st), "real_static": len(r_st),
+        "synth_mutable": len(s_mu), "real_mutable": len(r_mu),
+        "mutable_delta": mutable_count_delta,
+    },
+    "static_integrity": {"match": static_match},
+    "geometry_hash_overlap": {
+        "mutable_shared":    mu_overlap_n,
+        "mutable_overlap_pct": mu_overlap_pct,
+        "synth_only_hashes": len(s_mh - r_mh),
+        "real_only_hashes":  len(r_mh - s_mh),
+    },
+    "bbox_similarity":      bbox,
+    "synth_mutable_frame":  sf,
+    "real_mutable_frame":   rf,
+    "stone_placement":      stone,
+    "symmetry_deviation":   sym,
+    "scoring": {
+        "criteria": {k: round(v,4) for k,v in sc.items()},
+        "weights":  W,
+        "overall":  overall,
+    },
+    "ranking": ranking,
+}))
+"""
+
+
+def compare_vs_real(
+    family: str,
+    real_dir: Path,
+    synth_dir: Path,
+    out_path: Path,
+    strategy_path: Path | None,
+) -> None:
+    t0 = time.time()
+    print("=" * 60)
+    print("  Real vs Generated Comparison")
+    print("=" * 60)
+
+    libs = load_all_libraries()
+    if family not in libs:
+        print(f"ERROR: '{family}' not in libraries.")
+        sys.exit(1)
+
+    fam_cls = libs[family]["cls"]
+    static_hashes = list(
+        set(fam_cls.get("exact_static_hashes", [])) |
+        set(fam_cls.get("fuzzy_static_hashes",  []))
+    )
+
+    strategy = _load_strategy(strategy_path)
+
+    # Map shape → real file by scanning real_dir for known shape codes
+    SHAPE_PATTERNS = {
+        "OV": ["OV"], "PE": ["PE"], "PR": ["PR"],
+        "RA": ["RA"], "RD": ["RD"], "AS": ["AS"],
+        "MQ": ["MQ"], "CU": ["CU"], "ELCU": ["ELCU"], "EM": ["EM"],
+    }
+    real_files: dict[str, Path] = {}
+    for p in sorted(real_dir.glob("*.3dm")):
+        stem = p.stem.upper()
+        for shape, tokens in SHAPE_PATTERNS.items():
+            if any(f"_{t}" in stem or stem.endswith(t) for t in tokens):
+                if shape not in real_files:
+                    real_files[shape] = p
+
+    # Map shape → synth file via strategy routing
+    synth_files: dict[str, Path] = {}
+    for shape in list(real_files.keys()):
+        archs = _archs_for_shape(shape, strategy, "B")
+        if not archs:
+            continue
+        arch = archs[-1]  # canonical = last in routing list
+        candidate = synth_dir / f"{family}_{shape}_arch{arch}.3dm"
+        if candidate.exists():
+            synth_files[shape] = candidate
+
+    shapes_to_compare = sorted(set(real_files) & set(synth_files))
+    if not shapes_to_compare:
+        print("ERROR: No matching (real, synth) file pairs found.")
+        sys.exit(1)
+
+    print(f"  Family    : {family}")
+    print(f"  Real dir  : {real_dir}")
+    print(f"  Synth dir : {synth_dir}")
+    print(f"  Shapes    : {shapes_to_compare}")
+    print()
+
+    # Run comparison worker per shape pair (parallel)
+    COMPARE_WORKER_FILE.write_text(COMPARE_WORKER_SRC, encoding="utf-8")
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+
+    def _run_compare(args: dict) -> dict | None:
+        try:
+            r = subprocess.run(
+                [sys.executable, str(COMPARE_WORKER_FILE), json.dumps(args)],
+                capture_output=True, text=True, encoding="utf-8",
+                errors="replace", timeout=120, env=env,
+            )
+            if not r.stdout.strip():
+                return None
+            d = json.loads(r.stdout.strip())
+            return None if "error" in d else d
+        except Exception:
+            return None
+
+    raw: dict[str, dict | None] = {}
+    with __import__("concurrent.futures", fromlist=["ThreadPoolExecutor", "as_completed"]).ThreadPoolExecutor(max_workers=MAX_WORKERS) as ex:
+        futures = {
+            ex.submit(_run_compare, {
+                "synth_path":    str(synth_files[s]),
+                "real_path":     str(real_files[s]),
+                "static_hashes": static_hashes,
+                "shape":         s,
+            }): s
+            for s in shapes_to_compare
+        }
+        for fut in __import__("concurrent.futures", fromlist=["as_completed"]).as_completed(futures):
+            s = futures[fut]
+            try:
+                raw[s] = fut.result()
+            except Exception:
+                raw[s] = None
+
+    COMPARE_WORKER_FILE.unlink(missing_ok=True)
+
+    # Print per-shape summary
+    ranking_order = {"EXCELLENT": 0, "GOOD": 1, "POOR": 2}
+    shape_results = []
+    for s in shapes_to_compare:
+        res = raw.get(s)
+        if not res:
+            print(f"  {s}: LOAD ERROR")
+            continue
+        r = res["ranking"]
+        oc = res["object_count"]
+        st = res["stone_placement"]
+        sc = res["scoring"]
+        bbox = res["bbox_similarity"]
+        ho = res["geometry_hash_overlap"]
+        print(f"  {s}  [{r}]  overall={sc['overall']:.3f}")
+        print(f"     objects: synth={oc['synth_mutable']} real={oc['real_mutable']}"
+              f" delta={oc['mutable_delta']}  static_ok={res['static_integrity']['match']}")
+        if st:
+            print(f"     stone:  cz_delta={st['cz_delta']:+.3f}mm"
+                  f"  ar_delta={st['ar_delta']:+.4f}"
+                  f"  fp_delta={st['footprint_delta']:+.3f}mm")
+        if bbox:
+            print(f"     bbox:   fp_ratio={bbox['footprint_ratio']:.3f}"
+                  f"  z_range_ratio={bbox['z_range_ratio']:.3f}"
+                  f"  sil_ratio={bbox['silhouette_ratio']:.3f}")
+        print(f"     hashes: mutable_overlap={ho['mutable_overlap_pct']}%"
+              f"  ({ho['mutable_shared']} shared)")
+        print()
+        shape_results.append((s, r, sc["overall"]))
+
+    shape_results.sort(key=lambda x: (ranking_order.get(x[1], 9), -x[2]))
+
+    report = {
+        "family":           family,
+        "analysis_date":    datetime.now().isoformat(timespec="seconds"),
+        "real_dir":         str(real_dir),
+        "synth_dir":        str(synth_dir),
+        "shapes_compared":  shapes_to_compare,
+        "metric_weights": {
+            "static_integrity": 0.15, "count_similarity": 0.15,
+            "stone_cz": 0.20,         "stone_ar":         0.15,
+            "footprint": 0.10,        "z_range":          0.10,
+            "silhouette": 0.10,       "symmetry":         0.05,
+        },
+        "ranking_thresholds": {"EXCELLENT": 0.75, "GOOD": 0.50, "POOR": "<0.50"},
+        "shape_results":    {s: raw[s] for s in shapes_to_compare if raw.get(s)},
+        "summary": {
+            "by_ranking": {
+                r: [s for s, rank, _ in shape_results if rank == r]
+                for r in ["EXCELLENT", "GOOD", "POOR"]
+            },
+            "ranked_list": [
+                {"shape": s, "ranking": r, "overall_score": round(sc, 4)}
+                for s, r, sc in shape_results
+            ],
+        },
+        "elapsed_seconds": round(time.time() - t0, 1),
+    }
+
+    out_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
+    print("=" * 60)
+    print(f"  Final Rankings")
+    print("=" * 60)
+    for s, r, sc in shape_results:
+        print(f"  {r:<10}  {s}  (score={sc:.3f})")
+    print(f"\n  Report -> {out_path}  ({round(time.time()-t0,1)}s)")
+
+
+# ─────────────────────────────────────────────────────────────
+#  CLI
+# ─────────────────────────────────────────────────────────────
+
+def main():
+    cmd = sys.argv[1] if len(sys.argv) > 1 else ""
+
+    if cmd == "debug-stone-detection":
+        out = Path("stone_detection_report.json")
+        for arg in sys.argv[2:]:
+            if arg.startswith("--out") and "=" in arg:
+                out = Path(arg.split("=", 1)[1])
+        print("=" * 60)
+        print("  Stone Detection Diagnostic")
+        print("=" * 60)
+        debug_stone_detection(out)
+
+    elif cmd == "analyze":
+        if len(sys.argv) < 3:
+            print("Usage: python cross_family_transfer.py analyze <family_name>")
+            sys.exit(1)
+        family  = sys.argv[2]
+        out     = Path("transfer_plan.json")
+        bridge  = None
+        rebuild = False
+        i = 3
+        while i < len(sys.argv):
+            if sys.argv[i] == "--out" and i+1 < len(sys.argv):
+                out = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--bridge" and i+1 < len(sys.argv):
+                bridge = sys.argv[i+1]; i += 2
+            elif sys.argv[i] == "--rebuild-cache":
+                rebuild = True; i += 1
+            else:
+                i += 1
+        print("=" * 60)
+        print("  Cross-Family Transfer -- Diagnostic")
+        print("=" * 60)
+        analyze(family, out, bridge, rebuild)
+
+    elif cmd == "compare-vs-real":
+        if len(sys.argv) < 3:
+            print("Usage: python cross_family_transfer.py compare-vs-real <family> [options]")
+            sys.exit(1)
+        family   = sys.argv[2]
+        real_dir = Path("3dm") / family
+        synth_dir = Path("synthesis_output")
+        out_path  = Path("high_mira_real_vs_generated.json")
+        strategy  = None
+        i = 3
+        while i < len(sys.argv):
+            if sys.argv[i] == "--real-dir" and i+1 < len(sys.argv):
+                real_dir = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--synth-dir" and i+1 < len(sys.argv):
+                synth_dir = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--out" and i+1 < len(sys.argv):
+                out_path = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--strategy" and i+1 < len(sys.argv):
+                strategy = Path(sys.argv[i+1]); i += 2
+            else:
+                i += 1
+        compare_vs_real(family, real_dir, synth_dir, out_path, strategy)
+
+    elif cmd == "build-frame-db":
+        rebuild = "--rebuild-cache" in sys.argv
+        build_frame_db(rebuild)
+
+    elif cmd == "synthesize":
+        if len(sys.argv) < 3:
+            print("Usage: python cross_family_transfer.py synthesize <family> [options]")
+            sys.exit(1)
+        family      = sys.argv[2]
+        plan        = Path("transfer_plan.json")
+        out_dir     = Path("synthesis_output")
+        arch        = "B"
+        shapes      = None
+        strategy    = None
+        donor_rank    = 1
+        z_filter      = None  # None = auto from known-shape envelope
+        min_z_guards  = {}    # shape → float threshold, e.g. {"PR": 0.0}
+        i = 3
+        while i < len(sys.argv):
+            if sys.argv[i] == "--plan" and i+1 < len(sys.argv):
+                plan = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--out-dir" and i+1 < len(sys.argv):
+                out_dir = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--arch" and i+1 < len(sys.argv):
+                arch = sys.argv[i+1].upper(); i += 2
+            elif sys.argv[i] == "--shapes" and i+1 < len(sys.argv):
+                shapes = [s.strip().upper() for s in sys.argv[i+1].split(",")]; i += 2
+            elif sys.argv[i] == "--strategy" and i+1 < len(sys.argv):
+                strategy = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--donor-rank" and i+1 < len(sys.argv):
+                donor_rank = int(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--z-filter" and i+1 < len(sys.argv):
+                z_filter = float(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--no-z-filter":
+                z_filter = -1e9; i += 1  # disable: no object is ever below -1e9
+            elif sys.argv[i] == "--min-z-guard" and i+1 < len(sys.argv):
+                for pair in sys.argv[i+1].split(","):
+                    shape_key, _, thresh = pair.strip().partition(":")
+                    if shape_key and thresh:
+                        min_z_guards[shape_key.strip().upper()] = float(thresh.strip())
+                i += 2
+            else:
+                i += 1
+        if arch not in ("A", "B"):
+            print("ERROR: --arch must be A or B")
+            sys.exit(1)
+        synthesize(family, plan, out_dir, arch, shapes, strategy, donor_rank, z_filter,
+                   min_z_guards or None)
+
+    else:
+        print("Usage:")
+        print("  python cross_family_transfer.py analyze <family> [--out plan.json] [--bridge EM] [--rebuild-cache]")
+        print("  python cross_family_transfer.py build-frame-db [--rebuild-cache]")
+        print("  python cross_family_transfer.py synthesize <family> [--plan transfer_plan.json]")
+        print("    [--out-dir synthesis_output] [--arch A|B] [--shapes AS,OV,PE]")
+        print("    [--strategy architecture_strategy.json]")
+        print("  python cross_family_transfer.py debug-stone-detection [--out=stone_detection_report.json]")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
