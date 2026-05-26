@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "description": "GS_62-specific arch override: arch A only for all shapes (Z_OFFSET_HIGH, scale_z mismatch)",
+  "shape_routing": {
+    "ELCU": ["A"],
+    "MQ":   ["A"],
+    "OV":   ["A"],
+    "PE":   ["A"],
+    "RA":   ["A"],
+    "RD":   ["A"]
+  },
+  "default_arch": "A"
+}

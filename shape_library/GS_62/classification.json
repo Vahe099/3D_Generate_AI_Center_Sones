@@ -1,0 +1,77 @@
+{
+  "family": "GS_62",
+  "exact_static_hashes": [
+    "0d64997d5721",
+    "5884fc7a02c2",
+    "8994e676e7b3",
+    "d81406f1048d"
+  ],
+  "fuzzy_static_hashes": [
+    "00f878b239a6",
+    "c5ae422f6c36"
+  ],
+  "combined_static_hashes": [
+    "00f878b239a6",
+    "0d64997d5721",
+    "5884fc7a02c2",
+    "8994e676e7b3",
+    "c5ae422f6c36",
+    "d81406f1048d"
+  ],
+  "mutable_hashes": [
+    "ee4b7d1a8a73"
+  ],
+  "unmatched_hashes": [
+    "054af77b61c7",
+    "1618ab6e74b1",
+    "1afd799fc78a",
+    "20db3f186464",
+    "2af3109a7d63",
+    "2c66150671ee",
+    "32cf8bc69420",
+    "3a87347e1b35",
+    "547d198bbe0e",
+    "59453b2ee0a4",
+    "63914d4442ed",
+    "64997e166728",
+    "68692ba9edd6",
+    "6a3034eb90ab",
+    "6f5bc3895d50",
+    "8023fa18b181",
+    "a3778e3ba872",
+    "a492fd9e90a3",
+    "a57a16627db3",
+    "a5c26668d041",
+    "ae09cc7bdcd6",
+    "c0a084e2cb7e",
+    "c29f4b97d8df",
+    "c337e4c6cf08",
+    "c3f563f6bde9",
+    "ca8007b97b05",
+    "dbaac301c802",
+    "e98d48ff1604"
+  ],
+  "shape_to_hashes": {
+    "AS": [
+      "ee4b7d1a8a73"
+    ],
+    "CU": [
+      "ee4b7d1a8a73"
+    ],
+    "EM": [
+      "ee4b7d1a8a73"
+    ]
+  },
+  "total_files_used": 4,
+  "source_files": {
+    "AS": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\GS_62\\GS_62_AS.3dm",
+    "CU": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\GS_62\\GS_62_CU.3dm",
+    "EM": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\GS_62\\GS_62_EM.3dm",
+    "PR": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\GS_62\\GS_62_PR.3dm"
+  },
+  "tolerances": {
+    "center_mm": 0.2,
+    "size_mm": 0.2,
+    "vol": "inf"
+  }
+}

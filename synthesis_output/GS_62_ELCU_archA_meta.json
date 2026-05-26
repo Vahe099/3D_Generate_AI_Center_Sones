@@ -1,0 +1,33 @@
+{
+  "target_family": "GS_62",
+  "target_shape": "ELCU",
+  "architecture": "A",
+  "synthesis_date": "2026-05-26T17:06:12",
+  "donor_family": "ER6_Solitare",
+  "donor_score": 0.5763,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "SCALE_Z_HIGH",
+      "severity": "MEDIUM",
+      "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+    },
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +8.95mm -- stone height mismatch"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 6,
+  "mutable_indices_count": 7,
+  "result": {
+    "ok": true,
+    "static_added": 5,
+    "mutable_added": 6,
+    "mutable_filtered": 1,
+    "total": 11
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\GS_62_ELCU_archA.3dm"
+}

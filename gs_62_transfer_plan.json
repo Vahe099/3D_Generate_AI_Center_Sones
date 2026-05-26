@@ -1,0 +1,5868 @@
+{
+  "target_family": "GS_62",
+  "analysis_date": "2026-05-26T16:56:01",
+  "known_shapes": [
+    "AS",
+    "CU",
+    "EM",
+    "PR"
+  ],
+  "missing_shapes": [
+    "ELCU",
+    "MQ",
+    "OV",
+    "PE",
+    "RA",
+    "RD"
+  ],
+  "bridge_shape": "EM",
+  "target_frame": {
+    "bridge_shape": "EM",
+    "cz_mean": 12.2816,
+    "footprint_xy": 9.0364,
+    "z_range": 4.7283,
+    "z_top": 13.139,
+    "stone_ar": 1.1385,
+    "mutable_count": 7,
+    "mutable_count_mean_all_shapes": 7.75
+  },
+  "known_shape_frames": {
+    "AS": {
+      "mutable_count": 7,
+      "cz_mean": 12.2587,
+      "footprint_xy": 7.5,
+      "z_range": 4.7267,
+      "stone_ar": 1.1483
+    },
+    "CU": {
+      "mutable_count": 10,
+      "cz_mean": 12.6485,
+      "footprint_xy": 9.3202,
+      "z_range": 5.8208,
+      "stone_ar": 1.1631
+    },
+    "EM": {
+      "mutable_count": 7,
+      "cz_mean": 12.2816,
+      "footprint_xy": 9.0364,
+      "z_range": 4.7283,
+      "stone_ar": 1.1385
+    },
+    "PR": {
+      "mutable_count": 7,
+      "cz_mean": 12.1266,
+      "footprint_xy": 11.0194,
+      "z_range": 4.4457,
+      "stone_ar": 1.2132
+    }
+  },
+  "missing_shape_plans": [
+    {
+      "missing_shape": "ELCU",
+      "donor_pool_size": 113,
+      "scored_donors": 113,
+      "best_score": 0.5763,
+      "high_confidence_in_top15": 0,
+      "medium_confidence_in_top15": 0,
+      "top_candidates": [
+        {
+          "rank": 1,
+          "donor_family": "ER6_Solitare",
+          "donor_score": 0.5763,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.9032,
+            "spatial_ratio": 0.9785,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 7,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.89,
+            "scale_z": 0.3184,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.9486
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5079,
+            "stone_cz": 13.5907,
+            "footprint_xy": 11.8735,
+            "z_range": 15.1786,
+            "prong_count_est": 0,
+            "count": 7
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.95mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 2,
+          "donor_family": "ER7_Solitare",
+          "donor_score": 0.5648,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.8387,
+            "spatial_ratio": 0.9855,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3184,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.7596
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5079,
+            "stone_cz": 13.5907,
+            "footprint_xy": 11.8735,
+            "z_range": 15.1786,
+            "prong_count_est": 0,
+            "count": 9
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.76mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 3,
+          "donor_family": "N4",
+          "donor_score": 0.5311,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.7097,
+            "spatial_ratio": 0.9456,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 10,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3263,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.3635
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4856,
+            "stone_cz": -0.9546,
+            "footprint_xy": 15.5789,
+            "z_range": 14.6304,
+            "prong_count_est": 4,
+            "count": 10
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.33 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.36mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 4,
+          "donor_family": "TM8",
+          "donor_score": 0.4856,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.4516,
+            "spatial_ratio": 0.9764,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 12,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.8751,
+            "scale_z": 0.3147,
+            "translate_x": 0.1737,
+            "translate_y": -0.1161,
+            "translate_z": 8.5246
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.1056,
+            "stone_cz": 13.8668,
+            "footprint_xy": 12.1384,
+            "z_range": 14.8499,
+            "prong_count_est": 7,
+            "count": 12
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.31 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.52mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.11 outside expected [1.18, 1.65] for ELCU"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.486 -- moderate match, review recommended"
+            },
+            {
+              "factor": "STYLE_TWO_STONE",
+              "severity": "MEDIUM",
+              "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 5,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 5,
+          "donor_family": "ER1_Solitare",
+          "donor_score": 0.4842,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.4516,
+            "spatial_ratio": 0.9692,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 12,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.268,
+            "translate_x": -0.5528,
+            "translate_y": 0.3866,
+            "translate_z": 9.0651
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3542,
+            "stone_cz": 13.5957,
+            "footprint_xy": 11.8735,
+            "z_range": 18.3591,
+            "prong_count_est": 1,
+            "count": 12
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.27 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.07mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.484 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 6,
+          "donor_family": "ER2_Solitare",
+          "donor_score": 0.4842,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.4516,
+            "spatial_ratio": 0.9692,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 12,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.268,
+            "translate_x": -0.5528,
+            "translate_y": 0.3866,
+            "translate_z": 9.0651
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3542,
+            "stone_cz": 13.5957,
+            "footprint_xy": 11.8735,
+            "z_range": 18.3591,
+            "prong_count_est": 1,
+            "count": 12
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.27 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.07mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.484 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 7,
+          "donor_family": "ER3_Solitare",
+          "donor_score": 0.4842,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.4516,
+            "spatial_ratio": 0.9692,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 12,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.268,
+            "translate_x": -0.5528,
+            "translate_y": 0.3866,
+            "translate_z": 9.0651
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3542,
+            "stone_cz": 13.5957,
+            "footprint_xy": 11.8735,
+            "z_range": 18.3591,
+            "prong_count_est": 1,
+            "count": 12
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.27 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.07mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.484 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 8,
+          "donor_family": "U11",
+          "donor_score": 0.4193,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.8387,
+            "spatial_ratio": 0.258,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.6815,
+            "scale_z": 0.377,
+            "translate_x": -0.0011,
+            "translate_y": -0.1155,
+            "translate_z": 10.1112
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3768,
+            "stone_cz": 10.3069,
+            "footprint_xy": 13.2205,
+            "z_range": 12.2088,
+            "prong_count_est": 0,
+            "count": 9
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "XY scale factor 0.68 -- moderate distortion risk"
+            },
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.38 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +10.11mm -- stone height mismatch"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.419 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 9,
+          "donor_family": "U1",
+          "donor_score": 0.4153,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.9032,
+            "spatial_ratio": 0.1731,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 7,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.6177,
+            "scale_z": 0.2244,
+            "translate_x": 0.2756,
+            "translate_y": 0.883,
+            "translate_z": 10.9662
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.1242,
+            "stone_cz": 1.7096,
+            "footprint_xy": 15.5974,
+            "z_range": 13.3656,
+            "prong_count_est": 2,
+            "count": 7
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_LOW",
+              "severity": "HIGH",
+              "detail": "Donor needs 0.62x scale-down -- distortion likely"
+            },
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.22 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +10.97mm -- stone height mismatch"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.12 outside expected [1.18, 1.65] for ELCU"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.415 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 10,
+          "donor_family": "ER6_Hidden",
+          "donor_score": 0.3979,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9895,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 20,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.817,
+            "scale_z": 0.2875,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.1988
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3542,
+            "stone_cz": 14.9812,
+            "footprint_xy": 11.8735,
+            "z_range": 16.5691,
+            "prong_count_est": 0,
+            "count": 20
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.29 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.20mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 20 mutable objects vs HM ~8 (delta=12)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 11,
+          "donor_family": "ER6_Pave_H_Shank",
+          "donor_score": 0.3979,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9895,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 20,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.817,
+            "scale_z": 0.2875,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.1988
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.2191,
+            "stone_cz": 14.4942,
+            "footprint_xy": 11.8735,
+            "z_range": 16.5691,
+            "prong_count_est": 0,
+            "count": 20
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.29 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.20mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 20 mutable objects vs HM ~8 (delta=12)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 12,
+          "donor_family": "V6",
+          "donor_score": 0.3977,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9883,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 19,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3064,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.8934
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.1615,
+            "stone_cz": -0.9187,
+            "footprint_xy": 10.9662,
+            "z_range": 15.7043,
+            "prong_count_est": 4,
+            "count": 19
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.31 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.89mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 19 mutable objects vs HM ~8 (delta=11)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.16 outside expected [1.18, 1.65] for ELCU"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 13,
+          "donor_family": "U6",
+          "donor_score": 0.3972,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9858,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 21,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3182,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.2813
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4012,
+            "stone_cz": 13.4901,
+            "footprint_xy": 10.9091,
+            "z_range": 14.4088,
+            "prong_count_est": 14,
+            "count": 21
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.28mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 21 mutable objects vs HM ~8 (delta=13)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 14,
+          "donor_family": "ER4_Pave_H_Shank",
+          "donor_score": 0.3971,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9856,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 47,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3183,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.4389
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3542,
+            "stone_cz": 13.8408,
+            "footprint_xy": 11.8735,
+            "z_range": 15.4287,
+            "prong_count_est": 28,
+            "count": 47
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.44mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 47 mutable objects vs HM ~8 (delta=39)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 15,
+          "donor_family": "SP3",
+          "donor_score": 0.3971,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9855,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 45,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.2785,
+            "translate_x": -0.0011,
+            "translate_y": -0.1133,
+            "translate_z": 9.7047
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3542,
+            "stone_cz": 13.796,
+            "footprint_xy": 11.8735,
+            "z_range": 17.1862,
+            "prong_count_est": 20,
+            "count": 45
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.28 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.70mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 45 mutable objects vs HM ~8 (delta=37)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        }
+      ]
+    },
+    {
+      "missing_shape": "MQ",
+      "donor_pool_size": 111,
+      "scored_donors": 111,
+      "best_score": 0.5634,
+      "high_confidence_in_top15": 0,
+      "medium_confidence_in_top15": 0,
+      "top_candidates": [
+        {
+          "rank": 1,
+          "donor_family": "ER6_Solitare",
+          "donor_score": 0.5634,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.8387,
+            "spatial_ratio": 0.9785,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.89,
+            "scale_z": 0.3184,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.9486
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 12.8332,
+            "footprint_xy": 12.6974,
+            "z_range": 13.5306,
+            "prong_count_est": 0,
+            "count": 9
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.95mm -- stone height mismatch"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 2,
+          "donor_family": "N4",
+          "donor_score": 0.5311,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.7097,
+            "spatial_ratio": 0.9456,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 10,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3263,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.3635
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 12.7681,
+            "footprint_xy": 12.6974,
+            "z_range": 13.7014,
+            "prong_count_est": 0,
+            "count": 10
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.33 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.36mm -- stone height mismatch"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 3,
+          "donor_family": "TM8",
+          "donor_score": 0.434,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.1935,
+            "spatial_ratio": 0.9764,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 14,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.8751,
+            "scale_z": 0.3147,
+            "translate_x": 0.1737,
+            "translate_y": -0.1161,
+            "translate_z": 8.5246
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3167,
+            "stone_cz": 13.0915,
+            "footprint_xy": 13.8827,
+            "z_range": 14.0724,
+            "prong_count_est": 6,
+            "count": 14
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.31 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.52mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 6 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.32 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.434 -- moderate match, review recommended"
+            },
+            {
+              "factor": "STYLE_TWO_STONE",
+              "severity": "MEDIUM",
+              "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 5,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 4,
+          "donor_family": "U11",
+          "donor_score": 0.4193,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.8387,
+            "spatial_ratio": 0.258,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.6815,
+            "scale_z": 0.377,
+            "translate_x": -0.0011,
+            "translate_y": -0.1155,
+            "translate_z": 10.1112
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5561,
+            "stone_cz": 10.1106,
+            "footprint_xy": 14.7875,
+            "z_range": 11.8054,
+            "prong_count_est": 0,
+            "count": 9
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "XY scale factor 0.68 -- moderate distortion risk"
+            },
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.38 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +10.11mm -- stone height mismatch"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.56 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.419 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 4,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 5,
+          "donor_family": "U1",
+          "donor_score": 0.4153,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.9032,
+            "spatial_ratio": 0.1731,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 7,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.6177,
+            "scale_z": 0.2244,
+            "translate_x": 0.2756,
+            "translate_y": 0.883,
+            "translate_z": 10.9662
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0717,
+            "stone_cz": 1.8111,
+            "footprint_xy": 16.6269,
+            "z_range": 21.1084,
+            "prong_count_est": 1,
+            "count": 7
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_LOW",
+              "severity": "HIGH",
+              "detail": "Donor needs 0.62x scale-down -- distortion likely"
+            },
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.22 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +10.97mm -- stone height mismatch"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.07 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.415 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 6,
+          "donor_family": "ER6_Hidden",
+          "donor_score": 0.3979,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9895,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 22,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.817,
+            "scale_z": 0.2875,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.1988
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 14.4046,
+            "footprint_xy": 12.6974,
+            "z_range": 15.65,
+            "prong_count_est": 0,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.29 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.20mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 22 mutable objects vs HM ~8 (delta=14)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 7,
+          "donor_family": "ER6_Pave_H_Shank",
+          "donor_score": 0.3979,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9895,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 22,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.817,
+            "scale_z": 0.2875,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.1988
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 14.4046,
+            "footprint_xy": 12.6974,
+            "z_range": 15.65,
+            "prong_count_est": 0,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.29 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.20mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 22 mutable objects vs HM ~8 (delta=14)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 8,
+          "donor_family": "V6",
+          "donor_score": 0.3977,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9883,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 22,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3064,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.8934
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.9337,
+            "footprint_xy": 15.5789,
+            "z_range": 15.8669,
+            "prong_count_est": 4,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.31 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.89mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 22 mutable objects vs HM ~8 (delta=14)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 9,
+          "donor_family": "U6",
+          "donor_score": 0.3972,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9858,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 27,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3182,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.2813
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.2313,
+            "footprint_xy": 13.9205,
+            "z_range": 13.9287,
+            "prong_count_est": 18,
+            "count": 27
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.28mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 27 mutable objects vs HM ~8 (delta=19)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 10,
+          "donor_family": "ER4_Pave_H_Shank",
+          "donor_score": 0.3971,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9856,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 55,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3183,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.4389
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.2333,
+            "footprint_xy": 13.1433,
+            "z_range": 13.9307,
+            "prong_count_est": 42,
+            "count": 55
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.44mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 55 mutable objects vs HM ~8 (delta=47)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 11,
+          "donor_family": "SP3",
+          "donor_score": 0.3971,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9855,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 44,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.2785,
+            "translate_x": -0.0011,
+            "translate_y": -0.1133,
+            "translate_z": 9.7047
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.1336,
+            "footprint_xy": 13.1433,
+            "z_range": 16.7192,
+            "prong_count_est": 22,
+            "count": 44
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.28 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.70mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 44 mutable objects vs HM ~8 (delta=36)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 12,
+          "donor_family": "ER2_Hidden",
+          "donor_score": 0.3961,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9806,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 55,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3216,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.447
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0333,
+            "footprint_xy": 13.1433,
+            "z_range": 13.7307,
+            "prong_count_est": 40,
+            "count": 55
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.45mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 55 mutable objects vs HM ~8 (delta=47)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.396 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 13,
+          "donor_family": "ER3_Pave_H_Shank",
+          "donor_score": 0.3961,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9806,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 55,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3216,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.447
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0333,
+            "footprint_xy": 13.1433,
+            "z_range": 13.7307,
+            "prong_count_est": 40,
+            "count": 55
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.45mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 55 mutable objects vs HM ~8 (delta=47)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.396 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 14,
+          "donor_family": "ER3_Hidden",
+          "donor_score": 0.395,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9751,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 38,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.8941,
+            "scale_z": 0.3216,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.3298
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0333,
+            "footprint_xy": 12.6974,
+            "z_range": 13.7307,
+            "prong_count_est": 28,
+            "count": 38
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.33mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 38 mutable objects vs HM ~8 (delta=30)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.395 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 15,
+          "donor_family": "ER5_Pave_H_Shank",
+          "donor_score": 0.395,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9751,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 38,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.8941,
+            "scale_z": 0.3216,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.3298
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0333,
+            "footprint_xy": 12.6974,
+            "z_range": 13.7307,
+            "prong_count_est": 28,
+            "count": 38
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.33mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 38 mutable objects vs HM ~8 (delta=30)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.395 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        }
+      ]
+    },
+    {
+      "missing_shape": "OV",
+      "donor_pool_size": 113,
+      "scored_donors": 113,
+      "best_score": 0.5763,
+      "high_confidence_in_top15": 0,
+      "medium_confidence_in_top15": 0,
+      "top_candidates": [
+        {
+          "rank": 1,
+          "donor_family": "ER6_Solitare",
+          "donor_score": 0.5763,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.9032,
+            "spatial_ratio": 0.9785,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 7,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.89,
+            "scale_z": 0.3184,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.9486
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3418,
+            "stone_cz": 13.2313,
+            "footprint_xy": 10.8286,
+            "z_range": 14.1646,
+            "prong_count_est": 0,
+            "count": 7
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.95mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 2,
+          "donor_family": "N4",
+          "donor_score": 0.5569,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.8387,
+            "spatial_ratio": 0.9456,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3263,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.3635
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3418,
+            "stone_cz": 12.8562,
+            "footprint_xy": 10.8286,
+            "z_range": 13.7895,
+            "prong_count_est": 0,
+            "count": 9
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.33 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.36mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 3,
+          "donor_family": "ER7_Solitare",
+          "donor_score": 0.5132,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.5806,
+            "spatial_ratio": 0.9855,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 11,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3184,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.7596
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3418,
+            "stone_cz": 13.2313,
+            "footprint_xy": 10.8286,
+            "z_range": 14.1646,
+            "prong_count_est": 0,
+            "count": 11
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.76mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 4,
+          "donor_family": "TM8",
+          "donor_score": 0.4856,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.4516,
+            "spatial_ratio": 0.9764,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 12,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.8751,
+            "scale_z": 0.3147,
+            "translate_x": 0.1737,
+            "translate_y": -0.1161,
+            "translate_z": 8.5246
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.1427,
+            "stone_cz": 13.5033,
+            "footprint_xy": 12.3092,
+            "z_range": 14.5609,
+            "prong_count_est": 7,
+            "count": 12
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.31 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.52mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.14 outside expected [1.25, 1.75] for OV"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.486 -- moderate match, review recommended"
+            },
+            {
+              "factor": "STYLE_TWO_STONE",
+              "severity": "MEDIUM",
+              "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 5,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 5,
+          "donor_family": "ER1_Solitare",
+          "donor_score": 0.4325,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.1935,
+            "spatial_ratio": 0.9692,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 14,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.268,
+            "translate_x": -0.5528,
+            "translate_y": 0.3866,
+            "translate_z": 9.0651
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.2385,
+            "stone_cz": -0.9333,
+            "footprint_xy": 10.8286,
+            "z_range": 25.6723,
+            "prong_count_est": 1,
+            "count": 14
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.27 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.07mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 6 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.24 outside expected [1.25, 1.75] for OV"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.432 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 4,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 6,
+          "donor_family": "ER2_Solitare",
+          "donor_score": 0.4325,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.1935,
+            "spatial_ratio": 0.9692,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 14,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.268,
+            "translate_x": -0.5528,
+            "translate_y": 0.3866,
+            "translate_z": 9.0651
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3418,
+            "stone_cz": 13.3313,
+            "footprint_xy": 10.8286,
+            "z_range": 25.6722,
+            "prong_count_est": 1,
+            "count": 14
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.27 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.07mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 6 from HM average"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.432 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 7,
+          "donor_family": "ER3_Solitare",
+          "donor_score": 0.4325,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.1935,
+            "spatial_ratio": 0.9692,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 14,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.268,
+            "translate_x": -0.5528,
+            "translate_y": 0.3866,
+            "translate_z": 9.0651
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3418,
+            "stone_cz": 13.3313,
+            "footprint_xy": 10.8286,
+            "z_range": 25.6722,
+            "prong_count_est": 1,
+            "count": 14
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.27 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.07mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 6 from HM average"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.432 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 8,
+          "donor_family": "U11",
+          "donor_score": 0.4193,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.8387,
+            "spatial_ratio": 0.258,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.6815,
+            "scale_z": 0.377,
+            "translate_x": -0.0011,
+            "translate_y": -0.1155,
+            "translate_z": 10.1112
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3056,
+            "stone_cz": 10.4132,
+            "footprint_xy": 13.3618,
+            "z_range": 12.369,
+            "prong_count_est": 0,
+            "count": 9
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "XY scale factor 0.68 -- moderate distortion risk"
+            },
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.38 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +10.11mm -- stone height mismatch"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.419 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 9,
+          "donor_family": "U1",
+          "donor_score": 0.4153,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.9032,
+            "spatial_ratio": 0.1731,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 7,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.6177,
+            "scale_z": 0.2244,
+            "translate_x": 0.2756,
+            "translate_y": 0.883,
+            "translate_z": 10.9662
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.1242,
+            "stone_cz": 1.7096,
+            "footprint_xy": 15.5974,
+            "z_range": 13.3802,
+            "prong_count_est": 2,
+            "count": 7
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_LOW",
+              "severity": "HIGH",
+              "detail": "Donor needs 0.62x scale-down -- distortion likely"
+            },
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.22 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +10.97mm -- stone height mismatch"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.12 outside expected [1.25, 1.75] for OV"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.415 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 10,
+          "donor_family": "ER6_Hidden",
+          "donor_score": 0.3979,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9895,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 18,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.817,
+            "scale_z": 0.2875,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.1988
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3039,
+            "stone_cz": 14.2612,
+            "footprint_xy": 11.0611,
+            "z_range": 16.1278,
+            "prong_count_est": 0,
+            "count": 18
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.29 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.20mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 18 mutable objects vs HM ~8 (delta=10)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 11,
+          "donor_family": "ER6_Pave_H_Shank",
+          "donor_score": 0.3979,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9895,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 17,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.817,
+            "scale_z": 0.2875,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.1988
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3418,
+            "stone_cz": 14.8824,
+            "footprint_xy": 10.8286,
+            "z_range": 15.8157,
+            "prong_count_est": 0,
+            "count": 17
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.29 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.20mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 17 mutable objects vs HM ~8 (delta=9)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 12,
+          "donor_family": "V6",
+          "donor_score": 0.3977,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9883,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 17,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3064,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.8934
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3418,
+            "stone_cz": 13.4249,
+            "footprint_xy": 10.9662,
+            "z_range": 15.3581,
+            "prong_count_est": 4,
+            "count": 17
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.31 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.89mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 17 mutable objects vs HM ~8 (delta=9)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 13,
+          "donor_family": "U6",
+          "donor_score": 0.3972,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9858,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 23,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3182,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.2813
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3418,
+            "stone_cz": 13.6852,
+            "footprint_xy": 10.8286,
+            "z_range": 14.6185,
+            "prong_count_est": 16,
+            "count": 23
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.28mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 23 mutable objects vs HM ~8 (delta=15)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 14,
+          "donor_family": "ER4_Pave_H_Shank",
+          "donor_score": 0.3971,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9856,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 47,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3183,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.4389
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3418,
+            "stone_cz": 13.4343,
+            "footprint_xy": 10.8286,
+            "z_range": 14.3676,
+            "prong_count_est": 32,
+            "count": 47
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.44mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 47 mutable objects vs HM ~8 (delta=39)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 15,
+          "donor_family": "SP3",
+          "donor_score": 0.3971,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9855,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 45,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.2785,
+            "translate_x": -0.0011,
+            "translate_y": -0.1133,
+            "translate_z": 9.7047
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3418,
+            "stone_cz": 13.5317,
+            "footprint_xy": 10.8286,
+            "z_range": 16.9352,
+            "prong_count_est": 20,
+            "count": 45
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.28 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.70mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 45 mutable objects vs HM ~8 (delta=37)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        }
+      ]
+    },
+    {
+      "missing_shape": "PE",
+      "donor_pool_size": 103,
+      "scored_donors": 103,
+      "best_score": 0.5376,
+      "high_confidence_in_top15": 0,
+      "medium_confidence_in_top15": 0,
+      "top_candidates": [
+        {
+          "rank": 1,
+          "donor_family": "ER6_Solitare",
+          "donor_score": 0.5376,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.7097,
+            "spatial_ratio": 0.9785,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 10,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.89,
+            "scale_z": 0.3184,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.9486
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 13.7858,
+            "footprint_xy": 16.9221,
+            "z_range": 14.4829,
+            "prong_count_est": 0,
+            "count": 10
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.95mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 2,
+          "donor_family": "TM8",
+          "donor_score": 0.5114,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.5806,
+            "spatial_ratio": 0.9764,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 11,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.8751,
+            "scale_z": 0.3147,
+            "translate_x": 0.1737,
+            "translate_y": -0.1161,
+            "translate_z": 8.5246
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0643,
+            "stone_cz": 13.3887,
+            "footprint_xy": 14.0079,
+            "z_range": 1.6266,
+            "prong_count_est": 7,
+            "count": 11
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.31 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.52mm -- stone height mismatch"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.06 outside expected [1.35, 2.1] for PE"
+            },
+            {
+              "factor": "STYLE_TWO_STONE",
+              "severity": "MEDIUM",
+              "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 3,
+          "donor_family": "N4",
+          "donor_score": 0.5053,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.5806,
+            "spatial_ratio": 0.9456,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 11,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3263,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.3635
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 13.0218,
+            "footprint_xy": 12.0689,
+            "z_range": 13.9551,
+            "prong_count_est": 4,
+            "count": 11
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.33 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.36mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 4,
+          "donor_family": "U1",
+          "donor_score": 0.4282,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.9677,
+            "spatial_ratio": 0.1731,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 8,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.6177,
+            "scale_z": 0.2244,
+            "translate_x": 0.2756,
+            "translate_y": 0.883,
+            "translate_z": 10.9662
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0254,
+            "stone_cz": 1.7475,
+            "footprint_xy": 15.7613,
+            "z_range": 12.2064,
+            "prong_count_est": 3,
+            "count": 8
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_LOW",
+              "severity": "HIGH",
+              "detail": "Donor needs 0.62x scale-down -- distortion likely"
+            },
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.22 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +10.97mm -- stone height mismatch"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.03 outside expected [1.35, 2.1] for PE"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.428 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 5,
+          "donor_family": "U11",
+          "donor_score": 0.4193,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.8387,
+            "spatial_ratio": 0.258,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.6815,
+            "scale_z": 0.377,
+            "translate_x": -0.0011,
+            "translate_y": -0.1155,
+            "translate_z": 10.1112
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5186,
+            "stone_cz": 10.2524,
+            "footprint_xy": 13.7928,
+            "z_range": 12.1289,
+            "prong_count_est": 0,
+            "count": 9
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "XY scale factor 0.68 -- moderate distortion risk"
+            },
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.38 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +10.11mm -- stone height mismatch"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.419 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 6,
+          "donor_family": "ER6_Hidden",
+          "donor_score": 0.3979,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9895,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 22,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.817,
+            "scale_z": 0.2875,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.1988
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.7923,
+            "footprint_xy": 12.0689,
+            "z_range": 16.0377,
+            "prong_count_est": 0,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.29 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.20mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 22 mutable objects vs HM ~8 (delta=14)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 7,
+          "donor_family": "ER6_Pave_H_Shank",
+          "donor_score": 0.3979,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9895,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 22,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.817,
+            "scale_z": 0.2875,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.1988
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.7923,
+            "footprint_xy": 12.0689,
+            "z_range": 16.0377,
+            "prong_count_est": 0,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.29 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.20mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 22 mutable objects vs HM ~8 (delta=14)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 8,
+          "donor_family": "V6",
+          "donor_score": 0.3977,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9883,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 19,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3064,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.8934
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 13.9814,
+            "footprint_xy": 12.0689,
+            "z_range": 15.9146,
+            "prong_count_est": 2,
+            "count": 19
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.31 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.89mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 19 mutable objects vs HM ~8 (delta=11)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 9,
+          "donor_family": "U6",
+          "donor_score": 0.3972,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9858,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 26,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3182,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.2813
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5375,
+            "stone_cz": 13.8342,
+            "footprint_xy": 12.8618,
+            "z_range": 17.214,
+            "prong_count_est": 1,
+            "count": 26
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.28mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 26 mutable objects vs HM ~8 (delta=18)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 10,
+          "donor_family": "ER4_Pave_H_Shank",
+          "donor_score": 0.3971,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9856,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 65,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3183,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.4389
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.2669,
+            "footprint_xy": 12.0689,
+            "z_range": 14.964,
+            "prong_count_est": 38,
+            "count": 65
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.44mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 65 mutable objects vs HM ~8 (delta=57)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 11,
+          "donor_family": "SP3",
+          "donor_score": 0.3971,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9855,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 47,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.2785,
+            "translate_x": -0.0011,
+            "translate_y": -0.1133,
+            "translate_z": 9.7047
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.2181,
+            "footprint_xy": 12.0689,
+            "z_range": 17.7436,
+            "prong_count_est": 24,
+            "count": 47
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.28 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.70mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 47 mutable objects vs HM ~8 (delta=39)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 12,
+          "donor_family": "ER2_Hidden",
+          "donor_score": 0.3961,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9806,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 65,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3216,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.447
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.0669,
+            "footprint_xy": 12.0689,
+            "z_range": 14.764,
+            "prong_count_est": 38,
+            "count": 65
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.45mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 65 mutable objects vs HM ~8 (delta=57)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.396 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 13,
+          "donor_family": "ER3_Pave_H_Shank",
+          "donor_score": 0.3961,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9806,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 65,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3216,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.447
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.0669,
+            "footprint_xy": 12.0689,
+            "z_range": 14.764,
+            "prong_count_est": 38,
+            "count": 65
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.45mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 65 mutable objects vs HM ~8 (delta=57)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.396 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 14,
+          "donor_family": "ER3_Hidden",
+          "donor_score": 0.395,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9751,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 40,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.8941,
+            "scale_z": 0.3216,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.3298
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.0669,
+            "footprint_xy": 12.0689,
+            "z_range": 14.764,
+            "prong_count_est": 30,
+            "count": 40
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.33mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 40 mutable objects vs HM ~8 (delta=32)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.395 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 15,
+          "donor_family": "ER5_Pave_H_Shank",
+          "donor_score": 0.395,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9751,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 40,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.8941,
+            "scale_z": 0.3216,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.3298
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.0669,
+            "footprint_xy": 12.0689,
+            "z_range": 14.764,
+            "prong_count_est": 30,
+            "count": 40
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.33mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 40 mutable objects vs HM ~8 (delta=32)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.395 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        }
+      ]
+    },
+    {
+      "missing_shape": "RA",
+      "donor_pool_size": 120,
+      "scored_donors": 120,
+      "best_score": 0.5763,
+      "high_confidence_in_top15": 0,
+      "medium_confidence_in_top15": 0,
+      "top_candidates": [
+        {
+          "rank": 1,
+          "donor_family": "ER6_Solitare",
+          "donor_score": 0.5763,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.9032,
+            "spatial_ratio": 0.9785,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 7,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.89,
+            "scale_z": 0.3184,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.9486
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4592,
+            "stone_cz": 13.2495,
+            "footprint_xy": 15.5789,
+            "z_range": 14.2041,
+            "prong_count_est": 0,
+            "count": 7
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.95mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 2,
+          "donor_family": "N4",
+          "donor_score": 0.5569,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.8387,
+            "spatial_ratio": 0.9456,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3263,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.3635
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4856,
+            "stone_cz": -0.9546,
+            "footprint_xy": 15.5789,
+            "z_range": 14.4813,
+            "prong_count_est": 4,
+            "count": 9
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.33 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.36mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 3,
+          "donor_family": "ER7_Solitare",
+          "donor_score": 0.539,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.7097,
+            "spatial_ratio": 0.9855,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 10,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3184,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.7596
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4592,
+            "stone_cz": 13.2495,
+            "footprint_xy": 15.5789,
+            "z_range": 14.2041,
+            "prong_count_est": 0,
+            "count": 10
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.76mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 4,
+          "donor_family": "ER1_Solitare",
+          "donor_score": 0.4842,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.4516,
+            "spatial_ratio": 0.9692,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 12,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.268,
+            "translate_x": -0.5528,
+            "translate_y": 0.3866,
+            "translate_z": 9.0651
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4592,
+            "stone_cz": 13.1495,
+            "footprint_xy": 15.5789,
+            "z_range": 16.6925,
+            "prong_count_est": 1,
+            "count": 12
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.27 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.07mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.484 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 5,
+          "donor_family": "ER2_Solitare",
+          "donor_score": 0.4842,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.4516,
+            "spatial_ratio": 0.9692,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 12,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.268,
+            "translate_x": -0.5528,
+            "translate_y": 0.3866,
+            "translate_z": 9.0651
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4592,
+            "stone_cz": 13.1495,
+            "footprint_xy": 15.5789,
+            "z_range": 16.6925,
+            "prong_count_est": 1,
+            "count": 12
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.27 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.07mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.484 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 6,
+          "donor_family": "ER3_Solitare",
+          "donor_score": 0.4842,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.4516,
+            "spatial_ratio": 0.9692,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 12,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.268,
+            "translate_x": -0.5528,
+            "translate_y": 0.3866,
+            "translate_z": 9.0651
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4592,
+            "stone_cz": 13.1495,
+            "footprint_xy": 15.5789,
+            "z_range": 16.6925,
+            "prong_count_est": 1,
+            "count": 12
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.27 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.07mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.484 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 7,
+          "donor_family": "TM8",
+          "donor_score": 0.4598,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.3226,
+            "spatial_ratio": 0.9764,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 13,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.8751,
+            "scale_z": 0.3147,
+            "translate_x": 0.1737,
+            "translate_y": -0.1161,
+            "translate_z": 8.5246
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.2301,
+            "stone_cz": 13.9199,
+            "footprint_xy": 15.8914,
+            "z_range": 14.8745,
+            "prong_count_est": 9,
+            "count": 13
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.31 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.52mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 5 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.23 outside expected [1.25, 1.8] for RA"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.460 -- moderate match, review recommended"
+            },
+            {
+              "factor": "STYLE_TWO_STONE",
+              "severity": "MEDIUM",
+              "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 5,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 8,
+          "donor_family": "U11",
+          "donor_score": 0.4193,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.8387,
+            "spatial_ratio": 0.258,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.6815,
+            "scale_z": 0.377,
+            "translate_x": -0.0011,
+            "translate_y": -0.1155,
+            "translate_z": 10.1112
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3369,
+            "stone_cz": 10.2788,
+            "footprint_xy": 15.5789,
+            "z_range": 12.066,
+            "prong_count_est": 0,
+            "count": 9
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "XY scale factor 0.68 -- moderate distortion risk"
+            },
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.38 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +10.11mm -- stone height mismatch"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.419 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 9,
+          "donor_family": "U1",
+          "donor_score": 0.4153,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.9032,
+            "spatial_ratio": 0.1731,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 7,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.6177,
+            "scale_z": 0.2244,
+            "translate_x": 0.2756,
+            "translate_y": 0.883,
+            "translate_z": 10.9662
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.2937,
+            "stone_cz": 1.6539,
+            "footprint_xy": 15.5789,
+            "z_range": 12.7283,
+            "prong_count_est": 2,
+            "count": 7
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_LOW",
+              "severity": "HIGH",
+              "detail": "Donor needs 0.62x scale-down -- distortion likely"
+            },
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.22 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +10.97mm -- stone height mismatch"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.415 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 10,
+          "donor_family": "ER6_Hidden",
+          "donor_score": 0.3979,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9895,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 20,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.817,
+            "scale_z": 0.2875,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.1988
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4592,
+            "stone_cz": 15.1401,
+            "footprint_xy": 15.5789,
+            "z_range": 16.3855,
+            "prong_count_est": 0,
+            "count": 20
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.29 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.20mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 20 mutable objects vs HM ~8 (delta=12)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 11,
+          "donor_family": "ER6_Pave_H_Shank",
+          "donor_score": 0.3979,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9895,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 20,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.817,
+            "scale_z": 0.2875,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.1988
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4592,
+            "stone_cz": 15.1401,
+            "footprint_xy": 15.5789,
+            "z_range": 16.3855,
+            "prong_count_est": 0,
+            "count": 20
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.29 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.20mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 20 mutable objects vs HM ~8 (delta=12)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 12,
+          "donor_family": "V6",
+          "donor_score": 0.3977,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9883,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 20,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3064,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.8934
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4592,
+            "stone_cz": 13.649,
+            "footprint_xy": 15.5789,
+            "z_range": 15.5822,
+            "prong_count_est": 4,
+            "count": 20
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.31 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.89mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 20 mutable objects vs HM ~8 (delta=12)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 13,
+          "donor_family": "U6",
+          "donor_score": 0.3972,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9858,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 23,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3182,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.2813
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4592,
+            "stone_cz": 13.3614,
+            "footprint_xy": 15.5789,
+            "z_range": 14.316,
+            "prong_count_est": 16,
+            "count": 23
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.28mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 23 mutable objects vs HM ~8 (delta=15)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 14,
+          "donor_family": "ER4_Pave_H_Shank",
+          "donor_score": 0.3971,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9856,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 49,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3183,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.4389
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4592,
+            "stone_cz": 13.4007,
+            "footprint_xy": 15.5789,
+            "z_range": 14.3553,
+            "prong_count_est": 34,
+            "count": 49
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.44mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 49 mutable objects vs HM ~8 (delta=41)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 15,
+          "donor_family": "SP3",
+          "donor_score": 0.3971,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9855,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 47,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.2785,
+            "translate_x": -0.0011,
+            "translate_y": -0.1133,
+            "translate_z": 9.7047
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.4592,
+            "stone_cz": 13.3499,
+            "footprint_xy": 15.5789,
+            "z_range": 16.7429,
+            "prong_count_est": 22,
+            "count": 47
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.28 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.70mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 47 mutable objects vs HM ~8 (delta=39)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        }
+      ]
+    },
+    {
+      "missing_shape": "RD",
+      "donor_pool_size": 111,
+      "scored_donors": 111,
+      "best_score": 0.5892,
+      "high_confidence_in_top15": 0,
+      "medium_confidence_in_top15": 0,
+      "top_candidates": [
+        {
+          "rank": 1,
+          "donor_family": "ER6_Solitare",
+          "donor_score": 0.5892,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.9677,
+            "spatial_ratio": 0.9785,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 8,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.89,
+            "scale_z": 0.3184,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.9486
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0002,
+            "stone_cz": 13.6379,
+            "footprint_xy": 16.9221,
+            "z_range": 14.8833,
+            "prong_count_est": 0,
+            "count": 8
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.95mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 2,
+          "donor_family": "N4",
+          "donor_score": 0.5827,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.9677,
+            "spatial_ratio": 0.9456,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 8,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3263,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.3635
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0002,
+            "stone_cz": 13.1959,
+            "footprint_xy": 9.2911,
+            "z_range": 0.124,
+            "prong_count_est": 6,
+            "count": 8
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.33 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.36mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 3,
+          "donor_family": "ER7_Solitare",
+          "donor_score": 0.5648,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.8387,
+            "spatial_ratio": 0.9855,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3184,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.7596
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0002,
+            "stone_cz": 13.6379,
+            "footprint_xy": 11.0611,
+            "z_range": 14.8833,
+            "prong_count_est": 4,
+            "count": 9
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.76mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 4,
+          "donor_family": "ER1_Solitare",
+          "donor_score": 0.51,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.5806,
+            "spatial_ratio": 0.9692,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 11,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.268,
+            "translate_x": -0.5528,
+            "translate_y": 0.3866,
+            "translate_z": 9.0651
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0002,
+            "stone_cz": 13.6379,
+            "footprint_xy": 11.0611,
+            "z_range": 18.0491,
+            "prong_count_est": 1,
+            "count": 11
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.27 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.07mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 5,
+          "donor_family": "ER2_Solitare",
+          "donor_score": 0.51,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.5806,
+            "spatial_ratio": 0.9692,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 11,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.268,
+            "translate_x": -0.5528,
+            "translate_y": 0.3866,
+            "translate_z": 9.0651
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0002,
+            "stone_cz": 13.6379,
+            "footprint_xy": 11.0611,
+            "z_range": 18.0491,
+            "prong_count_est": 1,
+            "count": 11
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.27 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.07mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 6,
+          "donor_family": "ER3_Solitare",
+          "donor_score": 0.51,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.5806,
+            "spatial_ratio": 0.9692,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 11,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.268,
+            "translate_x": -0.5528,
+            "translate_y": 0.3866,
+            "translate_z": 9.0651
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0002,
+            "stone_cz": 13.6379,
+            "footprint_xy": 11.0611,
+            "z_range": 18.0491,
+            "prong_count_est": 1,
+            "count": 11
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.27 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.07mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 7,
+          "donor_family": "TM8",
+          "donor_score": 0.4856,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.4516,
+            "spatial_ratio": 0.9764,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 12,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.8751,
+            "scale_z": 0.3147,
+            "translate_x": 0.1737,
+            "translate_y": -0.1161,
+            "translate_z": 8.5246
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0688,
+            "stone_cz": 13.6519,
+            "footprint_xy": 11.7151,
+            "z_range": 14.9671,
+            "prong_count_est": 7,
+            "count": 12
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.31 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.52mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.486 -- moderate match, review recommended"
+            },
+            {
+              "factor": "STYLE_TWO_STONE",
+              "severity": "MEDIUM",
+              "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 4,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 8,
+          "donor_family": "U11",
+          "donor_score": 0.4193,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.8387,
+            "spatial_ratio": 0.258,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.6815,
+            "scale_z": 0.377,
+            "translate_x": -0.0011,
+            "translate_y": -0.1155,
+            "translate_z": 10.1112
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0385,
+            "stone_cz": 10.4557,
+            "footprint_xy": 13.7002,
+            "z_range": 12.884,
+            "prong_count_est": 0,
+            "count": 9
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "XY scale factor 0.68 -- moderate distortion risk"
+            },
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.38 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +10.11mm -- stone height mismatch"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.419 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 9,
+          "donor_family": "U1",
+          "donor_score": 0.4153,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.9032,
+            "spatial_ratio": 0.1731,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 7,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.6177,
+            "scale_z": 0.2244,
+            "translate_x": 0.2756,
+            "translate_y": 0.883,
+            "translate_z": 10.9662
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3462,
+            "stone_cz": 1.9526,
+            "footprint_xy": 16.1944,
+            "z_range": 13.4698,
+            "prong_count_est": 3,
+            "count": 7
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_LOW",
+              "severity": "HIGH",
+              "detail": "Donor needs 0.62x scale-down -- distortion likely"
+            },
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.22 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +10.97mm -- stone height mismatch"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.35 outside expected [0.92, 1.08] for RD"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.415 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 10,
+          "donor_family": "V6",
+          "donor_score": 0.4106,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0645,
+            "spatial_ratio": 0.9883,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 15,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3064,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.8934
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0002,
+            "stone_cz": 13.7417,
+            "footprint_xy": 10.6594,
+            "z_range": 15.5448,
+            "prong_count_est": 4,
+            "count": 15
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.31 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.89mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 7 from HM average"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.411 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 11,
+          "donor_family": "ER6_Hidden",
+          "donor_score": 0.3979,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9895,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 19,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.817,
+            "scale_z": 0.2875,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.1988
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0027,
+            "stone_cz": 14.2852,
+            "footprint_xy": 11.0611,
+            "z_range": 16.0999,
+            "prong_count_est": 0,
+            "count": 19
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.29 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.20mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 19 mutable objects vs HM ~8 (delta=11)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 12,
+          "donor_family": "ER6_Pave_H_Shank",
+          "donor_score": 0.3979,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9895,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 16,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.817,
+            "scale_z": 0.2875,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 9.1988
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0002,
+            "stone_cz": 14.8545,
+            "footprint_xy": 9.2911,
+            "z_range": 3.768,
+            "prong_count_est": 4,
+            "count": 16
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.29 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.20mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 16 mutable objects vs HM ~8 (delta=8)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.398 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 13,
+          "donor_family": "U6",
+          "donor_score": 0.3972,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9858,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 22,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3182,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.2813
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0002,
+            "stone_cz": 14.1386,
+            "footprint_xy": 9.2911,
+            "z_range": 5.3387,
+            "prong_count_est": 19,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.28mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 22 mutable objects vs HM ~8 (delta=14)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 14,
+          "donor_family": "ER4_Pave_H_Shank",
+          "donor_score": 0.3971,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9856,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 46,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.3183,
+            "translate_x": -0.0011,
+            "translate_y": -0.1129,
+            "translate_z": 8.4389
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0002,
+            "stone_cz": 13.8858,
+            "footprint_xy": 9.2911,
+            "z_range": 3.1706,
+            "prong_count_est": 36,
+            "count": 46
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.32 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +8.44mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 46 mutable objects vs HM ~8 (delta=38)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 15,
+          "donor_family": "SP3",
+          "donor_score": 0.3971,
+          "score_breakdown": {
+            "frame_similarity": 0.0,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9855,
+            "shared_shapes": 1.0
+          },
+          "bridge_shape_used": "EM",
+          "donor_target_count": 44,
+          "hm_expected_count": 7.8,
+          "affine_params": {
+            "scale_xy": 0.9036,
+            "scale_z": 0.2785,
+            "translate_x": -0.0011,
+            "translate_y": -0.1133,
+            "translate_z": 9.7047
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0,
+            "stone_cz": 13.3897,
+            "footprint_xy": 9.2911,
+            "z_range": 17.3638,
+            "prong_count_est": 24,
+            "count": 44
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_Z_HIGH",
+              "severity": "MEDIUM",
+              "detail": "Z scale factor 0.28 -- vertical geometry will be stretched"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +9.70mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 44 mutable objects vs HM ~8 (delta=36)"
+            },
+            {
+              "factor": "MODERATE_SIMILARITY",
+              "severity": "MEDIUM",
+              "detail": "Score 0.397 -- moderate match, review recommended"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null
+          },
+          "auto_arch": [
+            "A"
+          ]
+        }
+      ]
+    }
+  ],
+  "library_count": 126,
+  "elapsed_seconds": 0.0
+}
