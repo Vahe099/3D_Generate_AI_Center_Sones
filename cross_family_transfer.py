@@ -131,24 +131,42 @@ prong_est = sum(
     if czs[i] > zmx * 0.85 and max(sxs[i], sys_[i]) < stone_sx * 0.6
 )
 
+# Melee estimate: objects near stone girdle level with small footprint (halo/pave stones)
+melee_est = sum(
+    1 for i in range(n)
+    if i != st_idx
+    and abs(czs[i] - czs[st_idx]) < 2.0
+    and max(sxs[i], sys_[i]) < stone_sx * 0.45
+    and czs[i] > 3.0
+)
+
+# Strata count: distinct 1mm Z-bins occupied by mutable objects
+strata_count = len(set(int(cz // 1.0) for cz in czs))
+
+# Basket depth: how far below stone centroid the assembly extends
+basket_depth = round(czs[st_idx] - min(czs), 4)
+
 print(json.dumps({
-    "count":          n,
-    "cx_mean":        round(sum(cxs)/n, 4),
-    "cy_mean":        round(sum(cys)/n, 4),
-    "cz_mean":        round(sum(czs)/n, 4),
-    "sx_mean":        round(sum(sxs)/n, 4),
-    "sy_mean":        round(sum(sys_)/n, 4),
-    "sz_mean":        round(sum(szs)/n, 4),
-    "footprint_xy":   round(max(max(sxs), max(sys_)), 4),
-    "z_top":          round(zmx, 4),
-    "z_bottom":       round(min(czs), 4),
-    "z_range":        round(zmx - min(czs), 4),
-    "stone_sx":       round(stone_sx, 4),
-    "stone_sy":       round(stone_sy, 4),
-    "stone_cz":       round(czs[st_idx], 4),
-    "stone_ar":       round(stone_ar, 4),
+    "count":           n,
+    "cx_mean":         round(sum(cxs)/n, 4),
+    "cy_mean":         round(sum(cys)/n, 4),
+    "cz_mean":         round(sum(czs)/n, 4),
+    "sx_mean":         round(sum(sxs)/n, 4),
+    "sy_mean":         round(sum(sys_)/n, 4),
+    "sz_mean":         round(sum(szs)/n, 4),
+    "footprint_xy":    round(max(max(sxs), max(sys_)), 4),
+    "z_top":           round(zmx, 4),
+    "z_bottom":        round(min(czs), 4),
+    "z_range":         round(zmx - min(czs), 4),
+    "stone_sx":        round(stone_sx, 4),
+    "stone_sy":        round(stone_sy, 4),
+    "stone_cz":        round(czs[st_idx], 4),
+    "stone_ar":        round(stone_ar, 4),
     "prong_count_est": prong_est,
-    "nsrf_mean":      round(sum(nsrf)/max(n,1), 2),
+    "melee_count_est": melee_est,
+    "strata_count":    strata_count,
+    "basket_depth":    basket_depth,
+    "nsrf_mean":       round(sum(nsrf)/max(n,1), 2),
 }))
 """
 
@@ -493,8 +511,22 @@ def estimate_affine(dn_bf: dict, hm_bf: dict) -> dict:
 
 
 # ─────────────────────────────────────────────────────────────
-#  Risk identification
+#  Style classification + risk identification
 # ─────────────────────────────────────────────────────────────
+
+def _style_class(melee_count_est: int, prong_count_est: int) -> str:
+    """Derive setting style from structural counts.
+
+    HALO     — many small stones surrounding stone at girdle level
+    PAVE     — modest melee count (shoulder pave, partial halo)
+    SOLITAIRE — prong-only setting, no melee
+    BARE     — minimal geometry (basket/bezel, GS_62-style)
+    """
+    if melee_count_est > 8:   return "HALO"
+    if melee_count_est > 2:   return "PAVE"
+    if prong_count_est >= 4:  return "SOLITAIRE"
+    return "BARE"
+
 
 def identify_risks(
     affine:        dict,
@@ -504,6 +536,7 @@ def identify_risks(
     score:         float,
     target_shape:  str,
     donor_family:  str,
+    hm_tgt_frame:  dict | None = None,  # target family's bridge frame (style reference)
 ) -> list[dict]:
     risks = []
 
@@ -559,6 +592,24 @@ def identify_risks(
     elif donor_family.startswith("TS"):
         risks.append({"factor": "STYLE_THREE_STONE", "severity": "LOW",
                       "detail": "Three-stone family -- side settings may introduce extra objects"})
+
+    # Phase 3 — geometry style checks (require new cache fields; silently skip if absent)
+    if hm_tgt_frame and dn_tgt_frame:
+        hm_style = _style_class(hm_tgt_frame.get("melee_count_est", 0),
+                                 hm_tgt_frame.get("prong_count_est", 0))
+        dn_style = _style_class(dn_tgt_frame.get("melee_count_est", 0),
+                                 dn_tgt_frame.get("prong_count_est", 0))
+        if hm_style not in ("BARE",) and dn_style not in ("BARE",) and hm_style != dn_style:
+            sev = "HIGH" if {"HALO"} & {hm_style, dn_style} else "MEDIUM"
+            risks.append({"factor": "STYLE_MISMATCH",
+                          "severity": sev,
+                          "detail": f"Target style {hm_style} vs donor style {dn_style}"})
+
+        hm_melee = hm_tgt_frame.get("melee_count_est", 0)
+        dn_melee = dn_tgt_frame.get("melee_count_est", 0)
+        if hm_melee > 6 and dn_melee == 0:
+            risks.append({"factor": "MELEE_COUNT_MISMATCH", "severity": "HIGH",
+                          "detail": f"Target has {hm_melee} melee stones; donor has none -- halo frame will not transfer"})
 
     return risks
 
@@ -1249,7 +1300,8 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
 
             affine  = estimate_affine(dn_bf, hm_bf) if dn_bf else {}
             risks   = identify_risks(affine, dn_tf, dn_tgt_count,
-                                     hm_count_mean, score, miss, fam)
+                                     hm_count_mean, score, miss, fam,
+                                     hm_tgt_frame=hm_bf)
 
             # Refine score with C5 (stone AR) now that target frame is available
             dn_ar = dn_tf.get("stone_ar") if dn_tf else None
@@ -1283,6 +1335,9 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
                     "footprint_xy":     dn_tf.get("footprint_xy"),
                     "z_range":          dn_tf.get("z_range"),
                     "prong_count_est":  dn_tf.get("prong_count_est"),
+                    "melee_count_est":  dn_tf.get("melee_count_est"),
+                    "strata_count":     dn_tf.get("strata_count"),
+                    "basket_depth":     dn_tf.get("basket_depth"),
                     "count":            dn_tf.get("count"),
                 } if dn_tf else None,
                 "expected_confidence":   conf,
