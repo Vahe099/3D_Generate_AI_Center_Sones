@@ -13,6 +13,7 @@ Does NOT generate any .3dm output files.
 """
 
 import sys, json, os, subprocess, math, time
+from collections import Counter
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
@@ -27,8 +28,8 @@ WORKER_FILE        = Path("_cf_frame_worker.py")
 SYNTH_WORKER_FILE  = Path("_cf_synth_worker.py")
 COMPARE_WORKER_FILE = Path("_cf_compare_worker.py")
 MAX_WORKERS      = 8      # parallel subprocess slots
-TOP_N            = 15     # candidates to report per missing shape
-PRESCORE_KEEP    = 20     # donors to load target frames for (>= TOP_N)
+TOP_N            = 40     # candidates to report per missing shape
+PRESCORE_KEEP    = 40     # donors to load target frames for (>= TOP_N)
 
 ALL_SHAPES = ["AS", "CU", "ELCU", "EM", "MQ", "OV", "PE", "PR", "RA", "RD"]
 
@@ -136,7 +137,7 @@ melee_est = sum(
     1 for i in range(n)
     if i != st_idx
     and abs(czs[i] - czs[st_idx]) < 2.0
-    and max(sxs[i], sys_[i]) < stone_sx * 0.45
+    and max(sxs[i], sys_[i]) < stone_sx * 0.60
     and czs[i] > 3.0
 )
 
@@ -451,20 +452,40 @@ def score_donor(
     C5 (stone AR similarity) uses target-shape frames; omitted with renormalization when absent.
     """
 
-    # C1 — frame similarity: Z height, footprint size, Z range
+    # C1 — stone-centric frame similarity (all relative/ratio comparisons).
+    #
+    # stone_cz (sigma=0.20, tight): primary structural alignment — where the stone sits.
+    #   cz_mean is unreliable because deep basket elements shift the mean without changing
+    #   stone placement (e.g. SP6 cz_mean=7.7mm but stone_cz=12.1mm ≈ HM 12.3mm).
+    #
+    # footprint_xy (sigma=0.80, loose): affine scale_xy compensates size differences.
+    #   Allow ±80% relative size before heavy penalty. SP6 (47% smaller) gets 0.84.
+    #
+    # basket_depth / z_range (sigma=0.50, moderate): how far the assembly extends below stone.
+    #   Key discriminator: HM/SP6 deep basket (~12–14mm) vs Warren/GS_62 shallow (~3–5mm).
+    #   Falls back to z_range when basket_depth unavailable (old cache entries).
+    def _rel(a: float, b: float) -> float:
+        return a / max(b, 0.001) - 1.0
+
+    _dn_cz  = dn_bf.get("stone_cz") or dn_bf["cz_mean"]
+    _hm_cz  = hm_bf.get("stone_cz") or hm_bf["cz_mean"]
+    _dn_dep = dn_bf.get("basket_depth") or dn_bf.get("z_range", 1.0)
+    _hm_dep = hm_bf.get("basket_depth") or hm_bf.get("z_range", 1.0)
+
     c1 = (
-        _gauss(dn_bf["cz_mean"]      - hm_bf["cz_mean"],      1.5) *
-        _gauss(dn_bf["footprint_xy"] - hm_bf["footprint_xy"], 2.0) *
-        _gauss(dn_bf["z_range"]      - hm_bf["z_range"],      1.5)
+        _gauss(_rel(_dn_cz,              _hm_cz),              0.20) *
+        _gauss(_rel(dn_bf["footprint_xy"], hm_bf["footprint_xy"]), 0.80) *
+        _gauss(_rel(_dn_dep,              _hm_dep),              0.50)
     )
 
     # C2 — target shape object count vs HM expected
     c2 = max(0.0, 1.0 - abs(dn_tgt_count - hm_count_mean) / max(hm_count_mean, 1))
 
-    # C3 — footprint/z_top ratio (ring-size normalised setting size)
+    # C3 — footprint/z_top ratio (ring-size normalised setting style).
+    # Relative comparison: same style rings have similar ratios regardless of absolute size.
     r_dn = dn_bf["footprint_xy"] / max(dn_bf["z_top"], 0.01)
     r_hm = hm_bf["footprint_xy"] / max(hm_bf["z_top"], 0.01)
-    c3 = _gauss(r_dn - r_hm, 0.30)
+    c3 = _gauss(r_dn / max(r_hm, 0.001) - 1.0, 0.50)
 
     # C4 — shared known shapes with HM
     c4 = len(set(dn_shapes) & set(hm_known)) / max(len(hm_known), 1)
@@ -1175,14 +1196,19 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
         print(f"  Bridge  : {bridge} (coverage {coverage[bridge]}/{len(libs)} families)")
 
     # ── 3. Build donor pools per missing shape ─────────────────
+    # Per-donor bridge selection: any shape common with HM (other than miss) is eligible.
+    # This removes the global bridge constraint that excluded donors like SP6 whose bridge-
+    # shape frame has an inflated footprint from pave-shank classification artifacts.
     pools: dict[str, list[str]] = {}
     for miss in missing:
         pool = [
             fam for fam, fd in libs.items()
-            if fam != target_family and bridge in fd["shapes"] and miss in fd["shapes"]
+            if fam != target_family
+            and miss in fd["shapes"]
+            and any(s in fd["shapes"] for s in hm_known if s != miss)
         ]
         pools[miss] = pool
-        print(f"    {miss}: {len(pool)} donors with bridge={bridge}")
+        print(f"    {miss}: {len(pool)} donors (per-donor bridge)")
 
     # ── 4. Phase 1 — load bridge frames for all unique donors ──
     all_donor_fams = set(fam for pool in pools.values() for fam in pool)
@@ -1197,14 +1223,17 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
             idxs = hm_idx[s]["mutable_object_indices"]
             hm_frame_tasks.append((key, src, idxs))
 
-    # Donor bridge frames
+    # Donor bridge frames — load all (donor, hm_shape) pairs; per-donor selection happens later
     bridge_tasks = []
     for fam in all_donor_fams:
-        key = f"{fam}|{bridge}"
-        if key not in cache:
-            src  = Path(libs[fam]["idx"][bridge]["source_file"])
-            idxs = libs[fam]["idx"][bridge]["mutable_object_indices"]
-            bridge_tasks.append((key, src, idxs))
+        for s in hm_known:
+            if s not in libs[fam]["shapes"]:
+                continue
+            key = f"{fam}|{s}"
+            if key not in cache:
+                src  = Path(libs[fam]["idx"][s]["source_file"])
+                idxs = libs[fam]["idx"][s]["mutable_object_indices"]
+                bridge_tasks.append((key, src, idxs))
 
     total_p1 = len(hm_frame_tasks) + len(bridge_tasks)
     print(f"\nPhase 1: loading {total_p1} bridge frames ({len(hm_frame_tasks)} HM + {len(bridge_tasks)} donors)...")
@@ -1224,6 +1253,29 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
         print(f"ERROR: Could not load bridge frame for {target_family}|{bridge}")
         sys.exit(1)
 
+    # Style reference frame for identify_risks(): use the majority (mode) style across all
+    # known shapes, then pick the highest melee/prong within that majority group.
+    # MAX would let a single outlier shape (e.g. Warren|MQ with 16 melee) force the whole
+    # family to classify as HALO when 3/4 shapes are PAVE.
+    _hm_style_frames = [
+        (cache[f"{target_family}|{s}"].get("melee_count_est", 0),
+         cache[f"{target_family}|{s}"].get("prong_count_est", 0))
+        for s in hm_known
+        if f"{target_family}|{s}" in cache
+    ]
+    if _hm_style_frames:
+        _hm_styles_list = [_style_class(m, p) for m, p in _hm_style_frames]
+        _hm_mode_style  = Counter(_hm_styles_list).most_common(1)[0][0]
+        _hm_majority    = [
+            (m, p)
+            for (m, p), st in zip(_hm_style_frames, _hm_styles_list)
+            if st == _hm_mode_style
+        ]
+        _hm_best = max(_hm_majority, key=lambda x: x[0])
+        hm_style_ref = {"melee_count_est": _hm_best[0], "prong_count_est": _hm_best[1]}
+    else:
+        hm_style_ref = {"melee_count_est": 0, "prong_count_est": 0}
+
     hm_counts      = [hm_idx[s]["mutable_object_count"] for s in hm_known if s in hm_idx]
     hm_count_mean  = sum(hm_counts) / max(len(hm_counts), 1)
 
@@ -1231,21 +1283,39 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
     for miss in missing:
         rows = []
         for fam in pools[miss]:
-            dn_bf = cache.get(f"{fam}|{bridge}")
-            if not dn_bf:
+            # Per-donor best bridge: common shape with HM minimising footprint delta
+            best_s      = None
+            best_delta  = float("inf")
+            for s in hm_known:
+                if s == miss:
+                    continue
+                dn_frame_s = cache.get(f"{fam}|{s}")
+                hm_frame_s = cache.get(f"{target_family}|{s}")
+                if dn_frame_s and hm_frame_s:
+                    d = abs(dn_frame_s["footprint_xy"] - hm_frame_s["footprint_xy"])
+                    if d < best_delta:
+                        best_delta = d
+                        best_s     = s
+            if not best_s:
                 continue
+            dn_bf_best   = cache[f"{fam}|{best_s}"]
+            hm_bf_best   = cache[f"{target_family}|{best_s}"]
             dn_tgt_count = libs[fam]["idx"].get(miss, {}).get("mutable_object_count", 0)
-            score, breakdown = score_donor(hm_bf, dn_bf, dn_tgt_count,
+            score, breakdown = score_donor(hm_bf_best, dn_bf_best, dn_tgt_count,
                                            hm_count_mean, hm_known, libs[fam]["shapes"])
             rows.append({
                 "donor_family":       fam,
                 "donor_score":        score,
                 "score_breakdown":    breakdown,
                 "donor_target_count": dn_tgt_count,
+                "best_bridge_shape":  best_s,
             })
         rows.sort(key=lambda x: x["donor_score"], reverse=True)
         prescored[miss] = rows
-        print(f"    {miss}: top scorer = {rows[0]['donor_family']} ({rows[0]['donor_score']:.4f})" if rows else f"    {miss}: NO donors scored")
+        if rows:
+            print(f"    {miss}: top scorer = {rows[0]['donor_family']} ({rows[0]['donor_score']:.4f}) bridge={rows[0]['best_bridge_shape']}")
+        else:
+            print(f"    {miss}: NO donors scored")
 
     # ── 6. Phase 2 — load target frames for top-N donors ──────
     target_frame_tasks = []
@@ -1292,16 +1362,18 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
         hm_target_ar   = (ar_lo + ar_hi) / 2
 
         for rank, row in enumerate(top_rows, 1):
-            fam          = row["donor_family"]
-            score        = row["donor_score"]
-            dn_tgt_count = row["donor_target_count"]
-            dn_bf        = cache.get(f"{fam}|{bridge}")
-            dn_tf        = cache.get(f"{fam}|{miss}")
+            fam           = row["donor_family"]
+            score         = row["donor_score"]
+            dn_tgt_count  = row["donor_target_count"]
+            best_bridge   = row.get("best_bridge_shape", bridge)
+            dn_bf         = cache.get(f"{fam}|{best_bridge}")
+            hm_bf_row     = cache.get(f"{target_family}|{best_bridge}") or hm_bf
+            dn_tf         = cache.get(f"{fam}|{miss}")
 
-            affine  = estimate_affine(dn_bf, hm_bf) if dn_bf else {}
+            affine  = estimate_affine(dn_bf, hm_bf_row) if dn_bf else {}
             risks   = identify_risks(affine, dn_tf, dn_tgt_count,
                                      hm_count_mean, score, miss, fam,
-                                     hm_tgt_frame=hm_bf)
+                                     hm_tgt_frame=hm_style_ref)
 
             # Refine score with C5 (stone AR) now that target frame is available
             dn_ar = dn_tf.get("stone_ar") if dn_tf else None
@@ -1325,7 +1397,7 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
                 "donor_score":           score,
                 "score_breakdown":       row["score_breakdown"],
                 "stone_ar_sim":          ar_sim,
-                "bridge_shape_used":     bridge,
+                "bridge_shape_used":     best_bridge,
                 "donor_target_count":    dn_tgt_count,
                 "hm_expected_count":     round(hm_count_mean, 1),
                 "affine_params":         affine,
