@@ -130,20 +130,46 @@ def fingerprint_object(obj) -> Optional[dict]:
     return fp
 
 
+def is_contaminant(obj, model) -> bool:
+    """Return True for objects that must be excluded from all pipeline processing.
+
+    Excluded in-memory only — source files are never modified.
+    Two classes:
+      - Gem-layer reference stone: layer name == "Gem" exactly (not "Gem 01" etc.)
+      - GroundPlane: flat render/lighting plane with footprint > 150 mm and height < 2 mm
+    """
+    li = obj.Attributes.LayerIndex
+    if li < len(model.Layers):
+        if model.Layers[li].Name.strip() == "Gem":
+            return True
+    try:
+        bb = obj.Geometry.GetBoundingBox()
+        if bb:
+            dx = bb.Max.X - bb.Min.X
+            dy = bb.Max.Y - bb.Min.Y
+            dz = bb.Max.Z - bb.Min.Z
+            if max(dx, dy) > 150 and dz < 2:
+                return True
+    except Exception:
+        pass
+    return False
+
+
 # --- Stone shape detection ---------------------------------------------------
 
 # Abbreviation → full name mapping (from real 169-file library)
 SHAPE_ABBREV_MAP = {
-    "RD":   "Round",
-    "OV":   "Oval",
-    "PE":   "Pear",
-    "EM":   "Emerald",
-    "PR":   "Princess",
-    "MQ":   "Marquise",
-    "AS":   "Asscher",
-    "CU":   "Cushion",
-    "ELCU": "Elongated Cushion",
-    "RA":   "Radiant",
+    "RD":       "Round",
+    "OV":       "Oval",
+    "EM":       "Emerald",
+    "PR":       "Princess",
+    "MQ":       "Marquise",
+    "AS":       "Asscher",
+    "CU":       "Cushion",
+    "ELCU":     "Elongated Cushion",
+    "RA":       "Radiant",
+    "SquareCU": "Square Cushion",
+    "PE":       "Pear",   # Last: TM (Toi Et Moi) files always contain PE; the second stone code takes priority
 }
 
 # Reverse map: full name → abbreviation (for CLI convenience)
@@ -155,22 +181,26 @@ STONE_SHAPES = list(SHAPE_ABBREV_MAP.keys())  # canonical keys are abbreviations
 def detect_shape_from_filename(path: str) -> Optional[str]:
     """
     Detect stone shape abbreviation from filename.
-    Handles underscore- and space-separated tokens, e.g.:
-      ER1_Halo_RD.3dm          → RD
-      AD2_ArtDeco RD P.3dm     → RD
-      AD2_ArtDeco ELCU P.3dm   → ELCU
-      ER6_Halo_EL CU P.3dm     → ELCU  (bigram "EL"+"CU")
-    Returns the abbreviation (e.g. 'RD', 'ELCU') or None.
+    Handles multiple naming formats:
+      ER1_Halo_RD.3dm            -> RD   (underscore-separated)
+      AD2_ArtDeco ELCU P.3dm     -> ELCU (space-separated)
+      ER6_Halo_EL CU P.3dm       -> ELCU (bigram "EL"+"CU")
+      SP1(AS).3dm                -> AS   (parenthesised suffix)
+      SP1(SquareCU).3dm          -> SquareCU (parenthesised, mixed-case)
+      ER1-(1.4mmShank)AS.3dm     -> AS   (shape after closing paren)
+    Returns the canonical abbreviation or None.
     """
     stem = Path(path).stem.upper()
-    tokens = stem.replace("_", " ").split()
-    # Also form consecutive bigrams to catch multi-word codes like "EL CU" → "ELCU"
+    # Split on all non-alpha-digit separators including parens, dashes, dots
+    parts = re.split(r"[_\s\-\(\)\.]+", stem)
+    tokens = [t for t in parts if t]
+    # Consecutive bigrams to catch "EL CU" -> "ELCU"
     bigrams = [tokens[i] + tokens[i + 1] for i in range(len(tokens) - 1)]
     candidates = set(tokens) | set(bigrams)
 
-    # Try longest abbreviations first so ELCU is matched before CU
+    # Match longest abbreviations first (ELCU before CU, SquareCU before CU)
     for abbrev in sorted(SHAPE_ABBREV_MAP.keys(), key=len, reverse=True):
-        if abbrev in candidates:
+        if abbrev.upper() in candidates:
             return abbrev
 
     return None
@@ -182,10 +212,11 @@ def resolve_shape(shape_input: str) -> str:
     Returns the canonical abbreviation or raises ValueError.
     """
     s = shape_input.strip()
-    # Try direct abbreviation match
+    # Try case-insensitive abbreviation match (handles SquareCU mixed-case key)
     upper = s.upper()
-    if upper in SHAPE_ABBREV_MAP:
-        return upper
+    for key in SHAPE_ABBREV_MAP:
+        if key.upper() == upper:
+            return key
     # Try full name match
     lower = s.lower()
     if lower in SHAPE_NAME_MAP:
@@ -205,6 +236,8 @@ class ParsedFile:
     shape: str
     fingerprints: list   # list of fingerprint dicts, one per object
     object_count: int
+    filtered_gem_refs:    int = 0
+    filtered_groundplanes: int = 0
 
 def parse_file(path: str) -> ParsedFile:
     shape = detect_shape_from_filename(path)
@@ -218,13 +251,26 @@ def parse_file(path: str) -> ParsedFile:
         raise IOError(f"Failed to read: {path}")
 
     fps = []
+    n_gem = 0
+    n_gnd = 0
     for obj in model.Objects:
+        if is_contaminant(obj, model):
+            li = obj.Attributes.LayerIndex
+            if li < len(model.Layers) and model.Layers[li].Name.strip() == "Gem":
+                n_gem += 1
+            else:
+                n_gnd += 1
+            continue
         fp = fingerprint_object(obj)
         if fp is not None:
             fps.append(fp)
 
-    print(f"  [{shape:10s}] {len(fps)} objects fingerprinted from {Path(path).name}")
-    return ParsedFile(path=path, shape=shape, fingerprints=fps, object_count=len(fps))
+    filter_note = ""
+    if n_gem or n_gnd:
+        filter_note = f"  [filtered: {n_gem} gem_ref, {n_gnd} groundplane]"
+    print(f"  [{shape:10s}] {len(fps)} objects fingerprinted from {Path(path).name}{filter_note}")
+    return ParsedFile(path=path, shape=shape, fingerprints=fps, object_count=len(fps),
+                      filtered_gem_refs=n_gem, filtered_groundplanes=n_gnd)
 
 
 # --- Classification result ────────────────────────────────────────────────────
@@ -427,7 +473,7 @@ def scan_dataset(dataset_root: Path) -> dict[str, list[Path]]:
         if len(files) >= 2:
             families[family_dir.name] = files
         elif len(files) == 1:
-            print(f"  WARNING: {family_dir.name} has only 1 .3dm file — need ≥2 to diff, skipping.")
+            print(f"  WARNING: {family_dir.name} has only 1 .3dm file -- need >=2 to diff, skipping.")
     return families
 
 
@@ -474,6 +520,11 @@ def _build_family_library(
         full = SHAPE_ABBREV_MAP.get(shape, shape)
         print(f"    {shape:6s} ({full:20s}): {len(hashes)} mutable objects")
 
+    total_gem = sum(pf.filtered_gem_refs    for pf in parsed)
+    total_gnd = sum(pf.filtered_groundplanes for pf in parsed)
+    if total_gem or total_gnd:
+        print(f"  Auto-filtered : {total_gem} gem_ref object(s), {total_gnd} groundplane object(s)")
+
     classification = {
         "family": family_name,
         "exact_static_hashes":    sorted(r.exact_static_hashes),
@@ -486,6 +537,8 @@ def _build_family_library(
         "source_files": {pf.shape: str(Path(pf.path).resolve()) for pf in parsed},
         "tolerances": {"center_mm": center_tol, "size_mm": size_tol,
                        "vol": "inf" if vol_tol == float("inf") else vol_tol},
+        "filtered_gem_refs":    total_gem,
+        "filtered_groundplanes": total_gnd,
     }
     class_path = family_lib / "classification.json"
     with open(class_path, "w") as f:
@@ -1331,6 +1384,459 @@ def batch_validate(
 
 # --- CLI ---------------------------------------------------------------------
 
+# --- analyze-new: single-file geometry bootstrap -----------------------------
+
+def _r_axis(fp: dict) -> float:
+    """Distance of object centroid from the Z-axis (ring axis)."""
+    return math.sqrt(fp["cx"] ** 2 + fp["cy"] ** 2)
+
+
+def _xy_footprint(fp: dict) -> float:
+    return fp["sx"] * fp["sy"]
+
+
+def _find_z_split(z_values: list) -> tuple:
+    """
+    Find the most meaningful Z split between shank (low) and stone assembly (high).
+    Returns (split_z, gap_mm).
+
+    Restricts the search to the 5th-95th percentile range to prevent a single
+    outlier object (e.g. a ring-size marker at Z=-25 mm) from dominating the gap.
+    """
+    z_all = sorted(z_values)
+    n = len(z_all)
+    lo = z_all[max(0, n // 20)]            # 5th percentile
+    hi = z_all[min(n - 1, (n * 19) // 20)] # 95th percentile
+    z_bulk = sorted(set(round(z, 1) for z in z_all if lo <= z <= hi))
+    if len(z_bulk) < 2:
+        mid = (z_all[0] + z_all[-1]) / 2.0
+        return mid, 0.0
+    gaps = [
+        (z_bulk[i + 1] - z_bulk[i], (z_bulk[i] + z_bulk[i + 1]) / 2.0)
+        for i in range(len(z_bulk) - 1)
+    ]
+    gap_mm, split_z = max(gaps)
+    return split_z, gap_mm
+
+
+def _stone_shape_hint(xy_ratio: float) -> tuple:
+    """
+    Guess stone shape from the major/minor XY bbox ratio.
+    Returns (hint_str, confidence).
+    """
+    if xy_ratio < 1.08:
+        return "Round",                        0.72
+    if xy_ratio < 1.18:
+        return "Round or Princess/Asscher",    0.55
+    if xy_ratio < 1.35:
+        return "Cushion or Oval",              0.58
+    if xy_ratio < 1.60:
+        return "Oval or Pear",                 0.55
+    if xy_ratio < 2.10:
+        return "Marquise or Pear",             0.55
+    return     "Marquise",                     0.68
+
+
+def _gauss(x: float, mu: float, sigma: float) -> float:
+    """Unnormalized Gaussian kernel: 1.0 at centre, decaying with distance."""
+    return math.exp(-0.5 * ((x - mu) / max(sigma, 1e-9)) ** 2)
+
+
+# Reference centroids measured from real AD_10 stone objects.
+# Columns: (xy_ratio, z_ratio, step_cut)  step_cut=1 means flat/cornered (EM/AS/PR)
+_SHAPE_REFS: dict = {
+    "RD":   (1.000, 0.585, 0),
+    "OV":   (1.342, 0.578, 0),
+    "EM":   (1.375, 0.222, 1),
+    "MQ":   (1.622, 0.543, 0),
+    "AS":   (1.000, 0.182, 1),
+    "PR":   (1.000, 0.158, 1),
+    "PE":   (1.538, 0.642, 0),
+    "CU":   (1.000, 0.613, 0),
+    "RA":   (1.459, 0.491, 0),
+    "ELCU": (1.258, 0.554, 0),
+}
+
+
+def _classify_stone_shape(xy_ratio: float, z_ratio: float, n_srf: int) -> dict:
+    """
+    Multi-feature stone shape classifier using Gaussian scoring.
+
+    Features mapped (per user spec):
+      1. corner_analysis     - n_srf > 0 indicates step-cut (many facet surfaces)
+      2. aspect_ratio        - xy_ratio (major/minor bbox)
+      3. outline_sharpness   - z_ratio (higher = deeper brilliant profile)
+      4. symmetry_score      - closeness of xy_ratio to 1.0
+      5. bbox_rectangularity - z_ratio < 0.35 flags flat step-cut tablet
+      6. tip_detection       - xy_ratio > 1.45 flags pointed-end shapes (PE, MQ, RA)
+      7. sq_vs_round         - n_srf > 0 AND xy_ratio < 1.1 -> square step-cut vs Round
+      8. cut_corner          - n_srf > 0 AND xy_ratio > 1.2 -> Emerald (rect + cut corners)
+
+    Returns shape_scores for all 10 shapes, best_guess, confidence, features_used, warning.
+    """
+    is_step = n_srf > 0  # feature 1: corner_analysis
+
+    raw: dict = {}
+    for shape, (ref_xy, ref_z, ref_step) in _SHAPE_REFS.items():
+        step_match = 1.0 if (is_step == bool(ref_step)) else 0.08
+        xy_score   = _gauss(xy_ratio, ref_xy, 0.12)
+        z_score    = _gauss(z_ratio,  ref_z,  0.09)
+        raw[shape] = step_match * xy_score * z_score
+
+    total = sum(raw.values())
+    scores = {s: round(v / total, 4) for s, v in raw.items()} if total > 0 else {s: 0.0 for s in raw}
+
+    best       = max(scores, key=scores.get)
+    confidence = scores[best]
+
+    features_used = {
+        "corner_analysis":     "step_cut" if is_step else "brilliant_cut",
+        "aspect_ratio":        round(xy_ratio, 3),
+        "outline_sharpness":   round(z_ratio, 3),
+        "symmetry_score":      round(1.0 - abs(xy_ratio - 1.0) / max(xy_ratio, 1.0), 3),
+        "bbox_rectangularity": "flat_tablet" if z_ratio < 0.35 else "deep",
+        "tip_detection":       "pointed_ends" if xy_ratio > 1.45 else "no_tip",
+        "sq_vs_round":         ("step_square" if (is_step and xy_ratio < 1.1)
+                                else ("step_rect" if is_step else "brilliant")),
+        "cut_corner":          "yes" if (is_step and xy_ratio > 1.2) else "no",
+    }
+
+    return {
+        "shape_scores": dict(sorted(scores.items(), key=lambda kv: kv[1], reverse=True)),
+        "best_guess":   best,
+        "confidence":   round(confidence, 3),
+        "features_used": features_used,
+        "warning":      "single-file estimate only - provide multiple variants for accuracy",
+    }
+
+
+def _assign_role(fp: dict, stone: dict, split_z: float) -> tuple:
+    """
+    Heuristic role assignment for a single fingerprinted object.
+    Returns (role_str, confidence).
+
+    Uses centroid Z, distance from ring axis, and XY footprint relative to
+    the detected center stone to determine the most likely geometric role.
+    """
+    z   = fp["cz"]
+    r   = _r_axis(fp)
+    xy  = _xy_footprint(fp)
+
+    stone_xy  = _xy_footprint(stone) if stone else 1.0
+    stone_r   = math.sqrt(stone["sx"] ** 2 + stone["sy"] ** 2) / 2.0 if stone else 1.0
+
+    if stone and fp["sig_hash"] == stone["sig_hash"]:
+        return "center_stone", 0.88
+
+    if z > split_z:
+        # Upper zone: everything above the Z-gap belongs to the stone assembly.
+        if stone_xy > 0 and xy < stone_xy * 0.05:
+            return "prong",          0.73
+        if stone_xy > 0 and xy < stone_xy * 0.30:
+            return "halo_element" if r < stone_r * 1.8 else "basket_or_seat", 0.63
+        if stone_xy > 0 and xy < stone_xy * 0.75:
+            return "halo_frame",     0.60
+        return "upper_assembly",     0.50
+
+    # Lower zone: shank, side settings, setting base.
+    if r > 6.5 and xy < 4.0:
+        return "side_stone_or_pave", 0.64
+    if fp["sx"] > 10.0 or fp["sy"] > 10.0:
+        return "shank_tube",         0.76
+    if r > 3.5:
+        return "shank_element",      0.65
+    return "setting_base",           0.56
+
+
+_ROLE_GROUP = {
+    "center_stone":     "center_stone_assembly",
+    "prong":            "center_stone_assembly",
+    "halo_element":     "center_stone_assembly",
+    "halo_frame":       "center_stone_assembly",
+    "basket_or_seat":   "center_stone_assembly",
+    "upper_assembly":   "center_stone_assembly",
+    "shank_tube":       "probable_shank",
+    "shank_element":    "probable_shank",
+    "setting_base":     "probable_shank",
+    "side_stone_or_pave": "side_settings",
+}
+
+
+def analyze_new(source_path: str, output_report: Path) -> None:
+    """
+    Analyze a single new .3dm file not present in the dataset.
+
+    Heuristic-only pipeline (no cross-file diff):
+      1. Fingerprint every geometry object.
+      2. Split upper / lower zone by largest Z-gap.
+      3. Identify center stone (largest XY footprint near Z-axis in upper zone).
+      4. Assign roles to all objects: prong / halo_element / shank_tube / etc.
+      5. Estimate stone shape from XY aspect ratio.
+      6. Write JSON report with per-object classifications and confidence scores.
+
+    No transform is generated; this is purely diagnostic.
+    """
+    import datetime
+
+    source_path  = str(Path(source_path).resolve())
+    output_report = Path(output_report)
+    output_report.parent.mkdir(parents=True, exist_ok=True)
+
+    SEP  = "=" * 60
+    sep  = "-" * 60
+
+    print(f"\n{SEP}")
+    print(f"  New File Analysis: {Path(source_path).name}")
+    print(f"{SEP}\n")
+
+    # ── Parse & fingerprint ───────────────────────────────────────────────────
+    model = rhino3dm.File3dm.Read(source_path)
+    if model is None:
+        raise IOError(f"Cannot read: {source_path}")
+
+    all_fps   = []
+    n_annot   = 0
+    for obj in model.Objects:
+        geom_type = str(obj.Geometry.ObjectType)
+        if "Annotation" in geom_type:
+            n_annot += 1
+            continue
+        fp = fingerprint_object(obj)
+        if fp is not None:
+            all_fps.append(fp)
+
+    n_total = len(list(model.Objects))
+    print(f"  Objects total    : {n_total}")
+    print(f"  Fingerprinted    : {len(all_fps)}")
+    if n_annot:
+        print(f"  Annotations skipped: {n_annot}")
+
+    if not all_fps:
+        print("\n  ERROR: No geometry objects found.")
+        return
+
+    # ── Ring geometry ─────────────────────────────────────────────────────────
+    zs   = [fp["cz"] for fp in all_fps]
+    rs   = [_r_axis(fp) for fp in all_fps]
+    z_min, z_max = min(zs), max(zs)
+    r_max        = max(rs)
+
+    split_z, gap_mm = _find_z_split(zs)
+    upper_fps = [fp for fp in all_fps if fp["cz"] > split_z]
+    lower_fps = [fp for fp in all_fps if fp["cz"] <= split_z]
+
+    print(f"\n  Z range          : {z_min:.2f} mm to {z_max:.2f} mm")
+    print(f"  XY radius max    : {r_max:.2f} mm")
+    print(f"  Z split (est.)   : {split_z:.2f} mm  (gap: {gap_mm:.2f} mm)")
+    print(f"  Upper zone       : {len(upper_fps)} objects")
+    print(f"  Lower zone       : {len(lower_fps)} objects")
+
+    # ── Center stone detection ────────────────────────────────────────────────
+    # The center stone is the largest-footprint object among the TOP 30% by Z
+    # (above the shank), biased toward objects close to the ring axis.
+    # Using top-30% rather than "upper zone" prevents the ring shank tube
+    # (which can have a large bbox but sits at mid-Z) from being mis-identified.
+    stone_fp = None
+    if all_fps:
+        z_70th = sorted(fp["cz"] for fp in all_fps)[int(0.70 * len(all_fps))]
+        top_fps = [fp for fp in all_fps if fp["cz"] >= z_70th]
+        if top_fps:
+            def _stone_score(fp: dict) -> float:
+                return _xy_footprint(fp) / (1.0 + _r_axis(fp))
+            stone_fp = max(top_fps, key=_stone_score)
+
+    stone_estimate: dict = {}
+    shape_classifier: dict = {}
+    if stone_fp:
+        major   = max(stone_fp["sx"], stone_fp["sy"])
+        minor   = min(stone_fp["sx"], stone_fp["sy"])
+        ratio   = major / minor if minor > 0 else 1.0
+        z_ratio = stone_fp["sz"] / minor if minor > 0 else 0.0
+        n_srf   = stone_fp.get("n_surfaces", 0)
+        hint, sh_conf = _stone_shape_hint(ratio)
+        stone_estimate = {
+            "shape_hint":      hint,
+            "shape_confidence": round(sh_conf, 2),
+            "bbox_major_mm":   round(major, 2),
+            "bbox_minor_mm":   round(minor, 2),
+            "bbox_height_mm":  round(stone_fp["sz"], 2),
+            "xy_ratio":        round(ratio, 3),
+            "z_ratio":         round(z_ratio, 3),
+            "n_surfaces":      n_srf,
+            "centroid_z_mm":   round(stone_fp["cz"], 2),
+            "r_from_axis_mm":  round(_r_axis(stone_fp), 2),
+            "sig_hash":        stone_fp["sig_hash"],
+        }
+        shape_classifier = _classify_stone_shape(ratio, z_ratio, n_srf)
+
+    # ── Classify all objects ──────────────────────────────────────────────────
+    classified = []
+    for fp in all_fps:
+        role, conf = _assign_role(fp, stone_fp, split_z)
+        group      = _ROLE_GROUP.get(role, "unclassified")
+        classified.append({
+            "sig_hash":      fp["sig_hash"],
+            "role":          role,
+            "group":         group,
+            "confidence":    round(conf, 2),
+            "centroid_xyz":  [round(fp["cx"], 2), round(fp["cy"], 2), round(fp["cz"], 2)],
+            "bbox_xyz":      [round(fp["sx"], 2), round(fp["sy"], 2), round(fp["sz"], 2)],
+            "r_from_axis":   round(_r_axis(fp), 2),
+            "xy_footprint":  round(_xy_footprint(fp), 2),
+            "n_surfaces":    fp.get("n_surfaces", 0),
+            "object_type":   fp.get("object_type", ""),
+        })
+
+    # ── Group summaries ───────────────────────────────────────────────────────
+    groups: dict = {}
+    for obj in classified:
+        g = obj["group"]
+        groups.setdefault(g, []).append(obj)
+
+    group_summary: dict = {}
+    for g, objs in groups.items():
+        avg_conf = sum(o["confidence"] for o in objs) / len(objs)
+        group_summary[g] = {
+            "object_count": len(objs),
+            "confidence":   round(avg_conf, 2),
+            "objects":      objs,
+        }
+
+    # ── Confidence ───────────────────────────────────────────────────────────
+    split_conf   = min(1.0, gap_mm / 2.5)   # 2.5 mm gap = 100 % split confidence
+    stone_conf   = stone_estimate.get("shape_confidence", 0.0)
+    group_weights = [
+        ("center_stone_assembly", 0.40),
+        ("probable_shank",        0.35),
+        ("side_settings",         0.25),
+    ]
+    group_conf = sum(
+        w * group_summary.get(g, {}).get("confidence", 0.0)
+        for g, w in group_weights
+    )
+    overall_conf = round(group_conf * 0.65 + split_conf * 0.35, 2)
+
+    # ── Provisional library estimate ──────────────────────────────────────────
+    mutable_n     = len(groups.get("center_stone_assembly", []))
+    static_n      = (len(groups.get("probable_shank",  [])) +
+                     len(groups.get("side_settings",   [])))
+    unclassified_n = len(groups.get("unclassified", []))
+
+    # ── Build report ──────────────────────────────────────────────────────────
+    report = {
+        "source":          Path(source_path).name,
+        "analyzed_at":     datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+        "analysis_basis":  "single-file heuristic (no cross-file diff)",
+        "warning": (
+            "Confidence scores are estimates from geometry heuristics only. "
+            "Provide multiple shape variants and run build-library for accurate "
+            "static vs. mutable classification."
+        ),
+        "geometry_summary": {
+            "total_objects_in_file":  n_total,
+            "fingerprinted":          len(all_fps),
+            "annotations_skipped":    n_annot,
+            "z_range_mm":             [round(z_min, 2), round(z_max, 2)],
+            "xy_radius_max_mm":       round(r_max, 2),
+            "z_split_estimated_mm":   round(split_z, 2),
+            "z_split_gap_mm":         round(gap_mm, 2),
+            "upper_zone_objects":     len(upper_fps),
+            "lower_zone_objects":     len(lower_fps),
+        },
+        "stone_estimate": stone_estimate,
+        "shape_classifier": shape_classifier,
+        "groups": group_summary,
+        "provisional_library": {
+            "mutable_candidate_count":  mutable_n,
+            "static_candidate_count":   static_n,
+            "unclassified_count":       unclassified_n,
+            "basis": "Z-split heuristic (single file - not suitable for transform)",
+        },
+        "confidence_summary": {
+            "overall":             overall_conf,
+            "z_split_quality":     round(split_conf, 2),
+            "stone_id":            round(stone_conf, 2),
+            "geometry_grouping":   round(group_conf, 2),
+        },
+    }
+
+    output_report.write_text(json.dumps(report, indent=2))
+
+    # ── Print summary ─────────────────────────────────────────────────────────
+    print(f"\n  {sep}")
+    print(f"  Group Summary")
+    print(f"  {sep}")
+    _GROUP_LABEL = {
+        "center_stone_assembly": "Center stone assembly",
+        "probable_shank":        "Probable shank / band",
+        "side_settings":         "Side settings / pave",
+        "unclassified":          "Unclassified",
+    }
+    for g in ["center_stone_assembly", "probable_shank", "side_settings", "unclassified"]:
+        if g not in group_summary:
+            continue
+        info  = group_summary[g]
+        label = _GROUP_LABEL.get(g, g)
+        conf_str = f"  confidence: {int(info['confidence'] * 100)}%" if g != "unclassified" else ""
+        print(f"  {label:<28} {info['object_count']:>3} objects{conf_str}")
+
+    if stone_estimate:
+        print(f"\n  {sep}")
+        print(f"  Stone Estimate")
+        print(f"  {sep}")
+        print(f"  Shape hint   : {stone_estimate['shape_hint']}"
+              f"  (confidence: {int(stone_estimate['shape_confidence'] * 100)}%)")
+        print(f"  Bbox         : {stone_estimate['bbox_major_mm']} x"
+              f" {stone_estimate['bbox_minor_mm']} mm"
+              f"  height: {stone_estimate['bbox_height_mm']} mm")
+        print(f"  XY ratio     : {stone_estimate['xy_ratio']}"
+              f"  (1.0=round, >1.3=elongated, >2.0=marquise)")
+        print(f"  Z ratio      : {stone_estimate['z_ratio']}"
+              f"  (<0.35=step-cut tablet, >0.45=brilliant)")
+        print(f"  Surfaces     : {stone_estimate['n_surfaces']}"
+              f"  (0=brilliant-cut Brep, >20=step-cut multi-surface)")
+        print(f"  Centroid Z   : {stone_estimate['centroid_z_mm']} mm")
+
+    if shape_classifier:
+        print(f"\n  {sep}")
+        print(f"  Shape Classifier  (multi-feature)")
+        print(f"  {sep}")
+        sc  = shape_classifier
+        fu  = sc.get("features_used", {})
+        top = list(sc["shape_scores"].items())[:5]
+        print(f"  Best guess   : {sc['best_guess']}"
+              f"  ({SHAPE_ABBREV_MAP.get(sc['best_guess'], sc['best_guess'])})"
+              f"  confidence: {int(sc['confidence'] * 100)}%")
+        print(f"  Cut type     : {fu.get('corner_analysis', '-')}"
+              f"  |  tip: {fu.get('tip_detection', '-')}"
+              f"  |  rect: {fu.get('bbox_rectangularity', '-')}")
+        print(f"  sq_vs_round  : {fu.get('sq_vs_round', '-')}"
+              f"  |  cut_corner: {fu.get('cut_corner', '-')}")
+        top_str = "  ".join(f"{s}:{int(v*100)}%" for s, v in top)
+        print(f"  Top scores   : {top_str}")
+
+    print(f"\n  {sep}")
+    print(f"  Provisional Library Estimate  (single-file heuristic)")
+    print(f"  {sep}")
+    print(f"  Mutable candidates : {mutable_n} objects  (center stone assembly)")
+    print(f"  Static candidates  : {static_n} objects  (shank + side settings)")
+    if unclassified_n:
+        print(f"  Unclassified       : {unclassified_n} objects")
+
+    print(f"\n  Confidence summary:")
+    print(f"    Overall          : {int(overall_conf * 100)}%")
+    print(f"    Z-split quality  : {int(split_conf * 100)}%")
+    print(f"    Stone ID         : {int(stone_conf * 100)}%")
+    print(f"    Geometry grouping: {int(group_conf * 100)}%")
+
+    print(f"\n  WARNING: Single-file analysis only.")
+    print(f"  Provide multiple shape variants + run build-library")
+    print(f"  for accurate static vs. mutable classification.")
+
+    print(f"\n  Report written: {output_report}")
+    print(f"\n{SEP}\n")
+
+
 # --- generate-all ------------------------------------------------------------
 
 def _output_stem(source_stem: str, source_shape: str, target_shape: str) -> str:
@@ -1621,6 +2127,15 @@ def main():
     p_val.add_argument("--family",       default=None,
                        help="Ring family. Auto-detected from --source parent dir if omitted.")
 
+    # analyze-new
+    p_an = sub.add_parser(
+        "analyze-new",
+        help="Analyze a new .3dm file not in the dataset; produce a geometry bootstrap report"
+    )
+    p_an.add_argument("--source", required=True, help="New .3dm file to analyze")
+    p_an.add_argument("--output", default="report.json",
+                      help="Path for the JSON diagnostic report (default: report.json)")
+
     # generate-all
     p_gen = sub.add_parser(
         "generate-all",
@@ -1681,6 +2196,9 @@ def main():
             family=args.family,
         )
         sys.exit(0 if ok else 1)
+
+    elif args.command == "analyze-new":
+        analyze_new(args.source, Path(args.output))
 
     elif args.command == "generate-all":
         dataset = Path(args.dataset)

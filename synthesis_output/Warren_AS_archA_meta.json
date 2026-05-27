@@ -1,0 +1,38 @@
+{
+  "target_family": "Warren",
+  "target_shape": "AS",
+  "architecture": "A",
+  "synthesis_date": "2026-05-27T13:33:15",
+  "donor_family": "GS_62",
+  "donor_score": 0.7481,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Z translation -1.64mm -- verify prong alignment"
+    },
+    {
+      "factor": "COUNT_MISMATCH_HIGH",
+      "severity": "HIGH",
+      "detail": "Donor has 7 mutable objects vs HM ~16 (delta=10)"
+    },
+    {
+      "factor": "STONE_AR_MISMATCH",
+      "severity": "MEDIUM",
+      "detail": "Donor stone AR 1.15 outside expected [0.92, 1.1] for AS"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 4,
+  "mutable_indices_count": 7,
+  "result": {
+    "ok": true,
+    "static_added": 1,
+    "mutable_added": 7,
+    "mutable_filtered": 0,
+    "total": 8
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\Warren_AS_archA.3dm"
+}

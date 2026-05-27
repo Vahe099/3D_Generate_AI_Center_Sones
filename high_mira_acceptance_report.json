@@ -1,0 +1,156 @@
+{
+  "family": "High_Mira",
+  "run_date": "2026-05-26T15:09:41",
+  "known_shapes": [
+    "CU",
+    "ELCU",
+    "EM",
+    "MQ"
+  ],
+  "missing_shapes": [
+    "AS",
+    "OV",
+    "PE",
+    "PR",
+    "RA",
+    "RD"
+  ],
+  "shape_decisions": {
+    "AS": {
+      "decision": "REVIEW_NEEDED",
+      "reasons": [
+        "compare-vs-real not available; metadata-only decision"
+      ],
+      "score": null,
+      "ranking": null,
+      "confidence": "MEDIUM",
+      "filter_rate": 0.0,
+      "donor": "SP5",
+      "architecture": "A",
+      "filters_applied": {
+        "z_filter": null,
+        "min_z_guard": {}
+      }
+    },
+    "OV": {
+      "decision": "REVIEW_NEEDED",
+      "reasons": [
+        "score=0.663 GOOD < 0.75 EXCELLENT threshold",
+        "confidence=MEDIUM"
+      ],
+      "score": 0.6634,
+      "ranking": "GOOD",
+      "confidence": "MEDIUM",
+      "filter_rate": 0.083,
+      "donor": "SP5",
+      "architecture": "B",
+      "filters_applied": {
+        "z_filter": {
+          "scale_xy": 0.9256,
+          "scale_z": 1.0226,
+          "translate_x": 0.0,
+          "translate_y": 0.0,
+          "translate_z": -0.6998
+        },
+        "min_z_guard": {
+          "OV": 0.0
+        }
+      }
+    },
+    "PE": {
+      "decision": "REVIEW_NEEDED",
+      "reasons": [
+        "score=0.691 GOOD < 0.75 EXCELLENT threshold",
+        "confidence=MEDIUM"
+      ],
+      "score": 0.6907,
+      "ranking": "GOOD",
+      "confidence": "MEDIUM",
+      "filter_rate": 0.0,
+      "donor": "SP6",
+      "architecture": "A",
+      "filters_applied": {
+        "z_filter": null,
+        "min_z_guard": {}
+      }
+    },
+    "PR": {
+      "decision": "AUTO_ACCEPT",
+      "reasons": [
+        "score=0.767 EXCELLENT, confidence=HIGH, no HIGH risks"
+      ],
+      "score": 0.7667,
+      "ranking": "EXCELLENT",
+      "confidence": "HIGH",
+      "filter_rate": 0.033,
+      "donor": "SP6",
+      "architecture": "B",
+      "filters_applied": {
+        "z_filter": {
+          "scale_xy": 0.9256,
+          "scale_z": 1.0226,
+          "translate_x": 0.0,
+          "translate_y": 0.0,
+          "translate_z": -0.6998
+        },
+        "min_z_guard": {
+          "PR": 0.0
+        }
+      }
+    },
+    "RA": {
+      "decision": "AUTO_ACCEPT",
+      "reasons": [
+        "score=0.835 EXCELLENT, confidence=HIGH, no HIGH risks"
+      ],
+      "score": 0.8348,
+      "ranking": "EXCELLENT",
+      "confidence": "HIGH",
+      "filter_rate": 0.034,
+      "donor": "SP6",
+      "architecture": "B",
+      "filters_applied": {
+        "z_filter": {
+          "scale_xy": 0.9256,
+          "scale_z": 1.0226,
+          "translate_x": 0.0,
+          "translate_y": 0.0,
+          "translate_z": -0.6998
+        },
+        "min_z_guard": {
+          "RA": 0.0
+        }
+      }
+    },
+    "RD": {
+      "decision": "REVIEW_NEEDED",
+      "reasons": [
+        "confidence=MEDIUM"
+      ],
+      "score": 0.8134,
+      "ranking": "EXCELLENT",
+      "confidence": "MEDIUM",
+      "filter_rate": 0.0,
+      "donor": "SP6",
+      "architecture": "A",
+      "filters_applied": {
+        "z_filter": null,
+        "min_z_guard": {}
+      }
+    }
+  },
+  "summary": {
+    "AUTO_ACCEPT": [
+      "PR",
+      "RA"
+    ],
+    "REVIEW_NEEDED": [
+      "AS",
+      "OV",
+      "PE",
+      "RD"
+    ],
+    "REJECT": []
+  },
+  "elapsed_seconds": 0.0
+}

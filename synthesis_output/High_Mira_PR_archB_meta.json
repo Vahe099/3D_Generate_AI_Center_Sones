@@ -1,0 +1,28 @@
+{
+  "target_family": "High_Mira",
+  "target_shape": "PR",
+  "architecture": "B",
+  "synthesis_date": "2026-05-26T15:09:40",
+  "donor_family": "SP6",
+  "donor_score": 0.9275,
+  "expected_confidence": "HIGH",
+  "risk_factors": [],
+  "affine_params": {
+    "scale_xy": 0.9256,
+    "scale_z": 1.0226,
+    "translate_x": 0.0,
+    "translate_y": 0.0,
+    "translate_z": -0.6998
+  },
+  "static_hashes_count": 3,
+  "mutable_indices_count": 30,
+  "result": {
+    "ok": true,
+    "static_added": 3,
+    "mutable_added": 29,
+    "mutable_filtered": 1,
+    "total": 32
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\High_Mira_PR_archB.3dm"
+}

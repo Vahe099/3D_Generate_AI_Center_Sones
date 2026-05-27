@@ -184,16 +184,16 @@
   },
   "total_files_used": 10,
   "source_files": {
-    "AS": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco AS P.3dm",
-    "CU": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco CU P.3dm",
-    "ELCU": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco ELCU P.3dm",
-    "EM": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco EM P.3dm",
-    "MQ": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco MQ P.3dm",
-    "OV": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco OV P.3dm",
-    "PE": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco PE P.3dm",
-    "PR": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco PR P.3dm",
-    "RA": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco RA P.3dm",
-    "RD": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco RD P.3dm"
+    "AS": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco_AS.3dm",
+    "CU": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco_CU.3dm",
+    "ELCU": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco_ELCU.3dm",
+    "EM": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco_EM.3dm",
+    "MQ": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco_MQ.3dm",
+    "OV": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco_OV.3dm",
+    "PE": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco_PE.3dm",
+    "PR": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco_PR.3dm",
+    "RA": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco_RA.3dm",
+    "RD": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\AD_2\\AD2_ArtDeco_RD.3dm"
   },
   "tolerances": {
     "center_mm": 0.2,

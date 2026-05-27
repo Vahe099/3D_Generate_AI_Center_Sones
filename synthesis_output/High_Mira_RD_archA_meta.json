@@ -1,0 +1,28 @@
+{
+  "target_family": "High_Mira",
+  "target_shape": "RD",
+  "architecture": "A",
+  "synthesis_date": "2026-05-26T15:09:41",
+  "donor_family": "SP6",
+  "donor_score": 0.9085,
+  "expected_confidence": "MEDIUM",
+  "risk_factors": [
+    {
+      "factor": "COUNT_MISMATCH_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Object count off by 4 from HM average"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 3,
+  "mutable_indices_count": 27,
+  "result": {
+    "ok": true,
+    "static_added": 3,
+    "mutable_added": 27,
+    "mutable_filtered": 0,
+    "total": 30
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\High_Mira_RD_archA.3dm"
+}

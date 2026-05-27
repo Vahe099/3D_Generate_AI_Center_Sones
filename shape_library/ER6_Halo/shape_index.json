@@ -1,6 +1,6 @@
 {
   "AS": {
-    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo AS P.3dm",
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_AS.3dm",
     "mutable_object_indices": [
       1,
       2,
@@ -45,7 +45,7 @@
     "mutable_object_count": 39
   },
   "CU": {
-    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo CU P.3dm",
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_CU.3dm",
     "mutable_object_indices": [
       0,
       1,
@@ -91,7 +91,7 @@
     "mutable_object_count": 40
   },
   "ELCU": {
-    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_EL CU P.3dm",
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_ELCU.3dm",
     "mutable_object_indices": [
       0,
       2,
@@ -138,7 +138,7 @@
     "mutable_object_count": 41
   },
   "EM": {
-    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_EM P.3dm",
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_EM.3dm",
     "mutable_object_indices": [
       0,
       2,
@@ -184,7 +184,7 @@
     "mutable_object_count": 40
   },
   "MQ": {
-    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_MQ P.3dm",
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_MQ.3dm",
     "mutable_object_indices": [
       0,
       2,
@@ -232,7 +232,7 @@
     "mutable_object_count": 42
   },
   "OV": {
-    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_OV P.3dm",
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_OV.3dm",
     "mutable_object_indices": [
       1,
       2,
@@ -275,7 +275,7 @@
     "mutable_object_count": 37
   },
   "PE": {
-    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_PE P.3dm",
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_PE.3dm",
     "mutable_object_indices": [
       0,
       1,
@@ -322,7 +322,7 @@
     "mutable_object_count": 41
   },
   "PR": {
-    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_PR .3dm",
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_PR.3dm",
     "mutable_object_indices": [
       1,
       2,
@@ -369,7 +369,7 @@
     "mutable_object_count": 41
   },
   "RA": {
-    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_RA P.3dm",
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_RA.3dm",
     "mutable_object_indices": [
       0,
       2,
@@ -416,7 +416,7 @@
     "mutable_object_count": 41
   },
   "RD": {
-    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_RD P.3dm",
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER6_Halo\\ER6_Halo_RD.3dm",
     "mutable_object_indices": [
       2,
       3,

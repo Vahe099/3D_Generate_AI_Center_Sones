@@ -1,0 +1,28 @@
+{
+  "target_family": "High_Mira",
+  "target_shape": "PE",
+  "architecture": "A",
+  "synthesis_date": "2026-05-26T15:09:40",
+  "donor_family": "SP6",
+  "donor_score": 0.8958,
+  "expected_confidence": "MEDIUM",
+  "risk_factors": [
+    {
+      "factor": "COUNT_MISMATCH_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Object count off by 6 from HM average"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 3,
+  "mutable_indices_count": 25,
+  "result": {
+    "ok": true,
+    "static_added": 3,
+    "mutable_added": 25,
+    "mutable_filtered": 0,
+    "total": 28
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\High_Mira_PE_archA.3dm"
+}

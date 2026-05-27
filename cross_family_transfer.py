@@ -54,7 +54,7 @@ FRAME_WORKER_SRC = """\
 import sys, json, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(sys.argv[0])))
 import rhino3dm
-from jewelry_transform import fingerprint_object
+from jewelry_transform import fingerprint_object, is_contaminant
 
 path            = sys.argv[1]
 mutable_indices = set(json.loads(sys.argv[2]))
@@ -66,6 +66,8 @@ if not model:
 
 fps, idx = [], 0
 for obj in model.Objects:
+    if is_contaminant(obj, model):
+        continue
     fp = fingerprint_object(obj)
     if fp is None:
         continue
@@ -205,17 +207,18 @@ SYNTH_WORKER_SRC = """\
 import sys, json, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(sys.argv[0])))
 import rhino3dm
-from jewelry_transform import fingerprint_object
+from jewelry_transform import fingerprint_object, is_contaminant
 
-args            = json.loads(sys.argv[1])
-static_src      = args["static_src"]
-donor_src       = args["donor_src"]
-mutable_indices = set(args["mutable_indices"])
-static_hashes   = set(args["static_hashes"])
-output_path     = args["output_path"]
-affine          = args.get("affine")
-z_filter        = args.get("z_filter")   # float threshold or None
-min_z_guard     = args.get("min_z_guard")  # float or None — drop if bbox.Min.Z < threshold
+args              = json.loads(sys.argv[1])
+static_src        = args["static_src"]
+donor_src         = args["donor_src"]
+mutable_indices   = set(args["mutable_indices"])
+static_hashes     = set(args["static_hashes"])
+output_path       = args["output_path"]
+affine            = args.get("affine")
+z_filter          = args.get("z_filter")        # float threshold or None
+min_z_guard       = args.get("min_z_guard")     # float or None — drop if bbox.Min.Z < threshold
+z_offset_corr     = args.get("z_offset_correction")  # float or None — arch A z-shift
 
 static_model = rhino3dm.File3dm.Read(static_src)
 donor_model  = rhino3dm.File3dm.Read(donor_src)
@@ -269,9 +272,21 @@ if affine:
         print(json.dumps({"error": "affine_build_failed: " + str(e), "ok": False}))
         sys.exit(0)
 
+# Build arch-A z-offset transform (pure Z translation; only when affine is absent)
+z_offset_xf = None
+if z_offset_corr is not None and affine_xf is None:
+    try:
+        z_offset_xf = rhino3dm.Transform.Translation(
+            rhino3dm.Vector3d(0.0, 0.0, float(z_offset_corr))
+        )
+    except Exception:
+        z_offset_xf = None
+
 # Add static objects from HM source file
 static_added = 0
 for obj in static_model.Objects:
+    if is_contaminant(obj, static_model):
+        continue
     fp = fingerprint_object(obj)
     if fp is None:
         continue
@@ -284,6 +299,8 @@ mutable_added = 0
 mutable_filtered = 0
 fp_idx = 0
 for obj in donor_model.Objects:
+    if is_contaminant(obj, donor_model):
+        continue
     fp = fingerprint_object(obj)
     if fp is None:
         continue
@@ -301,6 +318,11 @@ for obj in donor_model.Objects:
                     mutable_filtered += 1
                     fp_idx += 1
                     continue
+            except Exception:
+                pass
+        if z_offset_xf is not None:
+            try:
+                obj.Geometry.Transform(z_offset_xf)
             except Exception:
                 pass
         _add(out, obj)
@@ -402,34 +424,48 @@ def score_donor(
     hm_count_mean: float,
     hm_known: list,
     dn_shapes: list,
+    hm_target_ar: float | None = None,  # expected stone AR for target shape (STONE_AR midpoint)
+    dn_target_ar: float | None = None,  # donor's actual stone AR for target shape (from frame cache)
 ) -> tuple[float, dict]:
-    """Composite score in [0,1] plus per-criterion breakdown."""
+    """Composite score in [0,1] plus per-criterion breakdown.
 
-    # C1 (0.40) — frame similarity: Z height, footprint size, Z range
+    C1-C4 use bridge-shape frames (always available).
+    C5 (stone AR similarity) uses target-shape frames; omitted with renormalization when absent.
+    """
+
+    # C1 — frame similarity: Z height, footprint size, Z range
     c1 = (
         _gauss(dn_bf["cz_mean"]      - hm_bf["cz_mean"],      1.5) *
         _gauss(dn_bf["footprint_xy"] - hm_bf["footprint_xy"], 2.0) *
         _gauss(dn_bf["z_range"]      - hm_bf["z_range"],      1.5)
     )
 
-    # C2 (0.20) — target shape object count vs HM expected
+    # C2 — target shape object count vs HM expected
     c2 = max(0.0, 1.0 - abs(dn_tgt_count - hm_count_mean) / max(hm_count_mean, 1))
 
-    # C3 (0.20) — footprint/z_top ratio (ring-size normalised setting size)
+    # C3 — footprint/z_top ratio (ring-size normalised setting size)
     r_dn = dn_bf["footprint_xy"] / max(dn_bf["z_top"], 0.01)
     r_hm = hm_bf["footprint_xy"] / max(hm_bf["z_top"], 0.01)
     c3 = _gauss(r_dn - r_hm, 0.30)
 
-    # C4 (0.20) — shared known shapes with HM
+    # C4 — shared known shapes with HM
     c4 = len(set(dn_shapes) & set(hm_known)) / max(len(hm_known), 1)
 
-    composite = round(0.40*c1 + 0.20*c2 + 0.20*c3 + 0.20*c4, 4)
     breakdown = {
         "frame_similarity": round(c1, 4),
         "count_sim":        round(c2, 4),
         "spatial_ratio":    round(c3, 4),
         "shared_shapes":    round(c4, 4),
     }
+
+    if hm_target_ar and dn_target_ar and hm_target_ar > 0 and dn_target_ar > 0:
+        # C5 — stone aspect-ratio similarity (target-shape level)
+        c5 = round(min(hm_target_ar, dn_target_ar) / max(hm_target_ar, dn_target_ar), 4)
+        composite = round(0.35*c1 + 0.18*c2 + 0.18*c3 + 0.17*c4 + 0.12*c5, 4)
+        breakdown["stone_ar_sim"] = c5
+    else:
+        composite = round(0.40*c1 + 0.20*c2 + 0.20*c3 + 0.20*c4, 4)
+
     return composite, breakdown
 
 
@@ -585,7 +621,30 @@ def recommend_filters(
             guard_threshold = min(known_zbs) - 2.0
 
     min_z_guard = {shape: 0.0} if post_z_bottom < guard_threshold else {}
-    return {"min_z_guard": min_z_guard, "z_filter": None}
+
+    # Z-offset correction for arch A: shift all mutable objects by (target_cz - donor_cz)
+    # so the stone assembly lands at the correct height without affine scaling.
+    donor_stone_cz  = donor_frame.get("stone_cz")
+    target_stone_cz = None
+    if target_family:
+        tf = cache.get(f"{target_family}|{shape}")
+        if tf:
+            target_stone_cz = tf.get("stone_cz")
+        # Missing shape: fall back to mean of known target shapes' stone_cz
+        if target_stone_cz is None:
+            known_czs = [
+                v["stone_cz"] for k, v in cache.items()
+                if k.startswith(f"{target_family}|") and v.get("stone_cz")
+            ]
+            if known_czs:
+                target_stone_cz = sum(known_czs) / len(known_czs)
+    if donor_stone_cz and target_stone_cz:
+        z_offset_correction = round(target_stone_cz - donor_stone_cz, 4)
+    else:
+        z_offset_correction = None
+
+    return {"min_z_guard": min_z_guard, "z_filter": None,
+            "z_offset_correction": z_offset_correction}
 
 
 def auto_select_arch(
@@ -593,19 +652,39 @@ def auto_select_arch(
     donor_score: float,
     affine_params: dict,
     risks: list[dict],
+    ar_sim: float | None = None,
+    donor_z_range: float | None = None,
 ) -> list[str]:
     """
     Choose synthesis architecture(s) from donor quality and scale risk.
 
     Returns ["B"] when affine is reliable, ["A","B"] when uncertain,
-    ["A"] when confidence is too low for affine to add value.
+    ["A"] when confidence is too low for affine to add value or when
+    stone AR mismatch / shallow donor z_range makes affine XY distortion likely.
+    z_offset_correction (from recommend_filters) handles Z height for arch A,
+    so Z_OFFSET_HIGH as the sole HIGH risk does not force arch A here.
     architecture_strategy.json overrides this for explicitly mapped shapes.
     """
     high_scale = any(
         r["factor"] in {"SCALE_XY_HIGH", "SCALE_XY_LOW", "SCALE_Z_HIGH"}
         for r in risks
     )
-    if donor_score >= 0.65 and not high_scale:
+    # Z_OFFSET_HIGH intrinsic to elevated-setting families; handled by z_offset_correction —
+    # exclude it from the arch-selection high-risk check.
+    high_risks_ex_zoffset = [
+        r for r in risks
+        if r["severity"] == "HIGH" and r["factor"] != "Z_OFFSET_HIGH"
+    ]
+    ar_mismatch      = ar_sim is not None and ar_sim < 0.80
+    z_range_shallow  = donor_z_range is not None and donor_z_range < 3.0
+
+    if ar_mismatch or z_range_shallow:
+        # Affine XY distortion likely or scale_z unreliable: arch A + z_offset_correction
+        if donor_score >= 0.45:
+            return ["A"]
+        else:
+            return ["A"]
+    elif donor_score >= 0.65 and not high_scale and not high_risks_ex_zoffset:
         return ["B"]
     elif donor_score >= 0.45:
         return ["A", "B"]
@@ -1157,6 +1236,10 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
         top_rows = rows[:TOP_N]
         candidates = []
 
+        # Expected stone AR for the missing shape (canonical midpoint from STONE_AR table)
+        ar_lo, ar_hi   = STONE_AR.get(miss, (0.9, 2.5))
+        hm_target_ar   = (ar_lo + ar_hi) / 2
+
         for rank, row in enumerate(top_rows, 1):
             fam          = row["donor_family"]
             score        = row["donor_score"]
@@ -1167,15 +1250,29 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
             affine  = estimate_affine(dn_bf, hm_bf) if dn_bf else {}
             risks   = identify_risks(affine, dn_tf, dn_tgt_count,
                                      hm_count_mean, score, miss, fam)
+
+            # Refine score with C5 (stone AR) now that target frame is available
+            dn_ar = dn_tf.get("stone_ar") if dn_tf else None
+            if dn_ar and hm_target_ar > 0:
+                ar_sim = round(min(hm_target_ar, dn_ar) / max(hm_target_ar, dn_ar), 4)
+                score  = round(score * 0.88 + ar_sim * 0.12, 4)
+            else:
+                ar_sim = None
+
             conf    = expected_confidence(score, risks)
             rec_flt = recommend_filters(fam, miss, affine, cache, target_family)
-            auto_arch_sel = auto_select_arch(miss, score, affine, risks)
+            auto_arch_sel = auto_select_arch(
+                miss, score, affine, risks,
+                ar_sim=ar_sim,
+                donor_z_range=dn_tf.get("z_range") if dn_tf else None,
+            )
 
             candidates.append({
                 "rank":                  rank,
                 "donor_family":          fam,
                 "donor_score":           score,
                 "score_breakdown":       row["score_breakdown"],
+                "stone_ar_sim":          ar_sim,
                 "bridge_shape_used":     bridge,
                 "donor_target_count":    dn_tgt_count,
                 "hm_expected_count":     round(hm_count_mean, 1),
@@ -1269,6 +1366,57 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
 
 
 # ─────────────────────────────────────────────────────────────
+#  Contamination check (read-only; never modifies source files)
+# ─────────────────────────────────────────────────────────────
+
+def contamination_check(family_dir: Path) -> dict:
+    """Scan a family's .3dm files and report Gem-layer refs and GroundPlanes.
+
+    Read-only: files are opened, inspected, and discarded.  Nothing is written.
+    Returns {"gem_refs": {shape: count}, "groundplanes": {shape: count}, "clean": bool}.
+    """
+    import re
+    import rhino3dm
+    from jewelry_transform import is_contaminant
+
+    SHAPES = ["ELCU", "SquareCU", "AS", "CU", "EM", "MQ", "OV", "PE", "PR", "RA", "RD"]
+    gem_refs: dict[str, int] = {}
+    groundplanes: dict[str, int] = {}
+
+    for fpath in sorted(family_dir.glob("*.3dm")):
+        stem = fpath.stem.upper()
+        tokens = set(re.split(r"[_\s\-\(\)\.]+", stem))
+        shape = next((s for s in SHAPES if s in tokens), fpath.stem)
+        model = rhino3dm.File3dm.Read(str(fpath))
+        if not model:
+            continue
+        n_gem = n_gnd = 0
+        for obj in model.Objects:
+            li = obj.Attributes.LayerIndex
+            layer = model.Layers[li].Name if li < len(model.Layers) else ""
+            if layer.strip() == "Gem":
+                n_gem += 1
+            else:
+                try:
+                    bb = obj.Geometry.GetBoundingBox()
+                    if bb:
+                        dx = bb.Max.X - bb.Min.X
+                        dy = bb.Max.Y - bb.Min.Y
+                        dz = bb.Max.Z - bb.Min.Z
+                        if max(dx, dy) > 150 and dz < 2:
+                            n_gnd += 1
+                except Exception:
+                    pass
+        if n_gem:
+            gem_refs[shape] = n_gem
+        if n_gnd:
+            groundplanes[shape] = n_gnd
+
+    clean = not gem_refs and not groundplanes
+    return {"gem_refs": gem_refs, "groundplanes": groundplanes, "clean": clean}
+
+
+# ─────────────────────────────────────────────────────────────
 #  Phase 1: build full frame database for all families x shapes
 # ─────────────────────────────────────────────────────────────
 
@@ -1278,6 +1426,20 @@ def build_frame_db(rebuild: bool) -> None:
     print("  Building Full Frame Database")
     print("=" * 60)
     libs = load_all_libraries()
+
+    # Warn about contamination in source files; filtering happens in-memory during
+    # FRAME_WORKER execution, so source files are never modified.
+    dataset_root = Path("3dm")
+    for fam in sorted(libs):
+        fam_dir = dataset_root / fam
+        if fam_dir.is_dir():
+            result = contamination_check(fam_dir)
+            if not result["clean"]:
+                print(f"  [WARN] {fam}: contaminants detected (will be filtered in-memory)")
+                if result["gem_refs"]:
+                    print(f"         gem_refs    : {result['gem_refs']}")
+                if result["groundplanes"]:
+                    print(f"         groundplanes: {result['groundplanes']}")
 
     cache = {} if rebuild else load_cache()
 
@@ -1375,6 +1537,7 @@ def synthesize(
     donor_rank: int = 1,
     z_filter: float | None = None,
     min_z_guards: dict | None = None,
+    z_offsets: dict | None = None,  # shape → z_offset_correction float (arch A only)
 ) -> None:
     t0 = time.time()
 
@@ -1538,6 +1701,7 @@ def synthesize(
                 "affine":          affine_p,
                 "z_filter":        _z_filter,
                 "min_z_guard":     min_z_guards.get(miss) if min_z_guards else None,
+                "z_offset_correction": (z_offsets.get(miss) if z_offsets and arch == "A" else None),
             }
 
             t_shape = time.time()
@@ -2126,8 +2290,9 @@ def auto_onboard(
     plan = json.loads(plan_path.read_text(encoding="utf-8"))
     missing_shapes = plan.get("missing_shapes", [])
 
-    # Collect auto min_z_guards and per-shape arch from rank-1 candidate
+    # Collect auto min_z_guards, z_offset_corrections, and per-shape arch from rank-1 candidate
     auto_min_z_guards: dict[str, float] = {}
+    auto_z_offsets:    dict[str, float] = {}
     shape_arch_map:    dict[str, list]  = {}
     for sp in plan.get("missing_shape_plans", []):
         shape = sp["missing_shape"]
@@ -2138,12 +2303,16 @@ def auto_onboard(
         rec_flt  = best.get("recommended_filters", {})
         auto_arc = best.get("auto_arch", ["B"])
         auto_min_z_guards.update(rec_flt.get("min_z_guard", {}))
+        if rec_flt.get("z_offset_correction") is not None:
+            auto_z_offsets[shape] = rec_flt["z_offset_correction"]
         shape_arch_map[shape] = auto_arc
 
     if auto_min_z_guards:
         print(f"  min_z guards recommended: {auto_min_z_guards}")
     else:
         print("  No min_z guards needed.")
+    if auto_z_offsets:
+        print(f"  z_offset corrections    : {auto_z_offsets}")
 
     # Determine which architectures to run per shape (strategy file overrides)
     strategy_data = _load_strategy(strategy)
@@ -2164,6 +2333,7 @@ def auto_onboard(
             donor_rank  = 1,
             z_filter    = None,
             min_z_guards= auto_min_z_guards or None,
+            z_offsets   = auto_z_offsets or None,
         )
     else:
         for shape in missing_shapes:

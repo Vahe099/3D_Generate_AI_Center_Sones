@@ -1,0 +1,627 @@
+{
+  "family": "High_Mira",
+  "analysis_date": "2026-05-26T15:09:41",
+  "real_dir": "3dm\\High_Mira",
+  "synth_dir": "synthesis_output",
+  "shapes_compared": [
+    "OV",
+    "PE",
+    "PR",
+    "RA",
+    "RD"
+  ],
+  "metric_weights": {
+    "static_integrity": 0.15,
+    "count_similarity": 0.15,
+    "stone_cz": 0.2,
+    "stone_ar": 0.15,
+    "footprint": 0.1,
+    "z_range": 0.1,
+    "silhouette": 0.1,
+    "symmetry": 0.05
+  },
+  "ranking_thresholds": {
+    "EXCELLENT": 0.75,
+    "GOOD": 0.5,
+    "POOR": "<0.50"
+  },
+  "shape_results": {
+    "OV": {
+      "shape": "OV",
+      "synth_file": "synthesis_output\\High_Mira_OV_archB.3dm",
+      "real_file": "3dm\\High_Mira\\High Mira_OV_P.3dm",
+      "object_count": {
+        "synth_total": 36,
+        "real_total": 34,
+        "total_delta": 2,
+        "synth_static": 3,
+        "real_static": 3,
+        "synth_mutable": 33,
+        "real_mutable": 31,
+        "mutable_delta": 2
+      },
+      "static_integrity": {
+        "match": true
+      },
+      "geometry_hash_overlap": {
+        "mutable_shared": 0,
+        "mutable_overlap_pct": 0.0,
+        "synth_only_hashes": 33,
+        "real_only_hashes": 31
+      },
+      "bbox_similarity": {
+        "footprint_ratio": 0.9256,
+        "z_range_ratio": 0.2694,
+        "z_top_delta": -0.739,
+        "cz_mean_delta": -0.2484,
+        "xy_span_x_ratio": 0.5447,
+        "xy_span_y_ratio": 2.4516,
+        "silhouette_ratio": 0.4019
+      },
+      "synth_mutable_frame": {
+        "count": 33,
+        "cz_mean": 10.2745,
+        "cx_mean": -0.0342,
+        "cy_mean": 0.0,
+        "footprint_xy": 10.0229,
+        "z_top": 11.5011,
+        "z_bottom": 7.9524,
+        "z_range": 3.5487,
+        "xy_span_x": 5.9888,
+        "xy_span_y": 8.6082,
+        "silhouette": 218.42
+      },
+      "real_mutable_frame": {
+        "count": 31,
+        "cz_mean": 10.5229,
+        "cx_mean": 0.0,
+        "cy_mean": 0.0005,
+        "footprint_xy": 10.8286,
+        "z_top": 12.2401,
+        "z_bottom": -0.9333,
+        "z_range": 13.1734,
+        "xy_span_x": 10.994,
+        "xy_span_y": 3.5112,
+        "silhouette": 543.41
+      },
+      "stone_placement": {
+        "synth": {
+          "cz": 10.9132,
+          "cx": -0.0,
+          "cy": 0.0,
+          "footprint": 8.9532,
+          "ar": 1.4549,
+          "above_z0": true
+        },
+        "real": {
+          "cz": 12.2401,
+          "cx": 0.0,
+          "cy": -0.0,
+          "footprint": 9.7457,
+          "ar": 1.2249,
+          "above_z0": true
+        },
+        "cz_delta": -1.3269,
+        "ar_delta": 0.23,
+        "footprint_delta": -0.7925,
+        "cx_delta": -0.0,
+        "cy_delta": 0.0
+      },
+      "symmetry_deviation": {
+        "synth_axis_dev": 2.8092,
+        "real_axis_dev": 3.2229,
+        "delta": -0.4137
+      },
+      "scoring": {
+        "criteria": {
+          "static_integrity": 1.0,
+          "count_similarity": 0.8,
+          "stone_cz": 0.8025,
+          "stone_ar": 0.7454,
+          "footprint": 0.752,
+          "z_range": 0.0,
+          "silhouette": 0.0,
+          "symmetry": 0.918
+        },
+        "weights": {
+          "static_integrity": 0.15,
+          "count_similarity": 0.15,
+          "stone_cz": 0.2,
+          "stone_ar": 0.15,
+          "footprint": 0.1,
+          "z_range": 0.1,
+          "silhouette": 0.1,
+          "symmetry": 0.05
+        },
+        "overall": 0.6634
+      },
+      "ranking": "GOOD"
+    },
+    "PE": {
+      "shape": "PE",
+      "synth_file": "synthesis_output\\High_Mira_PE_archA.3dm",
+      "real_file": "3dm\\High_Mira\\High Mira_PE.3dm",
+      "object_count": {
+        "synth_total": 28,
+        "real_total": 35,
+        "total_delta": 7,
+        "synth_static": 3,
+        "real_static": 3,
+        "synth_mutable": 25,
+        "real_mutable": 32,
+        "mutable_delta": 7
+      },
+      "static_integrity": {
+        "match": true
+      },
+      "geometry_hash_overlap": {
+        "mutable_shared": 1,
+        "mutable_overlap_pct": 3.1,
+        "synth_only_hashes": 24,
+        "real_only_hashes": 31
+      },
+      "bbox_similarity": {
+        "footprint_ratio": 1.3058,
+        "z_range_ratio": 1.0315,
+        "z_top_delta": 0.1776,
+        "cz_mean_delta": 0.4757,
+        "xy_span_x_ratio": 0.5832,
+        "xy_span_y_ratio": 2.2037,
+        "silhouette_ratio": 0.9267
+      },
+      "synth_mutable_frame": {
+        "count": 25,
+        "cz_mean": 10.8647,
+        "cx_mean": 0.0,
+        "cy_mean": -0.3846,
+        "footprint_xy": 13.7037,
+        "z_top": 12.6177,
+        "z_bottom": -0.9333,
+        "z_range": 13.551,
+        "xy_span_x": 6.3512,
+        "xy_span_y": 9.8328,
+        "silhouette": 490.3
+      },
+      "real_mutable_frame": {
+        "count": 32,
+        "cz_mean": 10.389,
+        "cx_mean": 0.0,
+        "cy_mean": 0.0699,
+        "footprint_xy": 10.4947,
+        "z_top": 12.4401,
+        "z_bottom": -0.6971,
+        "z_range": 13.1372,
+        "xy_span_x": 10.8904,
+        "xy_span_y": 4.4619,
+        "silhouette": 529.1
+      },
+      "stone_placement": {
+        "synth": {
+          "cz": 11.8492,
+          "cx": 0.0,
+          "cy": -0.0973,
+          "footprint": 13.7037,
+          "ar": 1.621,
+          "above_z0": true
+        },
+        "real": {
+          "cz": 12.4401,
+          "cx": 0.0,
+          "cy": 0.4234,
+          "footprint": 10.4947,
+          "ar": 1.3371,
+          "above_z0": true
+        },
+        "cz_delta": -0.5909,
+        "ar_delta": 0.2839,
+        "footprint_delta": 3.209,
+        "cx_delta": 0.0,
+        "cy_delta": -0.5207
+      },
+      "symmetry_deviation": {
+        "synth_axis_dev": 4.1328,
+        "real_axis_dev": 3.2382,
+        "delta": 0.8946
+      },
+      "scoring": {
+        "criteria": {
+          "static_integrity": 1.0,
+          "count_similarity": 0.3,
+          "stone_cz": 0.9573,
+          "stone_ar": 0.639,
+          "footprint": 0.0,
+          "z_range": 0.895,
+          "silhouette": 0.8534,
+          "symmetry": 0.6702
+        },
+        "weights": {
+          "static_integrity": 0.15,
+          "count_similarity": 0.15,
+          "stone_cz": 0.2,
+          "stone_ar": 0.15,
+          "footprint": 0.1,
+          "z_range": 0.1,
+          "silhouette": 0.1,
+          "symmetry": 0.05
+        },
+        "overall": 0.6907
+      },
+      "ranking": "GOOD"
+    },
+    "PR": {
+      "shape": "PR",
+      "synth_file": "synthesis_output\\High_Mira_PR_archB.3dm",
+      "real_file": "3dm\\High_Mira\\High Mira_PR.3dm",
+      "object_count": {
+        "synth_total": 32,
+        "real_total": 34,
+        "total_delta": 2,
+        "synth_static": 3,
+        "real_static": 4,
+        "synth_mutable": 29,
+        "real_mutable": 30,
+        "mutable_delta": 1
+      },
+      "static_integrity": {
+        "match": true
+      },
+      "geometry_hash_overlap": {
+        "mutable_shared": 0,
+        "mutable_overlap_pct": 0.0,
+        "synth_only_hashes": 29,
+        "real_only_hashes": 30
+      },
+      "bbox_similarity": {
+        "footprint_ratio": 1.3848,
+        "z_range_ratio": 5.6327,
+        "z_top_delta": 0.4713,
+        "cz_mean_delta": 0.3658,
+        "xy_span_x_ratio": 0.6443,
+        "xy_span_y_ratio": 1.921,
+        "silhouette_ratio": 0.9744
+      },
+      "synth_mutable_frame": {
+        "count": 29,
+        "cz_mean": 10.8948,
+        "cx_mean": 0.0,
+        "cy_mean": -0.0439,
+        "footprint_xy": 10.023,
+        "z_top": 12.4382,
+        "z_bottom": -1.6542,
+        "z_range": 14.0924,
+        "xy_span_x": 6.8584,
+        "xy_span_y": 6.8584,
+        "silhouette": 394.87
+      },
+      "real_mutable_frame": {
+        "count": 30,
+        "cz_mean": 10.529,
+        "cx_mean": 0.0,
+        "cy_mean": 0.0,
+        "footprint_xy": 7.238,
+        "z_top": 11.9669,
+        "z_bottom": 9.465,
+        "z_range": 2.5019,
+        "xy_span_x": 10.645,
+        "xy_span_y": 3.5702,
+        "silhouette": 405.23
+      },
+      "stone_placement": {
+        "synth": {
+          "cz": 11.9655,
+          "cx": -0.0,
+          "cy": 0.0,
+          "footprint": 9.3613,
+          "ar": 1.0,
+          "above_z0": true
+        },
+        "real": {
+          "cz": 11.9669,
+          "cx": 0.0,
+          "cy": 0.0,
+          "footprint": 7.238,
+          "ar": 1.0196,
+          "above_z0": true
+        },
+        "cz_delta": -0.0014,
+        "ar_delta": -0.0196,
+        "footprint_delta": 2.1233,
+        "cx_delta": -0.0,
+        "cy_delta": 0.0
+      },
+      "symmetry_deviation": {
+        "synth_axis_dev": 4.0309,
+        "real_axis_dev": 3.261,
+        "delta": 0.7699
+      },
+      "scoring": {
+        "criteria": {
+          "static_integrity": 1.0,
+          "count_similarity": 0.9,
+          "stone_cz": 1.0,
+          "stone_ar": 0.9979,
+          "footprint": 0.0,
+          "z_range": 0.0,
+          "silhouette": 0.9488,
+          "symmetry": 0.7435
+        },
+        "weights": {
+          "static_integrity": 0.15,
+          "count_similarity": 0.15,
+          "stone_cz": 0.2,
+          "stone_ar": 0.15,
+          "footprint": 0.1,
+          "z_range": 0.1,
+          "silhouette": 0.1,
+          "symmetry": 0.05
+        },
+        "overall": 0.7667
+      },
+      "ranking": "EXCELLENT"
+    },
+    "RA": {
+      "shape": "RA",
+      "synth_file": "synthesis_output\\High_Mira_RA_archB.3dm",
+      "real_file": "3dm\\High_Mira\\High Mira_RA.3dm",
+      "object_count": {
+        "synth_total": 31,
+        "real_total": 34,
+        "total_delta": 3,
+        "synth_static": 3,
+        "real_static": 3,
+        "synth_mutable": 28,
+        "real_mutable": 31,
+        "mutable_delta": 3
+      },
+      "static_integrity": {
+        "match": true
+      },
+      "geometry_hash_overlap": {
+        "mutable_shared": 0,
+        "mutable_overlap_pct": 0.0,
+        "synth_only_hashes": 28,
+        "real_only_hashes": 31
+      },
+      "bbox_similarity": {
+        "footprint_ratio": 0.9256,
+        "z_range_ratio": 0.9784,
+        "z_top_delta": -1.0079,
+        "cz_mean_delta": -1.049,
+        "xy_span_x_ratio": 0.486,
+        "xy_span_y_ratio": 1.7513,
+        "silhouette_ratio": 0.7975
+      },
+      "synth_mutable_frame": {
+        "count": 28,
+        "cz_mean": 9.3129,
+        "cx_mean": -0.0001,
+        "cy_mean": -0.0317,
+        "footprint_xy": 14.4199,
+        "z_top": 11.3152,
+        "z_bottom": -1.676,
+        "z_range": 12.9912,
+        "xy_span_x": 5.2926,
+        "xy_span_y": 7.8822,
+        "silhouette": 548.79
+      },
+      "real_mutable_frame": {
+        "count": 31,
+        "cz_mean": 10.3619,
+        "cx_mean": -0.0,
+        "cy_mean": 0.0007,
+        "footprint_xy": 15.5789,
+        "z_top": 12.3231,
+        "z_bottom": -0.9546,
+        "z_range": 13.2777,
+        "xy_span_x": 10.8904,
+        "xy_span_y": 4.5008,
+        "silhouette": 688.1
+      },
+      "stone_placement": {
+        "synth": {
+          "cz": 10.9251,
+          "cx": 0.0,
+          "cy": 0.0,
+          "footprint": 10.2249,
+          "ar": 1.355,
+          "above_z0": true
+        },
+        "real": {
+          "cz": 12.3231,
+          "cx": 0.0016,
+          "cy": -0.1962,
+          "footprint": 14.021,
+          "ar": 1.2989,
+          "above_z0": true
+        },
+        "cz_delta": -1.398,
+        "ar_delta": 0.0561,
+        "footprint_delta": -3.7961,
+        "cx_delta": -0.0016,
+        "cy_delta": 0.1962
+      },
+      "symmetry_deviation": {
+        "synth_axis_dev": 3.5796,
+        "real_axis_dev": 3.3143,
+        "delta": 0.2653
+      },
+      "scoring": {
+        "criteria": {
+          "static_integrity": 1.0,
+          "count_similarity": 0.7,
+          "stone_cz": 0.7833,
+          "stone_ar": 0.9827,
+          "footprint": 0.752,
+          "z_range": 0.928,
+          "silhouette": 0.595,
+          "symmetry": 0.9654
+        },
+        "weights": {
+          "static_integrity": 0.15,
+          "count_similarity": 0.15,
+          "stone_cz": 0.2,
+          "stone_ar": 0.15,
+          "footprint": 0.1,
+          "z_range": 0.1,
+          "silhouette": 0.1,
+          "symmetry": 0.05
+        },
+        "overall": 0.8348
+      },
+      "ranking": "EXCELLENT"
+    },
+    "RD": {
+      "shape": "RD",
+      "synth_file": "synthesis_output\\High_Mira_RD_archA.3dm",
+      "real_file": "3dm\\High_Mira\\High Mira_RD.3dm",
+      "object_count": {
+        "synth_total": 30,
+        "real_total": 34,
+        "total_delta": 4,
+        "synth_static": 4,
+        "real_static": 3,
+        "synth_mutable": 26,
+        "real_mutable": 31,
+        "mutable_delta": 5
+      },
+      "static_integrity": {
+        "match": true
+      },
+      "geometry_hash_overlap": {
+        "mutable_shared": 0,
+        "mutable_overlap_pct": 0.0,
+        "synth_only_hashes": 26,
+        "real_only_hashes": 31
+      },
+      "bbox_similarity": {
+        "footprint_ratio": 1.4084,
+        "z_range_ratio": 0.9843,
+        "z_top_delta": 0.0786,
+        "cz_mean_delta": 0.0624,
+        "xy_span_x_ratio": 0.6572,
+        "xy_span_y_ratio": 2.383,
+        "silhouette_ratio": 1.0271
+      },
+      "synth_mutable_frame": {
+        "count": 26,
+        "cz_mean": 10.4366,
+        "cx_mean": -0.0001,
+        "cy_mean": -0.0446,
+        "footprint_xy": 15.5789,
+        "z_top": 12.3379,
+        "z_bottom": -0.9546,
+        "z_range": 13.2925,
+        "xy_span_x": 7.8096,
+        "xy_span_y": 7.8096,
+        "silhouette": 587.92
+      },
+      "real_mutable_frame": {
+        "count": 31,
+        "cz_mean": 10.3742,
+        "cx_mean": 0.0,
+        "cy_mean": 0.0004,
+        "footprint_xy": 11.0611,
+        "z_top": 12.2593,
+        "z_bottom": -1.2454,
+        "z_range": 13.5047,
+        "xy_span_x": 11.884,
+        "xy_span_y": 3.2772,
+        "silhouette": 572.4
+      },
+      "stone_placement": {
+        "synth": {
+          "cz": 12.3379,
+          "cx": 0.0,
+          "cy": 0.0,
+          "footprint": 9.2911,
+          "ar": 1.0002,
+          "above_z0": true
+        },
+        "real": {
+          "cz": 12.2593,
+          "cx": -0.0,
+          "cy": 0.0,
+          "footprint": 8.9592,
+          "ar": 1.0002,
+          "above_z0": true
+        },
+        "cz_delta": 0.0786,
+        "ar_delta": 0.0,
+        "footprint_delta": 0.3319,
+        "cx_delta": 0.0,
+        "cy_delta": 0.0
+      },
+      "symmetry_deviation": {
+        "synth_axis_dev": 3.7651,
+        "real_axis_dev": 3.5813,
+        "delta": 0.1838
+      },
+      "scoring": {
+        "criteria": {
+          "static_integrity": 1.0,
+          "count_similarity": 0.5,
+          "stone_cz": 0.9992,
+          "stone_ar": 1.0,
+          "footprint": 0.0,
+          "z_range": 0.9477,
+          "silhouette": 0.9458,
+          "symmetry": 0.9833
+        },
+        "weights": {
+          "static_integrity": 0.15,
+          "count_similarity": 0.15,
+          "stone_cz": 0.2,
+          "stone_ar": 0.15,
+          "footprint": 0.1,
+          "z_range": 0.1,
+          "silhouette": 0.1,
+          "symmetry": 0.05
+        },
+        "overall": 0.8134
+      },
+      "ranking": "EXCELLENT"
+    }
+  },
+  "summary": {
+    "by_ranking": {
+      "EXCELLENT": [
+        "RA",
+        "RD",
+        "PR"
+      ],
+      "GOOD": [
+        "PE",
+        "OV"
+      ],
+      "POOR": []
+    },
+    "ranked_list": [
+      {
+        "shape": "RA",
+        "ranking": "EXCELLENT",
+        "overall_score": 0.8348
+      },
+      {
+        "shape": "RD",
+        "ranking": "EXCELLENT",
+        "overall_score": 0.8134
+      },
+      {
+        "shape": "PR",
+        "ranking": "EXCELLENT",
+        "overall_score": 0.7667
+      },
+      {
+        "shape": "PE",
+        "ranking": "GOOD",
+        "overall_score": 0.6907
+      },
+      {
+        "shape": "OV",
+        "ranking": "GOOD",
+        "overall_score": 0.6634
+      }
+    ]
+  },
+  "elapsed_seconds": 0.2
+}

@@ -1,0 +1,34 @@
+{
+  "target_family": "High_Mira",
+  "target_shape": "OV",
+  "architecture": "B",
+  "synthesis_date": "2026-05-26T15:09:40",
+  "donor_family": "SP5",
+  "donor_score": 0.9085,
+  "expected_confidence": "MEDIUM",
+  "risk_factors": [
+    {
+      "factor": "COUNT_MISMATCH_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Object count off by 4 from HM average"
+    }
+  ],
+  "affine_params": {
+    "scale_xy": 0.9256,
+    "scale_z": 1.0226,
+    "translate_x": 0.0,
+    "translate_y": 0.0,
+    "translate_z": -0.6998
+  },
+  "static_hashes_count": 3,
+  "mutable_indices_count": 36,
+  "result": {
+    "ok": true,
+    "static_added": 3,
+    "mutable_added": 33,
+    "mutable_filtered": 3,
+    "total": 36
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\High_Mira_OV_archB.3dm"
+}

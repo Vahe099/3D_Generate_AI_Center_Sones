@@ -1,6 +1,6 @@
 {
   "AS": {
-    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER1_Halo\\ER1_Halo_AS_2CT.3dm",
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER1_Halo\\ER1_Halo_AS.3dm",
     "mutable_object_indices": [
       1,
       2,
@@ -312,7 +312,7 @@
     "mutable_object_count": 38
   },
   "PR": {
-    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER1_Halo\\ER1_Halo_PR P.3dm",
+    "source_file": "D:\\python\\AI\\3D_Generate_AI_Center_Sones\\3dm\\ER1_Halo\\ER1_Halo_PR.3dm",
     "mutable_object_indices": [
       0,
       2,

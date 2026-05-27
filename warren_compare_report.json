@@ -1,0 +1,160 @@
+{
+  "family": "Warren",
+  "run_date": "2026-05-27",
+  "shapes": {
+    "PE": {
+      "score": 0.7688,
+      "ranking": "GOOD",
+      "stone_cz": {
+        "real": 12.302,
+        "synth": 13.981,
+        "delta_mm": 1.679
+      },
+      "z_range": {
+        "real": 7.047,
+        "synth": 8.325,
+        "ratio": 1.1814
+      },
+      "footprint_xy": {
+        "real": 11.019,
+        "synth": 12.069,
+        "ratio": 0.913
+      },
+      "stone_ar": {
+        "real": 1.4039,
+        "synth": 1.5376,
+        "ratio": 0.913
+      },
+      "object_count": {
+        "real": 13,
+        "synth": 11,
+        "real_cleaned_gem_refs": 1
+      },
+      "mutable_count": {
+        "real": 13,
+        "synth": 10
+      },
+      "sub_scores": {
+        "stone_cz": 0.6642,
+        "z_range": 0.6372,
+        "footprint": 0.913,
+        "ar": 0.913,
+        "count": 0.7692307692307692
+      },
+      "risk_flags": [],
+      "real_file": "3dm\\Warren\\Warren_PE.3dm",
+      "synth_file": "synthesis_output\\Warren_PE_archA.3dm"
+    },
+    "PR": {
+      "score": 0.7052,
+      "ranking": "GOOD",
+      "stone_cz": {
+        "real": 12.211,
+        "synth": 12.747,
+        "delta_mm": 0.536
+      },
+      "z_range": {
+        "real": 8.155,
+        "synth": 11.14,
+        "ratio": 1.366
+      },
+      "footprint_xy": {
+        "real": 8.225,
+        "synth": 10.975,
+        "ratio": 0.7494
+      },
+      "stone_ar": {
+        "real": 1.0196,
+        "synth": 1.4039,
+        "ratio": 0.7263
+      },
+      "object_count": {
+        "real": 8,
+        "synth": 8,
+        "real_cleaned_gem_refs": 1
+      },
+      "mutable_count": {
+        "real": 8,
+        "synth": 7
+      },
+      "sub_scores": {
+        "stone_cz": 0.8928,
+        "z_range": 0.2679999999999998,
+        "footprint": 0.7494,
+        "ar": 0.7263,
+        "count": 0.875
+      },
+      "risk_flags": [
+        "FOOTPRINT_MISMATCH (0.749)"
+      ],
+      "real_file": "3dm\\Warren\\Warren_PR.3dm",
+      "synth_file": "synthesis_output\\Warren_PR_archB.3dm"
+    },
+    "RD": {
+      "score": 0.8355,
+      "ranking": "EXCELLENT",
+      "stone_cz": {
+        "real": 11.832,
+        "synth": 11.206,
+        "delta_mm": -0.626
+      },
+      "z_range": {
+        "real": 8.052,
+        "synth": 8.243,
+        "ratio": 1.0237
+      },
+      "footprint_xy": {
+        "real": 8.849,
+        "synth": 5.148,
+        "ratio": 0.5818
+      },
+      "stone_ar": {
+        "real": 1.0002,
+        "synth": 1.0027,
+        "ratio": 0.9975
+      },
+      "object_count": {
+        "real": 16,
+        "synth": 15,
+        "real_cleaned_gem_refs": 1
+      },
+      "mutable_count": {
+        "real": 16,
+        "synth": 14
+      },
+      "sub_scores": {
+        "stone_cz": 0.8748,
+        "z_range": 0.9525999999999999,
+        "footprint": 0.5818,
+        "ar": 0.9975,
+        "count": 0.875
+      },
+      "risk_flags": [
+        "FOOTPRINT_MISMATCH (0.582)"
+      ],
+      "real_file": "3dm\\Warren\\Warren_RD.3dm",
+      "synth_file": "synthesis_output\\Warren_RD_archA.3dm"
+    }
+  },
+  "summary": {
+    "PE": {
+      "score": 0.7688,
+      "ranking": "GOOD",
+      "flags": []
+    },
+    "PR": {
+      "score": 0.7052,
+      "ranking": "GOOD",
+      "flags": [
+        "FOOTPRINT_MISMATCH (0.749)"
+      ]
+    },
+    "RD": {
+      "score": 0.8355,
+      "ranking": "EXCELLENT",
+      "flags": [
+        "FOOTPRINT_MISMATCH (0.582)"
+      ]
+    }
+  }
+}

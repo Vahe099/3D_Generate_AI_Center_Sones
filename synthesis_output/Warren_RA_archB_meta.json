@@ -1,0 +1,39 @@
+{
+  "target_family": "Warren",
+  "target_shape": "RA",
+  "architecture": "B",
+  "synthesis_date": "2026-05-27T13:33:16",
+  "donor_family": "ER6_Hidden",
+  "donor_score": 0.5503,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "SCALE_Z_HIGH",
+      "severity": "MEDIUM",
+      "detail": "Z scale factor 0.33 -- vertical geometry will be stretched"
+    },
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +8.81mm -- stone height mismatch"
+    }
+  ],
+  "affine_params": {
+    "scale_xy": 0.8137,
+    "scale_z": 0.3266,
+    "translate_x": 0.0,
+    "translate_y": 0.0,
+    "translate_z": 8.8076
+  },
+  "static_hashes_count": 4,
+  "mutable_indices_count": 20,
+  "result": {
+    "ok": true,
+    "static_added": 1,
+    "mutable_added": 20,
+    "mutable_filtered": 0,
+    "total": 21
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\Warren_RA_archB.3dm"
+}

@@ -1,0 +1,38 @@
+{
+  "target_family": "Warren",
+  "target_shape": "ELCU",
+  "architecture": "A",
+  "synthesis_date": "2026-05-27T13:37:10",
+  "donor_family": "V6",
+  "donor_score": 0.562,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "SCALE_Z_HIGH",
+      "severity": "MEDIUM",
+      "detail": "Z scale factor 0.35 -- vertical geometry will be stretched"
+    },
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +9.60mm -- stone height mismatch"
+    },
+    {
+      "factor": "STONE_AR_MISMATCH",
+      "severity": "MEDIUM",
+      "detail": "Donor stone AR 1.16 outside expected [1.18, 1.65] for ELCU"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 4,
+  "mutable_indices_count": 19,
+  "result": {
+    "ok": true,
+    "static_added": 1,
+    "mutable_added": 9,
+    "mutable_filtered": 10,
+    "total": 10
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\Warren_ELCU_archA.3dm"
+}

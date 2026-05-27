@@ -1,0 +1,166 @@
+{
+  "family": "Warren",
+  "run_date": "2026-05-27T13:37:18",
+  "known_shapes": [
+    "CU",
+    "EM",
+    "MQ",
+    "OV"
+  ],
+  "missing_shapes": [
+    "AS",
+    "ELCU",
+    "PE",
+    "PR",
+    "RA",
+    "RD"
+  ],
+  "shape_decisions": {
+    "AS": {
+      "decision": "REVIEW_NEEDED",
+      "reasons": [
+        "HIGH risks: COUNT_MISMATCH_HIGH",
+        "override: COUNT_MISMATCH_HIGH is intrinsic (GS_62 donor has 7 mutable vs Warren expected ~16; no closer donor available at sXY=0.996)",
+        "requires visual validation of prong completeness"
+      ],
+      "score": null,
+      "ranking": null,
+      "confidence": "LOW",
+      "filter_rate": 0.0,
+      "donor": "GS_62",
+      "architecture": "A",
+      "filters_applied": {
+        "z_filter": null,
+        "min_z_guard": {}
+      }
+    },
+    "ELCU": {
+      "decision": "REVIEW_NEEDED",
+      "reasons": [
+        "HIGH risks: Z_OFFSET_HIGH",
+        "filter_rate=53% exceeds 15% threshold",
+        "override: Z_OFFSET_HIGH is intrinsic (Warren stone_cz=11.7mm vs donor V6 at ~4-5mm)",
+        "high filter_rate expected for elevated-setting family with low-cz donor"
+      ],
+      "score": null,
+      "ranking": null,
+      "confidence": "LOW",
+      "filter_rate": 0.526,
+      "donor": "V6",
+      "architecture": "A",
+      "filters_applied": {
+        "z_filter": null,
+        "min_z_guard": {
+          "ELCU": 0.0
+        }
+      }
+    },
+    "PE": {
+      "decision": "REVIEW_NEEDED",
+      "reasons": [
+        "HIGH risks: Z_OFFSET_HIGH",
+        "filter_rate=47% exceeds 15% threshold",
+        "override: Z_OFFSET_HIGH is intrinsic (Warren stone_cz=11.7mm vs donor V6 at ~4-5mm)",
+        "high filter_rate expected for elevated-setting family with low-cz donor"
+      ],
+      "score": null,
+      "ranking": null,
+      "confidence": "LOW",
+      "filter_rate": 0.474,
+      "donor": "V6",
+      "architecture": "A",
+      "filters_applied": {
+        "z_filter": null,
+        "min_z_guard": {
+          "PE": 0.0
+        }
+      }
+    },
+    "PR": {
+      "decision": "REVIEW_NEEDED",
+      "reasons": [
+        "HIGH risks: COUNT_MISMATCH_HIGH",
+        "override: COUNT_MISMATCH_HIGH is intrinsic (GS_62 donor has 7 mutable vs Warren expected ~16; no closer donor available at sXY=0.996)",
+        "requires visual validation of prong completeness"
+      ],
+      "score": null,
+      "ranking": null,
+      "confidence": "LOW",
+      "filter_rate": 0.0,
+      "donor": "GS_62",
+      "architecture": "B",
+      "filters_applied": {
+        "z_filter": {
+          "scale_xy": 0.996,
+          "scale_z": 1.1358,
+          "translate_x": 0.0011,
+          "translate_y": 0.1124,
+          "translate_z": -1.6403
+        },
+        "min_z_guard": {}
+      }
+    },
+    "RA": {
+      "decision": "REVIEW_NEEDED",
+      "reasons": [
+        "HIGH risks: Z_OFFSET_HIGH",
+        "override: Z_OFFSET_HIGH is intrinsic (Warren stone_cz=11.7mm vs donor ER6_Hidden at ~4-5mm)"
+      ],
+      "score": null,
+      "ranking": null,
+      "confidence": "LOW",
+      "filter_rate": 0.0,
+      "donor": "ER6_Hidden",
+      "architecture": "B",
+      "filters_applied": {
+        "z_filter": {
+          "scale_xy": 0.8137,
+          "scale_z": 0.3266,
+          "translate_x": 0.0,
+          "translate_y": 0.0,
+          "translate_z": 8.8076
+        },
+        "min_z_guard": {}
+      }
+    },
+    "RD": {
+      "decision": "REVIEW_NEEDED",
+      "reasons": [
+        "HIGH risks: Z_OFFSET_HIGH",
+        "override: Z_OFFSET_HIGH is intrinsic (Warren stone_cz=11.7mm vs donor ER6_Pave_H_Shank at ~4-5mm)"
+      ],
+      "score": null,
+      "ranking": null,
+      "confidence": "LOW",
+      "filter_rate": 0.0,
+      "donor": "ER6_Pave_H_Shank",
+      "architecture": "A",
+      "filters_applied": {
+        "z_filter": null,
+        "min_z_guard": {}
+      }
+    }
+  },
+  "summary": {
+    "AUTO_ACCEPT": [],
+    "REVIEW_NEEDED": [
+      "AS",
+      "ELCU",
+      "PE",
+      "PR",
+      "RA",
+      "RD"
+    ],
+    "REJECT": []
+  },
+  "override_note": "Z_OFFSET_HIGH and COUNT_MISMATCH_HIGH reclassified from REJECT to REVIEW_NEEDED for Warren: stone height 11.7mm is intrinsic to this elevated-setting design; no donor family has matching stone_cz without synthesis-level correction. COUNT_MISMATCH_HIGH for AS/PR reflects GS_62 being the closest geometric match (sXY=0.996) despite lower mutable count; no better sXY donor exists in the current pool.",
+  "override_shapes": [
+    "AS",
+    "ELCU",
+    "PE",
+    "PR",
+    "RA",
+    "RD"
+  ],
+  "elapsed_seconds": 0.0
+}
