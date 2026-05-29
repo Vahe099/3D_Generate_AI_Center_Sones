@@ -32,6 +32,8 @@ BLACKLIST_FILE       = Path("_donor_blacklist.json")   # strike-based donor blac
 STRIKE_WARN          = 1   # 1 FAIL → warned, still eligible on next run
 STRIKE_TEMP          = 2   # 2 FAILs → temporary blacklist (skip until cleared)
 STRIKE_PERM          = 3   # 3 FAILs → permanent blacklist (never retry)
+ELEVATED_BASKET_THRESHOLD = 7.0   # mm; target families below this are elevated-setting
+ELEVATED_MIN_ATTEMPTS     = 10    # minimum fallback attempts for elevated-setting targets
 MAX_WORKERS      = 8      # parallel subprocess slots
 TOP_N            = 40     # candidates to report per missing shape
 PRESCORE_KEEP    = 40     # donors to load target frames for (>= TOP_N)
@@ -1796,6 +1798,7 @@ def _validate_output_file(
     exp_basket_depth: float,
     exp_count:        float,
     shape:            str,
+    elevated_mode:    bool = False,
 ) -> dict:
     """Run VALIDATE_WORKER_SRC on one synthesized file and compute all 8 checks.
 
@@ -1882,9 +1885,13 @@ def _validate_output_file(
     }
 
     if arch == "B" and aff:
-        if 0.80 <= sxy <= 1.25 and abs(dz) < 3.5:
+        # Elevated-setting targets have structurally larger translate_z (stone_cz difference
+        # between standard-height donor and elevated target can be 8-12mm). Relax bounds.
+        dz_pass = 8.0  if elevated_mode else 3.5
+        dz_warn = 15.0 if elevated_mode else 7.0
+        if 0.80 <= sxy <= 1.25 and abs(dz) < dz_pass:
             aff_v = "PASS"
-        elif 0.65 <= sxy <= 1.40 and abs(dz) < 7.0:
+        elif 0.65 <= sxy <= 1.40 and abs(dz) < dz_warn:
             aff_v = "WARN"
         else:
             aff_v = "FAIL"
@@ -2011,6 +2018,7 @@ def synthesize(
     _af_exp_stone_cz = _af_exp_basket = _af_exp_count = 0.0
     _af_hm_count_mean = plan["target_frame"].get("mutable_count_mean_all_shapes", 0.0)
     _af_hm_style_ref: dict = {}
+    _af_is_elevated = False
     if auto_fallback:
         _af_blacklist = _load_blacklist()
         _af_cache = json.loads(CACHE_FILE.read_text(encoding="utf-8")) if CACHE_FILE.exists() else {}
@@ -2031,6 +2039,10 @@ def synthesize(
         print(f"  Auto-fallback: ON  (max attempts per shape: {max_fallback_attempts})")
         print(f"  Expected     : stone_cz={_af_exp_stone_cz:.2f}mm"
               f"  basket={_af_exp_basket:.2f}mm  count={_af_exp_count:.1f}")
+        _af_is_elevated = (_af_exp_basket > 0) and (_af_exp_basket < ELEVATED_BASKET_THRESHOLD)
+        if _af_is_elevated:
+            print(f"  Elevated-setting target detected (basket ~{_af_exp_basket:.1f}mm)"
+                  f" -- extended attempt pool ({ELEVATED_MIN_ATTEMPTS} min attempts)")
         print()
 
     for miss in missing_shapes:
@@ -2073,6 +2085,22 @@ def synthesize(
                 continue
             print(f"  {miss}: {len(_pre_ok)} valid candidates"
                   f" ({_pre_skipped} pre-rejected/blacklisted)")
+            # Re-sort for elevated-setting targets: prefer style-matching donors with
+            # sufficient count (Z-filter will trim some off, leaving the right amount).
+            if _af_is_elevated and len(_pre_ok) > 1:
+                _tgt_style = _style_class(
+                    int(_af_hm_style_ref.get("melee_count_est", 0)),
+                    int(_af_hm_style_ref.get("prong_count_est", 0)),
+                )
+                def _elev_sort_key(c, _ts=_tgt_style, _ec=_af_exp_count):
+                    dtf   = c.get("donor_target_frame") or {}
+                    d_sty = _style_class(int(dtf.get("melee_count_est", 0)),
+                                         int(dtf.get("prong_count_est", 0)))
+                    d_cnt = dtf.get("count", 0)
+                    return (0 if d_sty == _ts else 1,    # style match first
+                            0 if d_cnt >= _ec else 1,    # count above mean second
+                            -c["donor_score"])            # score as tiebreaker
+                _pre_ok = sorted(_pre_ok, key=_elev_sort_key)
         else:
             pick_idx = min(donor_rank - 1, len(cands) - 1)
             _pre_ok  = [cands[pick_idx]]   # single candidate, existing behavior
@@ -2090,9 +2118,15 @@ def synthesize(
 
         # ── candidate attempt loop ──────────────────────────────
         # auto_fallback=False: single iteration (_pre_ok has exactly one entry)
-        # auto_fallback=True:  iterate up to max_fallback_attempts valid candidates
+        # auto_fallback=True:  iterate up to max_fallback_attempts valid candidates;
+        #                      elevated targets get at least ELEVATED_MIN_ATTEMPTS
         _shape_accepted = False
-        _attempt_limit  = max_fallback_attempts if auto_fallback else 1
+        _attempt_log: list[dict] = []
+        if auto_fallback:
+            _attempt_limit = max(max_fallback_attempts,
+                                 ELEVATED_MIN_ATTEMPTS if _af_is_elevated else 0)
+        else:
+            _attempt_limit = 1
 
         for _attempt_n, best in enumerate(_pre_ok[:_attempt_limit], 1):
             donor_fam = best["donor_family"]
@@ -2203,12 +2237,20 @@ def synthesize(
                         exp_basket_depth = _af_exp_basket,
                         exp_count        = _af_exp_count,
                         shape            = miss,
+                        elevated_mode    = _af_is_elevated,
                     )
                     val_verdict = val_result["verdict"]
                     warn_n = val_result["n_warn"]
                     fail_n = val_result["n_fail"]
                     print(f"       [validate]  verdict={val_verdict}"
                           f"  warn={warn_n}  fail={fail_n}")
+                    # Track check results for REVIEW_NEEDED diagnostic
+                    _attempt_log.append({
+                        "donor":  donor_fam,
+                        "n_pass": 8 - val_result.get("n_fail", 0) - val_result.get("n_warn", 0),
+                        "n_fail": val_result.get("n_fail", 0),
+                        "checks": val_result.get("checks", {}),
+                    })
                     if val_verdict == "FAIL":
                         # Record strike and try next candidate
                         _record_strike(_af_blacklist, family, miss, donor_fam, val_result)
@@ -2226,11 +2268,12 @@ def synthesize(
                 meta_extra: dict = {}
                 if auto_fallback:
                     meta_extra = {
-                        "fallback_mode":    True,
-                        "attempt_number":   _attempt_n,
-                        "pre_rejected_count": (len(cands) - len(_pre_ok)),
-                        "validation_verdict": val_verdict,
-                        "validation_checks":  val_result.get("checks") if val_result else None,
+                        "fallback_mode":        True,
+                        "attempt_number":       _attempt_n,
+                        "pre_rejected_count":   (len(cands) - len(_pre_ok)),
+                        "elevated_setting_mode": _af_is_elevated,
+                        "validation_verdict":   val_verdict,
+                        "validation_checks":    val_result.get("checks") if val_result else None,
                     }
 
                 meta = {
@@ -2267,6 +2310,20 @@ def synthesize(
         if auto_fallback and not _shape_accepted:
             print(f"  {miss}: REVIEW_NEEDED -- all {min(len(_pre_ok), _attempt_limit)}"
                   f" attempts exhausted")
+            if _attempt_log:
+                best_att = max(_attempt_log, key=lambda x: x["n_pass"])
+                fail_cts: dict[str, int] = {}
+                for r in _attempt_log:
+                    for chk, v in r["checks"].items():
+                        verdict = v["verdict"] if isinstance(v, dict) else v
+                        if verdict == "FAIL":
+                            fail_cts[chk] = fail_cts.get(chk, 0) + 1
+                top_fails = sorted(fail_cts, key=lambda k: -fail_cts[k])[:3]
+                print(f"  Best attempt: {best_att['donor']}"
+                      f" ({best_att['n_pass']}/8 passed, {best_att['n_fail']} failed)")
+                if top_fails:
+                    fail_str = ", ".join(f"{k}({fail_cts[k]}x)" for k in top_fails)
+                    print(f"  Most-failing checks: {fail_str}")
             results.append({"shape": miss, "status": "REVIEW_NEEDED",
                              "reason": "all_attempts_failed"})
 
@@ -3025,6 +3082,8 @@ def validate_synthesis(family: str, synth_dir: Path, out_path: Path) -> None:
             exp_basket_depth = exp_basket_depth,
             exp_count        = exp_count,
             shape            = shape,
+            elevated_mode    = (exp_basket_depth > 0 and
+                                exp_basket_depth < ELEVATED_BASKET_THRESHOLD),
         )
         if vr["verdict"] == "ERROR":
             print(f"  [{label}]  ERROR: frame extraction failed")
