@@ -1375,13 +1375,37 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
                                      hm_count_mean, score, miss, fam,
                                      hm_tgt_frame=hm_style_ref)
 
-            # Refine score with C5 (stone AR) now that target frame is available
-            dn_ar = dn_tf.get("stone_ar") if dn_tf else None
+            # Refine score with target-shape criteria (applied after pre-scoring):
+            #   C5 — stone AR similarity   (w=0.10 when available)
+            #   C7 — melee count similarity (w=0.20 when available)
+            #
+            # Weights: base(C1-C4) = 1 - w_c5 - w_c7 so total always sums to 1.
+            # C7 is the primary halo vs. non-halo discriminator — promotes HALO donors
+            # when the target family is HALO, and correctly pairs PAVE/SOLITAIRE donors
+            # with PAVE/SOLITAIRE targets.  When both melee counts are 0, c7=1.0 (match).
+            dn_ar    = dn_tf.get("stone_ar")          if dn_tf else None
+            dn_melee = dn_tf.get("melee_count_est", 0) if dn_tf else None
+            hm_melee_ref = hm_style_ref.get("melee_count_est", 0)
+
+            ar_sim = None
             if dn_ar and hm_target_ar > 0:
                 ar_sim = round(min(hm_target_ar, dn_ar) / max(hm_target_ar, dn_ar), 4)
-                score  = round(score * 0.88 + ar_sim * 0.12, 4)
-            else:
-                ar_sim = None
+
+            c7 = None
+            if dn_melee is not None:
+                c7 = (1.0 if (hm_melee_ref == 0 and dn_melee == 0)
+                      else min(hm_melee_ref, dn_melee) / max(max(hm_melee_ref, dn_melee), 1))
+                c7 = round(c7, 4)
+
+            w_c5   = 0.10 if ar_sim is not None else 0.0
+            w_c7   = 0.20 if c7     is not None else 0.0
+            w_base = round(1.0 - w_c5 - w_c7, 2)
+            score  = round(
+                w_base * score
+                + (w_c5 * ar_sim if ar_sim is not None else 0.0)
+                + (w_c7 * c7     if c7     is not None else 0.0),
+                4,
+            )
 
             conf    = expected_confidence(score, risks)
             rec_flt = recommend_filters(fam, miss, affine, cache, target_family)
@@ -1397,6 +1421,7 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
                 "donor_score":           score,
                 "score_breakdown":       row["score_breakdown"],
                 "stone_ar_sim":          ar_sim,
+                "melee_sim":             c7,
                 "bridge_shape_used":     best_bridge,
                 "donor_target_count":    dn_tgt_count,
                 "hm_expected_count":     round(hm_count_mean, 1),
@@ -1420,6 +1445,12 @@ def analyze(target_family: str, out_path: Path, forced_bridge: str | None, rebui
                 "recommended_filters":   rec_flt,
                 "auto_arch":             auto_arch_sel,
             })
+
+        # Re-sort by final score (post C5+C7) and re-assign ranks.
+        # Pre-scoring ordered by C1-C4; post-hoc criteria may change the order.
+        candidates.sort(key=lambda d: d["donor_score"], reverse=True)
+        for i, d in enumerate(candidates, 1):
+            d["rank"] = i
 
         high_conf = sum(1 for d in candidates if d["expected_confidence"] == "HIGH")
         med_conf  = sum(1 for d in candidates if d["expected_confidence"] == "MEDIUM")
