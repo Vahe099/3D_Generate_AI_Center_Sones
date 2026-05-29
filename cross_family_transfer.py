@@ -28,6 +28,10 @@ WORKER_FILE          = Path("_cf_frame_worker.py")
 SYNTH_WORKER_FILE    = Path("_cf_synth_worker.py")
 COMPARE_WORKER_FILE  = Path("_cf_compare_worker.py")
 VALIDATE_WORKER_FILE = Path("_cf_validate_worker.py")
+BLACKLIST_FILE       = Path("_donor_blacklist.json")   # strike-based donor blacklist
+STRIKE_WARN          = 1   # 1 FAIL → warned, still eligible on next run
+STRIKE_TEMP          = 2   # 2 FAILs → temporary blacklist (skip until cleared)
+STRIKE_PERM          = 3   # 3 FAILs → permanent blacklist (never retry)
 MAX_WORKERS      = 8      # parallel subprocess slots
 TOP_N            = 40     # candidates to report per missing shape
 PRESCORE_KEEP    = 40     # donors to load target frames for (>= TOP_N)
@@ -1686,6 +1690,224 @@ def _archs_for_shape(shape: str, strategy: dict | None, default_arch: str) -> li
     return [default_arch]
 
 
+# ─────────────────────────────────────────────────────────────
+#  Phase 6: blacklist helpers + pre-reject + single-file validator
+# ─────────────────────────────────────────────────────────────
+
+def _load_blacklist() -> dict:
+    if BLACKLIST_FILE.exists():
+        try:
+            return json.loads(BLACKLIST_FILE.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return {}
+
+
+def _save_blacklist(bl: dict) -> None:
+    BLACKLIST_FILE.write_text(json.dumps(bl, indent=2), encoding="utf-8")
+
+
+def _bl_key(family: str, shape: str, donor: str) -> str:
+    return f"{family}|{shape}|{donor}"
+
+
+def _bl_status(bl: dict, family: str, shape: str, donor: str) -> str:
+    """Return 'clean' | 'warning' | 'temporary_blacklist' | 'permanent_blacklist'."""
+    entry = bl.get(_bl_key(family, shape, donor))
+    return entry.get("status", "clean") if entry else "clean"
+
+
+def _record_strike(bl: dict, family: str, shape: str, donor: str, validation: dict) -> None:
+    """Increment strike counter for (family, shape, donor); update status."""
+    key   = _bl_key(family, shape, donor)
+    entry = bl.get(key, {"strikes": 0, "status": "clean", "history": []})
+    n     = entry["strikes"] + 1
+    if n >= STRIKE_PERM:
+        status = "permanent_blacklist"
+    elif n >= STRIKE_TEMP:
+        status = "temporary_blacklist"
+    else:
+        status = "warning"
+    now    = datetime.now().isoformat(timespec="seconds")
+    checks = validation.get("checks", {})
+    failed = [k for k, v in checks.items() if v.get("verdict") == "FAIL"]
+    details = {
+        k: {kk: vv for kk, vv in v.items() if kk != "verdict"}
+        for k, v in checks.items() if k in failed
+    }
+    entry.update({"strikes": n, "status": status, "last_strike": now})
+    if "first_strike" not in entry:
+        entry["first_strike"] = now
+    entry["history"].append({
+        "timestamp":         now,
+        "rejection_point":   "post_synthesis",
+        "validator_verdict": validation.get("verdict"),
+        "checks_failed":     failed,
+        "check_details":     details,
+    })
+    bl[key] = entry
+
+
+def _pre_reject(
+    candidate:     dict,
+    hm_count_mean: float,
+    hm_style_ref:  dict,
+) -> tuple[bool, list[str]]:
+    """Deterministic pre-synthesis rejection from frame cache data.
+
+    Returns (reject: bool, reasons: list[str]).
+    Reasons are ephemeral — re-computed each run from the plan.  No persistence.
+    """
+    reasons: list[str] = []
+    dn_tf  = candidate.get("donor_target_frame") or {}
+    dn_cnt = dn_tf.get("count", 0)
+    dn_mel = dn_tf.get("melee_count_est", 0)
+
+    # PR-1: predicted contaminant rate (melee-heavy donor → stone InstanceRefs dominate output)
+    if dn_cnt > 0 and (dn_mel / dn_cnt) > 0.40:
+        reasons.append(
+            f"CONTAMINANT_RATE_PREDICTED ({dn_mel}/{dn_cnt}={dn_mel/dn_cnt:.0%})"
+        )
+
+    # PR-2: object count inflation or sparsity
+    if hm_count_mean > 0 and dn_cnt > 0:
+        ratio = dn_cnt / hm_count_mean
+        if ratio > 1.65:
+            reasons.append(f"COUNT_INFLATED ({ratio:.2f}x)")
+        elif ratio < 0.55:
+            reasons.append(f"COUNT_SPARSE ({ratio:.2f}x)")
+
+    # PR-3: STYLE_MISMATCH HIGH (already computed in identify_risks)
+    for risk in candidate.get("risk_factors", []):
+        if risk["factor"] == "STYLE_MISMATCH" and risk["severity"] == "HIGH":
+            reasons.append("STYLE_MISMATCH_HIGH")
+            break
+
+    return bool(reasons), reasons
+
+
+def _validate_output_file(
+    out_file:         Path,
+    arch:             str,
+    affine_params:    dict | None,
+    result_meta:      dict,
+    static_hashes:    list[str],
+    exp_stone_cz:     float,
+    exp_basket_depth: float,
+    exp_count:        float,
+    shape:            str,
+) -> dict:
+    """Run VALIDATE_WORKER_SRC on one synthesized file and compute all 8 checks.
+
+    Assumes VALIDATE_WORKER_FILE is already written.
+    Returns {"verdict", "n_warn", "n_fail", "checks", "frame"}.
+    """
+    worker_args = {"file": str(out_file), "static_hashes": static_hashes}
+    env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+    frame = None
+    try:
+        r = subprocess.run(
+            [sys.executable, str(VALIDATE_WORKER_FILE), json.dumps(worker_args)],
+            capture_output=True, text=True, encoding="utf-8",
+            errors="replace", timeout=180, env=env,
+        )
+        if r.stdout.strip():
+            frame = json.loads(r.stdout.strip())
+            if frame.get("error"):
+                frame = None
+    except Exception:
+        pass
+
+    if frame is None:
+        return {"verdict": "ERROR", "n_warn": 0, "n_fail": 1, "checks": {}, "frame": None}
+
+    aff        = affine_params or {}
+    sxy        = aff.get("scale_xy",    1.0)
+    sz         = aff.get("scale_z",     1.0)
+    dz         = aff.get("translate_z", 0.0)
+    res        = result_meta or {}
+    m_added    = res.get("mutable_added",    0)
+    m_filtered = res.get("mutable_filtered", 0)
+    m_total    = m_added + m_filtered
+    loss_pct   = round(m_filtered / max(m_total, 1) * 100, 1)
+
+    checks: dict = {}
+
+    stone_cz = frame.get("stone_cz", 0.0)
+    cz_delta = stone_cz - exp_stone_cz
+    checks["stone_cz"] = {
+        "actual": round(stone_cz, 3), "expected": round(exp_stone_cz, 3),
+        "delta": round(cz_delta, 3),
+        "verdict": "PASS" if abs(cz_delta) < 1.5 else ("WARN" if abs(cz_delta) < 3.0 else "FAIL"),
+    }
+
+    stone_ar     = frame.get("stone_ar", 1.0)
+    ar_lo, ar_hi = STONE_AR.get(shape, (0.8, 3.0))
+    if ar_lo <= stone_ar <= ar_hi:
+        ar_v = "PASS"
+    elif (ar_lo - 0.20) <= stone_ar <= (ar_hi + 0.20):
+        ar_v = "WARN"
+    else:
+        ar_v = "FAIL"
+    checks["stone_ar"] = {
+        "actual": round(stone_ar, 3), "expected_range": [ar_lo, ar_hi], "verdict": ar_v,
+    }
+
+    out_count   = frame.get("mutable_count", 0)
+    count_ratio = out_count / max(exp_count, 1)
+    checks["object_count"] = {
+        "actual": out_count, "expected": round(exp_count, 1), "ratio": round(count_ratio, 3),
+        "verdict": _vcheck(count_ratio, 0.75, 1.40, 0.55, 1.65),
+    }
+
+    basket   = frame.get("basket_depth", 0.0)
+    bd_ratio = basket / max(exp_basket_depth, 0.001)
+    checks["basket_depth"] = {
+        "actual": round(basket, 3), "expected": round(exp_basket_depth, 3),
+        "ratio": round(bd_ratio, 3),
+        "verdict": _vcheck(bd_ratio, 0.75, 1.45, 0.55, 1.80),
+    }
+
+    cx   = frame.get("stone_cx", 0.0)
+    cy   = frame.get("stone_cy", 0.0)
+    dist = math.sqrt(cx**2 + cy**2)
+    checks["stone_centered"] = {
+        "cx": round(cx, 3), "cy": round(cy, 3), "dist": round(dist, 3),
+        "verdict": "PASS" if dist < 1.5 else ("WARN" if dist < 3.5 else "FAIL"),
+    }
+
+    checks["mutable_loss"] = {
+        "filtered": m_filtered, "total": m_total, "loss_pct": loss_pct,
+        "verdict": "PASS" if loss_pct < 10 else ("WARN" if loss_pct < 25 else "FAIL"),
+    }
+
+    if arch == "B" and aff:
+        if 0.80 <= sxy <= 1.25 and abs(dz) < 3.5:
+            aff_v = "PASS"
+        elif 0.65 <= sxy <= 1.40 and abs(dz) < 7.0:
+            aff_v = "WARN"
+        else:
+            aff_v = "FAIL"
+        checks["affine_sanity"] = {
+            "scale_xy": round(sxy, 4), "scale_z": round(sz, 4),
+            "translate_z": round(dz, 4), "verdict": aff_v,
+        }
+
+    raw_n     = frame.get("raw_object_count", frame.get("total_count", 1))
+    cont_n    = frame.get("contaminant_count", 0)
+    cont_rate = round(cont_n / max(raw_n, 1) * 100, 1)
+    checks["contaminant_rate"] = {
+        "raw_objects": raw_n, "contaminants": cont_n, "rate_pct": cont_rate,
+        "verdict": "PASS" if cont_rate < 5 else ("WARN" if cont_rate < 40 else "FAIL"),
+    }
+
+    verdicts = [c["verdict"] for c in checks.values()]
+    n_fail   = verdicts.count("FAIL")
+    n_warn   = verdicts.count("WARN")
+    overall  = "FAIL" if n_fail > 0 else ("WARN" if n_warn > 0 else "PASS")
+    return {"verdict": overall, "n_warn": n_warn, "n_fail": n_fail, "checks": checks, "frame": frame}
+
+
 def synthesize(
     family: str,
     plan_path: Path,
@@ -1697,6 +1919,8 @@ def synthesize(
     z_filter: float | None = None,
     min_z_guards: dict | None = None,
     z_offsets: dict | None = None,  # shape → z_offset_correction float (arch A only)
+    auto_fallback: bool = False,
+    max_fallback_attempts: int = 5,
 ) -> None:
     t0 = time.time()
 
@@ -1780,6 +2004,35 @@ def synthesize(
     shape_plan_by_name = {sp["missing_shape"]: sp for sp in plan["missing_shape_plans"]}
     results = []
 
+    # ── auto-fallback setup ────────────────────────────────────
+    # Compute expected validation metrics once (reused per shape).
+    # Load blacklist; pre-write VALIDATE_WORKER once for efficiency.
+    _af_blacklist: dict = {}
+    _af_exp_stone_cz = _af_exp_basket = _af_exp_count = 0.0
+    _af_hm_count_mean = plan["target_frame"].get("mutable_count_mean_all_shapes", 0.0)
+    _af_hm_style_ref: dict = {}
+    if auto_fallback:
+        _af_blacklist = _load_blacklist()
+        _af_cache = json.loads(CACHE_FILE.read_text(encoding="utf-8")) if CACHE_FILE.exists() else {}
+        _af_hm_frames = [_af_cache[f"{family}|{s}"]
+                         for s in plan["known_shapes"] if f"{family}|{s}" in _af_cache]
+        if _af_hm_frames:
+            def _af_mean(k):
+                vs = [f[k] for f in _af_hm_frames if f.get(k) is not None]
+                return sum(vs) / len(vs) if vs else 0.0
+            _af_exp_stone_cz = _af_mean("stone_cz") or _af_mean("cz_mean")
+            _af_exp_basket   = _af_mean("basket_depth")
+            _af_exp_count    = _af_mean("count")
+            # hm_style_ref: mode-style majority (same logic as analyze())
+            _af_style_pairs  = [(_af_mean("melee_count_est"), _af_mean("prong_count_est"))]
+            _af_hm_style_ref = {"melee_count_est": int(_af_style_pairs[0][0]),
+                                 "prong_count_est": int(_af_style_pairs[0][1])}
+        VALIDATE_WORKER_FILE.write_text(VALIDATE_WORKER_SRC, encoding="utf-8")
+        print(f"  Auto-fallback: ON  (max attempts per shape: {max_fallback_attempts})")
+        print(f"  Expected     : stone_cz={_af_exp_stone_cz:.2f}mm"
+              f"  basket={_af_exp_basket:.2f}mm  count={_af_exp_count:.1f}")
+        print()
+
     for miss in missing_shapes:
         archs_to_run = _archs_for_shape(miss, strategy, default_arch)
 
@@ -1794,9 +2047,38 @@ def synthesize(
             results.append({"shape": miss, "status": "SKIP", "reason": "no_candidates"})
             continue
 
-        cands     = sp["top_candidates"]
-        pick_idx  = min(donor_rank - 1, len(cands) - 1)
-        best      = cands[pick_idx]
+        cands = sp["top_candidates"]
+
+        # ── candidate selection ─────────────────────────────────
+        if auto_fallback:
+            # Filter: skip pre-rejected and blacklisted donors
+            _pre_ok: list[dict] = []
+            _pre_skipped = 0
+            for c in cands:
+                rej, reasons = _pre_reject(c, _af_hm_count_mean, _af_hm_style_ref)
+                bl_st = _bl_status(_af_blacklist, family, miss, c["donor_family"])
+                if rej:
+                    _pre_skipped += 1
+                elif bl_st in ("temporary_blacklist", "permanent_blacklist"):
+                    _pre_skipped += 1
+                else:
+                    _pre_ok.append(c)
+            if not _pre_ok:
+                note = (f"all {len(cands)} candidates pre-rejected or blacklisted"
+                        if _pre_skipped == len(cands)
+                        else f"{_pre_skipped} of {len(cands)} pre-rejected/blacklisted; pool empty")
+                print(f"  {miss}: REVIEW_NEEDED -- {note}")
+                results.append({"shape": miss, "status": "REVIEW_NEEDED",
+                                 "reason": note, "pre_rejected": _pre_skipped})
+                continue
+            print(f"  {miss}: {len(_pre_ok)} valid candidates"
+                  f" ({_pre_skipped} pre-rejected/blacklisted)")
+        else:
+            pick_idx = min(donor_rank - 1, len(cands) - 1)
+            _pre_ok  = [cands[pick_idx]]   # single candidate, existing behavior
+
+        # Pull common fields from the first candidate for printing
+        best      = _pre_ok[0]
         donor_fam = best["donor_family"]
         score     = best["donor_score"]
         conf      = best["expected_confidence"]
@@ -1806,115 +2088,215 @@ def synthesize(
             results.append({"shape": miss, "status": "SKIP", "reason": "donor_not_in_libs"})
             continue
 
-        donor_idx = libs[donor_fam]["idx"]
-        if miss not in donor_idx:
-            print(f"  {miss}: donor '{donor_fam}' has no {miss} shape -- skipping")
-            results.append({"shape": miss, "status": "SKIP", "reason": "donor_missing_shape"})
-            continue
+        # ── candidate attempt loop ──────────────────────────────
+        # auto_fallback=False: single iteration (_pre_ok has exactly one entry)
+        # auto_fallback=True:  iterate up to max_fallback_attempts valid candidates
+        _shape_accepted = False
+        _attempt_limit  = max_fallback_attempts if auto_fallback else 1
 
-        donor_src = str(Path(donor_idx[miss]["source_file"]))
-        mut_idxs  = donor_idx[miss]["mutable_object_indices"]
+        for _attempt_n, best in enumerate(_pre_ok[:_attempt_limit], 1):
+            donor_fam = best["donor_family"]
+            score     = best["donor_score"]
+            conf      = best["expected_confidence"]
 
-        print(f"  {miss}: donor={donor_fam} score={score:.3f} conf={conf}"
-              f" mut={len(mut_idxs)}  archs=[{'+'.join(archs_to_run)}]")
+            if donor_fam not in libs:
+                if auto_fallback:
+                    continue
+                print(f"  {miss}: donor '{donor_fam}' missing from libs -- skipping")
+                results.append({"shape": miss, "status": "SKIP",
+                                 "reason": "donor_not_in_libs"})
+                break
 
-        # Remove stale arch files only when using canonical rank-1 donor
-        for obsolete_arch in ("A", "B"):
-            if donor_rank > 1:
-                break  # never clobber canonical files when experimenting with alt donors
-            if obsolete_arch not in archs_to_run:
-                stale = out_dir / f"{family}_{miss}_arch{obsolete_arch}.3dm"
-                stale_meta = out_dir / f"{family}_{miss}_arch{obsolete_arch}_meta.json"
-                if stale.exists():
-                    try:
-                        stale.unlink()
-                        print(f"       removed stale arch{obsolete_arch}: {stale.name}")
-                    except PermissionError:
-                        print(f"       WARNING: cannot remove {stale.name} (file in use -- close it in Rhino)")
-                if stale_meta.exists():
-                    try:
-                        stale_meta.unlink()
-                    except PermissionError:
-                        pass
+            donor_idx = libs[donor_fam]["idx"]
+            if miss not in donor_idx:
+                if auto_fallback:
+                    continue
+                print(f"  {miss}: donor '{donor_fam}' has no {miss} shape -- skipping")
+                results.append({"shape": miss, "status": "SKIP",
+                                 "reason": "donor_missing_shape"})
+                break
 
-        for arch in archs_to_run:
-            affine_p = best["affine_params"] if arch == "B" else None
+            donor_src = str(Path(donor_idx[miss]["source_file"]))
+            mut_idxs  = donor_idx[miss]["mutable_object_indices"]
 
-            rank_tag = f"_r{donor_rank}" if donor_rank > 1 else ""
-            out_stem = f"{family}_{miss}_arch{arch}{rank_tag}"
-            out_3dm  = out_dir / f"{out_stem}.3dm"
-            out_meta = out_dir / f"{out_stem}_meta.json"
+            attempt_pfx = f"  [{_attempt_n}]" if auto_fallback else " "
+            print(f"{attempt_pfx} {miss}: donor={donor_fam} score={score:.3f} conf={conf}"
+                  f" mut={len(mut_idxs)}  archs=[{'+'.join(archs_to_run)}]")
 
-            affine_note = ""
-            if arch == "B" and affine_p:
-                affine_note = (f" sxy={affine_p['scale_xy']:.3f}"
-                               f" sz={affine_p['scale_z']:.3f}"
-                               f" dz={affine_p['translate_z']:+.2f}mm")
+            # Remove stale arch files only when using canonical rank-1 donor (no fallback)
+            if not auto_fallback:
+                for obsolete_arch in ("A", "B"):
+                    if donor_rank > 1:
+                        break
+                    if obsolete_arch not in archs_to_run:
+                        stale      = out_dir / f"{family}_{miss}_arch{obsolete_arch}.3dm"
+                        stale_meta = out_dir / f"{family}_{miss}_arch{obsolete_arch}_meta.json"
+                        if stale.exists():
+                            try:
+                                stale.unlink()
+                                print(f"       removed stale arch{obsolete_arch}: {stale.name}")
+                            except PermissionError:
+                                print(f"       WARNING: cannot remove {stale.name}"
+                                      f" (file in use -- close it in Rhino)")
+                        if stale_meta.exists():
+                            try:
+                                stale_meta.unlink()
+                            except PermissionError:
+                                pass
 
-            synth_args = {
-                "static_src":      static_src,
-                "donor_src":       donor_src,
-                "mutable_indices": mut_idxs,
-                "static_hashes":   list(static_hashes),
-                "output_path":     str(out_3dm),
-                "affine":          affine_p,
-                "z_filter":        _z_filter,
-                "min_z_guard":     min_z_guards.get(miss) if min_z_guards else None,
-                "z_offset_correction": (z_offsets.get(miss) if z_offsets and arch == "A" else None),
-            }
+            _attempt_accepted = False
+            for arch in archs_to_run:
+                affine_p = best["affine_params"] if arch == "B" else None
 
-            t_shape = time.time()
-            result  = _run_synth(synth_args)
-            elapsed = round(time.time() - t_shape, 1)
+                rank_tag = f"_r{donor_rank}" if (donor_rank > 1 and not auto_fallback) else ""
+                out_stem = f"{family}_{miss}_arch{arch}{rank_tag}"
+                out_3dm  = out_dir / f"{out_stem}.3dm"
+                out_meta = out_dir / f"{out_stem}_meta.json"
 
-            if result and result.get("ok"):
-                size_kb  = out_3dm.stat().st_size // 1024 if out_3dm.exists() else 0
-                filtered = result.get("mutable_filtered", 0)
-                flt_note = f" filtered={filtered}" if filtered else ""
-                print(f"       [arch{arch}]{affine_note}  "
-                      f"static={result['static_added']} mutable={result['mutable_added']}"
-                      f"{flt_note} total={result['total']} ({size_kb} KB) [{elapsed}s]")
-                status = "OK"
-            else:
-                print(f"       [arch{arch}] FAIL  [{elapsed}s]")
-                status = "FAIL"
+                affine_note = ""
+                if arch == "B" and affine_p:
+                    affine_note = (f" sxy={affine_p['scale_xy']:.3f}"
+                                   f" sz={affine_p['scale_z']:.3f}"
+                                   f" dz={affine_p['translate_z']:+.2f}mm")
 
-            meta = {
-                "target_family":         family,
-                "target_shape":          miss,
-                "architecture":          arch,
-                "synthesis_date":        datetime.now().isoformat(timespec="seconds"),
-                "donor_family":          donor_fam,
-                "donor_score":           score,
-                "expected_confidence":   conf,
-                "risk_factors":          best.get("risk_factors", []),
-                "affine_params":         affine_p,
-                "static_hashes_count":   len(static_hashes),
-                "mutable_indices_count": len(mut_idxs),
-                "result":                result,
-                "status":                status,
-                "output_file":           str(out_3dm),
-            }
-            out_meta.write_text(json.dumps(meta, indent=2), encoding="utf-8")
-            results.append({
-                "shape": miss, "arch": arch, "status": status,
-                "donor": donor_fam, "conf": conf,
-            })
+                synth_args = {
+                    "static_src":      static_src,
+                    "donor_src":       donor_src,
+                    "mutable_indices": mut_idxs,
+                    "static_hashes":   list(static_hashes),
+                    "output_path":     str(out_3dm),
+                    "affine":          affine_p,
+                    "z_filter":        _z_filter,
+                    "min_z_guard":     min_z_guards.get(miss) if min_z_guards else None,
+                    "z_offset_correction": (
+                        z_offsets.get(miss) if z_offsets and arch == "A" else None
+                    ),
+                }
+
+                t_shape = time.time()
+                result  = _run_synth(synth_args)
+                elapsed = round(time.time() - t_shape, 1)
+
+                if result and result.get("ok"):
+                    size_kb  = out_3dm.stat().st_size // 1024 if out_3dm.exists() else 0
+                    filtered = result.get("mutable_filtered", 0)
+                    flt_note = f" filtered={filtered}" if filtered else ""
+                    print(f"       [arch{arch}]{affine_note}  "
+                          f"static={result['static_added']} mutable={result['mutable_added']}"
+                          f"{flt_note} total={result['total']} ({size_kb} KB) [{elapsed}s]")
+                    synth_ok = True
+                else:
+                    print(f"       [arch{arch}] FAIL  [{elapsed}s]")
+                    synth_ok = False
+
+                # ── Phase 6: post-synthesis validation (auto-fallback only) ──
+                val_verdict = None
+                val_result  = None
+                if auto_fallback and synth_ok and out_3dm.exists():
+                    val_result = _validate_output_file(
+                        out_file         = out_3dm,
+                        arch             = arch,
+                        affine_params    = affine_p,
+                        result_meta      = result,
+                        static_hashes    = list(static_hashes),
+                        exp_stone_cz     = _af_exp_stone_cz,
+                        exp_basket_depth = _af_exp_basket,
+                        exp_count        = _af_exp_count,
+                        shape            = miss,
+                    )
+                    val_verdict = val_result["verdict"]
+                    warn_n = val_result["n_warn"]
+                    fail_n = val_result["n_fail"]
+                    print(f"       [validate]  verdict={val_verdict}"
+                          f"  warn={warn_n}  fail={fail_n}")
+                    if val_verdict == "FAIL":
+                        # Record strike and try next candidate
+                        _record_strike(_af_blacklist, family, miss, donor_fam, val_result)
+                        _save_blacklist(_af_blacklist)
+                        strikes_now = _af_blacklist[
+                            _bl_key(family, miss, donor_fam)]["strikes"]
+                        status_now  = _af_blacklist[
+                            _bl_key(family, miss, donor_fam)]["status"]
+                        print(f"       [blacklist] {donor_fam} -> strikes={strikes_now}"
+                              f" status={status_now}")
+                        synth_ok = False  # treat this attempt as failed
+
+                status = "OK" if synth_ok else "FAIL"
+
+                meta_extra: dict = {}
+                if auto_fallback:
+                    meta_extra = {
+                        "fallback_mode":    True,
+                        "attempt_number":   _attempt_n,
+                        "pre_rejected_count": (len(cands) - len(_pre_ok)),
+                        "validation_verdict": val_verdict,
+                        "validation_checks":  val_result.get("checks") if val_result else None,
+                    }
+
+                meta = {
+                    "target_family":         family,
+                    "target_shape":          miss,
+                    "architecture":          arch,
+                    "synthesis_date":        datetime.now().isoformat(timespec="seconds"),
+                    "donor_family":          donor_fam,
+                    "donor_score":           score,
+                    "expected_confidence":   conf,
+                    "risk_factors":          best.get("risk_factors", []),
+                    "affine_params":         affine_p,
+                    "static_hashes_count":   len(static_hashes),
+                    "mutable_indices_count": len(mut_idxs),
+                    "result":                result,
+                    "status":                status,
+                    "output_file":           str(out_3dm),
+                    **meta_extra,
+                }
+                out_meta.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+
+                if synth_ok:
+                    results.append({"shape": miss, "arch": arch, "status": status,
+                                     "donor": donor_fam, "conf": conf,
+                                     "attempt": _attempt_n if auto_fallback else None,
+                                     "validation": val_verdict})
+                    _attempt_accepted = True
+
+            if _attempt_accepted:
+                _shape_accepted = True
+                break   # move on to next shape
+            # else: try next candidate in fallback loop
+
+        if auto_fallback and not _shape_accepted:
+            print(f"  {miss}: REVIEW_NEEDED -- all {min(len(_pre_ok), _attempt_limit)}"
+                  f" attempts exhausted")
+            results.append({"shape": miss, "status": "REVIEW_NEEDED",
+                             "reason": "all_attempts_failed"})
 
     SYNTH_WORKER_FILE.unlink(missing_ok=True)
+    if auto_fallback:
+        VALIDATE_WORKER_FILE.unlink(missing_ok=True)
 
     print()
     print("=" * 60)
     print(f"  Synthesis Complete -- {family}")
     print("=" * 60)
     ok_count = sum(1 for r in results if r["status"] == "OK")
-    print(f"  {ok_count}/{len(results)} outputs generated successfully")
+    rv_count = sum(1 for r in results if r["status"] == "REVIEW_NEEDED")
+    print(f"  {ok_count}/{len(results)} outputs generated successfully"
+          + (f"  ({rv_count} REVIEW_NEEDED)" if rv_count else ""))
     for r in results:
-        mark  = "OK" if r["status"] == "OK" else "--"
+        mark  = "OK" if r["status"] == "OK" else ("RV" if r["status"] == "REVIEW_NEEDED" else "--")
         donor = r.get("donor", "---")
         conf  = r.get("conf",  "---")
         arch  = r.get("arch",  "?")
-        print(f"  [{mark}] {r['shape']:<5} arch{arch}  donor={donor:<20}  conf={conf}")
+        val   = f"  val={r['validation']}" if r.get("validation") else ""
+        att   = f"  attempt={r['attempt']}" if r.get("attempt") else ""
+        print(f"  [{mark}] {r['shape']:<5} arch{arch}  donor={donor:<20}  conf={conf}{att}{val}")
+    if auto_fallback:
+        bl = _load_blacklist()
+        fam_strikes = {k: v for k, v in bl.items() if k.startswith(f"{family}|")}
+        if fam_strikes:
+            print(f"\n  Blacklist entries for {family}: {len(fam_strikes)}")
+            for k, v in sorted(fam_strikes.items()):
+                print(f"    {k}  strikes={v['strikes']}  status={v['status']}")
     print(f"  Output : {out_dir}/")
     print(f"  Elapsed: {round(time.time()-t0, 1)}s")
 
@@ -2632,128 +3014,30 @@ def validate_synthesis(family: str, synth_dir: Path, out_path: Path) -> None:
         except Exception:
             pass
 
-        if frame is None:
+        # Delegate to shared helper (same 8 checks as the auto-fallback path)
+        vr = _validate_output_file(
+            out_file         = out_file,
+            arch             = arch,
+            affine_params    = meta.get("affine_params"),
+            result_meta      = meta.get("result", {}),
+            static_hashes    = static_hashes,
+            exp_stone_cz     = exp_stone_cz,
+            exp_basket_depth = exp_basket_depth,
+            exp_count        = exp_count,
+            shape            = shape,
+        )
+        if vr["verdict"] == "ERROR":
             print(f"  [{label}]  ERROR: frame extraction failed")
             all_results.append({"label": label, "shape": shape, "arch": arch,
                                  "donor": donor, "donor_score": d_score,
                                  "verdict": "ERROR", "error": "frame_extract_failed", "checks": {}})
             continue
 
-        checks: dict = {}
-
-        # C1: stone_cz vs target family mean
-        stone_cz = frame.get("stone_cz", 0.0)
-        cz_delta = stone_cz - exp_stone_cz
-        checks["stone_cz"] = {
-            "actual":   round(stone_cz, 3),
-            "expected": round(exp_stone_cz, 3),
-            "delta":    round(cz_delta, 3),
-            "verdict":  ("PASS" if abs(cz_delta) < 1.5
-                         else "WARN" if abs(cz_delta) < 3.0
-                         else "FAIL"),
-        }
-
-        # C2: stone_ar vs expected range for this shape
-        stone_ar  = frame.get("stone_ar", 1.0)
-        ar_lo, ar_hi = STONE_AR.get(shape, (0.8, 3.0))
-        if ar_lo <= stone_ar <= ar_hi:
-            ar_verdict = "PASS"
-        elif (ar_lo - 0.20) <= stone_ar <= (ar_hi + 0.20):
-            ar_verdict = "WARN"
-        else:
-            ar_verdict = "FAIL"
-        checks["stone_ar"] = {
-            "actual":         round(stone_ar, 3),
-            "expected_range": [ar_lo, ar_hi],
-            "verdict":        ar_verdict,
-        }
-
-        # C3: mutable object count vs target family mean
-        out_count   = frame.get("mutable_count", 0)
-        count_ratio = out_count / max(exp_count, 1)
-        checks["object_count"] = {
-            "actual":   out_count,
-            "expected": round(exp_count, 1),
-            "ratio":    round(count_ratio, 3),
-            "verdict":  _vcheck(count_ratio, 0.75, 1.40, 0.55, 1.65),
-        }
-
-        # C4: basket_depth vs target family mean
-        basket = frame.get("basket_depth", 0.0)
-        bd_ratio = basket / max(exp_basket_depth, 0.001)
-        checks["basket_depth"] = {
-            "actual":   round(basket, 3),
-            "expected": round(exp_basket_depth, 3),
-            "ratio":    round(bd_ratio, 3),
-            "verdict":  _vcheck(bd_ratio, 0.75, 1.45, 0.55, 1.80),
-        }
-
-        # C5: stone centering (should be near ring axis)
-        cx = frame.get("stone_cx", 0.0)
-        cy = frame.get("stone_cy", 0.0)
-        dist = math.sqrt(cx**2 + cy**2)
-        checks["stone_centered"] = {
-            "cx":    round(cx, 3),
-            "cy":    round(cy, 3),
-            "dist":  round(dist, 3),
-            "verdict": ("PASS" if dist < 1.5 else "WARN" if dist < 3.5 else "FAIL"),
-        }
-
-        # C6: mutable loss rate (from synthesis meta, no re-parse)
-        checks["mutable_loss"] = {
-            "filtered":  m_filtered,
-            "total":     m_total,
-            "loss_pct":  loss_pct,
-            "verdict":   ("PASS" if loss_pct < 10 else "WARN" if loss_pct < 25 else "FAIL"),
-        }
-
-        # C7: affine sanity (arch B only)
-        if arch == "B" and aff:
-            sxy_pass = 0.80 <= sxy <= 1.25
-            sxy_warn = 0.65 <= sxy <= 1.40
-            dz_pass  = abs(dz) < 3.5
-            dz_warn  = abs(dz) < 7.0
-            if sxy_pass and dz_pass:
-                aff_v = "PASS"
-            elif sxy_warn and dz_warn:
-                aff_v = "WARN"
-            else:
-                aff_v = "FAIL"
-            checks["affine_sanity"] = {
-                "scale_xy":    round(sxy, 4),
-                "scale_z":     round(sz, 4),
-                "translate_z": round(dz, 4),
-                "verdict":     aff_v,
-            }
-
-        # C8: contaminant rate — high rate means donor stone geometry dominates output
-        raw_n  = frame.get("raw_object_count", frame.get("total_count", 1))
-        cont_n = frame.get("contaminant_count", 0)
-        cont_rate = round(cont_n / max(raw_n, 1) * 100, 1)
-        if cont_rate < 5:
-            cont_v = "PASS"
-        elif cont_rate < 40:
-            cont_v = "WARN"
-        else:
-            cont_v = "FAIL"
-        checks["contaminant_rate"] = {
-            "raw_objects":   raw_n,
-            "contaminants":  cont_n,
-            "rate_pct":      cont_rate,
-            "verdict":       cont_v,
-        }
-
-        verdicts = [c["verdict"] for c in checks.values()]
-        n_fail = verdicts.count("FAIL")
-        n_warn = verdicts.count("WARN")
-        if n_fail > 0:
-            overall = "FAIL"
-        elif n_warn >= 2:
-            overall = "WARN"
-        elif n_warn == 1:
-            overall = "WARN"
-        else:
-            overall = "PASS"
+        checks    = vr["checks"]
+        overall   = vr["verdict"]
+        n_fail    = vr["n_fail"]
+        n_warn    = vr["n_warn"]
+        frame     = vr["frame"]
 
         all_results.append({
             "label":       label,
@@ -2769,16 +3053,23 @@ def validate_synthesis(family: str, synth_dir: Path, out_path: Path) -> None:
         })
 
         # Console line per shape
-        v_sym  = {"PASS": "PASS", "WARN": "WARN", "FAIL": "FAIL", "ERROR": "ERR "}
-        cz_str = f"{checks['stone_cz']['delta']:+.2f}mm"
-        ar_str = f"{checks['stone_ar']['actual']:.2f}[{checks['stone_ar']['verdict'][0]}]"
-        ct_str = f"{out_count}/{exp_count:.0f}[{checks['object_count']['verdict'][0]}]"
-        bd_str = f"{basket:.2f}[{checks['basket_depth']['verdict'][0]}]"
-        dc_str = f"{dist:.2f}[{checks['stone_centered']['verdict'][0]}]"
-        ls_str = f"{loss_pct:.0f}%[{checks['mutable_loss']['verdict'][0]}]"
+        v_sym    = {"PASS": "PASS", "WARN": "WARN", "FAIL": "FAIL", "ERROR": "ERR "}
+        cz_str   = f"{checks['stone_cz']['delta']:+.2f}mm"
+        ar_str   = f"{checks['stone_ar']['actual']:.2f}[{checks['stone_ar']['verdict'][0]}]"
+        out_count = frame.get("mutable_count", 0) if frame else 0
+        ct_str   = f"{out_count}/{exp_count:.0f}[{checks['object_count']['verdict'][0]}]"
+        basket   = frame.get("basket_depth", 0.0) if frame else 0.0
+        bd_str   = f"{basket:.2f}[{checks['basket_depth']['verdict'][0]}]"
+        dist     = frame and math.sqrt(frame.get("stone_cx",0)**2 + frame.get("stone_cy",0)**2)
+        dc_str   = f"{(dist or 0):.2f}[{checks['stone_centered']['verdict'][0]}]"
+        loss_pct = checks["mutable_loss"]["loss_pct"]
+        ls_str   = f"{loss_pct:.0f}%[{checks['mutable_loss']['verdict'][0]}]"
+        cont_rate = checks["contaminant_rate"]["rate_pct"]
+        cont_str = f"cont:{cont_rate:.0f}%[{checks['contaminant_rate']['verdict'][0]}]"
+        aff      = meta.get("affine_params") or {}
+        sxy      = aff.get("scale_xy", 1.0)
         aff_str  = (f"sXY={sxy:.3f}[{checks['affine_sanity']['verdict'][0]}]"
                     if "affine_sanity" in checks else "archA")
-        cont_str = f"cont:{cont_rate:.0f}%[{checks['contaminant_rate']['verdict'][0]}]"
         print(f"  {shape:<5} arch{arch}  {donor:<20} {d_score:.3f}  "
               f"CZ:{cz_str}  AR:{ar_str}  N:{ct_str}  BD:{bd_str}  "
               f"XY:{dc_str}  loss:{ls_str}  {cont_str}  {aff_str}  -> {v_sym[overall]}")
@@ -2821,6 +3112,69 @@ def validate_synthesis(family: str, synth_dir: Path, out_path: Path) -> None:
     }
     out_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(f"  Report -> {out_path}  ({round(time.time()-t0, 1)}s)")
+
+
+# ─────────────────────────────────────────────────────────────
+#  Phase 6: blacklist management commands
+# ─────────────────────────────────────────────────────────────
+
+def show_blacklist(family: str | None = None) -> None:
+    bl = _load_blacklist()
+    entries = [(k, v) for k, v in bl.items()
+               if family is None or k.startswith(f"{family}|")]
+    if not entries:
+        msg = f"  No blacklist entries" + (f" for {family}" if family else "") + "."
+        print(msg)
+        return
+
+    print(f"  {'Key':<40}  {'Strikes':>7}  {'Status':<22}  Last strike")
+    print("  " + "-" * 90)
+    for key, entry in sorted(entries):
+        strikes    = entry.get("strikes", 0)
+        status     = entry.get("status", "?")
+        last       = entry.get("last_strike", "?")[:19]
+        failed     = entry["history"][-1].get("checks_failed", []) if entry.get("history") else []
+        print(f"  {key:<40}  {strikes:>7}  {status:<22}  {last}")
+        if failed:
+            print(f"    last failed checks: {failed}")
+    print()
+    by_status: dict[str, int] = {}
+    for _, v in entries:
+        s = v.get("status", "?")
+        by_status[s] = by_status.get(s, 0) + 1
+    for s in ("warning", "temporary_blacklist", "permanent_blacklist"):
+        if by_status.get(s):
+            print(f"  {s}: {by_status[s]}")
+    print(f"  Total: {len(entries)}")
+
+
+def clear_blacklist(
+    family: str | None = None,
+    shape:  str | None = None,
+    donor:  str | None = None,
+) -> None:
+    bl = _load_blacklist()
+    before     = len(bl)
+    to_remove  = []
+    for key in list(bl.keys()):
+        parts = key.split("|", 2)
+        if len(parts) != 3:
+            continue
+        k_fam, k_shp, k_don = parts
+        if family and k_fam != family:
+            continue
+        if shape  and k_shp != shape:
+            continue
+        if donor  and k_don != donor:
+            continue
+        to_remove.append(key)
+    for key in to_remove:
+        del bl[key]
+    _save_blacklist(bl)
+    print(f"  Cleared {len(to_remove)}/{before} blacklist entries.")
+    if to_remove:
+        for key in to_remove:
+            print(f"    removed: {key}")
 
 
 # ─────────────────────────────────────────────────────────────
@@ -3035,6 +3389,8 @@ def main():
         donor_rank    = 1
         z_filter      = None  # None = auto from known-shape envelope
         min_z_guards  = {}    # shape → float threshold, e.g. {"PR": 0.0}
+        auto_fallback = False
+        max_fallback_attempts = 5
         i = 3
         while i < len(sys.argv):
             if sys.argv[i] == "--plan" and i+1 < len(sys.argv):
@@ -3059,13 +3415,18 @@ def main():
                     if shape_key and thresh:
                         min_z_guards[shape_key.strip().upper()] = float(thresh.strip())
                 i += 2
+            elif sys.argv[i] == "--auto-fallback":
+                auto_fallback = True; i += 1
+            elif sys.argv[i] == "--max-attempts" and i+1 < len(sys.argv):
+                max_fallback_attempts = int(sys.argv[i+1]); i += 2
             else:
                 i += 1
         if arch not in ("A", "B"):
             print("ERROR: --arch must be A or B")
             sys.exit(1)
         synthesize(family, plan, out_dir, arch, shapes, strategy, donor_rank, z_filter,
-                   min_z_guards or None)
+                   min_z_guards or None, auto_fallback=auto_fallback,
+                   max_fallback_attempts=max_fallback_attempts)
 
     elif cmd == "auto-onboard":
         if len(sys.argv) < 3:
@@ -3139,13 +3500,32 @@ def main():
                 i += 1
         validate_synthesis(family, synth_dir, out_path)
 
+    elif cmd == "show-blacklist":
+        family = sys.argv[2] if len(sys.argv) > 2 and not sys.argv[2].startswith("--") else None
+        show_blacklist(family)
+
+    elif cmd == "clear-blacklist":
+        family = sys.argv[2] if len(sys.argv) > 2 and not sys.argv[2].startswith("--") else None
+        shape  = None
+        donor  = None
+        i = 3 if family else 2
+        while i < len(sys.argv):
+            if sys.argv[i] == "--shape" and i+1 < len(sys.argv):
+                shape = sys.argv[i+1].upper(); i += 2
+            elif sys.argv[i] == "--donor" and i+1 < len(sys.argv):
+                donor = sys.argv[i+1]; i += 2
+            else:
+                i += 1
+        clear_blacklist(family, shape, donor)
+
     else:
         print("Usage:")
         print("  python cross_family_transfer.py analyze <family> [--out plan.json] [--bridge EM] [--rebuild-cache]")
         print("  python cross_family_transfer.py build-frame-db [--rebuild-cache]")
         print("  python cross_family_transfer.py synthesize <family> [--plan transfer_plan.json]")
         print("    [--out-dir synthesis_output] [--arch A|B] [--shapes AS,OV,PE]")
-        print("    [--strategy architecture_strategy.json]")
+        print("    [--strategy architecture_strategy.json] [--donor-rank N]")
+        print("    [--auto-fallback] [--max-attempts N]")
         print("  python cross_family_transfer.py auto-onboard <family>")
         print("    [--plan transfer_plan.json] [--out-dir synthesis_output]")
         print("    [--real-dir 3dm/<family>] [--strategy architecture_strategy.json]")
@@ -3155,6 +3535,8 @@ def main():
         print("    [--compare <report.json>] [--out <output.json>]")
         print("  python cross_family_transfer.py validate-synthesis <family>")
         print("    [--dir synthesis_p4/<family>] [--out <report.json>]")
+        print("  python cross_family_transfer.py show-blacklist [family]")
+        print("  python cross_family_transfer.py clear-blacklist [family] [--shape SHAPE] [--donor DONOR]")
         print("  python cross_family_transfer.py debug-stone-detection [--out=stone_detection_report.json]")
         sys.exit(1)
 
