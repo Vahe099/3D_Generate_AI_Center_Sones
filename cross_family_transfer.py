@@ -24,9 +24,10 @@ from datetime import datetime
 
 LIBRARY_DIR        = Path("shape_library")
 CACHE_FILE         = Path("_cf_frame_cache.json")
-WORKER_FILE        = Path("_cf_frame_worker.py")
-SYNTH_WORKER_FILE  = Path("_cf_synth_worker.py")
-COMPARE_WORKER_FILE = Path("_cf_compare_worker.py")
+WORKER_FILE          = Path("_cf_frame_worker.py")
+SYNTH_WORKER_FILE    = Path("_cf_synth_worker.py")
+COMPARE_WORKER_FILE  = Path("_cf_compare_worker.py")
+VALIDATE_WORKER_FILE = Path("_cf_validate_worker.py")
 MAX_WORKERS      = 8      # parallel subprocess slots
 TOP_N            = 40     # candidates to report per missing shape
 PRESCORE_KEEP    = 40     # donors to load target frames for (>= TOP_N)
@@ -2121,6 +2122,127 @@ print(json.dumps({
 }))
 """
 
+# ─────────────────────────────────────────────────────────────
+#  Embedded worker: validate synthesized output file geometry
+# ─────────────────────────────────────────────────────────────
+
+VALIDATE_WORKER_SRC = """\
+import sys, json, os, math
+sys.path.insert(0, os.path.dirname(os.path.abspath(sys.argv[0])))
+import rhino3dm
+from jewelry_transform import fingerprint_object, is_contaminant
+
+args          = json.loads(sys.argv[1])
+file_path     = args["file"]
+static_hashes = set(args["static_hashes"])
+
+model = rhino3dm.File3dm.Read(file_path)
+if not model:
+    print(json.dumps({"error": "cannot_read"}))
+    sys.exit(0)
+
+raw_count        = sum(1 for _ in model.Objects)
+contaminant_count = 0
+all_fps = []
+for obj in model.Objects:
+    if is_contaminant(obj, model):
+        contaminant_count += 1
+        continue
+    fp = fingerprint_object(obj)
+    if fp is None:
+        continue
+    all_fps.append(fp)
+
+static_fps  = [f for f in all_fps if f["sig_hash"] in static_hashes]
+mutable_fps = [f for f in all_fps if f["sig_hash"] not in static_hashes]
+
+fps = mutable_fps
+n   = len(fps)
+if n == 0:
+    print(json.dumps({
+        "error":              "no_mutables",
+        "raw_object_count":   raw_count,
+        "contaminant_count":  contaminant_count,
+        "total_count":        len(all_fps),
+        "static_count":       len(static_fps),
+        "mutable_count":      0,
+    }))
+    sys.exit(0)
+
+cxs  = [f["cx"] for f in fps]
+cys  = [f["cy"] for f in fps]
+czs  = [f["cz"] for f in fps]
+sxs  = [f["sx"] for f in fps]
+sys_ = [f["sy"] for f in fps]
+szs  = [f["sz"] for f in fps]
+nsrf = [f.get("n_surfaces") or 0 for f in fps]
+
+zmx = max(czs)
+
+areas   = [sxs[i] * sys_[i]        for i in range(n)]
+volumes = [sxs[i] * sys_[i] * szs[i] for i in range(n)]
+dists   = [math.sqrt(cxs[i]**2 + cys[i]**2) for i in range(n)]
+dr      = [szs[i] / max(max(sxs[i], sys_[i]), 0.001) for i in range(n)]
+
+def _rank(vals, ascending=True):
+    order = sorted(range(len(vals)), key=lambda i: vals[i], reverse=not ascending)
+    return {idx: r for r, idx in enumerate(order)}
+
+r_xy  = _rank(areas,   ascending=False)
+r_vol = _rank(volumes, ascending=False)
+r_nsf = _rank(nsrf,    ascending=False)
+r_cz  = _rank(czs,     ascending=False)
+
+scores = []
+for i in range(n):
+    cb  = -n * 0.10 * math.exp(-(dists[i]**2) / (2 * 1.5**2))
+    fpp = n * 0.10 if dr[i] < 0.15 else 0.0
+    scores.append(0.25*r_xy[i] + 0.25*r_vol[i] + 0.15*r_nsf[i] + 0.25*r_cz[i] + cb + fpp)
+
+st_idx   = scores.index(min(scores))
+stone_sx = sxs[st_idx]
+stone_sy = sys_[st_idx]
+stone_ar = max(stone_sx, stone_sy) / max(min(stone_sx, stone_sy), 0.001)
+
+prong_est = sum(
+    1 for i in range(n)
+    if czs[i] > zmx * 0.85 and max(sxs[i], sys_[i]) < stone_sx * 0.6
+)
+melee_est = sum(
+    1 for i in range(n)
+    if i != st_idx
+    and abs(czs[i] - czs[st_idx]) < 2.0
+    and max(sxs[i], sys_[i]) < stone_sx * 0.60
+    and czs[i] > 3.0
+)
+strata_count = len(set(int(cz // 1.0) for cz in czs))
+basket_depth = round(czs[st_idx] - min(czs), 4)
+
+print(json.dumps({
+    "raw_object_count":  raw_count,
+    "contaminant_count": contaminant_count,
+    "total_count":       len(all_fps),
+    "static_count":      len(static_fps),
+    "mutable_count":     n,
+    "count":             n,
+    "cz_mean":         round(sum(czs)/n, 4),
+    "footprint_xy":    round(max(max(sxs), max(sys_)), 4),
+    "z_top":           round(zmx, 4),
+    "z_bottom":        round(min(czs), 4),
+    "z_range":         round(zmx - min(czs), 4),
+    "stone_sx":        round(stone_sx, 4),
+    "stone_sy":        round(stone_sy, 4),
+    "stone_cz":        round(czs[st_idx], 4),
+    "stone_cx":        round(cxs[st_idx], 4),
+    "stone_cy":        round(cys[st_idx], 4),
+    "stone_ar":        round(stone_ar, 4),
+    "prong_count_est": prong_est,
+    "melee_count_est": melee_est,
+    "strata_count":    strata_count,
+    "basket_depth":    basket_depth,
+}))
+"""
+
 
 def compare_vs_real(
     family: str,
@@ -2397,6 +2519,308 @@ def write_acceptance_report(
     print(f"  REVIEW_NEEDED : {summary['REVIEW_NEEDED']}")
     print(f"  REJECT        : {summary['REJECT']}")
     print(f"  Report -> {out_path}  ({round(time.time()-t0,1)}s)")
+
+
+# ─────────────────────────────────────────────────────────────
+#  Phase 5: post-synthesis validator
+# ─────────────────────────────────────────────────────────────
+
+def _vcheck(val: float, lo_pass: float, hi_pass: float,
+            lo_warn: float, hi_warn: float) -> str:
+    """Return PASS / WARN / FAIL for a ratio or delta."""
+    if lo_pass <= val <= hi_pass:
+        return "PASS"
+    if lo_warn <= val <= hi_warn:
+        return "WARN"
+    return "FAIL"
+
+
+def validate_synthesis(family: str, synth_dir: Path, out_path: Path) -> None:
+    t0 = time.time()
+    print("=" * 72)
+    print(f"  Post-Synthesis Validator  --  {family}")
+    print("=" * 72)
+
+    libs = load_all_libraries()
+    if family not in libs:
+        print(f"ERROR: '{family}' not in libraries.")
+        sys.exit(1)
+
+    # Static hashes for this family
+    fam_cls = libs[family]["cls"]
+    static_hashes = list(
+        set(fam_cls.get("exact_static_hashes", [])) |
+        set(fam_cls.get("fuzzy_static_hashes",  []))
+    )
+
+    cache = load_cache()
+    hm_known = libs[family]["shapes"]
+    hm_frames = [cache[f"{family}|{s}"] for s in hm_known if f"{family}|{s}" in cache]
+    if not hm_frames:
+        print(f"ERROR: No frame cache entries for {family}. Run build-frame-db first.")
+        sys.exit(1)
+
+    # Expected metrics — averages across known shapes (ring-level constants)
+    def _mean(key: str) -> float:
+        vals = [f[key] for f in hm_frames if f.get(key) is not None]
+        return sum(vals) / len(vals) if vals else 0.0
+
+    exp_stone_cz     = _mean("stone_cz") or _mean("cz_mean")
+    exp_basket_depth = _mean("basket_depth")
+    exp_count        = _mean("count")
+
+    meta_files = sorted(synth_dir.glob(f"{family}_*_meta.json"))
+    if not meta_files:
+        print(f"  No synthesis metadata files found in: {synth_dir}")
+        return
+
+    print(f"  Known shapes    : {hm_known}")
+    print(f"  Expected stone_cz: {exp_stone_cz:.3f}mm  basket: {exp_basket_depth:.3f}mm  count: {exp_count:.1f}")
+    print(f"  Validating {len(meta_files)} output(s) in {synth_dir}\n")
+
+    VALIDATE_WORKER_FILE.write_text(VALIDATE_WORKER_SRC, encoding="utf-8")
+
+    all_results = []
+    for meta_file in meta_files:
+        try:
+            meta = json.loads(meta_file.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+
+        shape    = meta.get("target_shape", "?")
+        arch     = meta.get("architecture", "?")
+        donor    = meta.get("donor_family", "?")
+        d_score  = meta.get("donor_score", 0.0)
+        out_file = Path(meta.get("output_file", ""))
+
+        label = f"{family}_{shape}_arch{arch}"
+
+        if not out_file.exists():
+            print(f"  [{label}]  ERROR: output file not found: {out_file}")
+            all_results.append({"label": label, "shape": shape, "arch": arch,
+                                 "donor": donor, "donor_score": d_score,
+                                 "verdict": "ERROR", "error": "file_not_found", "checks": {}})
+            continue
+
+        # Mutable loss from metadata (no file parse needed)
+        res        = meta.get("result", {})
+        m_added    = res.get("mutable_added",    0)
+        m_filtered = res.get("mutable_filtered", 0)
+        m_total    = m_added + m_filtered
+        loss_pct   = round(m_filtered / max(m_total, 1) * 100, 1)
+
+        # Affine params
+        aff = meta.get("affine_params") or {}
+        sxy = aff.get("scale_xy",     1.0)
+        sz  = aff.get("scale_z",      1.0)
+        dz  = aff.get("translate_z",  0.0)
+
+        # Run VALIDATE_WORKER_SRC
+        worker_args = {"file": str(out_file), "static_hashes": static_hashes}
+        env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+        frame = None
+        try:
+            r = subprocess.run(
+                [sys.executable, str(VALIDATE_WORKER_FILE), json.dumps(worker_args)],
+                capture_output=True, text=True, encoding="utf-8",
+                errors="replace", timeout=180, env=env,
+            )
+            if r.stdout.strip():
+                frame = json.loads(r.stdout.strip())
+                if frame.get("error"):
+                    frame = None
+        except Exception:
+            pass
+
+        if frame is None:
+            print(f"  [{label}]  ERROR: frame extraction failed")
+            all_results.append({"label": label, "shape": shape, "arch": arch,
+                                 "donor": donor, "donor_score": d_score,
+                                 "verdict": "ERROR", "error": "frame_extract_failed", "checks": {}})
+            continue
+
+        checks: dict = {}
+
+        # C1: stone_cz vs target family mean
+        stone_cz = frame.get("stone_cz", 0.0)
+        cz_delta = stone_cz - exp_stone_cz
+        checks["stone_cz"] = {
+            "actual":   round(stone_cz, 3),
+            "expected": round(exp_stone_cz, 3),
+            "delta":    round(cz_delta, 3),
+            "verdict":  ("PASS" if abs(cz_delta) < 1.5
+                         else "WARN" if abs(cz_delta) < 3.0
+                         else "FAIL"),
+        }
+
+        # C2: stone_ar vs expected range for this shape
+        stone_ar  = frame.get("stone_ar", 1.0)
+        ar_lo, ar_hi = STONE_AR.get(shape, (0.8, 3.0))
+        if ar_lo <= stone_ar <= ar_hi:
+            ar_verdict = "PASS"
+        elif (ar_lo - 0.20) <= stone_ar <= (ar_hi + 0.20):
+            ar_verdict = "WARN"
+        else:
+            ar_verdict = "FAIL"
+        checks["stone_ar"] = {
+            "actual":         round(stone_ar, 3),
+            "expected_range": [ar_lo, ar_hi],
+            "verdict":        ar_verdict,
+        }
+
+        # C3: mutable object count vs target family mean
+        out_count   = frame.get("mutable_count", 0)
+        count_ratio = out_count / max(exp_count, 1)
+        checks["object_count"] = {
+            "actual":   out_count,
+            "expected": round(exp_count, 1),
+            "ratio":    round(count_ratio, 3),
+            "verdict":  _vcheck(count_ratio, 0.75, 1.40, 0.55, 1.65),
+        }
+
+        # C4: basket_depth vs target family mean
+        basket = frame.get("basket_depth", 0.0)
+        bd_ratio = basket / max(exp_basket_depth, 0.001)
+        checks["basket_depth"] = {
+            "actual":   round(basket, 3),
+            "expected": round(exp_basket_depth, 3),
+            "ratio":    round(bd_ratio, 3),
+            "verdict":  _vcheck(bd_ratio, 0.75, 1.45, 0.55, 1.80),
+        }
+
+        # C5: stone centering (should be near ring axis)
+        cx = frame.get("stone_cx", 0.0)
+        cy = frame.get("stone_cy", 0.0)
+        dist = math.sqrt(cx**2 + cy**2)
+        checks["stone_centered"] = {
+            "cx":    round(cx, 3),
+            "cy":    round(cy, 3),
+            "dist":  round(dist, 3),
+            "verdict": ("PASS" if dist < 1.5 else "WARN" if dist < 3.5 else "FAIL"),
+        }
+
+        # C6: mutable loss rate (from synthesis meta, no re-parse)
+        checks["mutable_loss"] = {
+            "filtered":  m_filtered,
+            "total":     m_total,
+            "loss_pct":  loss_pct,
+            "verdict":   ("PASS" if loss_pct < 10 else "WARN" if loss_pct < 25 else "FAIL"),
+        }
+
+        # C7: affine sanity (arch B only)
+        if arch == "B" and aff:
+            sxy_pass = 0.80 <= sxy <= 1.25
+            sxy_warn = 0.65 <= sxy <= 1.40
+            dz_pass  = abs(dz) < 3.5
+            dz_warn  = abs(dz) < 7.0
+            if sxy_pass and dz_pass:
+                aff_v = "PASS"
+            elif sxy_warn and dz_warn:
+                aff_v = "WARN"
+            else:
+                aff_v = "FAIL"
+            checks["affine_sanity"] = {
+                "scale_xy":    round(sxy, 4),
+                "scale_z":     round(sz, 4),
+                "translate_z": round(dz, 4),
+                "verdict":     aff_v,
+            }
+
+        # C8: contaminant rate — high rate means donor stone geometry dominates output
+        raw_n  = frame.get("raw_object_count", frame.get("total_count", 1))
+        cont_n = frame.get("contaminant_count", 0)
+        cont_rate = round(cont_n / max(raw_n, 1) * 100, 1)
+        if cont_rate < 5:
+            cont_v = "PASS"
+        elif cont_rate < 40:
+            cont_v = "WARN"
+        else:
+            cont_v = "FAIL"
+        checks["contaminant_rate"] = {
+            "raw_objects":   raw_n,
+            "contaminants":  cont_n,
+            "rate_pct":      cont_rate,
+            "verdict":       cont_v,
+        }
+
+        verdicts = [c["verdict"] for c in checks.values()]
+        n_fail = verdicts.count("FAIL")
+        n_warn = verdicts.count("WARN")
+        if n_fail > 0:
+            overall = "FAIL"
+        elif n_warn >= 2:
+            overall = "WARN"
+        elif n_warn == 1:
+            overall = "WARN"
+        else:
+            overall = "PASS"
+
+        all_results.append({
+            "label":       label,
+            "shape":       shape,
+            "arch":        arch,
+            "donor":       donor,
+            "donor_score": d_score,
+            "verdict":     overall,
+            "n_warn":      n_warn,
+            "n_fail":      n_fail,
+            "frame":       frame,
+            "checks":      checks,
+        })
+
+        # Console line per shape
+        v_sym  = {"PASS": "PASS", "WARN": "WARN", "FAIL": "FAIL", "ERROR": "ERR "}
+        cz_str = f"{checks['stone_cz']['delta']:+.2f}mm"
+        ar_str = f"{checks['stone_ar']['actual']:.2f}[{checks['stone_ar']['verdict'][0]}]"
+        ct_str = f"{out_count}/{exp_count:.0f}[{checks['object_count']['verdict'][0]}]"
+        bd_str = f"{basket:.2f}[{checks['basket_depth']['verdict'][0]}]"
+        dc_str = f"{dist:.2f}[{checks['stone_centered']['verdict'][0]}]"
+        ls_str = f"{loss_pct:.0f}%[{checks['mutable_loss']['verdict'][0]}]"
+        aff_str  = (f"sXY={sxy:.3f}[{checks['affine_sanity']['verdict'][0]}]"
+                    if "affine_sanity" in checks else "archA")
+        cont_str = f"cont:{cont_rate:.0f}%[{checks['contaminant_rate']['verdict'][0]}]"
+        print(f"  {shape:<5} arch{arch}  {donor:<20} {d_score:.3f}  "
+              f"CZ:{cz_str}  AR:{ar_str}  N:{ct_str}  BD:{bd_str}  "
+              f"XY:{dc_str}  loss:{ls_str}  {cont_str}  {aff_str}  -> {v_sym[overall]}")
+
+    VALIDATE_WORKER_FILE.unlink(missing_ok=True)
+
+    n_pass  = sum(1 for r in all_results if r["verdict"] == "PASS")
+    n_warn  = sum(1 for r in all_results if r["verdict"] == "WARN")
+    n_fail  = sum(1 for r in all_results if r["verdict"] == "FAIL")
+    n_err   = sum(1 for r in all_results if r["verdict"] == "ERROR")
+    n_total = len(all_results)
+
+    print()
+    print("=" * 72)
+    print(f"  PASS: {n_pass}/{n_total}   WARN: {n_warn}/{n_total}   "
+          f"FAIL: {n_fail}/{n_total}   ERROR: {n_err}/{n_total}")
+    print("=" * 72)
+
+    report = {
+        "family":           family,
+        "validation_date":  datetime.now().isoformat(timespec="seconds"),
+        "synth_dir":        str(synth_dir),
+        "expected_metrics": {
+            "stone_cz":     round(exp_stone_cz,     3),
+            "basket_depth": round(exp_basket_depth, 3),
+            "count":        round(exp_count,         1),
+        },
+        "thresholds": {
+            "stone_cz_delta_pass": 1.5,  "stone_cz_delta_warn": 3.0,
+            "count_ratio_pass":    [0.75, 1.40], "count_ratio_warn": [0.55, 1.65],
+            "basket_ratio_pass":   [0.75, 1.45], "basket_ratio_warn": [0.55, 1.80],
+            "stone_dist_pass": 1.5, "stone_dist_warn": 3.5,
+            "loss_pct_pass":   10,  "loss_pct_warn":   25,
+            "affine_sxy_pass": [0.80, 1.25], "affine_sxy_warn": [0.65, 1.40],
+            "affine_dz_pass":  3.5, "affine_dz_warn":  7.0,
+        },
+        "summary": {"PASS": n_pass, "WARN": n_warn, "FAIL": n_fail, "ERROR": n_err, "total": n_total},
+        "results": all_results,
+        "elapsed_seconds": round(time.time() - t0, 1),
+    }
+    out_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
+    print(f"  Report -> {out_path}  ({round(time.time()-t0, 1)}s)")
 
 
 # ─────────────────────────────────────────────────────────────
@@ -2695,6 +3119,26 @@ def main():
                 i += 1
         write_acceptance_report(family, plan, out_dir, compare_path, out_path)
 
+    elif cmd == "validate-synthesis":
+        if len(sys.argv) < 3:
+            print("Usage: python cross_family_transfer.py validate-synthesis <family> [--dir <path>] [--out <report.json>]")
+            sys.exit(1)
+        family   = sys.argv[2]
+        # Default: try synthesis_p4/<family> first, fallback to synthesis_output
+        synth_dir = Path("synthesis_p4") / family
+        if not synth_dir.exists():
+            synth_dir = Path("synthesis_output")
+        out_path  = Path(f"{family.lower().replace(' ', '_')}_validation_report.json")
+        i = 3
+        while i < len(sys.argv):
+            if sys.argv[i] == "--dir" and i+1 < len(sys.argv):
+                synth_dir = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--out" and i+1 < len(sys.argv):
+                out_path = Path(sys.argv[i+1]); i += 2
+            else:
+                i += 1
+        validate_synthesis(family, synth_dir, out_path)
+
     else:
         print("Usage:")
         print("  python cross_family_transfer.py analyze <family> [--out plan.json] [--bridge EM] [--rebuild-cache]")
@@ -2709,6 +3153,8 @@ def main():
         print("  python cross_family_transfer.py acceptance-report <family>")
         print("    [--plan transfer_plan.json] [--out-dir synthesis_output]")
         print("    [--compare <report.json>] [--out <output.json>]")
+        print("  python cross_family_transfer.py validate-synthesis <family>")
+        print("    [--dir synthesis_p4/<family>] [--out <report.json>]")
         print("  python cross_family_transfer.py debug-stone-detection [--out=stone_detection_report.json]")
         sys.exit(1)
 
