@@ -1,0 +1,5039 @@
+{
+  "target_family": "ER7_Solitare",
+  "analysis_date": "2026-06-01T10:00:02",
+  "known_shapes": [
+    "AS",
+    "CU",
+    "ELCU",
+    "EM",
+    "OV",
+    "PR",
+    "RA",
+    "RD"
+  ],
+  "missing_shapes": [
+    "MQ",
+    "PE"
+  ],
+  "bridge_shape": "EM",
+  "target_frame": {
+    "bridge_shape": "EM",
+    "cz_mean": 11.2456,
+    "footprint_xy": 20.3978,
+    "z_range": 13.1956,
+    "z_top": 13.531,
+    "stone_ar": 1.3893,
+    "mutable_count": 9,
+    "mutable_count_mean_all_shapes": 9.62
+  },
+  "known_shape_frames": {
+    "AS": {
+      "mutable_count": 9,
+      "cz_mean": 11.4518,
+      "footprint_xy": 20.3978,
+      "z_range": 13.2606,
+      "stone_ar": 1.0
+    },
+    "CU": {
+      "mutable_count": 11,
+      "cz_mean": 11.9721,
+      "footprint_xy": 20.3978,
+      "z_range": 13.5415,
+      "stone_ar": 1.0
+    },
+    "ELCU": {
+      "mutable_count": 9,
+      "cz_mean": 11.2873,
+      "footprint_xy": 20.3978,
+      "z_range": 13.2553,
+      "stone_ar": 1.5079
+    },
+    "EM": {
+      "mutable_count": 9,
+      "cz_mean": 11.2456,
+      "footprint_xy": 20.3978,
+      "z_range": 13.1956,
+      "stone_ar": 1.3893
+    },
+    "OV": {
+      "mutable_count": 10,
+      "cz_mean": 11.6282,
+      "footprint_xy": 20.3978,
+      "z_range": 12.8959,
+      "stone_ar": 1.3418
+    },
+    "PR": {
+      "mutable_count": 8,
+      "cz_mean": 11.3036,
+      "footprint_xy": 20.3978,
+      "z_range": 13.3823,
+      "stone_ar": 1.0196
+    },
+    "RA": {
+      "mutable_count": 10,
+      "cz_mean": 11.2498,
+      "footprint_xy": 20.3978,
+      "z_range": 12.9141,
+      "stone_ar": 1.4592
+    },
+    "RD": {
+      "mutable_count": 9,
+      "cz_mean": 11.4963,
+      "footprint_xy": 20.3978,
+      "z_range": 13.3025,
+      "stone_ar": 1.0002
+    }
+  },
+  "missing_shape_plans": [
+    {
+      "missing_shape": "MQ",
+      "donor_pool_size": 114,
+      "scored_donors": 114,
+      "best_score": 0.9882,
+      "high_confidence_in_top15": 0,
+      "medium_confidence_in_top15": 10,
+      "top_candidates": [
+        {
+          "rank": 1,
+          "donor_family": "N4",
+          "donor_score": 0.9663,
+          "score_breakdown": {
+            "frame_similarity": 0.9913,
+            "count_sim": 0.961,
+            "spatial_ratio": 0.9973,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 1.0,
+          "bridge_shape_used": "CU",
+          "donor_target_count": 10,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9887,
+            "scale_z": 0.9778,
+            "translate_x": 3.9447,
+            "translate_y": 0.2541,
+            "translate_z": 3.4032
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 12.7681,
+            "footprint_xy": 20.6307,
+            "z_range": 14.3718,
+            "prong_count_est": 0,
+            "melee_count_est": 0,
+            "strata_count": 4,
+            "basket_depth": 14.3718,
+            "count": 10
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +3.40mm -- stone height mismatch"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.7858
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 2,
+          "donor_family": "ER6_Solitare",
+          "donor_score": 0.9655,
+          "score_breakdown": {
+            "frame_similarity": 1.0,
+            "count_sim": 0.9351,
+            "spatial_ratio": 1.0,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 1.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 9,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0,
+            "scale_z": 1.0,
+            "translate_x": 0.0,
+            "translate_y": 0.0,
+            "translate_z": 0.5727
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 12.8332,
+            "footprint_xy": 20.3978,
+            "z_range": 12.4978,
+            "prong_count_est": 0,
+            "melee_count_est": 0,
+            "strata_count": 3,
+            "basket_depth": 12.4978,
+            "count": 9
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.7207
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 3,
+          "donor_family": "ER8_Solitare",
+          "donor_score": 0.8815,
+          "score_breakdown": {
+            "frame_similarity": 0.9987,
+            "count_sim": 0.3377,
+            "spatial_ratio": 1.0,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 1.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 16,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 0.9753,
+            "translate_x": 0.0708,
+            "translate_y": 0.0,
+            "translate_z": 2.684
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0332,
+            "footprint_xy": 20.4358,
+            "z_range": 13.0332,
+            "prong_count_est": 0,
+            "melee_count_est": 0,
+            "strata_count": 6,
+            "basket_depth": 13.0332,
+            "count": 16
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +2.68mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 6 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.5207
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 4,
+          "donor_family": "AD_2",
+          "donor_score": 0.8787,
+          "score_breakdown": {
+            "frame_similarity": 0.9894,
+            "count_sim": 0.3377,
+            "spatial_ratio": 0.9991,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 1.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 16,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0215,
+            "scale_z": 1.0772,
+            "translate_x": 0.0772,
+            "translate_y": 0.0,
+            "translate_z": 1.036
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0332,
+            "footprint_xy": 19.9667,
+            "z_range": 11.7479,
+            "prong_count_est": 0,
+            "melee_count_est": 0,
+            "strata_count": 6,
+            "basket_depth": 11.7479,
+            "count": 15
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +1.04mm -- verify prong alignment"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 6 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.5207
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 5,
+          "donor_family": "ER10_Solitare",
+          "donor_score": 0.8228,
+          "score_breakdown": {
+            "frame_similarity": 0.7329,
+            "count_sim": 0.6234,
+            "spatial_ratio": 0.9145,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.6232,
+          "melee_sim": 1.0,
+          "bridge_shape_used": "ELCU",
+          "donor_target_count": 6,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.97,
+            "scale_z": 1.1461,
+            "translate_x": 0.0,
+            "translate_y": 0.0,
+            "translate_z": 3.3139
+          },
+          "donor_target_frame": {
+            "stone_ar": 3.4901,
+            "stone_cz": 0.6526,
+            "footprint_xy": 21.1937,
+            "z_range": 11.2025,
+            "prong_count_est": 3,
+            "melee_count_est": 0,
+            "strata_count": 4,
+            "basket_depth": 0.9719,
+            "count": 5
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +3.31mm -- stone height mismatch"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 3.49 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 12.9013
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 6,
+          "donor_family": "U3",
+          "donor_score": 0.809,
+          "score_breakdown": {
+            "frame_similarity": 0.9939,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9486,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.579,
+          "melee_sim": 1.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 60,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9938,
+            "scale_z": 0.8118,
+            "translate_x": 0.058,
+            "translate_y": -0.0586,
+            "translate_z": 4.6326
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.2594,
+            "stone_cz": 12.1764,
+            "footprint_xy": 20.5254,
+            "z_range": 12.3093,
+            "prong_count_est": 0,
+            "melee_count_est": 0,
+            "strata_count": 9,
+            "basket_depth": 12.1764,
+            "count": 57
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +4.63mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 60 mutable objects vs HM ~10 (delta=50)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.26 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 1.3775
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 7,
+          "donor_family": "TS15",
+          "donor_score": 0.8012,
+          "score_breakdown": {
+            "frame_similarity": 0.951,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9995,
+            "shared_shapes": 0.875
+          },
+          "stone_ar_sim": 0.7249,
+          "melee_sim": 1.0,
+          "bridge_shape_used": "OV",
+          "donor_target_count": 23,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0102,
+            "scale_z": 0.9785,
+            "translate_x": 0.0016,
+            "translate_y": 0.0063,
+            "translate_z": 0.989
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5767,
+            "stone_cz": -0.6974,
+            "footprint_xy": 20.199,
+            "z_range": 13.9514,
+            "prong_count_est": 12,
+            "melee_count_est": 0,
+            "strata_count": 7,
+            "basket_depth": 0.0,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 23 mutable objects vs HM ~10 (delta=13)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.58 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 14.2513
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 8,
+          "donor_family": "TS7",
+          "donor_score": 0.7688,
+          "score_breakdown": {
+            "frame_similarity": 0.9605,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9974,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.2025,
+          "melee_sim": 1.0,
+          "bridge_shape_used": "EM",
+          "donor_target_count": 24,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9896,
+            "scale_z": 0.8866,
+            "translate_x": -0.1276,
+            "translate_y": -0.0142,
+            "translate_z": 2.5362
+          },
+          "donor_target_frame": {
+            "stone_ar": 10.7405,
+            "stone_cz": 2.5336,
+            "footprint_xy": 20.6218,
+            "z_range": 14.103,
+            "prong_count_est": 19,
+            "melee_count_est": 0,
+            "strata_count": 6,
+            "basket_depth": 4.217,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +2.54mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 24 mutable objects vs HM ~10 (delta=14)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 10.74 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 1,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 11.0203
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 9,
+          "donor_family": "TS24",
+          "donor_score": 0.7394,
+          "score_breakdown": {
+            "frame_similarity": 0.911,
+            "count_sim": 0.9351,
+            "spatial_ratio": 0.9912,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9917,
+            "scale_z": 1.2016,
+            "translate_x": 0.7787,
+            "translate_y": -0.0014,
+            "translate_z": -0.6685
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 12.0824,
+            "footprint_xy": 20.5754,
+            "z_range": 12.7798,
+            "prong_count_est": 2,
+            "melee_count_est": 2,
+            "strata_count": 5,
+            "basket_depth": 12.7798,
+            "count": 8
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 1,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 1.4715
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 10,
+          "donor_family": "TS34",
+          "donor_score": 0.7102,
+          "score_breakdown": {
+            "frame_similarity": 0.9896,
+            "count_sim": 0.5455,
+            "spatial_ratio": 0.9995,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.768,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 14,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0142,
+            "scale_z": 1.0044,
+            "translate_x": 0.5025,
+            "translate_y": 0.0181,
+            "translate_z": 1.5185
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6705,
+            "stone_cz": 12.1385,
+            "footprint_xy": 20.1111,
+            "z_range": 12.8359,
+            "prong_count_est": 2,
+            "melee_count_est": 2,
+            "strata_count": 5,
+            "basket_depth": 12.8359,
+            "count": 13
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +1.52mm -- verify prong alignment"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.67 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 3,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 1.4154
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 11,
+          "donor_family": "N1",
+          "donor_score": 0.7055,
+          "score_breakdown": {
+            "frame_similarity": 0.984,
+            "count_sim": 0.5455,
+            "spatial_ratio": 0.9931,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "EM",
+          "donor_target_count": 14,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9733,
+            "scale_z": 0.9543,
+            "translate_x": -0.1213,
+            "translate_y": 0.1562,
+            "translate_z": 3.6309
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0337,
+            "footprint_xy": 20.9628,
+            "z_range": 11.3319,
+            "prong_count_est": 2,
+            "melee_count_est": 4,
+            "strata_count": 7,
+            "basket_depth": 10.2542,
+            "count": 14
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +3.63mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.5202
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 12,
+          "donor_family": "TM8",
+          "donor_score": 0.6954,
+          "score_breakdown": {
+            "frame_similarity": 0.9956,
+            "count_sim": 0.5455,
+            "spatial_ratio": 0.9981,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.6054,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 14,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9884,
+            "scale_z": 0.9356,
+            "translate_x": 0.4419,
+            "translate_y": 0.0091,
+            "translate_z": -0.1556
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.3167,
+            "stone_cz": 13.0915,
+            "footprint_xy": 20.6369,
+            "z_range": 14.0724,
+            "prong_count_est": 5,
+            "melee_count_est": 5,
+            "strata_count": 4,
+            "basket_depth": 13.7889,
+            "count": 14
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.32 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_TWO_STONE",
+              "severity": "MEDIUM",
+              "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.4624
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 13,
+          "donor_family": "ER3_Solitare",
+          "donor_score": 0.6574,
+          "score_breakdown": {
+            "frame_similarity": 0.9988,
+            "count_sim": 0.2338,
+            "spatial_ratio": 0.9316,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 17,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 0.7913,
+            "translate_x": -0.5104,
+            "translate_y": 0.5104,
+            "translate_z": 1.7351
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0332,
+            "footprint_xy": 20.4358,
+            "z_range": 15.5465,
+            "prong_count_est": 2,
+            "melee_count_est": 2,
+            "strata_count": 6,
+            "basket_depth": 13.0119,
+            "count": 16
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +1.74mm -- verify prong alignment"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 7 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.5207
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 14,
+          "donor_family": "ER2_Solitare",
+          "donor_score": 0.6573,
+          "score_breakdown": {
+            "frame_similarity": 0.9987,
+            "count_sim": 0.2338,
+            "spatial_ratio": 0.9316,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 17,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 0.7903,
+            "translate_x": -0.4679,
+            "translate_y": 0.4679,
+            "translate_z": 2.5562
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0332,
+            "footprint_xy": 20.4357,
+            "z_range": 15.5465,
+            "prong_count_est": 2,
+            "melee_count_est": 2,
+            "strata_count": 6,
+            "basket_depth": 13.0119,
+            "count": 16
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +2.56mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 7 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.5207
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 15,
+          "donor_family": "ER1_Solitare",
+          "donor_score": 0.6567,
+          "score_breakdown": {
+            "frame_similarity": 0.9989,
+            "count_sim": 0.2338,
+            "spatial_ratio": 0.9265,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "CU",
+          "donor_target_count": 17,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 0.7846,
+            "translate_x": -0.8432,
+            "translate_y": 0.5145,
+            "translate_z": 2.3624
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0332,
+            "footprint_xy": 20.4359,
+            "z_range": 15.5465,
+            "prong_count_est": 2,
+            "melee_count_est": 2,
+            "strata_count": 6,
+            "basket_depth": 13.0119,
+            "count": 17
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +2.36mm -- verify prong alignment"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 7 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.5207
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 16,
+          "donor_family": "ER2_Hidden",
+          "donor_score": 0.6343,
+          "score_breakdown": {
+            "frame_similarity": 0.999,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9999,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 55,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 0.9808,
+            "translate_x": -0.0466,
+            "translate_y": -0.1645,
+            "translate_z": -0.3765
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0333,
+            "footprint_xy": 20.4358,
+            "z_range": 13.012,
+            "prong_count_est": 39,
+            "melee_count_est": 41,
+            "strata_count": 5,
+            "basket_depth": 13.012,
+            "count": 54
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 55 mutable objects vs HM ~10 (delta=45)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.5206
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 17,
+          "donor_family": "ER3_Hidden",
+          "donor_score": 0.6343,
+          "score_breakdown": {
+            "frame_similarity": 0.999,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9999,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 38,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 0.9808,
+            "translate_x": 0.0,
+            "translate_y": -0.1139,
+            "translate_z": -0.7528
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0333,
+            "footprint_xy": 20.4358,
+            "z_range": 13.012,
+            "prong_count_est": 27,
+            "melee_count_est": 27,
+            "strata_count": 4,
+            "basket_depth": 13.012,
+            "count": 37
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 38 mutable objects vs HM ~10 (delta=28)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.5206
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 18,
+          "donor_family": "ER3_Pave_H_Shank",
+          "donor_score": 0.6342,
+          "score_breakdown": {
+            "frame_similarity": 0.9989,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9998,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "CU",
+          "donor_target_count": 55,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9931,
+            "scale_z": 0.9783,
+            "translate_x": 0.2317,
+            "translate_y": 0.1138,
+            "translate_z": 0.0675
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0333,
+            "footprint_xy": 13.1433,
+            "z_range": 3.8712,
+            "prong_count_est": 37,
+            "melee_count_est": 39,
+            "strata_count": 5,
+            "basket_depth": 3.8712,
+            "count": 53
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 55 mutable objects vs HM ~10 (delta=45)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.5206
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 19,
+          "donor_family": "ER5_Hidden",
+          "donor_score": 0.6341,
+          "score_breakdown": {
+            "frame_similarity": 0.9986,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9999,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "CU",
+          "donor_target_count": 37,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0137,
+            "scale_z": 0.9816,
+            "translate_x": 0.0,
+            "translate_y": 0.0,
+            "translate_z": 0.5981
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.0299,
+            "footprint_xy": 20.1221,
+            "z_range": 13.7695,
+            "prong_count_est": 6,
+            "melee_count_est": 12,
+            "strata_count": 5,
+            "basket_depth": 13.0299,
+            "count": 36
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 37 mutable objects vs HM ~10 (delta=27)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.524
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 20,
+          "donor_family": "ER4_Pave_H_Shank",
+          "donor_score": 0.6336,
+          "score_breakdown": {
+            "frame_similarity": 0.9969,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9995,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 55,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9771,
+            "scale_z": 0.9685,
+            "translate_x": 0.1922,
+            "translate_y": 0.0427,
+            "translate_z": 0.0522
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.2333,
+            "footprint_xy": 20.8748,
+            "z_range": 13.2333,
+            "prong_count_est": 41,
+            "melee_count_est": 41,
+            "strata_count": 5,
+            "basket_depth": 13.2333,
+            "count": 55
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 55 mutable objects vs HM ~10 (delta=45)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.3206
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 21,
+          "donor_family": "ER1_Halo",
+          "donor_score": 0.6316,
+          "score_breakdown": {
+            "frame_similarity": 0.9901,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9983,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "PR",
+          "donor_target_count": 40,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9937,
+            "scale_z": 0.9415,
+            "translate_x": -0.0454,
+            "translate_y": 0.4118,
+            "translate_z": -0.2135
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.2809,
+            "footprint_xy": 19.1221,
+            "z_range": 14.6121,
+            "prong_count_est": 29,
+            "melee_count_est": 29,
+            "strata_count": 6,
+            "basket_depth": 13.9783,
+            "count": 39
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 40 mutable objects vs HM ~10 (delta=30)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.273
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 22,
+          "donor_family": "TS13",
+          "donor_score": 0.6276,
+          "score_breakdown": {
+            "frame_similarity": 0.9792,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9916,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "PR",
+          "donor_target_count": 23,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0123,
+            "scale_z": 0.9574,
+            "translate_x": -0.0855,
+            "translate_y": 0.3378,
+            "translate_z": 0.644
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 12.3332,
+            "footprint_xy": 20.1478,
+            "z_range": 13.9565,
+            "prong_count_est": 10,
+            "melee_count_est": 15,
+            "strata_count": 7,
+            "basket_depth": 13.0306,
+            "count": 23
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 23 mutable objects vs HM ~10 (delta=13)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 1.2207
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 23,
+          "donor_family": "TS5",
+          "donor_score": 0.6243,
+          "score_breakdown": {
+            "frame_similarity": 0.9641,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9981,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "OV",
+          "donor_target_count": 24,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9918,
+            "scale_z": 0.8899,
+            "translate_x": 0.3385,
+            "translate_y": -0.0077,
+            "translate_z": 2.897
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.1237,
+            "footprint_xy": 20.566,
+            "z_range": 14.6704,
+            "prong_count_est": 4,
+            "melee_count_est": 4,
+            "strata_count": 8,
+            "basket_depth": 14.6704,
+            "count": 24
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +2.90mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 24 mutable objects vs HM ~10 (delta=14)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 1,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.4302
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 24,
+          "donor_family": "U6",
+          "donor_score": 0.6233,
+          "score_breakdown": {
+            "frame_similarity": 0.9702,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.979,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "OV",
+          "donor_target_count": 27,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.8766,
+            "scale_z": 0.9999,
+            "translate_x": -0.1037,
+            "translate_y": 0.0969,
+            "translate_z": -0.7883
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 13.2313,
+            "footprint_xy": 23.2704,
+            "z_range": 12.443,
+            "prong_count_est": 16,
+            "melee_count_est": 16,
+            "strata_count": 4,
+            "basket_depth": 12.443,
+            "count": 25
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 27 mutable objects vs HM ~10 (delta=17)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.3226
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 25,
+          "donor_family": "TS32",
+          "donor_score": 0.6222,
+          "score_breakdown": {
+            "frame_similarity": 0.9582,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9951,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 29,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9919,
+            "scale_z": 0.9077,
+            "translate_x": 0.0477,
+            "translate_y": 0.0009,
+            "translate_z": 2.5578
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 12.5922,
+            "footprint_xy": 20.5621,
+            "z_range": 14.2237,
+            "prong_count_est": 4,
+            "melee_count_est": 4,
+            "strata_count": 8,
+            "basket_depth": 14.1389,
+            "count": 26
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +2.56mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 29 mutable objects vs HM ~10 (delta=19)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 1,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.9617
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 26,
+          "donor_family": "TS22",
+          "donor_score": 0.6152,
+          "score_breakdown": {
+            "frame_similarity": 0.9312,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.999,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "ELCU",
+          "donor_target_count": 32,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9959,
+            "scale_z": 0.9288,
+            "translate_x": 0.0008,
+            "translate_y": 0.0002,
+            "translate_z": 1.4141
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 12.1332,
+            "footprint_xy": 20.4772,
+            "z_range": 13.7545,
+            "prong_count_est": 16,
+            "melee_count_est": 20,
+            "strata_count": 7,
+            "basket_depth": 12.8306,
+            "count": 32
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +1.41mm -- verify prong alignment"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 32 mutable objects vs HM ~10 (delta=22)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 2,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 1.4207
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 27,
+          "donor_family": "U12",
+          "donor_score": 0.6145,
+          "score_breakdown": {
+            "frame_similarity": 0.7451,
+            "count_sim": 0.8312,
+            "spatial_ratio": 0.9105,
+            "shared_shapes": 0.625
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 8,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9494,
+            "scale_z": 1.1243,
+            "translate_x": 0.0,
+            "translate_y": 0.4257,
+            "translate_z": 0.7181
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 11.0107,
+            "footprint_xy": 21.4848,
+            "z_range": 11.0332,
+            "prong_count_est": 4,
+            "melee_count_est": 4,
+            "strata_count": 4,
+            "basket_depth": 11.0332,
+            "count": 7
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 2.5432
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 28,
+          "donor_family": "ER1_Pave_H_Shank",
+          "donor_score": 0.6129,
+          "score_breakdown": {
+            "frame_similarity": 0.9909,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9998,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.555,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 29,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9931,
+            "scale_z": 0.9793,
+            "translate_x": 0.3623,
+            "translate_y": -0.1315,
+            "translate_z": -0.3917
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.2071,
+            "stone_cz": 12.7051,
+            "footprint_xy": 13.1433,
+            "z_range": 4.6893,
+            "prong_count_est": 17,
+            "melee_count_est": 17,
+            "strata_count": 4,
+            "basket_depth": 4.0922,
+            "count": 26
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 29 mutable objects vs HM ~10 (delta=19)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.21 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.8488
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 29,
+          "donor_family": "ER5_Pave_H_Shank",
+          "donor_score": 0.6128,
+          "score_breakdown": {
+            "frame_similarity": 0.9914,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9978,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.555,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "OV",
+          "donor_target_count": 38,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9936,
+            "scale_z": 1.0023,
+            "translate_x": 0.1081,
+            "translate_y": -0.0637,
+            "translate_z": -0.4994
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.2071,
+            "stone_cz": 12.7051,
+            "footprint_xy": 7.7113,
+            "z_range": 3.1406,
+            "prong_count_est": 22,
+            "melee_count_est": 22,
+            "strata_count": 3,
+            "basket_depth": 3.1406,
+            "count": 35
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 38 mutable objects vs HM ~10 (delta=28)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.21 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.8488
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 30,
+          "donor_family": "ER2_Pave_H_Shank",
+          "donor_score": 0.6127,
+          "score_breakdown": {
+            "frame_similarity": 0.9907,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9985,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.555,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 29,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9771,
+            "scale_z": 0.9791,
+            "translate_x": 0.2509,
+            "translate_y": -0.1294,
+            "translate_z": -0.0654
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.2071,
+            "stone_cz": 12.7051,
+            "footprint_xy": 16.9221,
+            "z_range": 12.7051,
+            "prong_count_est": 17,
+            "melee_count_est": 17,
+            "strata_count": 3,
+            "basket_depth": 12.7051,
+            "count": 26
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 29 mutable objects vs HM ~10 (delta=19)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.21 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.8488
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 31,
+          "donor_family": "ER4_Hidden",
+          "donor_score": 0.6125,
+          "score_breakdown": {
+            "frame_similarity": 0.9899,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9979,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.5554,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "RD",
+          "donor_target_count": 56,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9936,
+            "scale_z": 1.0024,
+            "translate_x": -0.1177,
+            "translate_y": -0.2668,
+            "translate_z": -0.5018
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.208,
+            "stone_cz": 12.7051,
+            "footprint_xy": 12.6974,
+            "z_range": 4.9188,
+            "prong_count_est": 28,
+            "melee_count_est": 30,
+            "strata_count": 6,
+            "basket_depth": 4.5906,
+            "count": 53
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 56 mutable objects vs HM ~10 (delta=46)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.21 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.8488
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 32,
+          "donor_family": "AD_8",
+          "donor_score": 0.612,
+          "score_breakdown": {
+            "frame_similarity": 0.9272,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.984,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "OV",
+          "donor_target_count": 23,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9931,
+            "scale_z": 1.042,
+            "translate_x": 0.0009,
+            "translate_y": 0.0111,
+            "translate_z": 1.4479
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 12.1337,
+            "footprint_xy": 12.6974,
+            "z_range": 12.8311,
+            "prong_count_est": 10,
+            "melee_count_est": 10,
+            "strata_count": 7,
+            "basket_depth": 12.8311,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +1.45mm -- verify prong alignment"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 23 mutable objects vs HM ~10 (delta=13)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 1.4202
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 33,
+          "donor_family": "ER1_Hidden",
+          "donor_score": 0.6116,
+          "score_breakdown": {
+            "frame_similarity": 0.9875,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9976,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.555,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "CU",
+          "donor_target_count": 29,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 1.0092,
+            "translate_x": -0.0774,
+            "translate_y": 0.0774,
+            "translate_z": -0.7839
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.2071,
+            "stone_cz": 12.7051,
+            "footprint_xy": 20.4358,
+            "z_range": 13.2809,
+            "prong_count_est": 17,
+            "melee_count_est": 17,
+            "strata_count": 3,
+            "basket_depth": 12.6838,
+            "count": 26
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 29 mutable objects vs HM ~10 (delta=19)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.21 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.8488
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 34,
+          "donor_family": "U11",
+          "donor_score": 0.6068,
+          "score_breakdown": {
+            "frame_similarity": 0.4726,
+            "count_sim": 0.9351,
+            "spatial_ratio": 0.943,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7154,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "RA",
+          "donor_target_count": 9,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.4388,
+            "scale_z": 1.1003,
+            "translate_x": -0.0005,
+            "translate_y": 0.2703,
+            "translate_z": 3.9375
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5561,
+            "stone_cz": 10.1106,
+            "footprint_xy": 14.7875,
+            "z_range": 11.8054,
+            "prong_count_est": 0,
+            "melee_count_est": 2,
+            "strata_count": 5,
+            "basket_depth": 10.9053,
+            "count": 8
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "XY scale factor 1.44 -- moderate distortion risk"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +3.94mm -- stone height mismatch"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.56 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 3.4433
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 35,
+          "donor_family": "AD_7",
+          "donor_score": 0.5978,
+          "score_breakdown": {
+            "frame_similarity": 0.8811,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9751,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "OV",
+          "donor_target_count": 28,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9944,
+            "scale_z": 0.9296,
+            "translate_x": 0.9351,
+            "translate_y": 0.0134,
+            "translate_z": 4.3529
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 11.8743,
+            "footprint_xy": 20.5162,
+            "z_range": 13.7853,
+            "prong_count_est": 5,
+            "melee_count_est": 5,
+            "strata_count": 7,
+            "basket_depth": 13.7853,
+            "count": 19
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +4.35mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 28 mutable objects vs HM ~10 (delta=18)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 1.6796
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 36,
+          "donor_family": "TS27",
+          "donor_score": 0.5963,
+          "score_breakdown": {
+            "frame_similarity": 0.8757,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.975,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "RA",
+          "donor_target_count": 26,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9764,
+            "scale_z": 1.1536,
+            "translate_x": 0.1006,
+            "translate_y": 0.1499,
+            "translate_z": -0.9034
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 12.644,
+            "footprint_xy": 20.9191,
+            "z_range": 14.231,
+            "prong_count_est": 7,
+            "melee_count_est": 7,
+            "strata_count": 6,
+            "basket_depth": 14.231,
+            "count": 21
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 26 mutable objects vs HM ~10 (delta=16)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {
+              "MQ": 0.0
+            },
+            "z_filter": null,
+            "z_offset_correction": 0.9099
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 37,
+          "donor_family": "TS28",
+          "donor_score": 0.5963,
+          "score_breakdown": {
+            "frame_similarity": 0.8757,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.975,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "RA",
+          "donor_target_count": 26,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9764,
+            "scale_z": 1.1536,
+            "translate_x": 0.1006,
+            "translate_y": 0.1499,
+            "translate_z": -0.9034
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 12.644,
+            "footprint_xy": 20.9191,
+            "z_range": 14.231,
+            "prong_count_est": 7,
+            "melee_count_est": 7,
+            "strata_count": 6,
+            "basket_depth": 14.231,
+            "count": 21
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 26 mutable objects vs HM ~10 (delta=16)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {
+              "MQ": 0.0
+            },
+            "z_filter": null,
+            "z_offset_correction": 0.9099
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 38,
+          "donor_family": "TS29",
+          "donor_score": 0.5963,
+          "score_breakdown": {
+            "frame_similarity": 0.8757,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.975,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.7457,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "RA",
+          "donor_target_count": 26,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9764,
+            "scale_z": 1.1536,
+            "translate_x": 0.1006,
+            "translate_y": 0.1499,
+            "translate_z": -0.9034
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6218,
+            "stone_cz": 12.644,
+            "footprint_xy": 20.9191,
+            "z_range": 14.231,
+            "prong_count_est": 7,
+            "melee_count_est": 7,
+            "strata_count": 6,
+            "basket_depth": 14.231,
+            "count": 21
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 26 mutable objects vs HM ~10 (delta=16)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.62 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {
+              "MQ": 0.0
+            },
+            "z_filter": null,
+            "z_offset_correction": 0.9099
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 39,
+          "donor_family": "TM7",
+          "donor_score": 0.5959,
+          "score_breakdown": {
+            "frame_similarity": 0.6916,
+            "count_sim": 0.5455,
+            "spatial_ratio": 0.9571,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.5196,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "ELCU",
+          "donor_target_count": 14,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0119,
+            "scale_z": 1.3362,
+            "translate_x": 0.7837,
+            "translate_y": 0.1324,
+            "translate_z": 1.0111
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.1301,
+            "stone_cz": 11.4203,
+            "footprint_xy": 20.1618,
+            "z_range": 10.0438,
+            "prong_count_est": 2,
+            "melee_count_est": 2,
+            "strata_count": 7,
+            "basket_depth": 9.7934,
+            "count": 12
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +1.01mm -- verify prong alignment"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.13 outside expected [1.75, 2.6] for MQ"
+            },
+            {
+              "factor": "STYLE_TWO_STONE",
+              "severity": "MEDIUM",
+              "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 4,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 2.1336
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 40,
+          "donor_family": "U8",
+          "donor_score": 0.5938,
+          "score_breakdown": {
+            "frame_similarity": 0.6507,
+            "count_sim": 0.7532,
+            "spatial_ratio": 0.9391,
+            "shared_shapes": 0.875
+          },
+          "stone_ar_sim": 0.5222,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "EM",
+          "donor_target_count": 12,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0194,
+            "scale_z": 1.1911,
+            "translate_x": 0.2417,
+            "translate_y": 0.0347,
+            "translate_z": 1.0929
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.1357,
+            "stone_cz": 11.2107,
+            "footprint_xy": 18.1724,
+            "z_range": 11.1615,
+            "prong_count_est": 3,
+            "melee_count_est": 3,
+            "strata_count": 4,
+            "basket_depth": 10.8943,
+            "count": 11
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +1.09mm -- verify prong alignment"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.14 outside expected [1.75, 2.6] for MQ"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 2.3432
+          },
+          "auto_arch": [
+            "A"
+          ]
+        }
+      ]
+    },
+    {
+      "missing_shape": "PE",
+      "donor_pool_size": 105,
+      "scored_donors": 105,
+      "best_score": 0.9922,
+      "high_confidence_in_top15": 1,
+      "medium_confidence_in_top15": 6,
+      "top_candidates": [
+        {
+          "rank": 1,
+          "donor_family": "ER6_Solitare",
+          "donor_score": 0.9098,
+          "score_breakdown": {
+            "frame_similarity": 1.0,
+            "count_sim": 0.961,
+            "spatial_ratio": 1.0,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.1522,
+          "melee_sim": 1.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 10,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0,
+            "scale_z": 1.0,
+            "translate_x": 0.0,
+            "translate_y": 0.0,
+            "translate_z": 0.5727
+          },
+          "donor_target_frame": {
+            "stone_ar": 11.3309,
+            "stone_cz": 0.3354,
+            "footprint_xy": 20.3978,
+            "z_range": 13.1652,
+            "prong_count_est": 6,
+            "melee_count_est": 0,
+            "strata_count": 3,
+            "basket_depth": 0.3354,
+            "count": 9
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 11.33 outside expected [1.35, 2.1] for PE"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 13.2185
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 2,
+          "donor_family": "ER8_Solitare",
+          "donor_score": 0.896,
+          "score_breakdown": {
+            "frame_similarity": 0.9987,
+            "count_sim": 0.3377,
+            "spatial_ratio": 1.0,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 1.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 16,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 0.9753,
+            "translate_x": 0.0708,
+            "translate_y": 0.0,
+            "translate_z": 2.684
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 13.7858,
+            "footprint_xy": 20.4358,
+            "z_range": 13.7858,
+            "prong_count_est": 0,
+            "melee_count_est": 0,
+            "strata_count": 5,
+            "basket_depth": 13.7858,
+            "count": 16
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +2.68mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 6 from HM average"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": -0.2319
+          },
+          "auto_arch": [
+            "B"
+          ]
+        },
+        {
+          "rank": 3,
+          "donor_family": "AD_2",
+          "donor_score": 0.8933,
+          "score_breakdown": {
+            "frame_similarity": 0.9894,
+            "count_sim": 0.3377,
+            "spatial_ratio": 0.9991,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 1.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 16,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0215,
+            "scale_z": 1.0772,
+            "translate_x": 0.0772,
+            "translate_y": 0.0,
+            "translate_z": 1.036
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 13.7858,
+            "footprint_xy": 19.9694,
+            "z_range": 12.5005,
+            "prong_count_est": 0,
+            "melee_count_est": 0,
+            "strata_count": 5,
+            "basket_depth": 12.5005,
+            "count": 15
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +1.04mm -- verify prong alignment"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 6 from HM average"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": -0.2319
+          },
+          "auto_arch": [
+            "B"
+          ]
+        },
+        {
+          "rank": 4,
+          "donor_family": "TM7",
+          "donor_score": 0.8675,
+          "score_breakdown": {
+            "frame_similarity": 0.6916,
+            "count_sim": 0.961,
+            "spatial_ratio": 0.9571,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.6526,
+          "melee_sim": 1.0,
+          "bridge_shape_used": "ELCU",
+          "donor_target_count": 10,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0119,
+            "scale_z": 1.3362,
+            "translate_x": 0.7837,
+            "translate_y": 0.1324,
+            "translate_z": 1.0111
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.1258,
+            "stone_cz": 11.3644,
+            "footprint_xy": 20.1641,
+            "z_range": 9.1128,
+            "prong_count_est": 0,
+            "melee_count_est": 0,
+            "strata_count": 5,
+            "basket_depth": 9.1128,
+            "count": 9
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +1.01mm -- verify prong alignment"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.13 outside expected [1.35, 2.1] for PE"
+            },
+            {
+              "factor": "STYLE_TWO_STONE",
+              "severity": "MEDIUM",
+              "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 3,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 2.1895
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 5,
+          "donor_family": "N4",
+          "donor_score": 0.7663,
+          "score_breakdown": {
+            "frame_similarity": 0.9913,
+            "count_sim": 0.8571,
+            "spatial_ratio": 0.9973,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "CU",
+          "donor_target_count": 11,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9887,
+            "scale_z": 0.9778,
+            "translate_x": 3.9447,
+            "translate_y": 0.2541,
+            "translate_z": 3.4032
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 13.0218,
+            "footprint_xy": 12.4026,
+            "z_range": 14.6255,
+            "prong_count_est": 3,
+            "melee_count_est": 3,
+            "strata_count": 6,
+            "basket_depth": 14.6255,
+            "count": 11
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +3.40mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.5321
+          },
+          "auto_arch": [
+            "B"
+          ]
+        },
+        {
+          "rank": 6,
+          "donor_family": "TS24",
+          "donor_score": 0.7581,
+          "score_breakdown": {
+            "frame_similarity": 0.911,
+            "count_sim": 0.9351,
+            "spatial_ratio": 0.9912,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.933,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "EM",
+          "donor_target_count": 9,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9917,
+            "scale_z": 1.2016,
+            "translate_x": 0.7787,
+            "translate_y": -0.0014,
+            "translate_z": -0.6685
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6095,
+            "stone_cz": 12.5098,
+            "footprint_xy": 14.1445,
+            "z_range": 13.2069,
+            "prong_count_est": 2,
+            "melee_count_est": 2,
+            "strata_count": 4,
+            "basket_depth": 13.2069,
+            "count": 8
+          },
+          "expected_confidence": "HIGH",
+          "risk_factors": [
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 0,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 1.0441
+          },
+          "auto_arch": [
+            "B"
+          ]
+        },
+        {
+          "rank": 7,
+          "donor_family": "TM8",
+          "donor_score": 0.7402,
+          "score_breakdown": {
+            "frame_similarity": 0.9956,
+            "count_sim": 0.8571,
+            "spatial_ratio": 0.9981,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.617,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 11,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9884,
+            "scale_z": 0.9356,
+            "translate_x": 0.4419,
+            "translate_y": 0.0091,
+            "translate_z": -0.1556
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0643,
+            "stone_cz": 13.3887,
+            "footprint_xy": 20.6369,
+            "z_range": 13.3672,
+            "prong_count_est": 6,
+            "melee_count_est": 6,
+            "strata_count": 4,
+            "basket_depth": 13.3672,
+            "count": 10
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.06 outside expected [1.35, 2.1] for PE"
+            },
+            {
+              "factor": "STYLE_TWO_STONE",
+              "severity": "MEDIUM",
+              "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.1652
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 8,
+          "donor_family": "N1",
+          "donor_score": 0.72,
+          "score_breakdown": {
+            "frame_similarity": 0.984,
+            "count_sim": 0.5455,
+            "spatial_ratio": 0.9931,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "EM",
+          "donor_target_count": 14,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9733,
+            "scale_z": 0.9543,
+            "translate_x": -0.1213,
+            "translate_y": 0.1562,
+            "translate_z": 3.6309
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 13.4814,
+            "footprint_xy": 20.9626,
+            "z_range": 14.9943,
+            "prong_count_est": 1,
+            "melee_count_est": 1,
+            "strata_count": 7,
+            "basket_depth": 14.1785,
+            "count": 14
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +3.63mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Object count off by 4 from HM average"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.0725
+          },
+          "auto_arch": [
+            "B"
+          ]
+        },
+        {
+          "rank": 9,
+          "donor_family": "ER5_Hidden",
+          "donor_score": 0.6511,
+          "score_breakdown": {
+            "frame_similarity": 0.9986,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9999,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.915,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "CU",
+          "donor_target_count": 40,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0137,
+            "scale_z": 0.9816,
+            "translate_x": 0.0,
+            "translate_y": 0.0,
+            "translate_z": 0.5981
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5783,
+            "stone_cz": 14.1584,
+            "footprint_xy": 20.1221,
+            "z_range": 14.1584,
+            "prong_count_est": 6,
+            "melee_count_est": 6,
+            "strata_count": 7,
+            "basket_depth": 14.1584,
+            "count": 38
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 40 mutable objects vs HM ~10 (delta=30)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": -0.6045
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 10,
+          "donor_family": "ER10_Solitare",
+          "donor_score": 0.6496,
+          "score_breakdown": {
+            "frame_similarity": 0.7329,
+            "count_sim": 0.6234,
+            "spatial_ratio": 0.9145,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "ELCU",
+          "donor_target_count": 6,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.97,
+            "scale_z": 1.1461,
+            "translate_x": 0.0,
+            "translate_y": 0.0,
+            "translate_z": 3.3139
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 11.4358,
+            "footprint_xy": 21.1937,
+            "z_range": 11.7551,
+            "prong_count_est": 2,
+            "melee_count_est": 2,
+            "strata_count": 4,
+            "basket_depth": 11.7551,
+            "count": 5
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +3.31mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 2.1181
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 11,
+          "donor_family": "ER2_Hidden",
+          "donor_score": 0.6489,
+          "score_breakdown": {
+            "frame_similarity": 0.999,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9999,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 65,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 0.9808,
+            "translate_x": -0.0466,
+            "translate_y": -0.1645,
+            "translate_z": -0.3765
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.0669,
+            "footprint_xy": 20.4358,
+            "z_range": 14.0456,
+            "prong_count_est": 37,
+            "melee_count_est": 34,
+            "strata_count": 6,
+            "basket_depth": 14.0456,
+            "count": 64
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 65 mutable objects vs HM ~10 (delta=55)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": -0.513
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 12,
+          "donor_family": "ER3_Hidden",
+          "donor_score": 0.6489,
+          "score_breakdown": {
+            "frame_similarity": 0.999,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9999,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 40,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 0.9808,
+            "translate_x": 0.0,
+            "translate_y": -0.1139,
+            "translate_z": -0.7528
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.0669,
+            "footprint_xy": 20.4358,
+            "z_range": 14.0456,
+            "prong_count_est": 29,
+            "melee_count_est": 29,
+            "strata_count": 4,
+            "basket_depth": 14.0456,
+            "count": 39
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 40 mutable objects vs HM ~10 (delta=30)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": -0.513
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 13,
+          "donor_family": "ER4_Pave_H_Shank",
+          "donor_score": 0.6482,
+          "score_breakdown": {
+            "frame_similarity": 0.9969,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9995,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 65,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9771,
+            "scale_z": 0.9685,
+            "translate_x": 0.1922,
+            "translate_y": 0.0427,
+            "translate_z": 0.0522
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.2669,
+            "footprint_xy": 20.8748,
+            "z_range": 14.2669,
+            "prong_count_est": 38,
+            "melee_count_est": 35,
+            "strata_count": 6,
+            "basket_depth": 14.2669,
+            "count": 65
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 65 mutable objects vs HM ~10 (delta=55)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": -0.713
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 14,
+          "donor_family": "ER5_Pave_H_Shank",
+          "donor_score": 0.6464,
+          "score_breakdown": {
+            "frame_similarity": 0.9914,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9978,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "OV",
+          "donor_target_count": 40,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9936,
+            "scale_z": 1.0023,
+            "translate_x": 0.1081,
+            "translate_y": -0.0637,
+            "translate_z": -0.4994
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.0669,
+            "footprint_xy": 12.0689,
+            "z_range": 5.9524,
+            "prong_count_est": 30,
+            "melee_count_est": 30,
+            "strata_count": 5,
+            "basket_depth": 5.9524,
+            "count": 40
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 40 mutable objects vs HM ~10 (delta=30)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": -0.513
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 15,
+          "donor_family": "ER1_Halo",
+          "donor_score": 0.6461,
+          "score_breakdown": {
+            "frame_similarity": 0.9901,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9983,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "PR",
+          "donor_target_count": 38,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9937,
+            "scale_z": 0.9415,
+            "translate_x": -0.0454,
+            "translate_y": 0.4118,
+            "translate_z": -0.2135
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 13.4663,
+            "footprint_xy": 19.1221,
+            "z_range": 14.2112,
+            "prong_count_est": 26,
+            "melee_count_est": 26,
+            "strata_count": 6,
+            "basket_depth": 13.4663,
+            "count": 33
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 38 mutable objects vs HM ~10 (delta=28)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.0876
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 16,
+          "donor_family": "ER4_Hidden",
+          "donor_score": 0.6461,
+          "score_breakdown": {
+            "frame_similarity": 0.9899,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9979,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "RD",
+          "donor_target_count": 76,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9936,
+            "scale_z": 1.0024,
+            "translate_x": -0.1177,
+            "translate_y": -0.2668,
+            "translate_z": -0.5018
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 14.0179,
+            "footprint_xy": 12.0689,
+            "z_range": 5.9034,
+            "prong_count_est": 43,
+            "melee_count_est": 41,
+            "strata_count": 7,
+            "basket_depth": 5.9034,
+            "count": 76
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 76 mutable objects vs HM ~10 (delta=66)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": -0.464
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 17,
+          "donor_family": "U3",
+          "donor_score": 0.645,
+          "score_breakdown": {
+            "frame_similarity": 0.9939,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9486,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.9387,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 59,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9938,
+            "scale_z": 0.8118,
+            "translate_x": 0.058,
+            "translate_y": -0.0586,
+            "translate_z": 4.6326
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6193,
+            "stone_cz": 12.587,
+            "footprint_xy": 13.7994,
+            "z_range": 8.2801,
+            "prong_count_est": 2,
+            "melee_count_est": 2,
+            "strata_count": 8,
+            "basket_depth": 7.6773,
+            "count": 57
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +4.63mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 59 mutable objects vs HM ~10 (delta=49)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.9669
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 18,
+          "donor_family": "U8",
+          "donor_score": 0.6448,
+          "score_breakdown": {
+            "frame_similarity": 0.6507,
+            "count_sim": 0.961,
+            "spatial_ratio": 0.9391,
+            "shared_shapes": 0.875
+          },
+          "stone_ar_sim": 0.7413,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "EM",
+          "donor_target_count": 10,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0194,
+            "scale_z": 1.1911,
+            "translate_x": 0.2417,
+            "translate_y": 0.0347,
+            "translate_z": 1.0929
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.2787,
+            "stone_cz": 11.2862,
+            "footprint_xy": 18.3643,
+            "z_range": 15.3565,
+            "prong_count_est": 2,
+            "melee_count_est": 1,
+            "strata_count": 5,
+            "basket_depth": 10.9703,
+            "count": 9
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +1.09mm -- verify prong alignment"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.28 outside expected [1.35, 2.1] for PE"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 2.2677
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 19,
+          "donor_family": "TS13",
+          "donor_score": 0.6421,
+          "score_breakdown": {
+            "frame_similarity": 0.9792,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9916,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "PR",
+          "donor_target_count": 21,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0123,
+            "scale_z": 0.9574,
+            "translate_x": -0.0855,
+            "translate_y": 0.3378,
+            "translate_z": 0.644
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 12.5858,
+            "footprint_xy": 20.1402,
+            "z_range": 13.1228,
+            "prong_count_est": 9,
+            "melee_count_est": 11,
+            "strata_count": 6,
+            "basket_depth": 12.358,
+            "count": 21
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 21 mutable objects vs HM ~10 (delta=11)"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.9681
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 20,
+          "donor_family": "TS5",
+          "donor_score": 0.6388,
+          "score_breakdown": {
+            "frame_similarity": 0.9641,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9981,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "OV",
+          "donor_target_count": 24,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9918,
+            "scale_z": 0.8899,
+            "translate_x": 0.3385,
+            "translate_y": -0.0077,
+            "translate_z": 2.897
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 13.3887,
+            "footprint_xy": 15.5789,
+            "z_range": 14.9354,
+            "prong_count_est": 3,
+            "melee_count_est": 3,
+            "strata_count": 7,
+            "basket_depth": 14.9354,
+            "count": 24
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +2.90mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 24 mutable objects vs HM ~10 (delta=14)"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 0,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.1652
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 21,
+          "donor_family": "ER1_Solitare",
+          "donor_score": 0.6386,
+          "score_breakdown": {
+            "frame_similarity": 0.9989,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9265,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "CU",
+          "donor_target_count": 23,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 0.7846,
+            "translate_x": -0.8432,
+            "translate_y": 0.5145,
+            "translate_z": 2.3624
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 13.9858,
+            "footprint_xy": 16.9221,
+            "z_range": 16.761,
+            "prong_count_est": 4,
+            "melee_count_est": 5,
+            "strata_count": 6,
+            "basket_depth": 13.9858,
+            "count": 23
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +2.36mm -- verify prong alignment"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 23 mutable objects vs HM ~10 (delta=13)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": -0.4319
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 22,
+          "donor_family": "U6",
+          "donor_score": 0.6379,
+          "score_breakdown": {
+            "frame_similarity": 0.9702,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.979,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8913,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "OV",
+          "donor_target_count": 26,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.8766,
+            "scale_z": 0.9999,
+            "translate_x": -0.1037,
+            "translate_y": 0.0969,
+            "translate_z": -0.7883
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5375,
+            "stone_cz": 13.8342,
+            "footprint_xy": 23.2704,
+            "z_range": 15.7286,
+            "prong_count_est": 1,
+            "melee_count_est": 15,
+            "strata_count": 4,
+            "basket_depth": 13.0459,
+            "count": 25
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 26 mutable objects vs HM ~10 (delta=16)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": -0.2803
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 23,
+          "donor_family": "TS7",
+          "donor_score": 0.6377,
+          "score_breakdown": {
+            "frame_similarity": 0.9605,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9974,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "EM",
+          "donor_target_count": 23,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9896,
+            "scale_z": 0.8866,
+            "translate_x": -0.1276,
+            "translate_y": -0.0142,
+            "translate_z": 2.5362
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 12.8578,
+            "footprint_xy": 20.6247,
+            "z_range": 13.5549,
+            "prong_count_est": 8,
+            "melee_count_est": 8,
+            "strata_count": 5,
+            "basket_depth": 13.5549,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +2.54mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 23 mutable objects vs HM ~10 (delta=13)"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 0,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.6961
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 24,
+          "donor_family": "TS32",
+          "donor_score": 0.6367,
+          "score_breakdown": {
+            "frame_similarity": 0.9582,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9951,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 26,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9919,
+            "scale_z": 0.9077,
+            "translate_x": 0.0477,
+            "translate_y": 0.0009,
+            "translate_z": 2.5578
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 13.163,
+            "footprint_xy": 20.5666,
+            "z_range": 14.7097,
+            "prong_count_est": 4,
+            "melee_count_est": 4,
+            "strata_count": 9,
+            "basket_depth": 14.7097,
+            "count": 23
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +2.56mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 26 mutable objects vs HM ~10 (delta=16)"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 0,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.3909
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 25,
+          "donor_family": "AD_8",
+          "donor_score": 0.6265,
+          "score_breakdown": {
+            "frame_similarity": 0.9272,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.984,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "OV",
+          "donor_target_count": 22,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9931,
+            "scale_z": 1.042,
+            "translate_x": 0.0009,
+            "translate_y": 0.0111,
+            "translate_z": 1.4479
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 12.5814,
+            "footprint_xy": 12.0689,
+            "z_range": 13.2785,
+            "prong_count_est": 7,
+            "melee_count_est": 7,
+            "strata_count": 7,
+            "basket_depth": 13.2785,
+            "count": 21
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +1.45mm -- verify prong alignment"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 22 mutable objects vs HM ~10 (delta=12)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.9725
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 26,
+          "donor_family": "U11",
+          "donor_score": 0.6233,
+          "score_breakdown": {
+            "frame_similarity": 0.4726,
+            "count_sim": 0.9351,
+            "spatial_ratio": 0.943,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8803,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "RA",
+          "donor_target_count": 9,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.4388,
+            "scale_z": 1.1003,
+            "translate_x": -0.0005,
+            "translate_y": 0.2703,
+            "translate_z": 3.9375
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5186,
+            "stone_cz": 10.2524,
+            "footprint_xy": 13.7928,
+            "z_range": 12.1289,
+            "prong_count_est": 0,
+            "melee_count_est": 2,
+            "strata_count": 5,
+            "basket_depth": 11.0471,
+            "count": 8
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "SCALE_XY_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "XY scale factor 1.44 -- moderate distortion risk"
+            },
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +3.94mm -- stone height mismatch"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 3.3015
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 27,
+          "donor_family": "ER3_Pave_H_Shank",
+          "donor_score": 0.6194,
+          "score_breakdown": {
+            "frame_similarity": 0.9989,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9998,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.598,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "CU",
+          "donor_target_count": 65,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9931,
+            "scale_z": 0.9783,
+            "translate_x": 0.2317,
+            "translate_y": 0.1138,
+            "translate_z": 0.0675
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0315,
+            "stone_cz": 13.3231,
+            "footprint_xy": 11.5073,
+            "z_range": 4.421,
+            "prong_count_est": 38,
+            "melee_count_est": 41,
+            "strata_count": 5,
+            "basket_depth": 4.161,
+            "count": 63
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 65 mutable objects vs HM ~10 (delta=55)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.03 outside expected [1.35, 2.1] for PE"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.2308
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 28,
+          "donor_family": "TS15",
+          "donor_score": 0.6178,
+          "score_breakdown": {
+            "frame_similarity": 0.951,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9995,
+            "shared_shapes": 0.875
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "OV",
+          "donor_target_count": 23,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0102,
+            "scale_z": 0.9785,
+            "translate_x": 0.0016,
+            "translate_y": 0.0063,
+            "translate_z": 0.989
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 12.7065,
+            "footprint_xy": 12.0689,
+            "z_range": 14.167,
+            "prong_count_est": 12,
+            "melee_count_est": 14,
+            "strata_count": 5,
+            "basket_depth": 13.4036,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 23 mutable objects vs HM ~10 (delta=13)"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.8474
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 29,
+          "donor_family": "ER1_Pave_H_Shank",
+          "donor_score": 0.6173,
+          "score_breakdown": {
+            "frame_similarity": 0.9909,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9998,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.5992,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 30,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9931,
+            "scale_z": 0.9793,
+            "translate_x": 0.3623,
+            "translate_y": -0.1315,
+            "translate_z": -0.3917
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0337,
+            "stone_cz": 13.3231,
+            "footprint_xy": 20.5385,
+            "z_range": 14.0669,
+            "prong_count_est": 19,
+            "melee_count_est": 19,
+            "strata_count": 4,
+            "basket_depth": 13.3231,
+            "count": 30
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 30 mutable objects vs HM ~10 (delta=20)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.03 outside expected [1.35, 2.1] for PE"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.2308
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 30,
+          "donor_family": "ER2_Pave_H_Shank",
+          "donor_score": 0.6171,
+          "score_breakdown": {
+            "frame_similarity": 0.9907,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9985,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.5992,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 30,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9771,
+            "scale_z": 0.9791,
+            "translate_x": 0.2509,
+            "translate_y": -0.1294,
+            "translate_z": -0.0654
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0337,
+            "stone_cz": 13.3231,
+            "footprint_xy": 20.8748,
+            "z_range": 13.2981,
+            "prong_count_est": 20,
+            "melee_count_est": 20,
+            "strata_count": 3,
+            "basket_depth": 13.2981,
+            "count": 27
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 30 mutable objects vs HM ~10 (delta=20)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.03 outside expected [1.35, 2.1] for PE"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.2308
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 31,
+          "donor_family": "ER1_Hidden",
+          "donor_score": 0.6161,
+          "score_breakdown": {
+            "frame_similarity": 0.9875,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9976,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.5992,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "CU",
+          "donor_target_count": 30,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 1.0092,
+            "translate_x": -0.0774,
+            "translate_y": 0.0774,
+            "translate_z": -0.7839
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.0337,
+            "stone_cz": 13.3231,
+            "footprint_xy": 11.5073,
+            "z_range": 0.0341,
+            "prong_count_est": 20,
+            "melee_count_est": 20,
+            "strata_count": 1,
+            "basket_depth": 0.0341,
+            "count": 27
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 30 mutable objects vs HM ~10 (delta=20)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.03 outside expected [1.35, 2.1] for PE"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.2308
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 32,
+          "donor_family": "ER2_Solitare",
+          "donor_score": 0.6155,
+          "score_breakdown": {
+            "frame_similarity": 0.9987,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9316,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.654,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 23,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 0.7903,
+            "translate_x": -0.4679,
+            "translate_y": 0.4679,
+            "translate_z": 2.5562
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.1282,
+            "stone_cz": 13.2099,
+            "footprint_xy": 20.4357,
+            "z_range": 16.7397,
+            "prong_count_est": 4,
+            "melee_count_est": 1,
+            "strata_count": 6,
+            "basket_depth": 13.1886,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +2.56mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 23 mutable objects vs HM ~10 (delta=13)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.13 outside expected [1.35, 2.1] for PE"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 1,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.344
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 33,
+          "donor_family": "ER3_Solitare",
+          "donor_score": 0.6155,
+          "score_breakdown": {
+            "frame_similarity": 0.9988,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9316,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.654,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 23,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9981,
+            "scale_z": 0.7913,
+            "translate_x": -0.5104,
+            "translate_y": 0.5104,
+            "translate_z": 1.7351
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.1282,
+            "stone_cz": 13.2099,
+            "footprint_xy": 20.4358,
+            "z_range": 16.7397,
+            "prong_count_est": 4,
+            "melee_count_est": 1,
+            "strata_count": 6,
+            "basket_depth": 13.1886,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_MODERATE",
+              "severity": "MEDIUM",
+              "detail": "Z translation +1.74mm -- verify prong alignment"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 23 mutable objects vs HM ~10 (delta=13)"
+            },
+            {
+              "factor": "STONE_AR_MISMATCH",
+              "severity": "MEDIUM",
+              "detail": "Donor stone AR 1.13 outside expected [1.35, 2.1] for PE"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 2,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 0.344
+          },
+          "auto_arch": [
+            "A"
+          ]
+        },
+        {
+          "rank": 34,
+          "donor_family": "U12",
+          "donor_score": 0.6146,
+          "score_breakdown": {
+            "frame_similarity": 0.7451,
+            "count_sim": 0.7273,
+            "spatial_ratio": 0.9105,
+            "shared_shapes": 0.625
+          },
+          "stone_ar_sim": 0.8913,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "AS",
+          "donor_target_count": 7,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9494,
+            "scale_z": 1.1243,
+            "translate_x": 0.0,
+            "translate_y": 0.4257,
+            "translate_z": 0.7181
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5375,
+            "stone_cz": 11.3342,
+            "footprint_xy": 21.4848,
+            "z_range": 11.3567,
+            "prong_count_est": 3,
+            "melee_count_est": 3,
+            "strata_count": 3,
+            "basket_depth": 11.3567,
+            "count": 6
+          },
+          "expected_confidence": "MEDIUM",
+          "risk_factors": [],
+          "risk_count": {
+            "HIGH": 0,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 2.2197
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 35,
+          "donor_family": "AD_7",
+          "donor_score": 0.6124,
+          "score_breakdown": {
+            "frame_similarity": 0.8811,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9751,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "OV",
+          "donor_target_count": 27,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9944,
+            "scale_z": 0.9296,
+            "translate_x": 0.9351,
+            "translate_y": 0.0134,
+            "translate_z": 4.3529
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 12.0045,
+            "footprint_xy": 20.5146,
+            "z_range": 13.9155,
+            "prong_count_est": 4,
+            "melee_count_est": 4,
+            "strata_count": 9,
+            "basket_depth": 13.9155,
+            "count": 18
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +4.35mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 27 mutable objects vs HM ~10 (delta=17)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 1.5494
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 36,
+          "donor_family": "TS27",
+          "donor_score": 0.6108,
+          "score_breakdown": {
+            "frame_similarity": 0.8757,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.975,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "RA",
+          "donor_target_count": 27,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9764,
+            "scale_z": 1.1536,
+            "translate_x": 0.1006,
+            "translate_y": 0.1499,
+            "translate_z": -0.9034
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 12.9466,
+            "footprint_xy": 20.9252,
+            "z_range": 14.5336,
+            "prong_count_est": 8,
+            "melee_count_est": 8,
+            "strata_count": 6,
+            "basket_depth": 14.5336,
+            "count": 21
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 27 mutable objects vs HM ~10 (delta=17)"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {
+              "PE": 0.0
+            },
+            "z_filter": null,
+            "z_offset_correction": 0.6073
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 37,
+          "donor_family": "TS28",
+          "donor_score": 0.6108,
+          "score_breakdown": {
+            "frame_similarity": 0.8757,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.975,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "RA",
+          "donor_target_count": 27,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9764,
+            "scale_z": 1.1536,
+            "translate_x": 0.1006,
+            "translate_y": 0.1499,
+            "translate_z": -0.9034
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 12.9466,
+            "footprint_xy": 20.9252,
+            "z_range": 14.5336,
+            "prong_count_est": 8,
+            "melee_count_est": 8,
+            "strata_count": 6,
+            "basket_depth": 14.5336,
+            "count": 21
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 27 mutable objects vs HM ~10 (delta=17)"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {
+              "PE": 0.0
+            },
+            "z_filter": null,
+            "z_offset_correction": 0.6073
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 38,
+          "donor_family": "TS29",
+          "donor_score": 0.6108,
+          "score_breakdown": {
+            "frame_similarity": 0.8757,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.975,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "RA",
+          "donor_target_count": 27,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9764,
+            "scale_z": 1.1536,
+            "translate_x": 0.1006,
+            "translate_y": 0.1499,
+            "translate_z": -0.9034
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 12.9466,
+            "footprint_xy": 20.9252,
+            "z_range": 14.5336,
+            "prong_count_est": 8,
+            "melee_count_est": 8,
+            "strata_count": 6,
+            "basket_depth": 14.5336,
+            "count": 21
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 27 mutable objects vs HM ~10 (delta=17)"
+            },
+            {
+              "factor": "STYLE_THREE_STONE",
+              "severity": "LOW",
+              "detail": "Three-stone family -- side settings may introduce extra objects"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 1,
+            "MEDIUM": 0,
+            "LOW": 1
+          },
+          "recommended_filters": {
+            "min_z_guard": {
+              "PE": 0.0
+            },
+            "z_filter": null,
+            "z_offset_correction": 0.6073
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 39,
+          "donor_family": "AD_3",
+          "donor_score": 0.5971,
+          "score_breakdown": {
+            "frame_similarity": 0.8151,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9707,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.9296,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "RA",
+          "donor_target_count": 40,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 1.0212,
+            "scale_z": 0.969,
+            "translate_x": 0.0484,
+            "translate_y": -0.039,
+            "translate_z": 2.7369
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.6035,
+            "stone_cz": 11.0647,
+            "footprint_xy": 19.9698,
+            "z_range": 12.9707,
+            "prong_count_est": 17,
+            "melee_count_est": 23,
+            "strata_count": 8,
+            "basket_depth": 12.8272,
+            "count": 36
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +2.74mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 40 mutable objects vs HM ~10 (delta=30)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {},
+            "z_filter": null,
+            "z_offset_correction": 2.4892
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "rank": 40,
+          "donor_family": "AD_10",
+          "donor_score": 0.5917,
+          "score_breakdown": {
+            "frame_similarity": 0.8186,
+            "count_sim": 0.0,
+            "spatial_ratio": 0.9522,
+            "shared_shapes": 1.0
+          },
+          "stone_ar_sim": 0.8914,
+          "melee_sim": 0.0,
+          "bridge_shape_used": "CU",
+          "donor_target_count": 25,
+          "hm_expected_count": 9.6,
+          "affine_params": {
+            "scale_xy": 0.9894,
+            "scale_z": 1.0269,
+            "translate_x": -1.5728,
+            "translate_y": -0.179,
+            "translate_z": 2.8737
+          },
+          "donor_target_frame": {
+            "stone_ar": 1.5376,
+            "stone_cz": 12.4376,
+            "footprint_xy": 34.1061,
+            "z_range": 37.4376,
+            "prong_count_est": 5,
+            "melee_count_est": 5,
+            "strata_count": 12,
+            "basket_depth": 37.4376,
+            "count": 22
+          },
+          "expected_confidence": "LOW",
+          "risk_factors": [
+            {
+              "factor": "Z_OFFSET_HIGH",
+              "severity": "HIGH",
+              "detail": "Z translation +2.87mm -- stone height mismatch"
+            },
+            {
+              "factor": "COUNT_MISMATCH_HIGH",
+              "severity": "HIGH",
+              "detail": "Donor has 25 mutable objects vs HM ~10 (delta=15)"
+            }
+          ],
+          "risk_count": {
+            "HIGH": 2,
+            "MEDIUM": 0,
+            "LOW": 0
+          },
+          "recommended_filters": {
+            "min_z_guard": {
+              "PE": 0.0
+            },
+            "z_filter": null,
+            "z_offset_correction": 1.1163
+          },
+          "auto_arch": [
+            "A",
+            "B"
+          ]
+        }
+      ]
+    }
+  ],
+  "library_count": 127,
+  "elapsed_seconds": 0.0
+}

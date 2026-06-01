@@ -1,0 +1,79 @@
+{
+  "target_family": "ER7_Solitare",
+  "target_shape": "PE",
+  "architecture": "A",
+  "synthesis_date": "2026-06-01T10:00:15",
+  "donor_family": "N4",
+  "donor_score": 0.7663,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +3.40mm -- stone height mismatch"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 1,
+  "mutable_indices_count": 11,
+  "result": {
+    "ok": true,
+    "static_added": 1,
+    "mutable_added": 10,
+    "mutable_filtered": 1,
+    "total": 11
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\ER7_Solitare_PE_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 4,
+  "pre_rejected_count": 32,
+  "elevated_setting_mode": false,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 13.022,
+      "expected": 13.554,
+      "delta": -0.532,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.538,
+      "expected_range": [
+        1.35,
+        2.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 8,
+      "expected": 9.4,
+      "ratio": 0.853,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 9.637,
+      "expected": 13.218,
+      "ratio": 0.729,
+      "verdict": "WARN"
+    },
+    "stone_centered": {
+      "cx": 0.0,
+      "cy": -0.924,
+      "dist": 0.924,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 1,
+      "total": 11,
+      "loss_pct": 9.1,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 11,
+      "contaminants": 2,
+      "rate_pct": 18.2,
+      "verdict": "WARN"
+    }
+  }
+}
