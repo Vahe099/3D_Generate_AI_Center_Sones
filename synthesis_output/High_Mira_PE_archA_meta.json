@@ -2,27 +2,83 @@
   "target_family": "High_Mira",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-05-26T15:09:40",
-  "donor_family": "SP6",
-  "donor_score": 0.8958,
-  "expected_confidence": "MEDIUM",
+  "synthesis_date": "2026-06-01T15:46:28",
+  "donor_family": "TS11",
+  "donor_score": 0.9427,
+  "expected_confidence": "LOW",
   "risk_factors": [
     {
-      "factor": "COUNT_MISMATCH_MODERATE",
-      "severity": "MEDIUM",
-      "detail": "Object count off by 6 from HM average"
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +2.77mm -- stone height mismatch"
+    },
+    {
+      "factor": "STYLE_THREE_STONE",
+      "severity": "LOW",
+      "detail": "Three-stone family -- side settings may introduce extra objects"
     }
   ],
   "affine_params": null,
   "static_hashes_count": 3,
-  "mutable_indices_count": 25,
+  "mutable_indices_count": 28,
   "result": {
     "ok": true,
-    "static_added": 3,
-    "mutable_added": 25,
-    "mutable_filtered": 0,
-    "total": 28
+    "static_added": 1,
+    "mutable_added": 23,
+    "mutable_filtered": 1,
+    "total": 24
   },
   "status": "OK",
-  "output_file": "synthesis_output\\High_Mira_PE_archA.3dm"
+  "output_file": "synthesis_output\\High_Mira_PE_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 1,
+  "pre_rejected_count": 28,
+  "elevated_setting_mode": false,
+  "validation_verdict": "PASS",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 11.635,
+      "expected": 11.89,
+      "delta": -0.255,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.538,
+      "expected_range": [
+        1.35,
+        2.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 23,
+      "expected": 29.0,
+      "ratio": 0.793,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 11.672,
+      "expected": 12.321,
+      "ratio": 0.947,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": 0.0,
+      "cy": -0.897,
+      "dist": 0.897,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 1,
+      "total": 24,
+      "loss_pct": 4.2,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 24,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
 }

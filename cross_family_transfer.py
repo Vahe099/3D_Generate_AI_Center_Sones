@@ -1768,7 +1768,9 @@ def _pre_reject(
     dn_mel = dn_tf.get("melee_count_est", 0)
 
     # PR-1: predicted contaminant rate (melee-heavy donor → stone InstanceRefs dominate output)
-    if dn_cnt > 0 and (dn_mel / dn_cnt) > 0.40:
+    # Skip when target itself is halo/pave (melee >= 8) — melee stones are expected mutable assets.
+    _hm_mel_ref = int(hm_style_ref.get("melee_count_est", 0))
+    if _hm_mel_ref < 8 and dn_cnt > 0 and (dn_mel / dn_cnt) > 0.40:
         reasons.append(
             f"CONTAMINANT_RATE_PREDICTED ({dn_mel}/{dn_cnt}={dn_mel/dn_cnt:.0%})"
         )

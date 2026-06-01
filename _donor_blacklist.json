@@ -1,0 +1,201 @@
+{
+  "AD_6|PE|TS17": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-01T15:40:49",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "stone_centered"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 1.118,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "stone_centered": {
+            "cx": -2.727,
+            "cy": 3.05,
+            "dist": 4.092
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-01T15:40:49",
+    "first_strike": "2026-06-01T15:40:49"
+  },
+  "AD_6|PE|ER6_Hidden": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-01T15:40:50",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 9,
+            "expected": 28.7,
+            "ratio": 0.314
+          },
+          "contaminant_rate": {
+            "raw_objects": 22,
+            "contaminants": 13,
+            "rate_pct": 59.1
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-01T15:40:50",
+    "first_strike": "2026-06-01T15:40:50"
+  },
+  "High_Mira|PE|TS17": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-01T15:40:50",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "stone_centered"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 1.118,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "stone_centered": {
+            "cx": -2.727,
+            "cy": 3.05,
+            "dist": 4.092
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-01T15:40:50",
+    "first_strike": "2026-06-01T15:40:50"
+  },
+  "U12|PR|U11": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-01T15:46:45",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "affine_sanity"
+        ],
+        "check_details": {
+          "affine_sanity": {
+            "scale_xy": 1.4529,
+            "scale_z": 0.9346,
+            "translate_z": 3.03
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-01T15:46:45",
+    "first_strike": "2026-06-01T15:46:45"
+  },
+  "ER7_Solitare|PE|ER6_Solitare": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-01T15:47:34",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 4.044,
+            "expected": 13.218,
+            "ratio": 0.306
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-01T15:47:34",
+    "first_strike": "2026-06-01T15:47:34"
+  },
+  "ER7_Solitare|PE|AD_2": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-01T15:47:34",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "basket_depth"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 1.285,
+            "expected": 13.593,
+            "delta": -12.308
+          },
+          "stone_ar": {
+            "actual": 4.685,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "basket_depth": {
+            "actual": 0.0,
+            "expected": 13.218,
+            "ratio": 0.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-01T15:47:34",
+    "first_strike": "2026-06-01T15:47:34"
+  },
+  "ER7_Solitare|PE|TM7": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-01T15:47:35",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 1.126,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-01T15:47:35",
+    "first_strike": "2026-06-01T15:47:35"
+  }
+}
