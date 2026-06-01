@@ -1,0 +1,96 @@
+{
+  "target_family": "TS21",
+  "target_shape": "PE",
+  "architecture": "B",
+  "synthesis_date": "2026-06-01T11:00:58",
+  "donor_family": "N1",
+  "donor_score": 0.6519,
+  "expected_confidence": "MEDIUM",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Z translation +1.25mm -- verify prong alignment"
+    },
+    {
+      "factor": "COUNT_MISMATCH_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Object count off by 4 from HM average"
+    }
+  ],
+  "affine_params": {
+    "scale_xy": 1.0399,
+    "scale_z": 0.9322,
+    "translate_x": -0.0369,
+    "translate_y": 0.2563,
+    "translate_z": -10.4454
+  },
+  "static_hashes_count": 3,
+  "mutable_indices_count": 14,
+  "result": {
+    "ok": true,
+    "static_added": 2,
+    "mutable_added": 11,
+    "mutable_filtered": 3,
+    "total": 13
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\TS21_PE_archB.3dm",
+  "fallback_mode": true,
+  "attempt_number": 4,
+  "pre_rejected_count": 18,
+  "elevated_setting_mode": true,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 2.122,
+      "expected": 1.74,
+      "delta": 0.382,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.538,
+      "expected_range": [
+        1.35,
+        2.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 11,
+      "expected": 8.6,
+      "ratio": 1.279,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 3.304,
+      "expected": 5.145,
+      "ratio": 0.642,
+      "verdict": "WARN"
+    },
+    "stone_centered": {
+      "cx": -0.037,
+      "cy": 0.375,
+      "dist": 0.377,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 3,
+      "total": 14,
+      "loss_pct": 21.4,
+      "verdict": "WARN"
+    },
+    "affine_sanity": {
+      "scale_xy": 1.0399,
+      "scale_z": 0.9322,
+      "translate_z": -10.4454,
+      "verdict": "WARN"
+    },
+    "contaminant_rate": {
+      "raw_objects": 13,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

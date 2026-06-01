@@ -1,0 +1,91 @@
+{
+  "target_family": "TS21",
+  "target_shape": "PR",
+  "architecture": "B",
+  "synthesis_date": "2026-06-01T11:01:01",
+  "donor_family": "N1",
+  "donor_score": 0.6764,
+  "expected_confidence": "MEDIUM",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Z translation +1.25mm -- verify prong alignment"
+    }
+  ],
+  "affine_params": {
+    "scale_xy": 1.0399,
+    "scale_z": 0.9322,
+    "translate_x": -0.0369,
+    "translate_y": 0.2563,
+    "translate_z": -10.4454
+  },
+  "static_hashes_count": 3,
+  "mutable_indices_count": 13,
+  "result": {
+    "ok": true,
+    "static_added": 2,
+    "mutable_added": 10,
+    "mutable_filtered": 3,
+    "total": 12
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\TS21_PR_archB.3dm",
+  "fallback_mode": true,
+  "attempt_number": 7,
+  "pre_rejected_count": 16,
+  "elevated_setting_mode": true,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 1.811,
+      "expected": 1.74,
+      "delta": 0.071,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.02,
+      "expected_range": [
+        0.92,
+        1.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 10,
+      "expected": 8.6,
+      "ratio": 1.163,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 4.508,
+      "expected": 5.145,
+      "ratio": 0.876,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": -0.037,
+      "cy": 0.256,
+      "dist": 0.259,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 3,
+      "total": 13,
+      "loss_pct": 23.1,
+      "verdict": "WARN"
+    },
+    "affine_sanity": {
+      "scale_xy": 1.0399,
+      "scale_z": 0.9322,
+      "translate_z": -10.4454,
+      "verdict": "WARN"
+    },
+    "contaminant_rate": {
+      "raw_objects": 12,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

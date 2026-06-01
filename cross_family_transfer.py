@@ -2033,7 +2033,12 @@ def synthesize(
             def _af_mean(k):
                 vs = [f[k] for f in _af_hm_frames if f.get(k) is not None]
                 return sum(vs) / len(vs) if vs else 0.0
-            _af_exp_stone_cz = _af_mean("stone_cz") or _af_mean("cz_mean")
+            def _af_median(k):
+                vs = sorted(f[k] for f in _af_hm_frames if f.get(k) is not None)
+                if not vs: return 0.0
+                mid = len(vs) // 2
+                return vs[mid] if len(vs) % 2 else (vs[mid - 1] + vs[mid]) / 2
+            _af_exp_stone_cz = _af_median("stone_cz") or _af_median("cz_mean") or _af_mean("stone_cz")
             _af_exp_basket   = _af_mean("basket_depth")
             _af_exp_count    = _af_mean("count")
             # hm_style_ref: mode-style majority (same logic as analyze())
@@ -2107,6 +2112,19 @@ def synthesize(
                             0 if d_cnt >= _ec else 1,    # count above mean second
                             -c["donor_score"])            # score as tiebreaker
                 _pre_ok = sorted(_pre_ok, key=_elev_sort_key)
+            # Elevated archA-only shapes: switch to archB when donors sit much
+            # higher than the target stone (gap > 5 mm).  archB scale_z compresses
+            # the donor basket depth into range, while the stone_cz-anchor (below)
+            # corrects dZ so the stone lands at the target family's cz.
+            if (_af_is_elevated and archs_to_run == ["A"] and _af_exp_stone_cz > 0 and _pre_ok):
+                _sc       = _pre_ok[0]
+                _sc_dn_cz = _af_cache.get(
+                    f"{_sc.get('donor_family','')}|{_sc.get('bridge_shape_used','')}", {}
+                ).get("stone_cz", 0.0)
+                if _sc_dn_cz > 0 and abs(_af_exp_stone_cz - _sc_dn_cz) > 5.0:
+                    archs_to_run = ["B"]
+                    print(f"  {miss}: cz-gap {abs(_af_exp_stone_cz - _sc_dn_cz):.1f}mm"
+                          f" -- elevated archA -> archB (stone_cz-anchor)")
         else:
             pick_idx = min(donor_rank - 1, len(cands) - 1)
             _pre_ok  = [cands[pick_idx]]   # single candidate, existing behavior
@@ -2187,6 +2205,28 @@ def synthesize(
             _attempt_accepted = False
             for arch in archs_to_run:
                 affine_p = best["affine_params"] if arch == "B" else None
+
+                # Stone-cz anchor: override dZ when bridge frame comparison mismatches
+                # target stone height by >2 mm.  Only fires for outlier cases (e.g. three-
+                # stone families where the bridge shape's cz_mean != center stone height).
+                if auto_fallback and arch == "B" and affine_p and _af_exp_stone_cz > 0:
+                    _bshape = best.get("bridge_shape_used")
+                    _dn_fam = best.get("donor_family", "")
+                    _dn_bridge_cz = (
+                        _af_cache.get(f"{_dn_fam}|{_bshape}", {}).get("stone_cz")
+                        if _bshape else None
+                    )
+                    if _dn_bridge_cz:
+                        _sz = affine_p.get("scale_z", 1.0)
+                        _stone_dz = _af_exp_stone_cz - _sz * _dn_bridge_cz
+                        if abs(_stone_dz - affine_p["translate_z"]) > 2.0:
+                            affine_p = dict(affine_p)
+                            affine_p["translate_z"] = round(_stone_dz, 4)
+                            print(f"       [stone_cz-anchor] dz "
+                                  f"{best['affine_params']['translate_z']:+.2f}"
+                                  f" -> {_stone_dz:+.2f}mm"
+                                  f" (exp={_af_exp_stone_cz:.2f}"
+                                  f" dn_cz={_dn_bridge_cz:.2f})")
 
                 rank_tag = f"_r{donor_rank}" if (donor_rank > 1 and not auto_fallback) else ""
                 out_stem = f"{family}_{miss}_arch{arch}{rank_tag}"
@@ -3005,12 +3045,18 @@ def validate_synthesis(family: str, synth_dir: Path, out_path: Path) -> None:
         print(f"ERROR: No frame cache entries for {family}. Run build-frame-db first.")
         sys.exit(1)
 
-    # Expected metrics — averages across known shapes (ring-level constants)
+    # Expected metrics — median across known shapes for stone_cz (outlier-robust),
+    # mean for basket_depth and count (less prone to single-shape anomalies).
     def _mean(key: str) -> float:
         vals = [f[key] for f in hm_frames if f.get(key) is not None]
         return sum(vals) / len(vals) if vals else 0.0
+    def _median(key: str) -> float:
+        vs = sorted(f[key] for f in hm_frames if f.get(key) is not None)
+        if not vs: return 0.0
+        mid = len(vs) // 2
+        return vs[mid] if len(vs) % 2 else (vs[mid - 1] + vs[mid]) / 2
 
-    exp_stone_cz     = _mean("stone_cz") or _mean("cz_mean")
+    exp_stone_cz     = _median("stone_cz") or _median("cz_mean") or _mean("stone_cz")
     exp_basket_depth = _mean("basket_depth")
     exp_count        = _mean("count")
 
