@@ -34,6 +34,7 @@ STRIKE_TEMP          = 2   # 2 FAILs → temporary blacklist (skip until cleared
 STRIKE_PERM          = 3   # 3 FAILs → permanent blacklist (never retry)
 ELEVATED_BASKET_THRESHOLD = 7.0   # mm; target families below this are elevated-setting
 ELEVATED_MIN_ATTEMPTS     = 10    # minimum fallback attempts for elevated-setting targets
+ELEVATED_COUNT_RATIO      = 3.0   # max donor/target count ratio for elevated pre-rejection
 MAX_WORKERS      = 8      # parallel subprocess slots
 TOP_N            = 40     # candidates to report per missing shape
 PRESCORE_KEEP    = 40     # donors to load target frames for (>= TOP_N)
@@ -1754,6 +1755,7 @@ def _pre_reject(
     candidate:     dict,
     hm_count_mean: float,
     hm_style_ref:  dict,
+    is_elevated:   bool = False,
 ) -> tuple[bool, list[str]]:
     """Deterministic pre-synthesis rejection from frame cache data.
 
@@ -1772,9 +1774,12 @@ def _pre_reject(
         )
 
     # PR-2: object count inflation or sparsity
+    # Elevated-setting targets have structurally low counts (7–10); use wider ceiling so
+    # standard donors (15–25 objects) survive to be tried — Z-filter trims the excess.
     if hm_count_mean > 0 and dn_cnt > 0:
         ratio = dn_cnt / hm_count_mean
-        if ratio > 1.65:
+        inflated_ceil = ELEVATED_COUNT_RATIO if is_elevated else 1.65
+        if ratio > inflated_ceil:
             reasons.append(f"COUNT_INFLATED ({ratio:.2f}x)")
         elif ratio < 0.55:
             reasons.append(f"COUNT_SPARSE ({ratio:.2f}x)")
@@ -2067,7 +2072,8 @@ def synthesize(
             _pre_ok: list[dict] = []
             _pre_skipped = 0
             for c in cands:
-                rej, reasons = _pre_reject(c, _af_hm_count_mean, _af_hm_style_ref)
+                rej, reasons = _pre_reject(c, _af_hm_count_mean, _af_hm_style_ref,
+                                           is_elevated=_af_is_elevated)
                 bl_st = _bl_status(_af_blacklist, family, miss, c["donor_family"])
                 if rej:
                     _pre_skipped += 1
