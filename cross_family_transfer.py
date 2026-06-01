@@ -27,7 +27,7 @@ CACHE_FILE         = Path("_cf_frame_cache.json")
 WORKER_FILE          = Path("_cf_frame_worker.py")
 SYNTH_WORKER_FILE    = Path("_cf_synth_worker.py")
 COMPARE_WORKER_FILE  = Path("_cf_compare_worker.py")
-VALIDATE_WORKER_FILE = Path("_cf_validate_worker.py")
+VALIDATE_WORKER_FILE = Path(f"_cf_validate_worker_{os.getpid()}.py")
 BLACKLIST_FILE       = Path("_donor_blacklist.json")   # strike-based donor blacklist
 STRIKE_WARN          = 1   # 1 FAIL → warned, still eligible on next run
 STRIKE_TEMP          = 2   # 2 FAILs → temporary blacklist (skip until cleared)
@@ -1815,18 +1815,27 @@ def _validate_output_file(
     worker_args = {"file": str(out_file), "static_hashes": static_hashes}
     env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
     frame = None
-    try:
-        r = subprocess.run(
-            [sys.executable, str(VALIDATE_WORKER_FILE), json.dumps(worker_args)],
-            capture_output=True, text=True, encoding="utf-8",
-            errors="replace", timeout=180, env=env,
-        )
-        if r.stdout.strip():
-            frame = json.loads(r.stdout.strip())
-            if frame.get("error"):
-                frame = None
-    except Exception:
-        pass
+    for _vattempt in range(2):
+        try:
+            r = subprocess.run(
+                [sys.executable, str(VALIDATE_WORKER_FILE), json.dumps(worker_args)],
+                capture_output=True, text=True, encoding="utf-8",
+                errors="replace", timeout=180, env=env,
+            )
+            if r.stdout.strip():
+                frame = json.loads(r.stdout.strip())
+                if frame.get("error"):
+                    frame = None
+                else:
+                    break
+            _err = (r.stderr or "").strip()
+            if _err and _vattempt == 0:
+                print(f"       [validate-worker stderr] {_err[:300]}")
+        except Exception as _vexc:
+            if _vattempt == 0:
+                print(f"       [validate-worker exception] {_vexc}")
+        if _vattempt == 0 and frame is None:
+            import time as _vtime; _vtime.sleep(0.25)
 
     if frame is None:
         return {"verdict": "ERROR", "n_warn": 0, "n_fail": 1, "checks": {}, "frame": None}
