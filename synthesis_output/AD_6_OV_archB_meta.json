@@ -1,0 +1,96 @@
+{
+  "target_family": "AD_6",
+  "target_shape": "OV",
+  "architecture": "B",
+  "synthesis_date": "2026-06-01T10:38:01",
+  "donor_family": "TS9",
+  "donor_score": 0.8715,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +2.67mm -- stone height mismatch"
+    },
+    {
+      "factor": "STYLE_THREE_STONE",
+      "severity": "LOW",
+      "detail": "Three-stone family -- side settings may introduce extra objects"
+    }
+  ],
+  "affine_params": {
+    "scale_xy": 0.9912,
+    "scale_z": 0.8998,
+    "translate_x": 0.5224,
+    "translate_y": -0.1811,
+    "translate_z": 2.67
+  },
+  "static_hashes_count": 2,
+  "mutable_indices_count": 28,
+  "result": {
+    "ok": true,
+    "static_added": 0,
+    "mutable_added": 24,
+    "mutable_filtered": 0,
+    "total": 24
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\AD_6_OV_archB.3dm",
+  "fallback_mode": true,
+  "attempt_number": 2,
+  "pre_rejected_count": 37,
+  "elevated_setting_mode": false,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 13.027,
+      "expected": 12.457,
+      "delta": 0.57,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.342,
+      "expected_range": [
+        1.25,
+        1.75
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 21,
+      "expected": 28.7,
+      "ratio": 0.733,
+      "verdict": "WARN"
+    },
+    "basket_depth": {
+      "actual": 11.0,
+      "expected": 13.002,
+      "ratio": 0.846,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": 0.522,
+      "cy": -0.181,
+      "dist": 0.553,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 0,
+      "total": 24,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
+    },
+    "affine_sanity": {
+      "scale_xy": 0.9912,
+      "scale_z": 0.8998,
+      "translate_z": 2.67,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 24,
+      "contaminants": 3,
+      "rate_pct": 12.5,
+      "verdict": "WARN"
+    }
+  }
+}

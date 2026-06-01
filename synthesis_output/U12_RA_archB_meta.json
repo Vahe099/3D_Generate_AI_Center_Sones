@@ -1,0 +1,91 @@
+{
+  "target_family": "U12",
+  "target_shape": "RA",
+  "architecture": "B",
+  "synthesis_date": "2026-06-01T10:37:06",
+  "donor_family": "ER10_Solitare",
+  "donor_score": 0.8597,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +2.73mm -- stone height mismatch"
+    }
+  ],
+  "affine_params": {
+    "scale_xy": 1.0117,
+    "scale_z": 1.0175,
+    "translate_x": -0.0112,
+    "translate_y": -0.4132,
+    "translate_z": 2.7319
+  },
+  "static_hashes_count": 0,
+  "mutable_indices_count": 6,
+  "result": {
+    "ok": true,
+    "static_added": 0,
+    "mutable_added": 5,
+    "mutable_filtered": 0,
+    "total": 5
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\U12_RA_archB.3dm",
+  "fallback_mode": true,
+  "attempt_number": 1,
+  "pre_rejected_count": 25,
+  "elevated_setting_mode": false,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 14.036,
+      "expected": 11.495,
+      "delta": 2.541,
+      "verdict": "WARN"
+    },
+    "stone_ar": {
+      "actual": 1.459,
+      "expected_range": [
+        1.25,
+        1.8
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 5,
+      "expected": 7.0,
+      "ratio": 0.714,
+      "verdict": "WARN"
+    },
+    "basket_depth": {
+      "actual": 11.304,
+      "expected": 11.517,
+      "ratio": 0.981,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": -0.212,
+      "cy": -0.415,
+      "dist": 0.466,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 0,
+      "total": 5,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
+    },
+    "affine_sanity": {
+      "scale_xy": 1.0117,
+      "scale_z": 1.0175,
+      "translate_z": 2.7319,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 5,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}
