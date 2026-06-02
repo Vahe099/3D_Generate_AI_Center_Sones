@@ -1,0 +1,94 @@
+{
+  "target_family": "TS21",
+  "target_shape": "RD",
+  "architecture": "A",
+  "synthesis_date": "2026-06-01T10:54:15",
+  "donor_family": "TM3",
+  "donor_score": 0.6799,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "SCALE_Z_HIGH",
+      "severity": "MEDIUM",
+      "detail": "Z scale factor 10.03 -- vertical geometry will be stretched"
+    },
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation -96.00mm -- stone height mismatch"
+    },
+    {
+      "factor": "STONE_AR_MISMATCH",
+      "severity": "MEDIUM",
+      "detail": "Donor stone AR 1.12 outside expected [0.92, 1.08] for RD"
+    },
+    {
+      "factor": "STYLE_TWO_STONE",
+      "severity": "MEDIUM",
+      "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 3,
+  "mutable_indices_count": 9,
+  "result": {
+    "ok": true,
+    "static_added": 2,
+    "mutable_added": 5,
+    "mutable_filtered": 1,
+    "total": 7
+  },
+  "status": "FAIL",
+  "output_file": "synthesis_output\\TS21_RD_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 10,
+  "pre_rejected_count": 20,
+  "elevated_setting_mode": true,
+  "validation_verdict": "FAIL",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 11.11,
+      "expected": 1.74,
+      "delta": 9.37,
+      "verdict": "FAIL"
+    },
+    "stone_ar": {
+      "actual": 1.12,
+      "expected_range": [
+        0.92,
+        1.08
+      ],
+      "verdict": "WARN"
+    },
+    "object_count": {
+      "actual": 5,
+      "expected": 8.6,
+      "ratio": 0.581,
+      "verdict": "WARN"
+    },
+    "basket_depth": {
+      "actual": 11.11,
+      "expected": 5.145,
+      "ratio": 2.159,
+      "verdict": "FAIL"
+    },
+    "stone_centered": {
+      "cx": 4.159,
+      "cy": 0.142,
+      "dist": 4.161,
+      "verdict": "FAIL"
+    },
+    "mutable_loss": {
+      "filtered": 1,
+      "total": 6,
+      "loss_pct": 16.7,
+      "verdict": "WARN"
+    },
+    "contaminant_rate": {
+      "raw_objects": 7,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

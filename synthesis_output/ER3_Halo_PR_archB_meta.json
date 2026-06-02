@@ -1,0 +1,91 @@
+{
+  "target_family": "ER3_Halo",
+  "target_shape": "PR",
+  "architecture": "B",
+  "synthesis_date": "2026-06-02T12:28:57",
+  "donor_family": "ER13_Solitare",
+  "donor_score": 0.7858,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +2.59mm -- stone height mismatch"
+    }
+  ],
+  "affine_params": {
+    "scale_xy": 0.936,
+    "scale_z": 0.9297,
+    "translate_x": 0.0,
+    "translate_y": 0.0005,
+    "translate_z": 0.5228
+  },
+  "static_hashes_count": 116,
+  "mutable_indices_count": 14,
+  "result": {
+    "ok": true,
+    "static_added": 58,
+    "mutable_added": 13,
+    "mutable_filtered": 1,
+    "total": 71
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\ER3_Halo_PR_archB.3dm",
+  "fallback_mode": true,
+  "attempt_number": 2,
+  "pre_rejected_count": 20,
+  "elevated_setting_mode": false,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 13.944,
+      "expected": 13.059,
+      "delta": 0.885,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.0,
+      "expected_range": [
+        0.92,
+        1.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 13,
+      "expected": 11.5,
+      "ratio": 1.13,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 11.338,
+      "expected": 19.875,
+      "ratio": 0.57,
+      "verdict": "WARN"
+    },
+    "stone_centered": {
+      "cx": -0.0,
+      "cy": 0.001,
+      "dist": 0.001,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 1,
+      "total": 14,
+      "loss_pct": 7.1,
+      "verdict": "PASS"
+    },
+    "affine_sanity": {
+      "scale_xy": 0.936,
+      "scale_z": 0.9297,
+      "translate_z": 0.5228,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 71,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

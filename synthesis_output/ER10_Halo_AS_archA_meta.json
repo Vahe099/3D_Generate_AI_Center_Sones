@@ -1,0 +1,73 @@
+{
+  "target_family": "ER10_Halo",
+  "target_shape": "AS",
+  "architecture": "A",
+  "synthesis_date": "2026-06-02T12:28:51",
+  "donor_family": "ER3_Hidden",
+  "donor_score": 0.9674,
+  "expected_confidence": "HIGH",
+  "risk_factors": [],
+  "affine_params": null,
+  "static_hashes_count": 3,
+  "mutable_indices_count": 38,
+  "result": {
+    "ok": true,
+    "static_added": 1,
+    "mutable_added": 36,
+    "mutable_filtered": 0,
+    "total": 37
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\ER10_Halo_AS_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 1,
+  "pre_rejected_count": 20,
+  "elevated_setting_mode": false,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 13.541,
+      "expected": 12.669,
+      "delta": 0.873,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.0,
+      "expected_range": [
+        0.92,
+        1.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 36,
+      "expected": 35.0,
+      "ratio": 1.029,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 13.52,
+      "expected": 8.808,
+      "ratio": 1.535,
+      "verdict": "WARN"
+    },
+    "stone_centered": {
+      "cx": 0.0,
+      "cy": 0.0,
+      "dist": 0.0,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 0,
+      "total": 36,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 37,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

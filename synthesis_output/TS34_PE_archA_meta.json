@@ -1,0 +1,73 @@
+{
+  "target_family": "TS34",
+  "target_shape": "PE",
+  "architecture": "A",
+  "synthesis_date": "2026-06-02T12:29:14",
+  "donor_family": "ER4_Solitare",
+  "donor_score": 0.9482,
+  "expected_confidence": "HIGH",
+  "risk_factors": [],
+  "affine_params": null,
+  "static_hashes_count": 1,
+  "mutable_indices_count": 12,
+  "result": {
+    "ok": true,
+    "static_added": 0,
+    "mutable_added": 11,
+    "mutable_filtered": 1,
+    "total": 11
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\TS34_PE_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 1,
+  "pre_rejected_count": 18,
+  "elevated_setting_mode": false,
+  "validation_verdict": "PASS",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 13.786,
+      "expected": 12.635,
+      "delta": 1.15,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.538,
+      "expected_range": [
+        1.35,
+        2.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 11,
+      "expected": 13.1,
+      "ratio": 0.839,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 12.171,
+      "expected": 11.742,
+      "ratio": 1.037,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": 0.0,
+      "cy": -0.114,
+      "dist": 0.114,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 1,
+      "total": 12,
+      "loss_pct": 8.3,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 11,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

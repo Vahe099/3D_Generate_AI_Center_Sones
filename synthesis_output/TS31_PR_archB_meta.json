@@ -1,0 +1,85 @@
+{
+  "target_family": "TS31",
+  "target_shape": "PR",
+  "architecture": "B",
+  "synthesis_date": "2026-06-02T12:29:13",
+  "donor_family": "AD_11",
+  "donor_score": 0.932,
+  "expected_confidence": "HIGH",
+  "risk_factors": [],
+  "affine_params": {
+    "scale_xy": 0.9834,
+    "scale_z": 1.0097,
+    "translate_x": -0.3127,
+    "translate_y": 0.2536,
+    "translate_z": -0.281
+  },
+  "static_hashes_count": 1,
+  "mutable_indices_count": 18,
+  "result": {
+    "ok": true,
+    "static_added": 0,
+    "mutable_added": 16,
+    "mutable_filtered": 0,
+    "total": 16
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\TS31_PR_archB.3dm",
+  "fallback_mode": true,
+  "attempt_number": 1,
+  "pre_rejected_count": 17,
+  "elevated_setting_mode": false,
+  "validation_verdict": "PASS",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 11.029,
+      "expected": 10.754,
+      "delta": 0.275,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.002,
+      "expected_range": [
+        0.92,
+        1.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 16,
+      "expected": 14.0,
+      "ratio": 1.143,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 11.165,
+      "expected": 11.252,
+      "ratio": 0.992,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": -0.313,
+      "cy": 0.254,
+      "dist": 0.403,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 0,
+      "total": 16,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
+    },
+    "affine_sanity": {
+      "scale_xy": 0.9834,
+      "scale_z": 1.0097,
+      "translate_z": -0.281,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 16,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "target_family": "TS21",
+  "target_shape": "AS",
+  "architecture": "A",
+  "synthesis_date": "2026-06-01T10:54:04",
+  "donor_family": "ER13_Solitare",
+  "donor_score": 0.4542,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "SCALE_Z_HIGH",
+      "severity": "MEDIUM",
+      "detail": "Z scale factor 0.40 -- vertical geometry will be stretched"
+    },
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +6.51mm -- stone height mismatch"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 3,
+  "mutable_indices_count": 13,
+  "result": {
+    "ok": true,
+    "static_added": 2,
+    "mutable_added": 13,
+    "mutable_filtered": 0,
+    "total": 15
+  },
+  "status": "FAIL",
+  "output_file": "synthesis_output\\TS21_AS_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 10,
+  "pre_rejected_count": 14,
+  "elevated_setting_mode": true,
+  "validation_verdict": "FAIL",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 13.73,
+      "expected": 1.74,
+      "delta": 11.99,
+      "verdict": "FAIL"
+    },
+    "stone_ar": {
+      "actual": 1.0,
+      "expected_range": [
+        0.92,
+        1.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 13,
+      "expected": 8.6,
+      "ratio": 1.512,
+      "verdict": "WARN"
+    },
+    "basket_depth": {
+      "actual": 11.96,
+      "expected": 5.145,
+      "ratio": 2.324,
+      "verdict": "FAIL"
+    },
+    "stone_centered": {
+      "cx": -0.0,
+      "cy": 0.0,
+      "dist": 0.0,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 0,
+      "total": 13,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 15,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

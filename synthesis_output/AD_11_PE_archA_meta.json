@@ -1,0 +1,84 @@
+{
+  "target_family": "AD_11",
+  "target_shape": "PE",
+  "architecture": "A",
+  "synthesis_date": "2026-06-02T12:28:35",
+  "donor_family": "TM9",
+  "donor_score": 0.872,
+  "expected_confidence": "MEDIUM",
+  "risk_factors": [
+    {
+      "factor": "STONE_AR_MISMATCH",
+      "severity": "MEDIUM",
+      "detail": "Donor stone AR 1.32 outside expected [1.35, 2.1] for PE"
+    },
+    {
+      "factor": "STYLE_TWO_STONE",
+      "severity": "MEDIUM",
+      "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 1,
+  "mutable_indices_count": 20,
+  "result": {
+    "ok": true,
+    "static_added": 0,
+    "mutable_added": 19,
+    "mutable_filtered": 1,
+    "total": 19
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\AD_11_PE_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 2,
+  "pre_rejected_count": 16,
+  "elevated_setting_mode": false,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 12.011,
+      "expected": 11.094,
+      "delta": 0.918,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.316,
+      "expected_range": [
+        1.35,
+        2.1
+      ],
+      "verdict": "WARN"
+    },
+    "object_count": {
+      "actual": 18,
+      "expected": 16.8,
+      "ratio": 1.075,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 12.011,
+      "expected": 10.839,
+      "ratio": 1.108,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": -0.0,
+      "cy": -0.0,
+      "dist": 0.0,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 1,
+      "total": 20,
+      "loss_pct": 5.0,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 19,
+      "contaminants": 1,
+      "rate_pct": 5.3,
+      "verdict": "WARN"
+    }
+  }
+}

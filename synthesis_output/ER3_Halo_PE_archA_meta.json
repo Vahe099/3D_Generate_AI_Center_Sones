@@ -1,0 +1,84 @@
+{
+  "target_family": "ER3_Halo",
+  "target_shape": "PE",
+  "architecture": "A",
+  "synthesis_date": "2026-06-02T12:28:56",
+  "donor_family": "ER4_Solitare",
+  "donor_score": 0.7491,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "SCALE_Z_HIGH",
+      "severity": "MEDIUM",
+      "detail": "Z scale factor 1.84 -- vertical geometry will be stretched"
+    },
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation -6.73mm -- stone height mismatch"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 116,
+  "mutable_indices_count": 12,
+  "result": {
+    "ok": true,
+    "static_added": 58,
+    "mutable_added": 11,
+    "mutable_filtered": 1,
+    "total": 69
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\ER3_Halo_PE_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 3,
+  "pre_rejected_count": 30,
+  "elevated_setting_mode": false,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 13.786,
+      "expected": 13.059,
+      "delta": 0.727,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.538,
+      "expected_range": [
+        1.35,
+        2.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 11,
+      "expected": 11.5,
+      "ratio": 0.957,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 12.171,
+      "expected": 19.875,
+      "ratio": 0.612,
+      "verdict": "WARN"
+    },
+    "stone_centered": {
+      "cx": 0.0,
+      "cy": -0.114,
+      "dist": 0.114,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 1,
+      "total": 12,
+      "loss_pct": 8.3,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 69,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

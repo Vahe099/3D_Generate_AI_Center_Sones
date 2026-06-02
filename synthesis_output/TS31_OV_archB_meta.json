@@ -1,0 +1,101 @@
+{
+  "target_family": "TS31",
+  "target_shape": "OV",
+  "architecture": "B",
+  "synthesis_date": "2026-06-02T12:29:12",
+  "donor_family": "TS20",
+  "donor_score": 0.9078,
+  "expected_confidence": "MEDIUM",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Z translation +1.18mm -- verify prong alignment"
+    },
+    {
+      "factor": "COUNT_MISMATCH_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Object count off by 4 from HM average"
+    },
+    {
+      "factor": "STYLE_THREE_STONE",
+      "severity": "LOW",
+      "detail": "Three-stone family -- side settings may introduce extra objects"
+    }
+  ],
+  "affine_params": {
+    "scale_xy": 0.9709,
+    "scale_z": 0.9093,
+    "translate_x": 0.2677,
+    "translate_y": 0.2536,
+    "translate_z": 1.1827
+  },
+  "static_hashes_count": 1,
+  "mutable_indices_count": 20,
+  "result": {
+    "ok": true,
+    "static_added": 0,
+    "mutable_added": 19,
+    "mutable_filtered": 0,
+    "total": 19
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\TS31_OV_archB.3dm",
+  "fallback_mode": true,
+  "attempt_number": 1,
+  "pre_rejected_count": 19,
+  "elevated_setting_mode": false,
+  "validation_verdict": "PASS",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 11.957,
+      "expected": 10.754,
+      "delta": 1.204,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.342,
+      "expected_range": [
+        1.25,
+        1.75
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 19,
+      "expected": 14.0,
+      "ratio": 1.357,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 10.863,
+      "expected": 11.252,
+      "ratio": 0.965,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": 0.268,
+      "cy": 0.254,
+      "dist": 0.369,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 0,
+      "total": 19,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
+    },
+    "affine_sanity": {
+      "scale_xy": 0.9709,
+      "scale_z": 0.9093,
+      "translate_z": 1.1827,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 19,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

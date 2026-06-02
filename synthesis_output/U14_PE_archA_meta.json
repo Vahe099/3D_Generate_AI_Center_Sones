@@ -1,0 +1,84 @@
+{
+  "target_family": "U14",
+  "target_shape": "PE",
+  "architecture": "A",
+  "synthesis_date": "2026-06-02T16:31:28",
+  "donor_family": "U8",
+  "donor_score": 0.3962,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "STONE_AR_MISMATCH",
+      "severity": "MEDIUM",
+      "detail": "Donor stone AR 1.28 outside expected [1.35, 2.1] for PE"
+    },
+    {
+      "factor": "MODERATE_SIMILARITY",
+      "severity": "MEDIUM",
+      "detail": "Score 0.460 -- moderate match, review recommended"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 0,
+  "mutable_indices_count": 10,
+  "result": {
+    "ok": true,
+    "static_added": 0,
+    "mutable_added": 7,
+    "mutable_filtered": 2,
+    "total": 7
+  },
+  "status": "FAIL",
+  "output_file": "synthesis_output\\U14_PE_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 12,
+  "pre_rejected_count": 28,
+  "elevated_setting_mode": false,
+  "validation_verdict": "FAIL",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 11.286,
+      "expected": 2.003,
+      "delta": 9.283,
+      "verdict": "FAIL"
+    },
+    "stone_ar": {
+      "actual": 1.279,
+      "expected_range": [
+        1.35,
+        2.1
+      ],
+      "verdict": "WARN"
+    },
+    "object_count": {
+      "actual": 1,
+      "expected": 4.9,
+      "ratio": 0.205,
+      "verdict": "FAIL"
+    },
+    "basket_depth": {
+      "actual": 0.0,
+      "expected": 0.0,
+      "ratio": 0.0,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": -0.059,
+      "cy": 0.294,
+      "dist": 0.3,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 2,
+      "total": 9,
+      "loss_pct": 22.2,
+      "verdict": "WARN"
+    },
+    "contaminant_rate": {
+      "raw_objects": 7,
+      "contaminants": 6,
+      "rate_pct": 85.7,
+      "verdict": "FAIL"
+    }
+  }
+}

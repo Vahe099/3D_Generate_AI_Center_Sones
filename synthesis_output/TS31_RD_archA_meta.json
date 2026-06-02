@@ -1,0 +1,89 @@
+{
+  "target_family": "TS31",
+  "target_shape": "RD",
+  "architecture": "A",
+  "synthesis_date": "2026-06-02T12:29:13",
+  "donor_family": "TS20",
+  "donor_score": 0.8761,
+  "expected_confidence": "MEDIUM",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Z translation +1.18mm -- verify prong alignment"
+    },
+    {
+      "factor": "COUNT_MISMATCH_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Object count off by 5 from HM average"
+    },
+    {
+      "factor": "STYLE_THREE_STONE",
+      "severity": "LOW",
+      "detail": "Three-stone family -- side settings may introduce extra objects"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 1,
+  "mutable_indices_count": 21,
+  "result": {
+    "ok": true,
+    "static_added": 0,
+    "mutable_added": 20,
+    "mutable_filtered": 1,
+    "total": 20
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\TS31_RD_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 1,
+  "pre_rejected_count": 28,
+  "elevated_setting_mode": false,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 11.806,
+      "expected": 10.754,
+      "delta": 1.052,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.0,
+      "expected_range": [
+        0.92,
+        1.08
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 20,
+      "expected": 14.0,
+      "ratio": 1.429,
+      "verdict": "WARN"
+    },
+    "basket_depth": {
+      "actual": 12.21,
+      "expected": 11.252,
+      "ratio": 1.085,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": -0.0,
+      "cy": 0.0,
+      "dist": 0.0,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 1,
+      "total": 21,
+      "loss_pct": 4.8,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 20,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

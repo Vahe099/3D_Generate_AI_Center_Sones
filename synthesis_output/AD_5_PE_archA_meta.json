@@ -1,0 +1,94 @@
+{
+  "target_family": "AD_5",
+  "target_shape": "PE",
+  "architecture": "A",
+  "synthesis_date": "2026-06-02T16:16:02",
+  "donor_family": "TS14",
+  "donor_score": 0.6947,
+  "expected_confidence": "MEDIUM",
+  "risk_factors": [
+    {
+      "factor": "SCALE_XY_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "XY scale factor 1.25 -- moderate distortion risk"
+    },
+    {
+      "factor": "SCALE_Z_HIGH",
+      "severity": "MEDIUM",
+      "detail": "Z scale factor 1.89 -- vertical geometry will be stretched"
+    },
+    {
+      "factor": "COUNT_MISMATCH_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Object count off by 5 from HM average"
+    },
+    {
+      "factor": "STYLE_THREE_STONE",
+      "severity": "LOW",
+      "detail": "Three-stone family -- side settings may introduce extra objects"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 7,
+  "mutable_indices_count": 47,
+  "result": {
+    "ok": true,
+    "static_added": 7,
+    "mutable_added": 47,
+    "mutable_filtered": 0,
+    "total": 54
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\AD_5_PE_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 7,
+  "pre_rejected_count": 21,
+  "elevated_setting_mode": false,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 12.586,
+      "expected": 11.427,
+      "delta": 1.158,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.538,
+      "expected_range": [
+        1.35,
+        2.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 47,
+      "expected": 49.9,
+      "ratio": 0.942,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 19.321,
+      "expected": 33.439,
+      "ratio": 0.578,
+      "verdict": "WARN"
+    },
+    "stone_centered": {
+      "cx": -0.0,
+      "cy": -0.111,
+      "dist": 0.111,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 0,
+      "total": 47,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 54,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

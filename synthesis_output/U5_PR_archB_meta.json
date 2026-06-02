@@ -1,0 +1,91 @@
+{
+  "target_family": "U5",
+  "target_shape": "PR",
+  "architecture": "B",
+  "synthesis_date": "2026-06-02T12:29:18",
+  "donor_family": "ER1_Solitare",
+  "donor_score": 0.671,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation -5.61mm -- stone height mismatch"
+    }
+  ],
+  "affine_params": {
+    "scale_xy": 1.0514,
+    "scale_z": 1.0006,
+    "translate_x": -1.0232,
+    "translate_y": 0.6769,
+    "translate_z": -13.6274
+  },
+  "static_hashes_count": 1,
+  "mutable_indices_count": 12,
+  "result": {
+    "ok": true,
+    "static_added": 1,
+    "mutable_added": 11,
+    "mutable_filtered": 1,
+    "total": 12
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\U5_PR_archB.3dm",
+  "fallback_mode": true,
+  "attempt_number": 3,
+  "pre_rejected_count": 13,
+  "elevated_setting_mode": true,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 0.329,
+      "expected": 0.258,
+      "delta": 0.071,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.02,
+      "expected_range": [
+        0.92,
+        1.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 11,
+      "expected": 9.1,
+      "ratio": 1.207,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 4.088,
+      "expected": 6.021,
+      "ratio": 0.679,
+      "verdict": "WARN"
+    },
+    "stone_centered": {
+      "cx": -1.023,
+      "cy": 0.677,
+      "dist": 1.227,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 1,
+      "total": 12,
+      "loss_pct": 8.3,
+      "verdict": "PASS"
+    },
+    "affine_sanity": {
+      "scale_xy": 1.0514,
+      "scale_z": 1.0006,
+      "translate_z": -13.6274,
+      "verdict": "WARN"
+    },
+    "contaminant_rate": {
+      "raw_objects": 12,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

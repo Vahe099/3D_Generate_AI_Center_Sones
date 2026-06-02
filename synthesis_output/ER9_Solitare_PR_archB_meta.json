@@ -1,0 +1,101 @@
+{
+  "target_family": "ER9_Solitare",
+  "target_shape": "PR",
+  "architecture": "B",
+  "synthesis_date": "2026-06-02T12:29:09",
+  "donor_family": "TS9",
+  "donor_score": 0.8245,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "SCALE_Z_HIGH",
+      "severity": "MEDIUM",
+      "detail": "Z scale factor 1.54 -- vertical geometry will be stretched"
+    },
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation -9.32mm -- stone height mismatch"
+    },
+    {
+      "factor": "STYLE_THREE_STONE",
+      "severity": "LOW",
+      "detail": "Three-stone family -- side settings may introduce extra objects"
+    }
+  ],
+  "affine_params": {
+    "scale_xy": 1.0007,
+    "scale_z": 1.5411,
+    "translate_x": 0.7085,
+    "translate_y": 0.4938,
+    "translate_z": -6.6329
+  },
+  "static_hashes_count": 14,
+  "mutable_indices_count": 23,
+  "result": {
+    "ok": true,
+    "static_added": 13,
+    "mutable_added": 21,
+    "mutable_filtered": 0,
+    "total": 34
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\ER9_Solitare_PR_archB.3dm",
+  "fallback_mode": true,
+  "attempt_number": 3,
+  "pre_rejected_count": 24,
+  "elevated_setting_mode": false,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 12.201,
+      "expected": 11.349,
+      "delta": 0.853,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.02,
+      "expected_range": [
+        0.92,
+        1.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 21,
+      "expected": 20.5,
+      "ratio": 1.024,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 21.832,
+      "expected": 18.75,
+      "ratio": 1.164,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": 0.709,
+      "cy": 0.494,
+      "dist": 0.864,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 0,
+      "total": 21,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
+    },
+    "affine_sanity": {
+      "scale_xy": 1.0007,
+      "scale_z": 1.5411,
+      "translate_z": -6.6329,
+      "verdict": "WARN"
+    },
+    "contaminant_rate": {
+      "raw_objects": 34,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

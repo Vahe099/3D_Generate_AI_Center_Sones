@@ -1,0 +1,84 @@
+{
+  "target_family": "AD_1",
+  "target_shape": "PE",
+  "architecture": "A",
+  "synthesis_date": "2026-06-02T12:28:33",
+  "donor_family": "AD_7",
+  "donor_score": 0.8394,
+  "expected_confidence": "MEDIUM",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Z translation +1.21mm -- verify prong alignment"
+    },
+    {
+      "factor": "COUNT_MISMATCH_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Object count off by 5 from HM average"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 1,
+  "mutable_indices_count": 27,
+  "result": {
+    "ok": true,
+    "static_added": 0,
+    "mutable_added": 16,
+    "mutable_filtered": 2,
+    "total": 16
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\AD_1_PE_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 1,
+  "pre_rejected_count": 17,
+  "elevated_setting_mode": false,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 12.005,
+      "expected": 11.53,
+      "delta": 0.475,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.538,
+      "expected_range": [
+        1.35,
+        2.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 16,
+      "expected": 20.2,
+      "ratio": 0.79,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 12.045,
+      "expected": 11.433,
+      "ratio": 1.054,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": -0.0,
+      "cy": -0.83,
+      "dist": 0.83,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 2,
+      "total": 18,
+      "loss_pct": 11.1,
+      "verdict": "WARN"
+    },
+    "contaminant_rate": {
+      "raw_objects": 16,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

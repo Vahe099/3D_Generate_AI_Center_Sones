@@ -1899,10 +1899,17 @@ def _validate_output_file(
 
     basket   = frame.get("basket_depth", 0.0)
     bd_ratio = basket / max(exp_basket_depth, 0.001)
+    if exp_basket_depth < 0.5:
+        # Near-zero expected (flat/bezel-set families): ratio check is meaningless.
+        # Use absolute difference instead so donors with basket≈0 can pass.
+        bd_abs    = abs(basket - exp_basket_depth)
+        bd_verdict = "PASS" if bd_abs < 1.0 else ("WARN" if bd_abs < 3.0 else "FAIL")
+    else:
+        bd_verdict = _vcheck(bd_ratio, 0.75, 1.45, 0.55, 1.80)
     checks["basket_depth"] = {
         "actual": round(basket, 3), "expected": round(exp_basket_depth, 3),
         "ratio": round(bd_ratio, 3),
-        "verdict": _vcheck(bd_ratio, 0.75, 1.45, 0.55, 1.80),
+        "verdict": bd_verdict,
     }
 
     cx   = frame.get("stone_cx", 0.0)
@@ -2337,6 +2344,8 @@ def synthesize(
                         print(f"       [blacklist] {donor_fam} -> strikes={strikes_now}"
                               f" status={status_now}")
                         synth_ok = False  # treat this attempt as failed
+                    elif val_verdict == "ERROR":
+                        synth_ok = False  # validator crashed; try next candidate
 
                     # Stone-centering correction: if stone lands off-center, apply a
                     # counter-translation and re-synthesize once.  Works for both

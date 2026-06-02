@@ -1,0 +1,84 @@
+{
+  "target_family": "N3",
+  "target_shape": "PE",
+  "architecture": "A",
+  "synthesis_date": "2026-06-02T16:16:09",
+  "donor_family": "SP2",
+  "donor_score": 0.7905,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +5.15mm -- stone height mismatch"
+    },
+    {
+      "factor": "COUNT_MISMATCH_HIGH",
+      "severity": "HIGH",
+      "detail": "Donor has 68 mutable objects vs HM ~58 (delta=10)"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 6,
+  "mutable_indices_count": 68,
+  "result": {
+    "ok": true,
+    "static_added": 6,
+    "mutable_added": 66,
+    "mutable_filtered": 0,
+    "total": 72
+  },
+  "status": "OK",
+  "output_file": "synthesis_output\\N3_PE_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 11,
+  "pre_rejected_count": 23,
+  "elevated_setting_mode": false,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 14.218,
+      "expected": 12.533,
+      "delta": 1.685,
+      "verdict": "WARN"
+    },
+    "stone_ar": {
+      "actual": 1.538,
+      "expected_range": [
+        1.35,
+        2.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 66,
+      "expected": 55.7,
+      "ratio": 1.186,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 19.355,
+      "expected": 31.988,
+      "ratio": 0.605,
+      "verdict": "WARN"
+    },
+    "stone_centered": {
+      "cx": -0.0,
+      "cy": -0.114,
+      "dist": 0.114,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 0,
+      "total": 66,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 72,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}

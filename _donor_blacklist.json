@@ -766,5 +766,2566 @@
     ],
     "last_strike": "2026-06-02T11:33:00",
     "first_strike": "2026-06-02T11:33:00"
+  },
+  "N3|PE|ER2_Hidden": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:43",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 14.046,
+            "expected": 31.988,
+            "ratio": 0.439
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:03",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 14.046,
+            "expected": 31.988,
+            "ratio": 0.439
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:03",
+    "first_strike": "2026-06-02T12:19:43"
+  },
+  "N3|PE|ER4_Pave_H_Shank": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:43",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 14.267,
+            "expected": 31.988,
+            "ratio": 0.446
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:03",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 14.267,
+            "expected": 31.988,
+            "ratio": 0.446
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:03",
+    "first_strike": "2026-06-02T12:19:43"
+  },
+  "N3|PE|ER3_Hidden": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:44",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 14.046,
+            "expected": 31.988,
+            "ratio": 0.439
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:04",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 14.046,
+            "expected": 31.988,
+            "ratio": 0.439
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:04",
+    "first_strike": "2026-06-02T12:19:44"
+  },
+  "N3|PE|ER7_Halo": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:44",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 16.375,
+            "expected": 31.988,
+            "ratio": 0.512
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:04",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 16.375,
+            "expected": 31.988,
+            "ratio": 0.512
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:04",
+    "first_strike": "2026-06-02T12:19:44"
+  },
+  "N3|PE|AD_3": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:45",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 11.476,
+            "expected": 31.988,
+            "ratio": 0.359
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:05",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 11.476,
+            "expected": 31.988,
+            "ratio": 0.359
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:05",
+    "first_strike": "2026-06-02T12:19:45"
+  },
+  "N6|AS|ER4_Hidden": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:46",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "basket_depth"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 13.23,
+            "expected": 9.03,
+            "delta": 4.2
+          },
+          "basket_depth": {
+            "actual": 5.115,
+            "expected": 10.652,
+            "ratio": 0.48
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:10",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "basket_depth"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 13.23,
+            "expected": 9.03,
+            "delta": 4.2
+          },
+          "basket_depth": {
+            "actual": 5.115,
+            "expected": 10.652,
+            "ratio": 0.48
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:10",
+    "first_strike": "2026-06-02T12:19:46"
+  },
+  "N6|AS|SP3": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:46",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 13.896,
+            "expected": 9.03,
+            "delta": 4.866
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:10",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 13.896,
+            "expected": 9.03,
+            "delta": 4.866
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:10",
+    "first_strike": "2026-06-02T12:19:46"
+  },
+  "N6|AS|U7": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:47",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "object_count",
+          "basket_depth",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 0.6,
+            "expected": 9.03,
+            "delta": -8.431
+          },
+          "stone_ar": {
+            "actual": 1.314,
+            "expected_range": [
+              0.92,
+              1.1
+            ]
+          },
+          "object_count": {
+            "actual": 9,
+            "expected": 69.0,
+            "ratio": 0.13
+          },
+          "basket_depth": {
+            "actual": 0.0,
+            "expected": 10.652,
+            "ratio": 0.0
+          },
+          "contaminant_rate": {
+            "raw_objects": 48,
+            "contaminants": 39,
+            "rate_pct": 81.2
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:11",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "object_count",
+          "basket_depth",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 0.6,
+            "expected": 9.03,
+            "delta": -8.431
+          },
+          "stone_ar": {
+            "actual": 1.314,
+            "expected_range": [
+              0.92,
+              1.1
+            ]
+          },
+          "object_count": {
+            "actual": 9,
+            "expected": 69.0,
+            "ratio": 0.13
+          },
+          "basket_depth": {
+            "actual": 0.0,
+            "expected": 10.652,
+            "ratio": 0.0
+          },
+          "contaminant_rate": {
+            "raw_objects": 48,
+            "contaminants": 39,
+            "rate_pct": 81.2
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:11",
+    "first_strike": "2026-06-02T12:19:47"
+  },
+  "N6|AS|TS10": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:47",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 34,
+            "expected": 69.0,
+            "ratio": 0.493
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:12",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 34,
+            "expected": 69.0,
+            "ratio": 0.493
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:12",
+    "first_strike": "2026-06-02T12:19:47"
+  },
+  "N6|AS|U10": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:48",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 10,
+            "expected": 69.0,
+            "ratio": 0.145
+          },
+          "contaminant_rate": {
+            "raw_objects": 44,
+            "contaminants": 34,
+            "rate_pct": 77.3
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:12",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 10,
+            "expected": 69.0,
+            "ratio": 0.145
+          },
+          "contaminant_rate": {
+            "raw_objects": 44,
+            "contaminants": 34,
+            "rate_pct": 77.3
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:12",
+    "first_strike": "2026-06-02T12:19:48"
+  },
+  "N6|PR|N3": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:49",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "affine_sanity"
+        ],
+        "check_details": {
+          "affine_sanity": {
+            "scale_xy": 0.6145,
+            "scale_z": 0.915,
+            "translate_z": -2.3959
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:15",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "affine_sanity"
+        ],
+        "check_details": {
+          "affine_sanity": {
+            "scale_xy": 0.6145,
+            "scale_z": 0.915,
+            "translate_z": -2.3959
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:15",
+    "first_strike": "2026-06-02T12:19:49"
+  },
+  "N6|PR|SP3": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:50",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 12.041,
+            "expected": 9.03,
+            "delta": 3.01
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:16",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 12.041,
+            "expected": 9.03,
+            "delta": 3.01
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:16",
+    "first_strike": "2026-06-02T12:19:50"
+  },
+  "N6|PR|ER4_Hidden": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:50",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "stone_centered",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 4.249,
+            "expected_range": [
+              0.92,
+              1.1
+            ]
+          },
+          "stone_centered": {
+            "cx": -0.288,
+            "cy": -3.607,
+            "dist": 3.619
+          },
+          "affine_sanity": {
+            "scale_xy": 1.0,
+            "scale_z": 2.6726,
+            "translate_z": -24.9253
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:16",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "stone_centered",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 4.249,
+            "expected_range": [
+              0.92,
+              1.1
+            ]
+          },
+          "stone_centered": {
+            "cx": -0.288,
+            "cy": -3.607,
+            "dist": 3.619
+          },
+          "affine_sanity": {
+            "scale_xy": 1.0,
+            "scale_z": 2.6726,
+            "translate_z": -24.9253
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:16",
+    "first_strike": "2026-06-02T12:19:50"
+  },
+  "N6|PR|U7": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:51",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "object_count",
+          "basket_depth",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": -2.038,
+            "expected": 9.03,
+            "delta": -11.068
+          },
+          "stone_ar": {
+            "actual": 1.303,
+            "expected_range": [
+              0.92,
+              1.1
+            ]
+          },
+          "object_count": {
+            "actual": 9,
+            "expected": 69.0,
+            "ratio": 0.13
+          },
+          "basket_depth": {
+            "actual": 0.0,
+            "expected": 10.652,
+            "ratio": 0.0
+          },
+          "contaminant_rate": {
+            "raw_objects": 50,
+            "contaminants": 41,
+            "rate_pct": 82.0
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:17",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "object_count",
+          "basket_depth",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": -2.038,
+            "expected": 9.03,
+            "delta": -11.068
+          },
+          "stone_ar": {
+            "actual": 1.303,
+            "expected_range": [
+              0.92,
+              1.1
+            ]
+          },
+          "object_count": {
+            "actual": 9,
+            "expected": 69.0,
+            "ratio": 0.13
+          },
+          "basket_depth": {
+            "actual": 0.0,
+            "expected": 10.652,
+            "ratio": 0.0
+          },
+          "contaminant_rate": {
+            "raw_objects": 50,
+            "contaminants": 41,
+            "rate_pct": 82.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:17",
+    "first_strike": "2026-06-02T12:19:51"
+  },
+  "N6|PR|ER3_Pave_H_Shank": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:19:52",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 13.156,
+            "expected": 9.03,
+            "delta": 4.126
+          },
+          "affine_sanity": {
+            "scale_xy": 0.9661,
+            "scale_z": 3.3959,
+            "translate_z": -35.2294
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:18",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 13.156,
+            "expected": 9.03,
+            "delta": 4.126
+          },
+          "affine_sanity": {
+            "scale_xy": 0.9661,
+            "scale_z": 3.3959,
+            "translate_z": -35.2294
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:18",
+    "first_strike": "2026-06-02T12:19:52"
+  },
+  "AD_11|PE|TM2": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:35",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 1.109,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:35",
+    "first_strike": "2026-06-02T12:28:35"
+  },
+  "AD_13|OV|TS23": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:38",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "basket_depth"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 2.073,
+            "expected": 8.805,
+            "delta": -6.733
+          },
+          "stone_ar": {
+            "actual": 10.678,
+            "expected_range": [
+              1.25,
+              1.75
+            ]
+          },
+          "basket_depth": {
+            "actual": 0.0,
+            "expected": 9.728,
+            "ratio": 0.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:38",
+    "first_strike": "2026-06-02T12:28:38"
+  },
+  "AD_13|OV|TS30": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:39",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 2.958,
+            "expected": 9.728,
+            "ratio": 0.304
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:39",
+    "first_strike": "2026-06-02T12:28:39"
+  },
+  "AD_13|OV|TS34": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:39",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 4.249,
+            "expected": 9.728,
+            "ratio": 0.437
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:39",
+    "first_strike": "2026-06-02T12:28:39"
+  },
+  "AD_13|RD|ER8_Solitare": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:42",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 13.438,
+            "expected": 8.805,
+            "delta": 4.633
+          },
+          "object_count": {
+            "actual": 3,
+            "expected": 12.5,
+            "ratio": 0.24
+          },
+          "contaminant_rate": {
+            "raw_objects": 16,
+            "contaminants": 13,
+            "rate_pct": 81.2
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:42",
+    "first_strike": "2026-06-02T12:28:42"
+  },
+  "AD_13|RD|TS34": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:42",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "basket_depth"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 11.932,
+            "expected": 8.805,
+            "delta": 3.127
+          },
+          "basket_depth": {
+            "actual": 4.788,
+            "expected": 9.728,
+            "ratio": 0.492
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:42",
+    "first_strike": "2026-06-02T12:28:42"
+  },
+  "AD_13|RD|AD_2": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:44",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_centered"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 13.215,
+            "expected": 8.805,
+            "delta": 4.41
+          },
+          "stone_centered": {
+            "cx": -2.1,
+            "cy": 3.129,
+            "dist": 3.768
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:44",
+    "first_strike": "2026-06-02T12:28:44"
+  },
+  "AD_5|PE|ER4_Hidden": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:45",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 5.903,
+            "expected": 33.439,
+            "ratio": 0.177
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:15:59",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 5.903,
+            "expected": 33.439,
+            "ratio": 0.177
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:15:59",
+    "first_strike": "2026-06-02T12:28:45"
+  },
+  "AD_5|PE|U7": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:46",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 11.011,
+            "expected": 33.439,
+            "ratio": 0.329
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:00",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 11.011,
+            "expected": 33.439,
+            "ratio": 0.329
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:00",
+    "first_strike": "2026-06-02T12:28:46"
+  },
+  "AD_5|PE|TS12": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:46",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 17.343,
+            "expected": 33.439,
+            "ratio": 0.519
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:00",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 17.343,
+            "expected": 33.439,
+            "ratio": 0.519
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:00",
+    "first_strike": "2026-06-02T12:28:46"
+  },
+  "AD_5|PE|AD_3": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:47",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 11.476,
+            "expected": 33.439,
+            "ratio": 0.343
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:01",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 11.476,
+            "expected": 33.439,
+            "ratio": 0.343
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:01",
+    "first_strike": "2026-06-02T12:28:47"
+  },
+  "AD_5|PE|TS10": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:47",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 15.83,
+            "expected": 33.439,
+            "ratio": 0.473
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-02T16:16:01",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 15.83,
+            "expected": 33.439,
+            "ratio": 0.473
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:01",
+    "first_strike": "2026-06-02T12:28:47"
+  },
+  "ER10_Halo|RD|ER1_Halo": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:52",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 16,
+            "expected": 35.0,
+            "ratio": 0.457
+          },
+          "contaminant_rate": {
+            "raw_objects": 41,
+            "contaminants": 24,
+            "rate_pct": 58.5
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:52",
+    "first_strike": "2026-06-02T12:28:52"
+  },
+  "ER10_Halo|RD|ER6_Halo": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:53",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 2.568,
+            "expected": 8.808,
+            "ratio": 0.292
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:53",
+    "first_strike": "2026-06-02T12:28:53"
+  },
+  "ER3_Halo|PE|ER13_Solitare": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:56",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 10.885,
+            "expected": 19.875,
+            "ratio": 0.548
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:56",
+    "first_strike": "2026-06-02T12:28:56"
+  },
+  "ER3_Halo|PE|TS24": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:56",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 5,
+            "expected": 11.5,
+            "ratio": 0.435
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:56",
+    "first_strike": "2026-06-02T12:28:56"
+  },
+  "ER3_Halo|PR|TM8": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:57",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "stone_centered"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 1.538,
+            "expected_range": [
+              0.92,
+              1.1
+            ]
+          },
+          "stone_centered": {
+            "cx": 5.591,
+            "cy": -0.021,
+            "dist": 5.591
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:57",
+    "first_strike": "2026-06-02T12:28:57"
+  },
+  "ER4_Halo|AS|TS32": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:28:59",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 5,
+            "expected": 16.5,
+            "ratio": 0.303
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:28:59",
+    "first_strike": "2026-06-02T12:28:59"
+  },
+  "ER4_Halo|OV|AD_7": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:00",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 6,
+            "expected": 16.5,
+            "ratio": 0.364
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:00",
+    "first_strike": "2026-06-02T12:29:00"
+  },
+  "ER4_Halo|PE|TS32": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:01",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "object_count",
+          "basket_depth"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 0.014,
+            "expected": 13.217,
+            "delta": -13.203
+          },
+          "stone_ar": {
+            "actual": 1.106,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "object_count": {
+            "actual": 7,
+            "expected": 16.5,
+            "ratio": 0.424
+          },
+          "basket_depth": {
+            "actual": 1.561,
+            "expected": 17.898,
+            "ratio": 0.087
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:01",
+    "first_strike": "2026-06-02T12:29:01"
+  },
+  "ER4_Halo|PE|AD_7": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:01",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 8,
+            "expected": 16.5,
+            "ratio": 0.485
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:01",
+    "first_strike": "2026-06-02T12:29:01"
+  },
+  "ER4_Halo|PE|TM2": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:02",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "object_count",
+          "basket_depth"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 1.109,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "object_count": {
+            "actual": 4,
+            "expected": 16.5,
+            "ratio": 0.242
+          },
+          "basket_depth": {
+            "actual": 1.021,
+            "expected": 17.898,
+            "ratio": 0.057
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:02",
+    "first_strike": "2026-06-02T12:29:02"
+  },
+  "ER4_Halo|PR|TS7": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:03",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 4,
+            "expected": 16.5,
+            "ratio": 0.242
+          },
+          "affine_sanity": {
+            "scale_xy": 0.9272,
+            "scale_z": 1.6094,
+            "translate_z": -8.8111
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:03",
+    "first_strike": "2026-06-02T12:29:03"
+  },
+  "ER4_Halo|PR|TM2": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:03",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "basket_depth",
+          "stone_centered"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 2,
+            "expected": 16.5,
+            "ratio": 0.121
+          },
+          "basket_depth": {
+            "actual": 1.212,
+            "expected": 17.898,
+            "ratio": 0.068
+          },
+          "stone_centered": {
+            "cx": 3.514,
+            "cy": 0.402,
+            "dist": 3.537
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:03",
+    "first_strike": "2026-06-02T12:29:03"
+  },
+  "ER4_Halo|PR|TS5": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:03",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "basket_depth",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 2,
+            "expected": 16.5,
+            "ratio": 0.121
+          },
+          "basket_depth": {
+            "actual": 2.349,
+            "expected": 17.898,
+            "ratio": 0.131
+          },
+          "affine_sanity": {
+            "scale_xy": 1.2274,
+            "scale_z": 1.6006,
+            "translate_z": -10.3051
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:03",
+    "first_strike": "2026-06-02T12:29:03"
+  },
+  "ER4_Halo|PR|TS32": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:04",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "object_count",
+          "basket_depth",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": -8.258,
+            "expected": 13.217,
+            "delta": -21.475
+          },
+          "object_count": {
+            "actual": 6,
+            "expected": 16.5,
+            "ratio": 0.364
+          },
+          "basket_depth": {
+            "actual": 0.077,
+            "expected": 17.898,
+            "ratio": 0.004
+          },
+          "affine_sanity": {
+            "scale_xy": 0.9298,
+            "scale_z": 1.6321,
+            "translate_z": -8.2813
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:04",
+    "first_strike": "2026-06-02T12:29:04"
+  },
+  "ER4_Halo|RA|TM2": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:05",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "basket_depth"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 1,
+            "expected": 16.5,
+            "ratio": 0.061
+          },
+          "basket_depth": {
+            "actual": 0.0,
+            "expected": 17.898,
+            "ratio": 0.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:05",
+    "first_strike": "2026-06-02T12:29:05"
+  },
+  "ER9_Solitare|PR|TM1": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:08",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_centered",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "stone_centered": {
+            "cx": 3.725,
+            "cy": 0.819,
+            "dist": 3.814
+          },
+          "affine_sanity": {
+            "scale_xy": 0.8919,
+            "scale_z": 1.7125,
+            "translate_z": -8.4111
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:08",
+    "first_strike": "2026-06-02T12:29:08"
+  },
+  "ER9_Solitare|PR|TM2": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:09",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "affine_sanity"
+        ],
+        "check_details": {
+          "affine_sanity": {
+            "scale_xy": 0.9755,
+            "scale_z": 1.8553,
+            "translate_z": -10.6086
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:09",
+    "first_strike": "2026-06-02T12:29:09"
+  },
+  "ER9_Solitare|RA|TM2": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:10",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "affine_sanity"
+        ],
+        "check_details": {
+          "affine_sanity": {
+            "scale_xy": 0.9755,
+            "scale_z": 1.8553,
+            "translate_z": -10.6086
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:10",
+    "first_strike": "2026-06-02T12:29:10"
+  },
+  "TS22|PE|ER2_Pave_H_Shank": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:11",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "object_count",
+          "basket_depth",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 0.025,
+            "expected": 12.529,
+            "delta": -12.504
+          },
+          "stone_ar": {
+            "actual": 8.313,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "object_count": {
+            "actual": 6,
+            "expected": 27.2,
+            "ratio": 0.22
+          },
+          "basket_depth": {
+            "actual": 0.0,
+            "expected": 13.23,
+            "ratio": 0.0
+          },
+          "contaminant_rate": {
+            "raw_objects": 27,
+            "contaminants": 21,
+            "rate_pct": 77.8
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:11",
+    "first_strike": "2026-06-02T12:29:11"
+  },
+  "TS22|PE|ER1_Hidden": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:11",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "object_count",
+          "basket_depth",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 1.034,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "object_count": {
+            "actual": 7,
+            "expected": 27.2,
+            "ratio": 0.257
+          },
+          "basket_depth": {
+            "actual": 0.034,
+            "expected": 13.23,
+            "ratio": 0.003
+          },
+          "contaminant_rate": {
+            "raw_objects": 27,
+            "contaminants": 20,
+            "rate_pct": 74.1
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:11",
+    "first_strike": "2026-06-02T12:29:11"
+  },
+  "TS22|PE|ER1_Pave_H_Shank": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:11",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 1.034,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "object_count": {
+            "actual": 8,
+            "expected": 27.2,
+            "ratio": 0.294
+          },
+          "contaminant_rate": {
+            "raw_objects": 30,
+            "contaminants": 22,
+            "rate_pct": 73.3
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:11",
+    "first_strike": "2026-06-02T12:29:11"
+  },
+  "TS35|PE|TS8": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:14",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_centered"
+        ],
+        "check_details": {
+          "stone_centered": {
+            "cx": 4.143,
+            "cy": 0.0,
+            "dist": 4.143
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:14",
+    "first_strike": "2026-06-02T12:29:14"
+  },
+  "TS35|PE|TS19": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:15",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 18,
+            "expected": 38.1,
+            "ratio": 0.472
+          },
+          "contaminant_rate": {
+            "raw_objects": 49,
+            "contaminants": 31,
+            "rate_pct": 63.3
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:15",
+    "first_strike": "2026-06-02T12:29:15"
+  },
+  "U5|PR|AD_10": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:18",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "basket_depth",
+          "stone_centered",
+          "mutable_loss",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": -3.497,
+            "expected": 0.258,
+            "delta": -3.755
+          },
+          "stone_ar": {
+            "actual": 1.397,
+            "expected_range": [
+              0.92,
+              1.1
+            ]
+          },
+          "basket_depth": {
+            "actual": 0.0,
+            "expected": 6.021,
+            "ratio": 0.0
+          },
+          "stone_centered": {
+            "cx": -6.381,
+            "cy": -0.054,
+            "dist": 6.381
+          },
+          "mutable_loss": {
+            "filtered": 11,
+            "total": 19,
+            "loss_pct": 57.9
+          },
+          "affine_sanity": {
+            "scale_xy": 1.0422,
+            "scale_z": 1.3096,
+            "translate_z": -15.6244
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:18",
+    "first_strike": "2026-06-02T12:29:18"
+  },
+  "U5|PR|ER4_Solitare": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:29:18",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth",
+          "mutable_loss"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 0.353,
+            "expected": 6.021,
+            "ratio": 0.059
+          },
+          "mutable_loss": {
+            "filtered": 4,
+            "total": 10,
+            "loss_pct": 40.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:29:18",
+    "first_strike": "2026-06-02T12:29:18"
+  },
+  "AD_5|PE|ER3_Pave_H_Shank": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:16:02",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "basket_depth"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 1.032,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "basket_depth": {
+            "actual": 4.161,
+            "expected": 33.439,
+            "ratio": 0.124
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:02",
+    "first_strike": "2026-06-02T16:16:02"
+  },
+  "N3|PE|ER1_Halo": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:16:05",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 13.466,
+            "expected": 31.988,
+            "ratio": 0.421
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:05",
+    "first_strike": "2026-06-02T16:16:05"
+  },
+  "N3|PE|U7": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:16:06",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 11.011,
+            "expected": 31.988,
+            "ratio": 0.344
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:06",
+    "first_strike": "2026-06-02T16:16:06"
+  },
+  "N3|PE|ER6_Halo": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:16:07",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 16.375,
+            "expected": 31.988,
+            "ratio": 0.512
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:07",
+    "first_strike": "2026-06-02T16:16:07"
+  },
+  "N3|PE|U10": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:16:07",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 12.298,
+            "expected": 31.988,
+            "ratio": 0.384
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:07",
+    "first_strike": "2026-06-02T16:16:07"
+  },
+  "N3|PE|U3": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:16:08",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 7.677,
+            "expected": 31.988,
+            "ratio": 0.24
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:08",
+    "first_strike": "2026-06-02T16:16:08"
+  },
+  "N6|AS|ER3_Pave_H_Shank": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:16:13",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 13.23,
+            "expected": 9.03,
+            "delta": 4.2
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:13",
+    "first_strike": "2026-06-02T16:16:13"
+  },
+  "N6|AS|V2": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:16:14",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 12,
+            "expected": 69.0,
+            "ratio": 0.174
+          },
+          "contaminant_rate": {
+            "raw_objects": 50,
+            "contaminants": 37,
+            "rate_pct": 74.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:14",
+    "first_strike": "2026-06-02T16:16:14"
+  },
+  "N6|PR|TS10": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:16:18",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 36,
+            "expected": 69.0,
+            "ratio": 0.522
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:18",
+    "first_strike": "2026-06-02T16:16:18"
+  },
+  "N6|PR|U10": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:16:19",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "basket_depth",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 8,
+            "expected": 69.0,
+            "ratio": 0.116
+          },
+          "basket_depth": {
+            "actual": 3.225,
+            "expected": 10.652,
+            "ratio": 0.303
+          },
+          "contaminant_rate": {
+            "raw_objects": 38,
+            "contaminants": 30,
+            "rate_pct": 78.9
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:19",
+    "first_strike": "2026-06-02T16:16:19"
+  },
+  "N6|PR|V2": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:16:19",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 12,
+            "expected": 69.0,
+            "ratio": 0.174
+          },
+          "contaminant_rate": {
+            "raw_objects": 49,
+            "contaminants": 37,
+            "rate_pct": 75.5
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:19",
+    "first_strike": "2026-06-02T16:16:19"
+  },
+  "N6|PR|ER2_Hidden": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:16:20",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 3.629,
+            "expected": 10.652,
+            "ratio": 0.341
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:16:20",
+    "first_strike": "2026-06-02T16:16:20"
+  },
+  "U14|PE|U2": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:31:24",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 11.334,
+            "expected": 2.003,
+            "delta": 9.331
+          },
+          "object_count": {
+            "actual": 1,
+            "expected": 4.9,
+            "ratio": 0.205
+          },
+          "contaminant_rate": {
+            "raw_objects": 4,
+            "contaminants": 3,
+            "rate_pct": 75.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:31:24",
+    "first_strike": "2026-06-02T16:31:24"
+  },
+  "U14|PE|N5": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:31:24",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 12.581,
+            "expected": 2.003,
+            "delta": 10.578
+          },
+          "object_count": {
+            "actual": 1,
+            "expected": 4.9,
+            "ratio": 0.205
+          },
+          "contaminant_rate": {
+            "raw_objects": 7,
+            "contaminants": 6,
+            "rate_pct": 85.7
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:31:24",
+    "first_strike": "2026-06-02T16:31:24"
+  },
+  "U14|PE|TM3": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:31:24",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "object_count",
+          "stone_centered",
+          "mutable_loss"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 10.708,
+            "expected": 2.003,
+            "delta": 8.704
+          },
+          "stone_ar": {
+            "actual": 1.124,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "object_count": {
+            "actual": 2,
+            "expected": 4.9,
+            "ratio": 0.409
+          },
+          "stone_centered": {
+            "cx": -3.604,
+            "cy": -0.136,
+            "dist": 3.607
+          },
+          "mutable_loss": {
+            "filtered": 3,
+            "total": 5,
+            "loss_pct": 60.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:31:24",
+    "first_strike": "2026-06-02T16:31:24"
+  },
+  "U14|PE|U1": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:31:24",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 11.509,
+            "expected": 2.003,
+            "delta": 9.505
+          },
+          "object_count": {
+            "actual": 1,
+            "expected": 4.9,
+            "ratio": 0.205
+          },
+          "contaminant_rate": {
+            "raw_objects": 6,
+            "contaminants": 5,
+            "rate_pct": 83.3
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:31:24",
+    "first_strike": "2026-06-02T16:31:24"
+  },
+  "U14|PE|U5": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:31:25",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "object_count",
+          "mutable_loss",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 11.334,
+            "expected": 2.003,
+            "delta": 9.331
+          },
+          "object_count": {
+            "actual": 1,
+            "expected": 4.9,
+            "ratio": 0.205
+          },
+          "mutable_loss": {
+            "filtered": 3,
+            "total": 8,
+            "loss_pct": 37.5
+          },
+          "contaminant_rate": {
+            "raw_objects": 5,
+            "contaminants": 4,
+            "rate_pct": 80.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:31:25",
+    "first_strike": "2026-06-02T16:31:25"
+  },
+  "U14|PE|TM7": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:31:25",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 11.364,
+            "expected": 2.003,
+            "delta": 9.361
+          },
+          "stone_ar": {
+            "actual": 1.126,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "object_count": {
+            "actual": 1,
+            "expected": 4.9,
+            "ratio": 0.205
+          },
+          "contaminant_rate": {
+            "raw_objects": 9,
+            "contaminants": 8,
+            "rate_pct": 88.9
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:31:25",
+    "first_strike": "2026-06-02T16:31:25"
+  },
+  "U14|PE|TS24": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:31:28",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 12.288,
+            "expected": 2.003,
+            "delta": 10.285
+          },
+          "contaminant_rate": {
+            "raw_objects": 7,
+            "contaminants": 4,
+            "rate_pct": 57.1
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:31:28",
+    "first_strike": "2026-06-02T16:31:28"
+  },
+  "U14|PE|U11": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:31:28",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "mutable_loss",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 11.334,
+            "expected": 2.003,
+            "delta": 9.331
+          },
+          "mutable_loss": {
+            "filtered": 2,
+            "total": 8,
+            "loss_pct": 25.0
+          },
+          "contaminant_rate": {
+            "raw_objects": 6,
+            "contaminants": 3,
+            "rate_pct": 50.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:31:28",
+    "first_strike": "2026-06-02T16:31:28"
+  },
+  "U14|PE|U8": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T16:31:28",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 11.286,
+            "expected": 2.003,
+            "delta": 9.283
+          },
+          "object_count": {
+            "actual": 1,
+            "expected": 4.9,
+            "ratio": 0.205
+          },
+          "contaminant_rate": {
+            "raw_objects": 7,
+            "contaminants": 6,
+            "rate_pct": 85.7
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T16:31:28",
+    "first_strike": "2026-06-02T16:31:28"
   }
 }

@@ -1,0 +1,84 @@
+{
+  "target_family": "TS21",
+  "target_shape": "PE",
+  "architecture": "A",
+  "synthesis_date": "2026-06-01T10:54:08",
+  "donor_family": "U1",
+  "donor_score": 0.6353,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation -3.82mm -- stone height mismatch"
+    },
+    {
+      "factor": "STONE_AR_MISMATCH",
+      "severity": "MEDIUM",
+      "detail": "Donor stone AR 1.03 outside expected [1.35, 2.1] for PE"
+    }
+  ],
+  "affine_params": null,
+  "static_hashes_count": 3,
+  "mutable_indices_count": 8,
+  "result": {
+    "ok": true,
+    "static_added": 2,
+    "mutable_added": 7,
+    "mutable_filtered": 0,
+    "total": 9
+  },
+  "status": "FAIL",
+  "output_file": "synthesis_output\\TS21_PE_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 10,
+  "pre_rejected_count": 18,
+  "elevated_setting_mode": true,
+  "validation_verdict": "FAIL",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 1.748,
+      "expected": 1.74,
+      "delta": 0.008,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.025,
+      "expected_range": [
+        1.35,
+        2.1
+      ],
+      "verdict": "FAIL"
+    },
+    "object_count": {
+      "actual": 7,
+      "expected": 8.6,
+      "ratio": 0.814,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 0.732,
+      "expected": 5.145,
+      "ratio": 0.142,
+      "verdict": "FAIL"
+    },
+    "stone_centered": {
+      "cx": -2.596,
+      "cy": -0.198,
+      "dist": 2.603,
+      "verdict": "WARN"
+    },
+    "mutable_loss": {
+      "filtered": 0,
+      "total": 7,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 9,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
+}
