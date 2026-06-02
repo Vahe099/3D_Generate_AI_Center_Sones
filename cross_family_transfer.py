@@ -3528,6 +3528,21 @@ def batch_synthesize(
                 print(f"  Analyzing {family} ...")
                 analyze(family, plan_path, forced_bridge=None, rebuild_cache=False)
 
+            # Safety: when retrying WARN shapes, snapshot existing metas so a new FAIL
+            # result never replaces a good WARN result (calibration failures produce
+            # all-zero expected values and FAIL every check, making any donor look bad).
+            _warn_backups: dict[str, tuple[Path, str]] = {}
+            if retry_warn:
+                for s in pending:
+                    for arch in ("B", "A"):
+                        mp = out_dir / f"{family}_{s}_arch{arch}_meta.json"
+                        if mp.exists():
+                            v = json.loads(mp.read_text(encoding="utf-8")).get(
+                                "validation_verdict")
+                            if v == "WARN":
+                                _warn_backups[s] = (mp, mp.read_text(encoding="utf-8"))
+                            break
+
             # Synthesize pending shapes only
             print(f"  Synthesizing {pending} ...")
             synthesize(
@@ -3543,6 +3558,16 @@ def batch_synthesize(
                 auto_fallback         = auto_fallback,
                 max_fallback_attempts = max_fallback_attempts,
             )
+
+            # Restore snapshots where the new result is worse than the previous WARN
+            for s, (mp, old_text) in _warn_backups.items():
+                if mp.exists():
+                    new_v = json.loads(mp.read_text(encoding="utf-8")).get(
+                        "validation_verdict")
+                    if new_v == "FAIL":
+                        mp.write_text(old_text, encoding="utf-8")
+                        print(f"  [retry-warn guard] {s}: restored WARN "
+                              f"(new attempt produced FAIL)")
 
             _collect_verdicts(family, missing, out_dir, fam_result)
             fam_result["status"] = "DONE"

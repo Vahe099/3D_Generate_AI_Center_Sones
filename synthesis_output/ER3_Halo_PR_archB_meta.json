@@ -2,59 +2,49 @@
   "target_family": "ER3_Halo",
   "target_shape": "PR",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T17:49:53",
-  "donor_family": "AD_7",
-  "donor_score": 0.6711,
-  "expected_confidence": "MEDIUM",
+  "synthesis_date": "2026-06-02T12:28:57",
+  "donor_family": "ER13_Solitare",
+  "donor_score": 0.7858,
+  "expected_confidence": "LOW",
   "risk_factors": [
     {
-      "factor": "SCALE_Z_HIGH",
-      "severity": "MEDIUM",
-      "detail": "Z scale factor 1.56 -- vertical geometry will be stretched"
-    },
-    {
-      "factor": "Z_OFFSET_MODERATE",
-      "severity": "MEDIUM",
-      "detail": "Z translation -1.74mm -- verify prong alignment"
-    },
-    {
-      "factor": "COUNT_MISMATCH_MODERATE",
-      "severity": "MEDIUM",
-      "detail": "Object count off by 6 from HM average"
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +2.59mm -- stone height mismatch"
     }
   ],
   "affine_params": {
-    "scale_xy": 0.931,
-    "scale_z": 1.56,
-    "translate_x": 0.7791,
-    "translate_y": 1.2699,
-    "translate_z": -1.7418
+    "scale_xy": 0.936,
+    "scale_z": 0.9297,
+    "translate_x": 0.0,
+    "translate_y": 0.0005,
+    "translate_z": 0.5228
   },
   "static_hashes_count": 116,
-  "mutable_indices_count": 18,
+  "mutable_indices_count": 14,
   "result": {
     "ok": true,
     "static_added": 58,
     "mutable_added": 13,
-    "mutable_filtered": 0,
+    "mutable_filtered": 1,
     "total": 71
   },
-  "status": "FAIL",
+  "status": "OK",
   "output_file": "synthesis_output\\ER3_Halo_PR_archB.3dm",
   "fallback_mode": true,
-  "attempt_number": 15,
+  "attempt_number": 2,
   "pre_rejected_count": 20,
   "elevated_setting_mode": false,
-  "validation_verdict": "FAIL",
+  "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 17.323,
-      "expected": 0.0,
-      "delta": 17.323,
-      "verdict": "FAIL"
+      "actual": 13.944,
+      "expected": 13.059,
+      "delta": 0.885,
+      "verdict": "PASS"
     },
     "stone_ar": {
-      "actual": 1.02,
+      "actual": 1.0,
       "expected_range": [
         0.92,
         1.1
@@ -62,40 +52,40 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 5,
-      "expected": 0.0,
-      "ratio": 5.0,
-      "verdict": "FAIL"
+      "actual": 13,
+      "expected": 11.5,
+      "ratio": 1.13,
+      "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 7.406,
-      "expected": 0.0,
-      "ratio": 7406.4,
-      "verdict": "FAIL"
+      "actual": 11.338,
+      "expected": 19.875,
+      "ratio": 0.57,
+      "verdict": "WARN"
     },
     "stone_centered": {
-      "cx": 0.779,
-      "cy": 1.27,
-      "dist": 1.49,
+      "cx": -0.0,
+      "cy": 0.001,
+      "dist": 0.001,
       "verdict": "PASS"
     },
     "mutable_loss": {
-      "filtered": 0,
-      "total": 13,
-      "loss_pct": 0.0,
+      "filtered": 1,
+      "total": 14,
+      "loss_pct": 7.1,
       "verdict": "PASS"
     },
     "affine_sanity": {
-      "scale_xy": 0.931,
-      "scale_z": 1.56,
-      "translate_z": -1.7418,
+      "scale_xy": 0.936,
+      "scale_z": 0.9297,
+      "translate_z": 0.5228,
       "verdict": "PASS"
     },
     "contaminant_rate": {
       "raw_objects": 71,
-      "contaminants": 8,
-      "rate_pct": 11.3,
-      "verdict": "WARN"
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
     }
   }
 }

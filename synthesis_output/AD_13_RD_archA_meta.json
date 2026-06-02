@@ -2,53 +2,43 @@
   "target_family": "AD_13",
   "target_shape": "RD",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T17:49:13",
-  "donor_family": "ER6_Pave_H_Shank",
-  "donor_score": 0.4584,
-  "expected_confidence": "LOW",
+  "synthesis_date": "2026-06-02T12:28:44",
+  "donor_family": "AD_8",
+  "donor_score": 0.6577,
+  "expected_confidence": "MEDIUM",
   "risk_factors": [
     {
-      "factor": "SCALE_XY_MODERATE",
+      "factor": "COUNT_MISMATCH_MODERATE",
       "severity": "MEDIUM",
-      "detail": "XY scale factor 1.49 -- moderate distortion risk"
-    },
-    {
-      "factor": "SCALE_Z_HIGH",
-      "severity": "MEDIUM",
-      "detail": "Z scale factor 0.62 -- vertical geometry will be stretched"
-    },
-    {
-      "factor": "Z_OFFSET_HIGH",
-      "severity": "HIGH",
-      "detail": "Z translation +3.02mm -- stone height mismatch"
+      "detail": "Object count off by 5 from HM average"
     }
   ],
   "affine_params": null,
   "static_hashes_count": 2,
-  "mutable_indices_count": 16,
+  "mutable_indices_count": 20,
   "result": {
     "ok": true,
     "static_added": 0,
-    "mutable_added": 16,
+    "mutable_added": 19,
     "mutable_filtered": 0,
-    "total": 16
+    "total": 19
   },
-  "status": "FAIL",
+  "status": "OK",
   "output_file": "synthesis_output\\AD_13_RD_archA.3dm",
   "fallback_mode": true,
-  "attempt_number": 15,
+  "attempt_number": 4,
   "pre_rejected_count": 24,
   "elevated_setting_mode": false,
-  "validation_verdict": "FAIL",
+  "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 14.285,
-      "expected": 0.0,
-      "delta": 14.285,
-      "verdict": "FAIL"
+      "actual": 11.682,
+      "expected": 8.805,
+      "delta": 2.877,
+      "verdict": "WARN"
     },
     "stone_ar": {
-      "actual": 1.003,
+      "actual": 1.0,
       "expected_range": [
         0.92,
         1.08
@@ -56,34 +46,34 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 4,
-      "expected": 0.0,
-      "ratio": 4.0,
-      "verdict": "FAIL"
+      "actual": 18,
+      "expected": 12.5,
+      "ratio": 1.44,
+      "verdict": "WARN"
     },
     "basket_depth": {
-      "actual": 3.199,
-      "expected": 0.0,
-      "ratio": 3198.7,
-      "verdict": "FAIL"
+      "actual": 11.962,
+      "expected": 9.728,
+      "ratio": 1.23,
+      "verdict": "PASS"
     },
     "stone_centered": {
-      "cx": -1.424,
-      "cy": -1.417,
-      "dist": 2.008,
-      "verdict": "WARN"
+      "cx": -0.0,
+      "cy": -0.0,
+      "dist": 0.0,
+      "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 0,
-      "total": 16,
+      "total": 19,
       "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 16,
-      "contaminants": 12,
-      "rate_pct": 75.0,
-      "verdict": "FAIL"
+      "raw_objects": 19,
+      "contaminants": 1,
+      "rate_pct": 5.3,
+      "verdict": "WARN"
     }
   }
 }

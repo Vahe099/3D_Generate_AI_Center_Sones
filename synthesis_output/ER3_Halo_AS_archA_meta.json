@@ -2,92 +2,82 @@
   "target_family": "ER3_Halo",
   "target_shape": "AS",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T17:49:35",
-  "donor_family": "ER6_Solitare",
-  "donor_score": 0.6737,
+  "synthesis_date": "2026-06-02T12:28:55",
+  "donor_family": "TM8",
+  "donor_score": 0.8703,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
-      "factor": "SCALE_Z_HIGH",
-      "severity": "MEDIUM",
-      "detail": "Z scale factor 1.57 -- vertical geometry will be stretched"
-    },
-    {
       "factor": "Z_OFFSET_HIGH",
       "severity": "HIGH",
-      "detail": "Z translation -5.35mm -- stone height mismatch"
+      "detail": "Z translation -6.05mm -- stone height mismatch"
     },
     {
-      "factor": "COUNT_MISMATCH_MODERATE",
+      "factor": "STYLE_TWO_STONE",
       "severity": "MEDIUM",
-      "detail": "Object count off by 6 from HM average"
-    },
-    {
-      "factor": "MELEE_COUNT_MISMATCH",
-      "severity": "HIGH",
-      "detail": "Target has 7 melee stones; donor has none -- halo frame will not transfer"
+      "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
     }
   ],
   "affine_params": null,
   "static_hashes_count": 116,
-  "mutable_indices_count": 7,
+  "mutable_indices_count": 14,
   "result": {
     "ok": true,
     "static_added": 58,
-    "mutable_added": 7,
+    "mutable_added": 13,
     "mutable_filtered": 0,
-    "total": 65
+    "total": 71
   },
-  "status": "FAIL",
+  "status": "OK",
   "output_file": "synthesis_output\\ER3_Halo_AS_archA.3dm",
   "fallback_mode": true,
-  "attempt_number": 15,
+  "attempt_number": 1,
   "pre_rejected_count": 22,
   "elevated_setting_mode": false,
-  "validation_verdict": "FAIL",
+  "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 13.283,
-      "expected": 0.0,
-      "delta": 13.283,
-      "verdict": "FAIL"
+      "actual": 13.179,
+      "expected": 13.059,
+      "delta": 0.12,
+      "verdict": "PASS"
     },
     "stone_ar": {
-      "actual": 2.198,
+      "actual": 1.016,
       "expected_range": [
         0.92,
         1.1
       ],
-      "verdict": "FAIL"
+      "verdict": "PASS"
     },
     "object_count": {
-      "actual": 6,
-      "expected": 0.0,
-      "ratio": 6.0,
-      "verdict": "FAIL"
+      "actual": 11,
+      "expected": 11.5,
+      "ratio": 0.957,
+      "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 12.948,
-      "expected": 0.0,
-      "ratio": 12947.6,
-      "verdict": "FAIL"
+      "actual": 13.157,
+      "expected": 19.875,
+      "ratio": 0.662,
+      "verdict": "WARN"
     },
     "stone_centered": {
-      "cx": -2.405,
-      "cy": 0.0,
-      "dist": 2.405,
-      "verdict": "WARN"
+      "cx": 0.0,
+      "cy": -0.0,
+      "dist": 0.0,
+      "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 0,
-      "total": 7,
+      "total": 13,
       "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 65,
-      "contaminants": 1,
-      "rate_pct": 1.5,
+      "raw_objects": 71,
+      "contaminants": 2,
+      "rate_pct": 2.8,
       "verdict": "PASS"
     }
   }
