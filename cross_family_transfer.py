@@ -3368,6 +3368,190 @@ def clear_blacklist(
 
 
 # ─────────────────────────────────────────────────────────────
+#  batch-synthesize helpers + orchestrator
+# ─────────────────────────────────────────────────────────────
+
+def _collect_verdicts(family: str, shapes: list, out_dir: Path, fam_result: dict) -> None:
+    """Scan synthesis_output for meta files and accumulate verdict counts."""
+    for shape in shapes:
+        for arch in ("B", "A"):          # prefer archB if both exist
+            meta_p = out_dir / f"{family}_{shape}_arch{arch}_meta.json"
+            if meta_p.exists():
+                try:
+                    meta    = json.loads(meta_p.read_text(encoding="utf-8"))
+                    verdict = meta.get("validation_verdict", "UNKNOWN")
+                except Exception:
+                    verdict = "UNKNOWN"
+                fam_result["shapes"][shape] = {"arch": arch, "verdict": verdict}
+                if verdict == "PASS":
+                    fam_result["n_pass"] += 1
+                elif verdict == "WARN":
+                    fam_result["n_warn"] += 1
+                elif verdict in ("FAIL", "ERROR"):
+                    fam_result["n_fail"] += 1
+                break
+
+
+def batch_synthesize(
+    families:              list | None,
+    out_dir:               Path,
+    plan_dir:              Path,
+    strategy_path:         Path | None,
+    auto_fallback:         bool,
+    max_fallback_attempts: int,
+    skip_existing:         bool,
+    dry_run:               bool,
+    report_path:           Path,
+) -> None:
+    """
+    Analyze + synthesize all (or selected) families in shape_library/.
+    Resume-safe: shapes with existing meta files are skipped by default.
+    """
+    t0 = time.time()
+
+    # Ensure frame cache exists before the first analyze call
+    if not dry_run and not CACHE_FILE.exists():
+        print("[batch] Frame cache missing -- building ...")
+        build_frame_db(rebuild=False)
+
+    # Discover families
+    if families is None:
+        families = sorted(
+            d.name for d in LIBRARY_DIR.iterdir()
+            if d.is_dir() and (d / "shape_index.json").exists()
+        )
+
+    # Synthesizable shapes = shapes with non-empty routing in strategy
+    strategy_data = _load_strategy(strategy_path)
+    shape_routing = strategy_data.get("shape_routing", {}) if strategy_data else {}
+    synth_shapes  = [s for s in ALL_SHAPES if shape_routing.get(s)]
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    results = []
+    n_total = len(families)
+    print(f"\n[batch-synthesize] {n_total} families  synth_shapes={synth_shapes}")
+    if dry_run:
+        print("  DRY RUN -- no files will be written\n")
+
+    for fam_idx_ctr, family in enumerate(families, 1):
+        fam_result = {
+            "family": family,
+            "status": "PENDING",
+            "shapes": {},
+            "n_pass": 0,
+            "n_warn": 0,
+            "n_fail": 0,
+            "error":  None,
+        }
+        print(f"\n[{fam_idx_ctr}/{n_total}] {family}")
+
+        try:
+            idx_path = LIBRARY_DIR / family / "shape_index.json"
+            if not idx_path.exists():
+                print(f"  SKIP -- no shape_index.json")
+                fam_result["status"] = "NO_LIBRARY"
+                results.append(fam_result)
+                continue
+
+            known_shapes = list(json.loads(idx_path.read_text(encoding="utf-8")).keys())
+            missing      = [s for s in synth_shapes if s not in known_shapes]
+
+            if not missing:
+                print(f"  SKIP -- all synth shapes present ({known_shapes})")
+                fam_result["status"] = "NO_MISSING"
+                results.append(fam_result)
+                continue
+
+            # Filter shapes that already have meta files
+            if skip_existing:
+                pending = [
+                    s for s in missing
+                    if not any(
+                        (out_dir / f"{family}_{s}_arch{a}_meta.json").exists()
+                        for a in ("A", "B")
+                    )
+                ]
+            else:
+                pending = list(missing)
+
+            if not pending:
+                print(f"  COMPLETE -- all shapes already synthesized")
+                _collect_verdicts(family, missing, out_dir, fam_result)
+                fam_result["status"] = "COMPLETE"
+                results.append(fam_result)
+                continue
+
+            print(f"  known={known_shapes}  missing={missing}  pending={pending}")
+            plan_path = plan_dir / f"{family.lower().replace(' ', '_')}_transfer_plan.json"
+
+            if dry_run:
+                print(f"  [dry] analyze -> {plan_path.name}")
+                print(f"  [dry] synthesize: {pending}")
+                fam_result["status"] = "DRY_RUN"
+                results.append(fam_result)
+                continue
+
+            # Analyze only if plan is absent
+            if not plan_path.exists():
+                print(f"  Analyzing {family} ...")
+                analyze(family, plan_path, forced_bridge=None, rebuild_cache=False)
+
+            # Synthesize pending shapes only
+            print(f"  Synthesizing {pending} ...")
+            synthesize(
+                family                = family,
+                plan_path             = plan_path,
+                out_dir               = out_dir,
+                default_arch          = "B",
+                target_shapes         = pending,
+                strategy_path         = strategy_path,
+                donor_rank            = 1,
+                z_filter              = None,
+                min_z_guards          = None,
+                auto_fallback         = auto_fallback,
+                max_fallback_attempts = max_fallback_attempts,
+            )
+
+            _collect_verdicts(family, missing, out_dir, fam_result)
+            fam_result["status"] = "DONE"
+
+        except SystemExit as exc:
+            fam_result["status"] = "ERROR"
+            fam_result["error"]  = f"SystemExit({exc.code})"
+            print(f"  ERROR: SystemExit({exc.code})")
+        except Exception as exc:
+            fam_result["status"] = "ERROR"
+            fam_result["error"]  = str(exc)
+            print(f"  ERROR: {exc}")
+
+        results.append(fam_result)
+
+    n_done     = sum(1 for r in results if r["status"] == "DONE")
+    n_complete = sum(1 for r in results if r["status"] == "COMPLETE")
+    n_error    = sum(1 for r in results if r["status"] == "ERROR")
+    elapsed    = round(time.time() - t0, 1)
+
+    report = {
+        "batch_date":     datetime.now().isoformat(timespec="seconds"),
+        "total_families": n_total,
+        "done":           n_done,
+        "complete":       n_complete,
+        "no_missing":     sum(1 for r in results if r["status"] == "NO_MISSING"),
+        "no_library":     sum(1 for r in results if r["status"] == "NO_LIBRARY"),
+        "error":          n_error,
+        "results":        results,
+        "elapsed_s":      elapsed,
+    }
+    if not dry_run:
+        report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
+    print(f"\n[batch-synthesize] complete in {elapsed}s"
+          f"  done={n_done}  complete={n_complete}  error={n_error}")
+    if not dry_run:
+        print(f"  report: {report_path}")
+
+
+# ─────────────────────────────────────────────────────────────
 #  auto-onboard orchestrator
 # ─────────────────────────────────────────────────────────────
 
@@ -3618,6 +3802,41 @@ def main():
                    min_z_guards or None, auto_fallback=auto_fallback,
                    max_fallback_attempts=max_fallback_attempts)
 
+    elif cmd == "batch-synthesize":
+        out_dir    = Path("synthesis_output")
+        plan_dir   = Path(".")
+        strategy   = None
+        families   = None
+        auto_fb    = False
+        max_att    = 5
+        skip_ex    = True
+        dry_run    = False
+        report     = Path("batch_synthesis_report.json")
+        i = 2
+        while i < len(sys.argv):
+            if sys.argv[i] == "--families" and i+1 < len(sys.argv):
+                families = [f.strip() for f in sys.argv[i+1].split(",")]; i += 2
+            elif sys.argv[i] == "--out-dir" and i+1 < len(sys.argv):
+                out_dir = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--plan-dir" and i+1 < len(sys.argv):
+                plan_dir = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--strategy" and i+1 < len(sys.argv):
+                strategy = Path(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--auto-fallback":
+                auto_fb = True; i += 1
+            elif sys.argv[i] == "--max-attempts" and i+1 < len(sys.argv):
+                max_att = int(sys.argv[i+1]); i += 2
+            elif sys.argv[i] == "--no-skip":
+                skip_ex = False; i += 1
+            elif sys.argv[i] == "--dry-run":
+                dry_run = True; i += 1
+            elif sys.argv[i] == "--report" and i+1 < len(sys.argv):
+                report = Path(sys.argv[i+1]); i += 2
+            else:
+                i += 1
+        batch_synthesize(families, out_dir, plan_dir, strategy, auto_fb, max_att,
+                         skip_ex, dry_run, report)
+
     elif cmd == "auto-onboard":
         if len(sys.argv) < 3:
             print("Usage: python cross_family_transfer.py auto-onboard <family> [options]")
@@ -3716,6 +3935,10 @@ def main():
         print("    [--out-dir synthesis_output] [--arch A|B] [--shapes AS,OV,PE]")
         print("    [--strategy architecture_strategy.json] [--donor-rank N]")
         print("    [--auto-fallback] [--max-attempts N]")
+        print("  python cross_family_transfer.py batch-synthesize [--families F1,F2,...]")
+        print("    [--out-dir synthesis_output] [--plan-dir .] [--strategy architecture_strategy.json]")
+        print("    [--auto-fallback] [--max-attempts N] [--no-skip] [--dry-run]")
+        print("    [--report batch_synthesis_report.json]")
         print("  python cross_family_transfer.py auto-onboard <family>")
         print("    [--plan transfer_plan.json] [--out-dir synthesis_output]")
         print("    [--real-dir 3dm/<family>] [--strategy architecture_strategy.json]")
