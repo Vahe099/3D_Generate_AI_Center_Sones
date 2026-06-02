@@ -2,7 +2,7 @@
   "target_family": "Warren",
   "target_shape": "AS",
   "architecture": "A",
-  "synthesis_date": "2026-06-01T16:46:22",
+  "synthesis_date": "2026-06-02T11:53:19",
   "donor_family": "ER6_Hidden",
   "donor_score": 0.5503,
   "expected_confidence": "LOW",
@@ -63,10 +63,10 @@
       "verdict": "PASS"
     },
     "stone_centered": {
-      "cx": 1.629,
-      "cy": 1.625,
-      "dist": 2.301,
-      "verdict": "WARN"
+      "cx": -0.0,
+      "cy": -0.0,
+      "dist": 0.0,
+      "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 2,

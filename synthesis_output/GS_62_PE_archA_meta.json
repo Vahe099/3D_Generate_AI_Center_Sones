@@ -2,7 +2,7 @@
   "target_family": "GS_62",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-06-01T09:36:22",
+  "synthesis_date": "2026-06-02T11:53:27",
   "donor_family": "ER6_Solitare",
   "donor_score": 0.5376,
   "expected_confidence": "LOW",
@@ -38,8 +38,8 @@
   "validation_checks": {
     "stone_cz": {
       "actual": 13.165,
-      "expected": 13.118,
-      "delta": 0.047,
+      "expected": 13.137,
+      "delta": 0.028,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -63,10 +63,10 @@
       "verdict": "PASS"
     },
     "stone_centered": {
-      "cx": -2.419,
-      "cy": -0.241,
-      "dist": 2.431,
-      "verdict": "WARN"
+      "cx": -0.0,
+      "cy": 0.0,
+      "dist": 0.0,
+      "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 2,

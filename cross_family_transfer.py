@@ -246,6 +246,7 @@ affine            = args.get("affine")
 z_filter          = args.get("z_filter")        # float threshold or None
 min_z_guard       = args.get("min_z_guard")     # float or None — drop if bbox.Min.Z < threshold
 z_offset_corr     = args.get("z_offset_correction")  # float or None — arch A z-shift
+xy_offset_corr    = args.get("xy_offset_correction")  # {"x": float, "y": float} or None
 
 static_model = rhino3dm.File3dm.Read(static_src)
 donor_model  = rhino3dm.File3dm.Read(donor_src)
@@ -309,6 +310,18 @@ if z_offset_corr is not None and affine_xf is None:
     except Exception:
         z_offset_xf = None
 
+# Build arch-A XY-offset transform (pure XY translation; only when affine is absent)
+xy_offset_xf = None
+if xy_offset_corr is not None and affine_xf is None:
+    try:
+        xy_offset_xf = rhino3dm.Transform.Translation(
+            rhino3dm.Vector3d(float(xy_offset_corr.get("x", 0.0)),
+                              float(xy_offset_corr.get("y", 0.0)),
+                              0.0)
+        )
+    except Exception:
+        xy_offset_xf = None
+
 # Add static objects from HM source file
 static_added = 0
 for obj in static_model.Objects:
@@ -350,6 +363,11 @@ for obj in donor_model.Objects:
         if z_offset_xf is not None:
             try:
                 obj.Geometry.Transform(z_offset_xf)
+            except Exception:
+                pass
+        if xy_offset_xf is not None:
+            try:
+                obj.Geometry.Transform(xy_offset_xf)
             except Exception:
                 pass
         _add(out, obj)
@@ -2320,23 +2338,33 @@ def synthesize(
                               f" status={status_now}")
                         synth_ok = False  # treat this attempt as failed
 
-                    # Stone-centering correction: if archB stone lands off-center,
-                    # apply a counter-translation and re-synthesize once.
-                    if (arch == "B" and synth_ok and affine_p
+                    # Stone-centering correction: if stone lands off-center, apply a
+                    # counter-translation and re-synthesize once.  Works for both
+                    # archB (updates translate_x/y in affine_p) and archA (passes
+                    # xy_offset_correction into synth_args).
+                    if (synth_ok and val_result
                             and val_result.get("checks", {}).get(
                                 "stone_centered", {}).get("verdict") == "WARN"):
                         _xy_cx   = val_result["checks"]["stone_centered"].get("cx",   0.0)
                         _xy_cy   = val_result["checks"]["stone_centered"].get("cy",   0.0)
                         _xy_dist = val_result["checks"]["stone_centered"].get("dist", 0.0)
                         if _xy_dist > 0.5:
-                            affine_p = dict(affine_p)
-                            affine_p["translate_x"] = round(
-                                affine_p.get("translate_x", 0.0) - _xy_cx, 4)
-                            affine_p["translate_y"] = round(
-                                affine_p.get("translate_y", 0.0) - _xy_cy, 4)
+                            if arch == "B" and affine_p:
+                                affine_p = dict(affine_p)
+                                affine_p["translate_x"] = round(
+                                    affine_p.get("translate_x", 0.0) - _xy_cx, 4)
+                                affine_p["translate_y"] = round(
+                                    affine_p.get("translate_y", 0.0) - _xy_cy, 4)
+                                synth_args["affine"] = affine_p
+                            else:  # archA
+                                _xy_prev = synth_args.get("xy_offset_correction") \
+                                           or {"x": 0.0, "y": 0.0}
+                                synth_args["xy_offset_correction"] = {
+                                    "x": round(_xy_prev.get("x", 0.0) - _xy_cx, 4),
+                                    "y": round(_xy_prev.get("y", 0.0) - _xy_cy, 4),
+                                }
                             print(f"       [xy-center] correction"
                                   f" dx={-_xy_cx:+.3f} dy={-_xy_cy:+.3f}")
-                            synth_args["affine"] = affine_p
                             _r2 = _run_synth(synth_args)
                             if _r2 and _r2.get("ok"):
                                 val_result2 = _validate_output_file(
