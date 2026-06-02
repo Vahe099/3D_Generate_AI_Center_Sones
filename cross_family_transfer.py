@@ -2320,6 +2320,46 @@ def synthesize(
                               f" status={status_now}")
                         synth_ok = False  # treat this attempt as failed
 
+                    # Stone-centering correction: if archB stone lands off-center,
+                    # apply a counter-translation and re-synthesize once.
+                    if (arch == "B" and synth_ok and affine_p
+                            and val_result.get("checks", {}).get(
+                                "stone_centered", {}).get("verdict") == "WARN"):
+                        _xy_cx   = val_result["checks"]["stone_centered"].get("cx",   0.0)
+                        _xy_cy   = val_result["checks"]["stone_centered"].get("cy",   0.0)
+                        _xy_dist = val_result["checks"]["stone_centered"].get("dist", 0.0)
+                        if _xy_dist > 0.5:
+                            affine_p = dict(affine_p)
+                            affine_p["translate_x"] = round(
+                                affine_p.get("translate_x", 0.0) - _xy_cx, 4)
+                            affine_p["translate_y"] = round(
+                                affine_p.get("translate_y", 0.0) - _xy_cy, 4)
+                            print(f"       [xy-center] correction"
+                                  f" dx={-_xy_cx:+.3f} dy={-_xy_cy:+.3f}")
+                            synth_args["affine"] = affine_p
+                            _r2 = _run_synth(synth_args)
+                            if _r2 and _r2.get("ok"):
+                                val_result2 = _validate_output_file(
+                                    out_file         = out_3dm,
+                                    arch             = arch,
+                                    affine_params    = affine_p,
+                                    result_meta      = _r2,
+                                    static_hashes    = list(static_hashes),
+                                    exp_stone_cz     = _af_exp_stone_cz,
+                                    exp_basket_depth = _af_exp_basket,
+                                    exp_count        = _af_exp_count,
+                                    shape            = miss,
+                                    elevated_mode    = _af_is_elevated,
+                                )
+                                if val_result2["verdict"] != "ERROR":
+                                    val_result  = val_result2
+                                    val_verdict = val_result["verdict"]
+                                    result = _r2
+                                    print(f"       [xy-center] revised"
+                                          f" verdict={val_verdict}"
+                                          f"  warn={val_result['n_warn']}"
+                                          f"  fail={val_result['n_fail']}")
+
                 status = "OK" if synth_ok else "FAIL"
 
                 meta_extra: dict = {}

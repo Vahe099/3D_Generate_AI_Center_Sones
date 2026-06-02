@@ -2,7 +2,7 @@
   "target_family": "Warren",
   "target_shape": "RA",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T11:12:13",
+  "synthesis_date": "2026-06-02T11:32:00",
   "donor_family": "ER6_Hidden",
   "donor_score": 0.5503,
   "expected_confidence": "LOW",
@@ -21,8 +21,8 @@
   "affine_params": {
     "scale_xy": 0.8137,
     "scale_z": 0.3266,
-    "translate_x": 0.0,
-    "translate_y": 0.0,
+    "translate_x": -1.11,
+    "translate_y": -1.679,
     "translate_z": 8.8076
   },
   "static_hashes_count": 4,
@@ -69,10 +69,10 @@
       "verdict": "PASS"
     },
     "stone_centered": {
-      "cx": 1.11,
-      "cy": 1.679,
-      "dist": 2.013,
-      "verdict": "WARN"
+      "cx": 0.0,
+      "cy": -0.0,
+      "dist": 0.0,
+      "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 0,

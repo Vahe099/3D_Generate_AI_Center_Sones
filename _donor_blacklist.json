@@ -268,8 +268,8 @@
     "first_strike": "2026-06-01T16:36:20"
   },
   "GS_62|RA|ER7_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-01T16:36:20",
@@ -299,9 +299,38 @@
             "ratio": 0.0
           }
         }
+      },
+      {
+        "timestamp": "2026-06-02T11:31:40",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "basket_depth"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 8.866,
+            "expected": 13.137,
+            "delta": -4.271
+          },
+          "stone_ar": {
+            "actual": 11.331,
+            "expected_range": [
+              1.25,
+              1.8
+            ]
+          },
+          "basket_depth": {
+            "actual": 0.0,
+            "expected": 4.657,
+            "ratio": 0.0
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-01T16:36:20",
+    "last_strike": "2026-06-02T11:31:40",
     "first_strike": "2026-06-01T16:36:20"
   },
   "Warren|PE|ER6_Pave_H_Shank": {
@@ -689,5 +718,53 @@
     ],
     "last_strike": "2026-06-02T11:12:25",
     "first_strike": "2026-06-02T11:12:25"
+  },
+  "AD_6|OV|TS9": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-02T12:00:00",
+        "rejection_point": "manual",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "contaminant_rate",
+          "object_count"
+        ],
+        "check_details": {
+          "contaminant_rate": {
+            "rate_pct": 12.5
+          },
+          "object_count": {
+            "ratio": 0.73
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T12:00:00",
+    "first_strike": "2026-06-02T12:00:00"
+  },
+  "AD_6|OV|ER1_Hidden": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-02T11:33:00",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 0.643,
+            "expected": 13.002,
+            "ratio": 0.049
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-02T11:33:00",
+    "first_strike": "2026-06-02T11:33:00"
   }
 }
