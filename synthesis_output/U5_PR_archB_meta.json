@@ -2,7 +2,7 @@
   "target_family": "U5",
   "target_shape": "PR",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T12:29:18",
+  "synthesis_date": "2026-06-02T17:50:57",
   "donor_family": "ER1_Solitare",
   "donor_score": 0.671,
   "expected_confidence": "LOW",
@@ -18,7 +18,7 @@
     "scale_z": 1.0006,
     "translate_x": -1.0232,
     "translate_y": 0.6769,
-    "translate_z": -13.6274
+    "translate_z": -13.6983
   },
   "static_hashes_count": 1,
   "mutable_indices_count": 12,
@@ -38,9 +38,9 @@
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 0.329,
+      "actual": 0.258,
       "expected": 0.258,
-      "delta": 0.071,
+      "delta": -0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -78,7 +78,7 @@
     "affine_sanity": {
       "scale_xy": 1.0514,
       "scale_z": 1.0006,
-      "translate_z": -13.6274,
+      "translate_z": -13.6983,
       "verdict": "WARN"
     },
     "contaminant_rate": {

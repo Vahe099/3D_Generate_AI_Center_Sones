@@ -2,34 +2,45 @@
   "target_family": "ER4_Halo",
   "target_shape": "AS",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T12:29:00",
-  "donor_family": "AD_8",
-  "donor_score": 0.8532,
-  "expected_confidence": "HIGH",
-  "risk_factors": [],
+  "synthesis_date": "2026-06-02T17:50:06",
+  "donor_family": "ER2_Solitare",
+  "donor_score": 0.7218,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation -10.27mm -- stone height mismatch"
+    },
+    {
+      "factor": "COUNT_MISMATCH_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Object count off by 6 from HM average"
+    }
+  ],
   "affine_params": null,
   "static_hashes_count": 52,
-  "mutable_indices_count": 21,
+  "mutable_indices_count": 13,
   "result": {
     "ok": true,
     "static_added": 26,
-    "mutable_added": 19,
+    "mutable_added": 12,
     "mutable_filtered": 0,
-    "total": 45
+    "total": 38
   },
-  "status": "OK",
+  "status": "FAIL",
   "output_file": "synthesis_output\\ER4_Halo_AS_archA.3dm",
   "fallback_mode": true,
-  "attempt_number": 2,
+  "attempt_number": 15,
   "pre_rejected_count": 18,
   "elevated_setting_mode": false,
-  "validation_verdict": "WARN",
+  "validation_verdict": "FAIL",
   "validation_checks": {
     "stone_cz": {
-      "actual": 12.293,
-      "expected": 13.217,
-      "delta": -0.924,
-      "verdict": "PASS"
+      "actual": 13.496,
+      "expected": 0.0,
+      "delta": 13.496,
+      "verdict": "FAIL"
     },
     "stone_ar": {
       "actual": 1.0,
@@ -40,16 +51,16 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 19,
-      "expected": 16.5,
-      "ratio": 1.152,
-      "verdict": "PASS"
+      "actual": 12,
+      "expected": 0.0,
+      "ratio": 12.0,
+      "verdict": "FAIL"
     },
     "basket_depth": {
-      "actual": 12.503,
-      "expected": 17.898,
-      "ratio": 0.699,
-      "verdict": "WARN"
+      "actual": 13.496,
+      "expected": 0.0,
+      "ratio": 13496.0,
+      "verdict": "FAIL"
     },
     "stone_centered": {
       "cx": 0.0,
@@ -59,12 +70,12 @@
     },
     "mutable_loss": {
       "filtered": 0,
-      "total": 19,
+      "total": 12,
       "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 45,
+      "raw_objects": 38,
       "contaminants": 0,
       "rate_pct": 0.0,
       "verdict": "PASS"

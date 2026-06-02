@@ -2,7 +2,7 @@
   "target_family": "TS21",
   "target_shape": "RD",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T11:11:54",
+  "synthesis_date": "2026-06-02T17:50:48",
   "donor_family": "AD_7",
   "donor_score": 0.5962,
   "expected_confidence": "LOW",
@@ -23,7 +23,7 @@
     "scale_z": 0.7395,
     "translate_x": 0.3694,
     "translate_y": 0.2829,
-    "translate_z": -6.7999
+    "translate_z": -7.0212
   },
   "static_hashes_count": 3,
   "mutable_indices_count": 26,
@@ -43,9 +43,9 @@
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 1.961,
+      "actual": 1.74,
       "expected": 1.74,
-      "delta": 0.221,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -83,7 +83,7 @@
     "affine_sanity": {
       "scale_xy": 1.0635,
       "scale_z": 0.7395,
-      "translate_z": -6.7999,
+      "translate_z": -7.0212,
       "verdict": "PASS"
     },
     "contaminant_rate": {

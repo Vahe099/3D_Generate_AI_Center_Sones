@@ -2,7 +2,7 @@
   "target_family": "Warren",
   "target_shape": "AS",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T11:53:19",
+  "synthesis_date": "2026-06-02T17:50:58",
   "donor_family": "ER6_Hidden",
   "donor_score": 0.5503,
   "expected_confidence": "LOW",
@@ -37,10 +37,10 @@
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 14.685,
+      "actual": 11.761,
       "expected": 11.761,
-      "delta": 2.924,
-      "verdict": "WARN"
+      "delta": 0.0,
+      "verdict": "PASS"
     },
     "stone_ar": {
       "actual": 1.001,

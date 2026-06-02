@@ -2,7 +2,7 @@
   "target_family": "TS22",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T12:29:12",
+  "synthesis_date": "2026-06-02T17:50:50",
   "donor_family": "TS11",
   "donor_score": 0.9095,
   "expected_confidence": "MEDIUM",
@@ -37,9 +37,9 @@
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 11.635,
+      "actual": 12.529,
       "expected": 12.529,
-      "delta": -0.895,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {

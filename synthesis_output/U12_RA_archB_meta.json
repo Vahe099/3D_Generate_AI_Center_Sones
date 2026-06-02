@@ -2,9 +2,9 @@
   "target_family": "U12",
   "target_shape": "RA",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T11:12:26",
+  "synthesis_date": "2026-06-02T17:50:56",
   "donor_family": "ER10_Solitare",
-  "donor_score": 0.8597,
+  "donor_score": 0.8747,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
@@ -18,7 +18,7 @@
     "scale_z": 1.0175,
     "translate_x": -0.0112,
     "translate_y": -0.4132,
-    "translate_z": -0.0227
+    "translate_z": 0.1318
   },
   "static_hashes_count": 0,
   "mutable_indices_count": 6,
@@ -33,14 +33,14 @@
   "output_file": "synthesis_output\\U12_RA_archB.3dm",
   "fallback_mode": true,
   "attempt_number": 1,
-  "pre_rejected_count": 25,
+  "pre_rejected_count": 29,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 11.281,
+      "actual": 11.436,
       "expected": 11.436,
-      "delta": -0.155,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -78,7 +78,7 @@
     "affine_sanity": {
       "scale_xy": 1.0117,
       "scale_z": 1.0175,
-      "translate_z": -0.0227,
+      "translate_z": 0.1318,
       "verdict": "PASS"
     },
     "contaminant_rate": {

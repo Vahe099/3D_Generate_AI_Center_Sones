@@ -2,9 +2,9 @@
   "target_family": "U12",
   "target_shape": "PR",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T11:12:25",
+  "synthesis_date": "2026-06-02T17:50:55",
   "donor_family": "ER10_Solitare",
-  "donor_score": 0.7631,
+  "donor_score": 0.7781,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
@@ -18,29 +18,29 @@
     "scale_z": 1.0175,
     "translate_x": -0.0112,
     "translate_y": -0.4132,
-    "translate_z": -0.0227
+    "translate_z": -0.8941
   },
   "static_hashes_count": 0,
   "mutable_indices_count": 6,
   "result": {
     "ok": true,
     "static_added": 0,
-    "mutable_added": 5,
-    "mutable_filtered": 0,
-    "total": 5
+    "mutable_added": 4,
+    "mutable_filtered": 1,
+    "total": 4
   },
   "status": "OK",
   "output_file": "synthesis_output\\U12_PR_archB.3dm",
   "fallback_mode": true,
   "attempt_number": 2,
-  "pre_rejected_count": 25,
+  "pre_rejected_count": 29,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 12.307,
+      "actual": 11.436,
       "expected": 11.436,
-      "delta": 0.871,
+      "delta": -0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -52,15 +52,15 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 5,
+      "actual": 4,
       "expected": 7.0,
-      "ratio": 0.714,
+      "ratio": 0.571,
       "verdict": "WARN"
     },
     "basket_depth": {
-      "actual": 12.33,
+      "actual": 10.702,
       "expected": 11.517,
-      "ratio": 1.071,
+      "ratio": 0.929,
       "verdict": "PASS"
     },
     "stone_centered": {
@@ -70,19 +70,19 @@
       "verdict": "PASS"
     },
     "mutable_loss": {
-      "filtered": 0,
+      "filtered": 1,
       "total": 5,
-      "loss_pct": 0.0,
-      "verdict": "PASS"
+      "loss_pct": 20.0,
+      "verdict": "WARN"
     },
     "affine_sanity": {
       "scale_xy": 1.0117,
       "scale_z": 1.0175,
-      "translate_z": -0.0227,
+      "translate_z": -0.8941,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 5,
+      "raw_objects": 4,
       "contaminants": 0,
       "rate_pct": 0.0,
       "verdict": "PASS"

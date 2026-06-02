@@ -2248,13 +2248,16 @@ def synthesize(
                 if auto_fallback and arch == "B" and affine_p and _af_exp_stone_cz > 0:
                     _bshape = best.get("bridge_shape_used")
                     _dn_fam = best.get("donor_family", "")
-                    _dn_bridge_cz = (
+                    # Prefer target-shape cz over bridge-shape cz: the donor's PE/PR/OV stone
+                    # may sit at a different height than its bridge shape.
+                    _dn_tgt_cz  = _af_cache.get(f"{_dn_fam}|{miss}", {}).get("stone_cz")
+                    _dn_ref_cz  = _dn_tgt_cz or (
                         _af_cache.get(f"{_dn_fam}|{_bshape}", {}).get("stone_cz")
                         if _bshape else None
                     )
-                    if _dn_bridge_cz:
+                    if _dn_ref_cz:
                         _sz = affine_p.get("scale_z", 1.0)
-                        _stone_dz = _af_exp_stone_cz - _sz * _dn_bridge_cz
+                        _stone_dz = _af_exp_stone_cz - _sz * _dn_ref_cz
                         if abs(_stone_dz - affine_p["translate_z"]) > 2.0:
                             affine_p = dict(affine_p)
                             affine_p["translate_z"] = round(_stone_dz, 4)
@@ -2262,7 +2265,7 @@ def synthesize(
                                   f"{best['affine_params']['translate_z']:+.2f}"
                                   f" -> {_stone_dz:+.2f}mm"
                                   f" (exp={_af_exp_stone_cz:.2f}"
-                                  f" dn_cz={_dn_bridge_cz:.2f})")
+                                  f" dn_tgt_cz={_dn_ref_cz:.2f})")
 
                 rank_tag = f"_r{donor_rank}" if (donor_rank > 1 and not auto_fallback) else ""
                 out_stem = f"{family}_{miss}_arch{arch}{rank_tag}"
@@ -2275,6 +2278,19 @@ def synthesize(
                                    f" sz={affine_p['scale_z']:.3f}"
                                    f" dz={affine_p['translate_z']:+.2f}mm")
 
+                # archA z-offset: in auto-fallback, prefer target-shape frame over bridge-shape
+                # plan value — the donor's target-shape stone_cz may differ from its bridge shape.
+                if arch == "A":
+                    if auto_fallback and _af_exp_stone_cz > 0:
+                        _dn_tgt_cz_a = _af_cache.get(f"{donor_fam}|{miss}", {}).get("stone_cz")
+                        _z_off = (round(_af_exp_stone_cz - _dn_tgt_cz_a, 4)
+                                  if _dn_tgt_cz_a
+                                  else (z_offsets.get(miss) if z_offsets else None))
+                    else:
+                        _z_off = z_offsets.get(miss) if z_offsets else None
+                else:
+                    _z_off = None
+
                 synth_args = {
                     "static_src":      static_src,
                     "donor_src":       donor_src,
@@ -2284,9 +2300,7 @@ def synthesize(
                     "affine":          affine_p,
                     "z_filter":        _z_filter,
                     "min_z_guard":     min_z_guards.get(miss) if min_z_guards else None,
-                    "z_offset_correction": (
-                        z_offsets.get(miss) if z_offsets and arch == "A" else None
-                    ),
+                    "z_offset_correction": _z_off,
                 }
 
                 t_shape = time.time()
@@ -3409,6 +3423,7 @@ def batch_synthesize(
     auto_fallback:         bool,
     max_fallback_attempts: int,
     skip_existing:         bool,
+    retry_warn:            bool,
     dry_run:               bool,
     report_path:           Path,
 ) -> None:
@@ -3474,13 +3489,20 @@ def batch_synthesize(
 
             # Filter shapes that already have meta files
             if skip_existing:
-                pending = [
-                    s for s in missing
-                    if not any(
-                        (out_dir / f"{family}_{s}_arch{a}_meta.json").exists()
-                        for a in ("A", "B")
-                    )
-                ]
+                pending = []
+                for s in missing:
+                    meta_files = [out_dir / f"{family}_{s}_arch{a}_meta.json"
+                                  for a in ("B", "A")]
+                    existing = [m for m in meta_files if m.exists()]
+                    if not existing:
+                        pending.append(s)
+                    elif retry_warn:
+                        for mp in existing:   # archB preferred (listed first)
+                            v = json.loads(mp.read_text(encoding="utf-8")).get(
+                                "validation_verdict")
+                            if v == "WARN":
+                                pending.append(s)
+                            break
             else:
                 pending = list(missing)
 
@@ -3812,15 +3834,16 @@ def main():
                    max_fallback_attempts=max_fallback_attempts)
 
     elif cmd == "batch-synthesize":
-        out_dir    = Path("synthesis_output")
-        plan_dir   = Path(".")
-        strategy   = None
-        families   = None
-        auto_fb    = False
-        max_att    = 5
-        skip_ex    = True
-        dry_run    = False
-        report     = Path("batch_synthesis_report.json")
+        out_dir     = Path("synthesis_output")
+        plan_dir    = Path(".")
+        strategy    = None
+        families    = None
+        auto_fb     = False
+        max_att     = 5
+        skip_ex     = True
+        retry_warn  = False
+        dry_run     = False
+        report      = Path("batch_synthesis_report.json")
         i = 2
         while i < len(sys.argv):
             if sys.argv[i] == "--families" and i+1 < len(sys.argv):
@@ -3837,6 +3860,8 @@ def main():
                 max_att = int(sys.argv[i+1]); i += 2
             elif sys.argv[i] == "--no-skip":
                 skip_ex = False; i += 1
+            elif sys.argv[i] == "--retry-warn":
+                retry_warn = True; i += 1
             elif sys.argv[i] == "--dry-run":
                 dry_run = True; i += 1
             elif sys.argv[i] == "--report" and i+1 < len(sys.argv):
@@ -3844,7 +3869,7 @@ def main():
             else:
                 i += 1
         batch_synthesize(families, out_dir, plan_dir, strategy, auto_fb, max_att,
-                         skip_ex, dry_run, report)
+                         skip_ex, retry_warn, dry_run, report)
 
     elif cmd == "auto-onboard":
         if len(sys.argv) < 3:
@@ -3946,7 +3971,7 @@ def main():
         print("    [--auto-fallback] [--max-attempts N]")
         print("  python cross_family_transfer.py batch-synthesize [--families F1,F2,...]")
         print("    [--out-dir synthesis_output] [--plan-dir .] [--strategy architecture_strategy.json]")
-        print("    [--auto-fallback] [--max-attempts N] [--no-skip] [--dry-run]")
+        print("    [--auto-fallback] [--max-attempts N] [--no-skip] [--retry-warn] [--dry-run]")
         print("    [--report batch_synthesis_report.json]")
         print("  python cross_family_transfer.py auto-onboard <family>")
         print("    [--plan transfer_plan.json] [--out-dir synthesis_output]")

@@ -2,7 +2,7 @@
   "target_family": "TS35",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T12:29:16",
+  "synthesis_date": "2026-06-02T17:50:53",
   "donor_family": "TS33",
   "donor_score": 0.8382,
   "expected_confidence": "LOW",
@@ -48,8 +48,8 @@
   "validation_checks": {
     "stone_cz": {
       "actual": 12.97,
-      "expected": 12.739,
-      "delta": 0.231,
+      "expected": 12.973,
+      "delta": -0.002,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -68,8 +68,8 @@
     },
     "basket_depth": {
       "actual": 19.209,
-      "expected": 19.962,
-      "ratio": 0.962,
+      "expected": 20.022,
+      "ratio": 0.959,
       "verdict": "PASS"
     },
     "stone_centered": {

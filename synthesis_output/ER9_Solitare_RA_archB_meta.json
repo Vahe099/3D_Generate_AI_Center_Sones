@@ -2,7 +2,7 @@
   "target_family": "ER9_Solitare",
   "target_shape": "RA",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T12:29:10",
+  "synthesis_date": "2026-06-02T17:50:29",
   "donor_family": "TS20",
   "donor_score": 0.8632,
   "expected_confidence": "LOW",
@@ -23,7 +23,7 @@
     "scale_z": 1.4934,
     "translate_x": 0.6208,
     "translate_y": 0.343,
-    "translate_z": -6.7423
+    "translate_z": -6.3348
   },
   "static_hashes_count": 14,
   "mutable_indices_count": 21,
@@ -43,9 +43,9 @@
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 10.854,
-      "expected": 11.349,
-      "delta": -0.495,
+      "actual": 11.261,
+      "expected": 11.261,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -58,14 +58,14 @@
     },
     "object_count": {
       "actual": 21,
-      "expected": 20.5,
-      "ratio": 1.024,
+      "expected": 19.3,
+      "ratio": 1.086,
       "verdict": "PASS"
     },
     "basket_depth": {
       "actual": 20.251,
-      "expected": 18.75,
-      "ratio": 1.08,
+      "expected": 18.084,
+      "ratio": 1.12,
       "verdict": "PASS"
     },
     "stone_centered": {
@@ -83,7 +83,7 @@
     "affine_sanity": {
       "scale_xy": 1.0099,
       "scale_z": 1.4934,
-      "translate_z": -6.7423,
+      "translate_z": -6.3348,
       "verdict": "WARN"
     },
     "contaminant_rate": {

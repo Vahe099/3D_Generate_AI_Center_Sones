@@ -2,7 +2,7 @@
   "target_family": "TS31",
   "target_shape": "RD",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T12:29:13",
+  "synthesis_date": "2026-06-02T17:50:51",
   "donor_family": "TS20",
   "donor_score": 0.8761,
   "expected_confidence": "MEDIUM",
@@ -42,9 +42,9 @@
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 11.806,
-      "expected": 10.754,
-      "delta": 1.052,
+      "actual": 10.698,
+      "expected": 10.698,
+      "delta": -0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -63,8 +63,8 @@
     },
     "basket_depth": {
       "actual": 12.21,
-      "expected": 11.252,
-      "ratio": 1.085,
+      "expected": 11.165,
+      "ratio": 1.094,
       "verdict": "PASS"
     },
     "stone_centered": {

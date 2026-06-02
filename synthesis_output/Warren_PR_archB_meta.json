@@ -2,50 +2,65 @@
   "target_family": "Warren",
   "target_shape": "PR",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T11:31:59",
-  "donor_family": "ER6_Hidden",
-  "donor_score": 0.5503,
+  "synthesis_date": "2026-06-02T17:51:01",
+  "donor_family": "TS25",
+  "donor_score": 0.4051,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
       "factor": "SCALE_Z_HIGH",
       "severity": "MEDIUM",
-      "detail": "Z scale factor 0.33 -- vertical geometry will be stretched"
+      "detail": "Z scale factor 0.42 -- vertical geometry will be stretched"
     },
     {
       "factor": "Z_OFFSET_HIGH",
       "severity": "HIGH",
-      "detail": "Z translation +8.81mm -- stone height mismatch"
+      "detail": "Z translation +8.55mm -- stone height mismatch"
+    },
+    {
+      "factor": "COUNT_MISMATCH_HIGH",
+      "severity": "HIGH",
+      "detail": "Donor has 28 mutable objects vs HM ~16 (delta=12)"
+    },
+    {
+      "factor": "MODERATE_SIMILARITY",
+      "severity": "MEDIUM",
+      "detail": "Score 0.405 -- moderate match, review recommended"
+    },
+    {
+      "factor": "STYLE_THREE_STONE",
+      "severity": "LOW",
+      "detail": "Three-stone family -- side settings may introduce extra objects"
     }
   ],
   "affine_params": {
-    "scale_xy": 0.8137,
-    "scale_z": 0.3266,
-    "translate_x": -1.693,
-    "translate_y": -1.693,
-    "translate_z": 8.8076
+    "scale_xy": 0.8755,
+    "scale_z": 0.4179,
+    "translate_x": 0.0,
+    "translate_y": -0.0002,
+    "translate_z": 8.5461
   },
   "static_hashes_count": 4,
-  "mutable_indices_count": 20,
+  "mutable_indices_count": 28,
   "result": {
     "ok": true,
     "static_added": 1,
-    "mutable_added": 20,
+    "mutable_added": 26,
     "mutable_filtered": 0,
-    "total": 21
+    "total": 27
   },
   "status": "OK",
   "output_file": "synthesis_output\\Warren_PR_archB.3dm",
   "fallback_mode": true,
-  "attempt_number": 1,
+  "attempt_number": 6,
   "pre_rejected_count": 4,
   "elevated_setting_mode": true,
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 13.646,
+      "actual": 13.503,
       "expected": 11.761,
-      "delta": 1.886,
+      "delta": 1.742,
       "verdict": "WARN"
     },
     "stone_ar": {
@@ -57,40 +72,40 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 20,
+      "actual": 23,
       "expected": 16.5,
-      "ratio": 1.212,
+      "ratio": 1.394,
       "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 4.623,
+      "actual": 4.888,
       "expected": 3.235,
-      "ratio": 1.429,
-      "verdict": "PASS"
+      "ratio": 1.511,
+      "verdict": "WARN"
     },
     "stone_centered": {
       "cx": 0.0,
-      "cy": 0.0,
+      "cy": -0.0,
       "dist": 0.0,
       "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 0,
-      "total": 20,
+      "total": 26,
       "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "affine_sanity": {
-      "scale_xy": 0.8137,
-      "scale_z": 0.3266,
-      "translate_z": 8.8076,
+      "scale_xy": 0.8755,
+      "scale_z": 0.4179,
+      "translate_z": 8.5461,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 21,
-      "contaminants": 0,
-      "rate_pct": 0.0,
-      "verdict": "PASS"
+      "raw_objects": 27,
+      "contaminants": 3,
+      "rate_pct": 11.1,
+      "verdict": "WARN"
     }
   }
 }

@@ -2,7 +2,7 @@
   "target_family": "ER9_Solitare",
   "target_shape": "AS",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T12:29:08",
+  "synthesis_date": "2026-06-02T17:50:24",
   "donor_family": "TS20",
   "donor_score": 0.8666,
   "expected_confidence": "LOW",
@@ -37,9 +37,9 @@
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 11.714,
-      "expected": 11.349,
-      "delta": 0.366,
+      "actual": 11.261,
+      "expected": 11.261,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -52,14 +52,14 @@
     },
     "object_count": {
       "actual": 21,
-      "expected": 20.5,
-      "ratio": 1.024,
+      "expected": 19.3,
+      "ratio": 1.086,
       "verdict": "PASS"
     },
     "basket_depth": {
       "actual": 13.492,
-      "expected": 18.75,
-      "ratio": 0.72,
+      "expected": 18.084,
+      "ratio": 0.746,
       "verdict": "WARN"
     },
     "stone_centered": {

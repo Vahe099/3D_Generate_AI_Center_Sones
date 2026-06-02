@@ -2,7 +2,7 @@
   "target_family": "ER10_Halo",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T12:28:51",
+  "synthesis_date": "2026-06-02T17:49:25",
   "donor_family": "ER1_Halo",
   "donor_score": 0.9653,
   "expected_confidence": "HIGH",
@@ -23,12 +23,12 @@
   "attempt_number": 1,
   "pre_rejected_count": 22,
   "elevated_setting_mode": false,
-  "validation_verdict": "WARN",
+  "validation_verdict": "PASS",
   "validation_checks": {
     "stone_cz": {
-      "actual": 13.466,
-      "expected": 12.669,
-      "delta": 0.798,
+      "actual": 13.527,
+      "expected": 13.527,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -41,15 +41,15 @@
     },
     "object_count": {
       "actual": 33,
-      "expected": 35.0,
-      "ratio": 0.943,
+      "expected": 34.5,
+      "ratio": 0.957,
       "verdict": "PASS"
     },
     "basket_depth": {
       "actual": 13.466,
-      "expected": 8.808,
-      "ratio": 1.529,
-      "verdict": "WARN"
+      "expected": 13.507,
+      "ratio": 0.997,
+      "verdict": "PASS"
     },
     "stone_centered": {
       "cx": 0.0,

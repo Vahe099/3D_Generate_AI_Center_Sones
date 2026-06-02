@@ -2,80 +2,75 @@
   "target_family": "AD_1",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T12:28:33",
-  "donor_family": "AD_7",
-  "donor_score": 0.8394,
+  "synthesis_date": "2026-06-02T17:56:25",
+  "donor_family": "U2",
+  "donor_score": 0.878,
   "expected_confidence": "MEDIUM",
   "risk_factors": [
     {
-      "factor": "Z_OFFSET_MODERATE",
+      "factor": "STONE_AR_MISMATCH",
       "severity": "MEDIUM",
-      "detail": "Z translation +1.21mm -- verify prong alignment"
-    },
-    {
-      "factor": "COUNT_MISMATCH_MODERATE",
-      "severity": "MEDIUM",
-      "detail": "Object count off by 5 from HM average"
+      "detail": "Donor stone AR 2.36 outside expected [1.35, 2.1] for PE"
     }
   ],
   "affine_params": null,
   "static_hashes_count": 1,
-  "mutable_indices_count": 27,
+  "mutable_indices_count": 5,
   "result": {
     "ok": true,
     "static_added": 0,
-    "mutable_added": 16,
-    "mutable_filtered": 2,
-    "total": 16
+    "mutable_added": 4,
+    "mutable_filtered": 0,
+    "total": 4
   },
-  "status": "OK",
+  "status": "FAIL",
   "output_file": "synthesis_output\\AD_1_PE_archA.3dm",
   "fallback_mode": true,
   "attempt_number": 1,
-  "pre_rejected_count": 17,
+  "pre_rejected_count": 28,
   "elevated_setting_mode": false,
-  "validation_verdict": "WARN",
+  "validation_verdict": "FAIL",
   "validation_checks": {
     "stone_cz": {
-      "actual": 12.005,
-      "expected": 11.53,
-      "delta": 0.475,
+      "actual": 11.247,
+      "expected": 11.247,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
-      "actual": 1.538,
+      "actual": 2.357,
       "expected_range": [
         1.35,
         2.1
       ],
-      "verdict": "PASS"
+      "verdict": "FAIL"
     },
     "object_count": {
-      "actual": 16,
-      "expected": 20.2,
-      "ratio": 0.79,
-      "verdict": "PASS"
+      "actual": 4,
+      "expected": 20.3,
+      "ratio": 0.197,
+      "verdict": "FAIL"
     },
     "basket_depth": {
-      "actual": 12.045,
-      "expected": 11.433,
-      "ratio": 1.054,
-      "verdict": "PASS"
+      "actual": 0.016,
+      "expected": 11.293,
+      "ratio": 0.001,
+      "verdict": "FAIL"
     },
     "stone_centered": {
-      "cx": -0.0,
-      "cy": -0.83,
-      "dist": 0.83,
-      "verdict": "PASS"
-    },
-    "mutable_loss": {
-      "filtered": 2,
-      "total": 18,
-      "loss_pct": 11.1,
+      "cx": -1.987,
+      "cy": 1.537,
+      "dist": 2.512,
       "verdict": "WARN"
     },
+    "mutable_loss": {
+      "filtered": 0,
+      "total": 4,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
+    },
     "contaminant_rate": {
-      "raw_objects": 16,
+      "raw_objects": 4,
       "contaminants": 0,
       "rate_pct": 0.0,
       "verdict": "PASS"

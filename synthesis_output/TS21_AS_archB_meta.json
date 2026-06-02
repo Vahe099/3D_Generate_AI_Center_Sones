@@ -2,7 +2,7 @@
   "target_family": "TS21",
   "target_shape": "AS",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T11:11:47",
+  "synthesis_date": "2026-06-02T17:50:42",
   "donor_family": "ER7_Solitare",
   "donor_score": 0.8338,
   "expected_confidence": "MEDIUM",
@@ -18,7 +18,7 @@
     "scale_z": 0.7301,
     "translate_x": 0.5717,
     "translate_y": -0.0366,
-    "translate_z": -8.1831
+    "translate_z": -8.1869
   },
   "static_hashes_count": 3,
   "mutable_indices_count": 9,
@@ -38,9 +38,9 @@
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 1.743,
+      "actual": 1.74,
       "expected": 1.74,
-      "delta": 0.004,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -78,7 +78,7 @@
     "affine_sanity": {
       "scale_xy": 1.0696,
       "scale_z": 0.7301,
-      "translate_z": -8.1831,
+      "translate_z": -8.1869,
       "verdict": "PASS"
     },
     "contaminant_rate": {

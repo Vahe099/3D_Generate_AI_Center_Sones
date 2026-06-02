@@ -2,7 +2,7 @@
   "target_family": "Warren",
   "target_shape": "RA",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T11:32:00",
+  "synthesis_date": "2026-06-02T17:51:02",
   "donor_family": "ER6_Hidden",
   "donor_score": 0.5503,
   "expected_confidence": "LOW",

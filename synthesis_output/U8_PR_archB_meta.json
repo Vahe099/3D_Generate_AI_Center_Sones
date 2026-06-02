@@ -2,7 +2,7 @@
   "target_family": "U8",
   "target_shape": "PR",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T12:29:19",
+  "synthesis_date": "2026-06-02T17:50:57",
   "donor_family": "U11",
   "donor_score": 0.81,
   "expected_confidence": "MEDIUM",
