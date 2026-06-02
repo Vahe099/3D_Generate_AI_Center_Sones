@@ -2,7 +2,7 @@
   "target_family": "AD_13",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T12:28:40",
+  "synthesis_date": "2026-06-03T02:13:10",
   "donor_family": "TS23",
   "donor_score": 0.9037,
   "expected_confidence": "LOW",
@@ -42,10 +42,10 @@
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 11.635,
-      "expected": 8.805,
-      "delta": 2.829,
-      "verdict": "WARN"
+      "actual": 8.576,
+      "expected": 8.576,
+      "delta": 0.0,
+      "verdict": "PASS"
     },
     "stone_ar": {
       "actual": 1.538,
@@ -57,14 +57,14 @@
     },
     "object_count": {
       "actual": 18,
-      "expected": 12.5,
-      "ratio": 1.44,
-      "verdict": "WARN"
+      "expected": 13.3,
+      "ratio": 1.35,
+      "verdict": "PASS"
     },
     "basket_depth": {
       "actual": 11.791,
-      "expected": 9.728,
-      "ratio": 1.212,
+      "expected": 9.635,
+      "ratio": 1.224,
       "verdict": "PASS"
     },
     "stone_centered": {

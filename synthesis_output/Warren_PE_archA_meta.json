@@ -2,7 +2,7 @@
   "target_family": "Warren",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T17:50:58",
+  "synthesis_date": "2026-06-03T02:13:16",
   "donor_family": "ER6_Pave_H_Shank",
   "donor_score": 0.526,
   "expected_confidence": "LOW",

@@ -2,7 +2,7 @@
   "target_family": "N3",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T17:50:39",
+  "synthesis_date": "2026-06-03T02:13:08",
   "donor_family": "SP2",
   "donor_score": 0.7905,
   "expected_confidence": "LOW",
@@ -31,16 +31,16 @@
   "status": "OK",
   "output_file": "synthesis_output\\N3_PE_archA.3dm",
   "fallback_mode": true,
-  "attempt_number": 6,
-  "pre_rejected_count": 28,
+  "attempt_number": 1,
+  "pre_rejected_count": 33,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 14.218,
-      "expected": 12.567,
-      "delta": 1.651,
-      "verdict": "WARN"
+      "actual": 12.533,
+      "expected": 12.533,
+      "delta": 0.0,
+      "verdict": "PASS"
     },
     "stone_ar": {
       "actual": 1.538,
@@ -52,14 +52,14 @@
     },
     "object_count": {
       "actual": 66,
-      "expected": 55.6,
-      "ratio": 1.187,
+      "expected": 55.7,
+      "ratio": 1.186,
       "verdict": "PASS"
     },
     "basket_depth": {
       "actual": 19.355,
-      "expected": 34.3,
-      "ratio": 0.564,
+      "expected": 31.988,
+      "ratio": 0.605,
       "verdict": "WARN"
     },
     "stone_centered": {

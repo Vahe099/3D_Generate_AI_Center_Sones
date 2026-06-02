@@ -2,7 +2,7 @@
   "target_family": "AD_1",
   "target_shape": "RD",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T12:28:34",
+  "synthesis_date": "2026-06-03T02:13:14",
   "donor_family": "AD_7",
   "donor_score": 0.8567,
   "expected_confidence": "MEDIUM",
@@ -32,9 +32,9 @@
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 11.847,
-      "expected": 11.53,
-      "delta": 0.317,
+      "actual": 11.247,
+      "expected": 11.247,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -47,14 +47,14 @@
     },
     "object_count": {
       "actual": 15,
-      "expected": 20.2,
-      "ratio": 0.741,
+      "expected": 20.3,
+      "ratio": 0.738,
       "verdict": "WARN"
     },
     "basket_depth": {
       "actual": 11.887,
-      "expected": 11.433,
-      "ratio": 1.04,
+      "expected": 11.293,
+      "ratio": 1.053,
       "verdict": "PASS"
     },
     "stone_centered": {

@@ -2258,7 +2258,7 @@ def synthesize(
                     if _dn_ref_cz:
                         _sz = affine_p.get("scale_z", 1.0)
                         _stone_dz = _af_exp_stone_cz - _sz * _dn_ref_cz
-                        if abs(_stone_dz - affine_p["translate_z"]) > 2.0:
+                        if abs(_stone_dz - affine_p["translate_z"]) > 1.0:
                             affine_p = dict(affine_p)
                             affine_p["translate_z"] = round(_stone_dz, 4)
                             print(f"       [stone_cz-anchor] dz "

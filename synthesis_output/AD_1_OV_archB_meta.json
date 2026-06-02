@@ -2,7 +2,7 @@
   "target_family": "AD_1",
   "target_shape": "OV",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T12:28:32",
+  "synthesis_date": "2026-06-03T02:13:14",
   "donor_family": "N1",
   "donor_score": 0.898,
   "expected_confidence": "LOW",
@@ -23,7 +23,7 @@
     "scale_z": 1.1961,
     "translate_x": -0.6169,
     "translate_y": 0.2854,
-    "translate_z": -2.3123
+    "translate_z": -4.452
   },
   "static_hashes_count": 1,
   "mutable_indices_count": 13,
@@ -43,10 +43,10 @@
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 13.386,
-      "expected": 11.53,
-      "delta": 1.857,
-      "verdict": "WARN"
+      "actual": 11.247,
+      "expected": 11.247,
+      "delta": -0.0,
+      "verdict": "PASS"
     },
     "stone_ar": {
       "actual": 1.342,
@@ -58,14 +58,14 @@
     },
     "object_count": {
       "actual": 12,
-      "expected": 20.2,
-      "ratio": 0.593,
+      "expected": 20.3,
+      "ratio": 0.59,
       "verdict": "WARN"
     },
     "basket_depth": {
       "actual": 12.374,
-      "expected": 11.433,
-      "ratio": 1.082,
+      "expected": 11.293,
+      "ratio": 1.096,
       "verdict": "PASS"
     },
     "stone_centered": {
@@ -83,8 +83,8 @@
     "affine_sanity": {
       "scale_xy": 1.0002,
       "scale_z": 1.1961,
-      "translate_z": -2.3123,
-      "verdict": "PASS"
+      "translate_z": -4.452,
+      "verdict": "WARN"
     },
     "contaminant_rate": {
       "raw_objects": 12,

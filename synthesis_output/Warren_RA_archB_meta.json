@@ -2,54 +2,59 @@
   "target_family": "Warren",
   "target_shape": "RA",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T17:51:02",
-  "donor_family": "ER6_Hidden",
-  "donor_score": 0.5503,
+  "synthesis_date": "2026-06-03T02:13:22",
+  "donor_family": "U6",
+  "donor_score": 0.5126,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
       "factor": "SCALE_Z_HIGH",
       "severity": "MEDIUM",
-      "detail": "Z scale factor 0.33 -- vertical geometry will be stretched"
+      "detail": "Z scale factor 0.36 -- vertical geometry will be stretched"
     },
     {
       "factor": "Z_OFFSET_HIGH",
       "severity": "HIGH",
-      "detail": "Z translation +8.81mm -- stone height mismatch"
+      "detail": "Z translation +7.77mm -- stone height mismatch"
+    },
+    {
+      "factor": "COUNT_MISMATCH_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Object count off by 6 from HM average"
     }
   ],
   "affine_params": {
-    "scale_xy": 0.8137,
-    "scale_z": 0.3266,
-    "translate_x": -1.11,
-    "translate_y": -1.679,
-    "translate_z": 8.8076
+    "scale_xy": 0.9,
+    "scale_z": 0.3614,
+    "translate_x": 0.0,
+    "translate_y": 0.0,
+    "translate_z": 7.7656
   },
   "static_hashes_count": 4,
-  "mutable_indices_count": 20,
+  "mutable_indices_count": 23,
   "result": {
     "ok": true,
     "static_added": 1,
-    "mutable_added": 20,
+    "mutable_added": 22,
     "mutable_filtered": 0,
-    "total": 21
+    "total": 23
   },
   "status": "OK",
   "output_file": "synthesis_output\\Warren_RA_archB.3dm",
   "fallback_mode": true,
-  "attempt_number": 1,
+  "attempt_number": 4,
   "pre_rejected_count": 2,
   "elevated_setting_mode": true,
-  "validation_verdict": "WARN",
+  "validation_verdict": "PASS",
   "validation_checks": {
     "stone_cz": {
-      "actual": 13.526,
+      "actual": 12.594,
       "expected": 11.761,
-      "delta": 1.766,
-      "verdict": "WARN"
+      "delta": 0.834,
+      "verdict": "PASS"
     },
     "stone_ar": {
-      "actual": 1.302,
+      "actual": 1.459,
       "expected_range": [
         1.25,
         1.8
@@ -57,37 +62,37 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 20,
+      "actual": 22,
       "expected": 16.5,
-      "ratio": 1.212,
+      "ratio": 1.333,
       "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 4.504,
+      "actual": 4.544,
       "expected": 3.235,
-      "ratio": 1.392,
+      "ratio": 1.405,
       "verdict": "PASS"
     },
     "stone_centered": {
-      "cx": 0.0,
-      "cy": -0.0,
-      "dist": 0.0,
+      "cx": -0.0,
+      "cy": 0.179,
+      "dist": 0.179,
       "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 0,
-      "total": 20,
+      "total": 22,
       "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "affine_sanity": {
-      "scale_xy": 0.8137,
-      "scale_z": 0.3266,
-      "translate_z": 8.8076,
+      "scale_xy": 0.9,
+      "scale_z": 0.3614,
+      "translate_z": 7.7656,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 21,
+      "raw_objects": 23,
       "contaminants": 0,
       "rate_pct": 0.0,
       "verdict": "PASS"
