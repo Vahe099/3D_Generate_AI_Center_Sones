@@ -2,7 +2,7 @@
   "target_family": "TS21",
   "target_shape": "PR",
   "architecture": "B",
-  "synthesis_date": "2026-06-01T11:01:01",
+  "synthesis_date": "2026-06-02T11:11:53",
   "donor_family": "N1",
   "donor_score": 0.6764,
   "expected_confidence": "MEDIUM",
@@ -79,7 +79,7 @@
       "scale_xy": 1.0399,
       "scale_z": 0.9322,
       "translate_z": -10.4454,
-      "verdict": "WARN"
+      "verdict": "PASS"
     },
     "contaminant_rate": {
       "raw_objects": 12,

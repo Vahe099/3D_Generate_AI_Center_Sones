@@ -2,7 +2,7 @@
   "target_family": "U12",
   "target_shape": "PR",
   "architecture": "B",
-  "synthesis_date": "2026-06-01T15:46:45",
+  "synthesis_date": "2026-06-02T11:12:25",
   "donor_family": "ER10_Solitare",
   "donor_score": 0.7631,
   "expected_confidence": "LOW",

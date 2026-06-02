@@ -2,37 +2,83 @@
   "target_family": "Warren",
   "target_shape": "AS",
   "architecture": "A",
-  "synthesis_date": "2026-05-27T13:33:15",
-  "donor_family": "GS_62",
-  "donor_score": 0.7481,
+  "synthesis_date": "2026-06-01T16:46:22",
+  "donor_family": "ER6_Hidden",
+  "donor_score": 0.5503,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
-      "factor": "Z_OFFSET_MODERATE",
+      "factor": "SCALE_Z_HIGH",
       "severity": "MEDIUM",
-      "detail": "Z translation -1.64mm -- verify prong alignment"
+      "detail": "Z scale factor 0.33 -- vertical geometry will be stretched"
     },
     {
-      "factor": "COUNT_MISMATCH_HIGH",
+      "factor": "Z_OFFSET_HIGH",
       "severity": "HIGH",
-      "detail": "Donor has 7 mutable objects vs HM ~16 (delta=10)"
-    },
-    {
-      "factor": "STONE_AR_MISMATCH",
-      "severity": "MEDIUM",
-      "detail": "Donor stone AR 1.15 outside expected [0.92, 1.1] for AS"
+      "detail": "Z translation +8.81mm -- stone height mismatch"
     }
   ],
   "affine_params": null,
   "static_hashes_count": 4,
-  "mutable_indices_count": 7,
+  "mutable_indices_count": 20,
   "result": {
     "ok": true,
     "static_added": 1,
-    "mutable_added": 7,
-    "mutable_filtered": 0,
-    "total": 8
+    "mutable_added": 18,
+    "mutable_filtered": 2,
+    "total": 19
   },
   "status": "OK",
-  "output_file": "synthesis_output\\Warren_AS_archA.3dm"
+  "output_file": "synthesis_output\\Warren_AS_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 1,
+  "pre_rejected_count": 4,
+  "elevated_setting_mode": true,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 14.685,
+      "expected": 11.761,
+      "delta": 2.924,
+      "verdict": "WARN"
+    },
+    "stone_ar": {
+      "actual": 1.001,
+      "expected_range": [
+        0.92,
+        1.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 18,
+      "expected": 16.5,
+      "ratio": 1.091,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 3.598,
+      "expected": 3.235,
+      "ratio": 1.112,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": 1.629,
+      "cy": 1.625,
+      "dist": 2.301,
+      "verdict": "WARN"
+    },
+    "mutable_loss": {
+      "filtered": 2,
+      "total": 20,
+      "loss_pct": 10.0,
+      "verdict": "WARN"
+    },
+    "contaminant_rate": {
+      "raw_objects": 19,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
 }

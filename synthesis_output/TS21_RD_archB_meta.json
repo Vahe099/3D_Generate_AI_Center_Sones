@@ -2,7 +2,7 @@
   "target_family": "TS21",
   "target_shape": "RD",
   "architecture": "B",
-  "synthesis_date": "2026-06-01T11:01:02",
+  "synthesis_date": "2026-06-02T11:11:54",
   "donor_family": "AD_7",
   "donor_score": 0.5962,
   "expected_confidence": "LOW",

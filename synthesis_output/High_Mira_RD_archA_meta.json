@@ -2,27 +2,72 @@
   "target_family": "High_Mira",
   "target_shape": "RD",
   "architecture": "A",
-  "synthesis_date": "2026-05-26T15:09:41",
-  "donor_family": "SP6",
-  "donor_score": 0.9085,
-  "expected_confidence": "MEDIUM",
-  "risk_factors": [
-    {
-      "factor": "COUNT_MISMATCH_MODERATE",
-      "severity": "MEDIUM",
-      "detail": "Object count off by 4 from HM average"
-    }
-  ],
+  "synthesis_date": "2026-06-01T09:37:10",
+  "donor_family": "U13",
+  "donor_score": 0.9106,
+  "expected_confidence": "HIGH",
+  "risk_factors": [],
   "affine_params": null,
   "static_hashes_count": 3,
-  "mutable_indices_count": 27,
+  "mutable_indices_count": 35,
   "result": {
     "ok": true,
-    "static_added": 3,
-    "mutable_added": 27,
+    "static_added": 1,
+    "mutable_added": 32,
     "mutable_filtered": 0,
-    "total": 30
+    "total": 33
   },
   "status": "OK",
-  "output_file": "synthesis_output\\High_Mira_RD_archA.3dm"
+  "output_file": "synthesis_output\\High_Mira_RD_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 1,
+  "pre_rejected_count": 36,
+  "elevated_setting_mode": false,
+  "validation_verdict": "PASS",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 12.372,
+      "expected": 11.879,
+      "delta": 0.493,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.0,
+      "expected_range": [
+        0.92,
+        1.08
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 32,
+      "expected": 29.0,
+      "ratio": 1.103,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 12.284,
+      "expected": 12.321,
+      "ratio": 0.997,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": -0.0,
+      "cy": 0.0,
+      "dist": 0.0,
+      "verdict": "PASS"
+    },
+    "mutable_loss": {
+      "filtered": 0,
+      "total": 32,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
+    },
+    "contaminant_rate": {
+      "raw_objects": 33,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
 }

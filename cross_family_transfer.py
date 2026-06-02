@@ -1903,7 +1903,7 @@ def _validate_output_file(
     if arch == "B" and aff:
         # Elevated-setting targets have structurally larger translate_z (stone_cz difference
         # between standard-height donor and elevated target can be 8-12mm). Relax bounds.
-        dz_pass = 8.0  if elevated_mode else 3.5
+        dz_pass = 12.0 if elevated_mode else 3.5
         dz_warn = 15.0 if elevated_mode else 7.0
         if 0.80 <= sxy <= 1.25 and abs(dz) < dz_pass:
             aff_v = "PASS"

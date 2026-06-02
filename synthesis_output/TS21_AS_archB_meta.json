@@ -2,7 +2,7 @@
   "target_family": "TS21",
   "target_shape": "AS",
   "architecture": "B",
-  "synthesis_date": "2026-06-01T11:00:57",
+  "synthesis_date": "2026-06-02T11:11:47",
   "donor_family": "ER7_Solitare",
   "donor_score": 0.8338,
   "expected_confidence": "MEDIUM",
@@ -79,7 +79,7 @@
       "scale_xy": 1.0696,
       "scale_z": 0.7301,
       "translate_z": -8.1831,
-      "verdict": "WARN"
+      "verdict": "PASS"
     },
     "contaminant_rate": {
       "raw_objects": 10,

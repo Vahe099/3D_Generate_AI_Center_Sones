@@ -2,7 +2,7 @@
   "target_family": "GS_62",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-05-26T17:06:13",
+  "synthesis_date": "2026-06-01T09:36:22",
   "donor_family": "ER6_Solitare",
   "donor_score": 0.5376,
   "expected_confidence": "LOW",
@@ -24,10 +24,61 @@
   "result": {
     "ok": true,
     "static_added": 5,
-    "mutable_added": 8,
+    "mutable_added": 7,
     "mutable_filtered": 2,
-    "total": 13
+    "total": 12
   },
   "status": "OK",
-  "output_file": "synthesis_output\\GS_62_PE_archA.3dm"
+  "output_file": "synthesis_output\\GS_62_PE_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 1,
+  "pre_rejected_count": 7,
+  "elevated_setting_mode": true,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 13.165,
+      "expected": 13.118,
+      "delta": 0.047,
+      "verdict": "PASS"
+    },
+    "stone_ar": {
+      "actual": 1.767,
+      "expected_range": [
+        1.35,
+        2.1
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 7,
+      "expected": 7.8,
+      "ratio": 0.903,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 4.044,
+      "expected": 4.657,
+      "ratio": 0.868,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": -2.419,
+      "cy": -0.241,
+      "dist": 2.431,
+      "verdict": "WARN"
+    },
+    "mutable_loss": {
+      "filtered": 2,
+      "total": 9,
+      "loss_pct": 22.2,
+      "verdict": "WARN"
+    },
+    "contaminant_rate": {
+      "raw_objects": 12,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
 }

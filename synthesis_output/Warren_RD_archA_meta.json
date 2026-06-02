@@ -2,9 +2,9 @@
   "target_family": "Warren",
   "target_shape": "RD",
   "architecture": "A",
-  "synthesis_date": "2026-05-27T15:52:08",
-  "donor_family": "ER6_Pave_H_Shank",
-  "donor_score": 0.6363,
+  "synthesis_date": "2026-06-01T16:48:34",
+  "donor_family": "ER6_Hidden",
+  "donor_score": 0.5624,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
@@ -20,14 +20,65 @@
   ],
   "affine_params": null,
   "static_hashes_count": 4,
-  "mutable_indices_count": 16,
+  "mutable_indices_count": 19,
   "result": {
     "ok": true,
     "static_added": 1,
-    "mutable_added": 14,
+    "mutable_added": 15,
     "mutable_filtered": 2,
-    "total": 15
+    "total": 16
   },
   "status": "OK",
-  "output_file": "synthesis_output\\Warren_RD_archA.3dm"
+  "output_file": "synthesis_output\\Warren_RD_archA.3dm",
+  "fallback_mode": true,
+  "attempt_number": 1,
+  "pre_rejected_count": 3,
+  "elevated_setting_mode": true,
+  "validation_verdict": "WARN",
+  "validation_checks": {
+    "stone_cz": {
+      "actual": 14.285,
+      "expected": 11.761,
+      "delta": 2.525,
+      "verdict": "WARN"
+    },
+    "stone_ar": {
+      "actual": 1.003,
+      "expected_range": [
+        0.92,
+        1.08
+      ],
+      "verdict": "PASS"
+    },
+    "object_count": {
+      "actual": 15,
+      "expected": 16.5,
+      "ratio": 0.909,
+      "verdict": "PASS"
+    },
+    "basket_depth": {
+      "actual": 3.199,
+      "expected": 3.235,
+      "ratio": 0.989,
+      "verdict": "PASS"
+    },
+    "stone_centered": {
+      "cx": 1.424,
+      "cy": 1.417,
+      "dist": 2.008,
+      "verdict": "WARN"
+    },
+    "mutable_loss": {
+      "filtered": 2,
+      "total": 17,
+      "loss_pct": 11.8,
+      "verdict": "WARN"
+    },
+    "contaminant_rate": {
+      "raw_objects": 16,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
+    }
+  }
 }
