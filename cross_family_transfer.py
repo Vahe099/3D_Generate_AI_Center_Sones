@@ -1774,6 +1774,7 @@ def _pre_reject(
     hm_count_mean: float,
     hm_style_ref:  dict,
     is_elevated:   bool = False,
+    shape:         str  = "",
 ) -> tuple[bool, list[str]]:
     """Deterministic pre-synthesis rejection from frame cache data.
 
@@ -1809,6 +1810,16 @@ def _pre_reject(
         if risk["factor"] == "STYLE_MISMATCH" and risk["severity"] == "HIGH":
             reasons.append("STYLE_MISMATCH_HIGH")
             break
+
+    # PR-4: stone_ar compatibility — donor's target-shape stone AR must fall within
+    # the validator's PASS range for this shape.  Avoids wasting synthesis on donors
+    # whose stone geometry is the wrong proportions (e.g. round-pear donors for
+    # elongated-pear targets).
+    if shape and shape in STONE_AR:
+        _ar_lo, _ar_hi = STONE_AR[shape]
+        _dn_ar = dn_tf.get("stone_ar")
+        if _dn_ar is not None and not (_ar_lo <= _dn_ar <= _ar_hi):
+            reasons.append(f"STONE_AR_MISMATCH ({_dn_ar:.3f} not in [{_ar_lo},{_ar_hi}])")
 
     return bool(reasons), reasons
 
@@ -2114,7 +2125,7 @@ def synthesize(
             _pre_skipped = 0
             for c in cands:
                 rej, reasons = _pre_reject(c, _af_hm_count_mean, _af_hm_style_ref,
-                                           is_elevated=_af_is_elevated)
+                                           is_elevated=_af_is_elevated, shape=miss)
                 bl_st = _bl_status(_af_blacklist, family, miss, c["donor_family"])
                 if rej:
                     _pre_skipped += 1

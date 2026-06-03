@@ -2,15 +2,15 @@
   "target_family": "ER9_Solitare",
   "target_shape": "RA",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T17:50:29",
-  "donor_family": "TS20",
-  "donor_score": 0.8632,
+  "synthesis_date": "2026-06-03T10:29:44",
+  "donor_family": "TS30",
+  "donor_score": 0.7329,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
       "factor": "Z_OFFSET_HIGH",
       "severity": "HIGH",
-      "detail": "Z translation -10.86mm -- stone height mismatch"
+      "detail": "Z translation -7.26mm -- stone height mismatch"
     },
     {
       "factor": "STYLE_THREE_STONE",
@@ -19,28 +19,28 @@
     }
   ],
   "affine_params": {
-    "scale_xy": 1.0099,
-    "scale_z": 1.4934,
-    "translate_x": 0.6208,
-    "translate_y": 0.343,
-    "translate_z": -6.3348
+    "scale_xy": 1.0007,
+    "scale_z": 1.0489,
+    "translate_x": 0.0299,
+    "translate_y": -0.5307,
+    "translate_z": -0.762
   },
   "static_hashes_count": 14,
-  "mutable_indices_count": 21,
+  "mutable_indices_count": 24,
   "result": {
     "ok": true,
     "static_added": 13,
-    "mutable_added": 21,
+    "mutable_added": 22,
     "mutable_filtered": 0,
-    "total": 34
+    "total": 35
   },
   "status": "OK",
   "output_file": "synthesis_output\\ER9_Solitare_RA_archB.3dm",
   "fallback_mode": true,
-  "attempt_number": 2,
-  "pre_rejected_count": 28,
+  "attempt_number": 4,
+  "pre_rejected_count": 33,
   "elevated_setting_mode": false,
-  "validation_verdict": "WARN",
+  "validation_verdict": "PASS",
   "validation_checks": {
     "stone_cz": {
       "actual": 11.261,
@@ -57,37 +57,37 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 21,
+      "actual": 22,
       "expected": 19.3,
-      "ratio": 1.086,
+      "ratio": 1.138,
       "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 20.251,
+      "actual": 13.838,
       "expected": 18.084,
-      "ratio": 1.12,
+      "ratio": 0.765,
       "verdict": "PASS"
     },
     "stone_centered": {
-      "cx": 0.618,
-      "cy": 0.543,
-      "dist": 0.823,
+      "cx": 0.027,
+      "cy": -0.331,
+      "dist": 0.332,
       "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 0,
-      "total": 21,
+      "total": 22,
       "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "affine_sanity": {
-      "scale_xy": 1.0099,
-      "scale_z": 1.4934,
-      "translate_z": -6.3348,
-      "verdict": "WARN"
+      "scale_xy": 1.0007,
+      "scale_z": 1.0489,
+      "translate_z": -0.762,
+      "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 34,
+      "raw_objects": 35,
       "contaminants": 0,
       "rate_pct": 0.0,
       "verdict": "PASS"

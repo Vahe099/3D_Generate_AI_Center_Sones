@@ -2,49 +2,39 @@
   "target_family": "TS31",
   "target_shape": "RD",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T17:50:51",
-  "donor_family": "TS20",
-  "donor_score": 0.8761,
+  "synthesis_date": "2026-06-03T09:58:55",
+  "donor_family": "AD_8",
+  "donor_score": 0.8603,
   "expected_confidence": "MEDIUM",
   "risk_factors": [
     {
-      "factor": "Z_OFFSET_MODERATE",
-      "severity": "MEDIUM",
-      "detail": "Z translation +1.18mm -- verify prong alignment"
-    },
-    {
       "factor": "COUNT_MISMATCH_MODERATE",
       "severity": "MEDIUM",
-      "detail": "Object count off by 5 from HM average"
-    },
-    {
-      "factor": "STYLE_THREE_STONE",
-      "severity": "LOW",
-      "detail": "Three-stone family -- side settings may introduce extra objects"
+      "detail": "Object count off by 4 from HM average"
     }
   ],
   "affine_params": null,
   "static_hashes_count": 1,
-  "mutable_indices_count": 21,
+  "mutable_indices_count": 20,
   "result": {
     "ok": true,
     "static_added": 0,
-    "mutable_added": 20,
-    "mutable_filtered": 1,
-    "total": 20
+    "mutable_added": 19,
+    "mutable_filtered": 0,
+    "total": 19
   },
   "status": "OK",
   "output_file": "synthesis_output\\TS31_RD_archA.3dm",
   "fallback_mode": true,
   "attempt_number": 1,
-  "pre_rejected_count": 28,
+  "pre_rejected_count": 32,
   "elevated_setting_mode": false,
-  "validation_verdict": "WARN",
+  "validation_verdict": "PASS",
   "validation_checks": {
     "stone_cz": {
-      "actual": 10.698,
-      "expected": 10.698,
-      "delta": -0.0,
+      "actual": 10.754,
+      "expected": 10.754,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -56,15 +46,15 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 20,
+      "actual": 19,
       "expected": 14.0,
-      "ratio": 1.429,
-      "verdict": "WARN"
+      "ratio": 1.357,
+      "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 12.21,
-      "expected": 11.165,
-      "ratio": 1.094,
+      "actual": 12.421,
+      "expected": 11.252,
+      "ratio": 1.104,
       "verdict": "PASS"
     },
     "stone_centered": {
@@ -74,13 +64,13 @@
       "verdict": "PASS"
     },
     "mutable_loss": {
-      "filtered": 1,
-      "total": 21,
-      "loss_pct": 4.8,
+      "filtered": 0,
+      "total": 19,
+      "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 20,
+      "raw_objects": 19,
       "contaminants": 0,
       "rate_pct": 0.0,
       "verdict": "PASS"

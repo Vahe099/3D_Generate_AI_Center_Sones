@@ -2,49 +2,54 @@
   "target_family": "U8",
   "target_shape": "PR",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T17:50:57",
-  "donor_family": "U11",
-  "donor_score": 0.81,
+  "synthesis_date": "2026-06-03T10:20:08",
+  "donor_family": "TM3",
+  "donor_score": 0.7741,
   "expected_confidence": "MEDIUM",
   "risk_factors": [
     {
       "factor": "Z_OFFSET_MODERATE",
       "severity": "MEDIUM",
-      "detail": "Z translation +2.09mm -- verify prong alignment"
+      "detail": "Z translation +2.39mm -- verify prong alignment"
+    },
+    {
+      "factor": "STYLE_TWO_STONE",
+      "severity": "MEDIUM",
+      "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
     }
   ],
   "affine_params": {
-    "scale_xy": 1.2069,
-    "scale_z": 0.9221,
-    "translate_x": -0.191,
-    "translate_y": 0.1217,
-    "translate_z": 2.0915
+    "scale_xy": 0.9885,
+    "scale_z": 1.0388,
+    "translate_x": 4.0484,
+    "translate_y": 0.0001,
+    "translate_z": 0.5136
   },
   "static_hashes_count": 0,
-  "mutable_indices_count": 9,
+  "mutable_indices_count": 13,
   "result": {
     "ok": true,
     "static_added": 0,
-    "mutable_added": 8,
+    "mutable_added": 10,
     "mutable_filtered": 0,
-    "total": 8
+    "total": 10
   },
   "status": "OK",
   "output_file": "synthesis_output\\U8_PR_archB.3dm",
   "fallback_mode": true,
   "attempt_number": 1,
-  "pre_rejected_count": 26,
+  "pre_rejected_count": 29,
   "elevated_setting_mode": false,
-  "validation_verdict": "WARN",
+  "validation_verdict": "PASS",
   "validation_checks": {
     "stone_cz": {
-      "actual": 11.687,
+      "actual": 11.311,
       "expected": 11.311,
-      "delta": 0.376,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
-      "actual": 1.002,
+      "actual": 1.067,
       "expected_range": [
         0.92,
         1.1
@@ -52,40 +57,40 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 6,
+      "actual": 10,
       "expected": 9.2,
-      "ratio": 0.651,
-      "verdict": "WARN"
+      "ratio": 1.084,
+      "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 10.474,
+      "actual": 10.798,
       "expected": 11.166,
-      "ratio": 0.938,
+      "ratio": 0.967,
       "verdict": "PASS"
     },
     "stone_centered": {
-      "cx": -0.191,
-      "cy": 0.122,
-      "dist": 0.226,
+      "cx": -0.0,
+      "cy": 0.0,
+      "dist": 0.0,
       "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 0,
-      "total": 8,
+      "total": 10,
       "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "affine_sanity": {
-      "scale_xy": 1.2069,
-      "scale_z": 0.9221,
-      "translate_z": 2.0915,
+      "scale_xy": 0.9885,
+      "scale_z": 1.0388,
+      "translate_z": 0.5136,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 8,
-      "contaminants": 2,
-      "rate_pct": 25.0,
-      "verdict": "WARN"
+      "raw_objects": 10,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
     }
   }
 }

@@ -2,7 +2,7 @@
   "target_family": "ER9_Solitare",
   "target_shape": "AS",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T17:50:24",
+  "synthesis_date": "2026-06-03T10:29:42",
   "donor_family": "TS20",
   "donor_score": 0.8666,
   "expected_confidence": "LOW",
@@ -32,7 +32,7 @@
   "output_file": "synthesis_output\\ER9_Solitare_AS_archA.3dm",
   "fallback_mode": true,
   "attempt_number": 1,
-  "pre_rejected_count": 27,
+  "pre_rejected_count": 28,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {

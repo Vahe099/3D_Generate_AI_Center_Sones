@@ -2,7 +2,7 @@
   "target_family": "ER3_Halo",
   "target_shape": "PR",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T12:28:57",
+  "synthesis_date": "2026-06-03T10:29:40",
   "donor_family": "ER13_Solitare",
   "donor_score": 0.7858,
   "expected_confidence": "LOW",
@@ -18,7 +18,7 @@
     "scale_z": 0.9297,
     "translate_x": 0.0,
     "translate_y": 0.0005,
-    "translate_z": 0.5228
+    "translate_z": -0.2414
   },
   "static_hashes_count": 116,
   "mutable_indices_count": 14,
@@ -32,15 +32,15 @@
   "status": "OK",
   "output_file": "synthesis_output\\ER3_Halo_PR_archB.3dm",
   "fallback_mode": true,
-  "attempt_number": 2,
-  "pre_rejected_count": 20,
+  "attempt_number": 1,
+  "pre_rejected_count": 25,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 13.944,
-      "expected": 13.059,
-      "delta": 0.885,
+      "actual": 13.179,
+      "expected": 13.179,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -53,14 +53,14 @@
     },
     "object_count": {
       "actual": 13,
-      "expected": 11.5,
-      "ratio": 1.13,
+      "expected": 13.0,
+      "ratio": 1.0,
       "verdict": "PASS"
     },
     "basket_depth": {
       "actual": 11.338,
-      "expected": 19.875,
-      "ratio": 0.57,
+      "expected": 20.013,
+      "ratio": 0.567,
       "verdict": "WARN"
     },
     "stone_centered": {
@@ -78,7 +78,7 @@
     "affine_sanity": {
       "scale_xy": 0.936,
       "scale_z": 0.9297,
-      "translate_z": 0.5228,
+      "translate_z": -0.2414,
       "verdict": "PASS"
     },
     "contaminant_rate": {

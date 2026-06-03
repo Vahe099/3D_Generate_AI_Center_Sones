@@ -2,64 +2,59 @@
   "target_family": "ER3_Halo",
   "target_shape": "RA",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T12:28:59",
-  "donor_family": "TS27",
-  "donor_score": 0.8567,
+  "synthesis_date": "2026-06-03T10:29:41",
+  "donor_family": "ER6_Pave_H_Shank",
+  "donor_score": 0.6295,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
-      "factor": "SCALE_Z_HIGH",
+      "factor": "Z_OFFSET_MODERATE",
       "severity": "MEDIUM",
-      "detail": "Z scale factor 1.50 -- vertical geometry will be stretched"
-    },
-    {
-      "factor": "Z_OFFSET_HIGH",
-      "severity": "HIGH",
-      "detail": "Z translation -3.97mm -- stone height mismatch"
+      "detail": "Z translation -2.25mm -- verify prong alignment"
     },
     {
       "factor": "COUNT_MISMATCH_MODERATE",
       "severity": "MEDIUM",
-      "detail": "Object count off by 4 from HM average"
+      "detail": "Object count off by 8 from HM average"
     },
     {
-      "factor": "STYLE_THREE_STONE",
-      "severity": "LOW",
-      "detail": "Three-stone family -- side settings may introduce extra objects"
+      "factor": "MELEE_COUNT_MISMATCH",
+      "severity": "HIGH",
+      "detail": "Target has 7 melee stones; donor has none -- halo frame will not transfer"
     }
   ],
   "affine_params": {
-    "scale_xy": 0.9131,
-    "scale_z": 1.5034,
-    "translate_x": 0.0005,
-    "translate_y": -0.0003,
-    "translate_z": -6.0175
+    "scale_xy": 1.1461,
+    "scale_z": 1.051,
+    "translate_x": -1.564,
+    "translate_y": 2.3642,
+    "translate_z": -2.2469
   },
   "static_hashes_count": 116,
-  "mutable_indices_count": 17,
+  "mutable_indices_count": 20,
   "result": {
     "ok": true,
     "static_added": 58,
-    "mutable_added": 15,
-    "mutable_filtered": 0,
-    "total": 73
+    "mutable_added": 16,
+    "mutable_filtered": 1,
+    "total": 74
   },
   "status": "OK",
   "output_file": "synthesis_output\\ER3_Halo_RA_archB.3dm",
   "fallback_mode": true,
-  "attempt_number": 1,
-  "pre_rejected_count": 22,
+  "attempt_number": 2,
+  "pre_rejected_count": 37,
   "elevated_setting_mode": false,
-  "validation_verdict": "WARN",
+  "validation_verdict": "PASS",
   "validation_checks": {
     "stone_cz": {
-      "actual": 12.184,
-      "expected": 13.059,
-      "delta": -0.875,
+      "actual": 12.938,
+      "expected": 13.179,
+      "delta": -0.241,
       "verdict": "PASS"
     },
     "stone_ar": {
-      "actual": 1.473,
+      "actual": 1.302,
       "expected_range": [
         1.25,
         1.8
@@ -67,39 +62,39 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 13,
-      "expected": 11.5,
-      "ratio": 1.13,
+      "actual": 16,
+      "expected": 13.0,
+      "ratio": 1.231,
       "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 16.693,
-      "expected": 19.875,
-      "ratio": 0.84,
+      "actual": 19.302,
+      "expected": 20.013,
+      "ratio": 0.964,
       "verdict": "PASS"
     },
     "stone_centered": {
-      "cx": 0.001,
+      "cx": -0.0,
       "cy": -0.0,
-      "dist": 0.001,
+      "dist": 0.0,
       "verdict": "PASS"
     },
     "mutable_loss": {
-      "filtered": 0,
-      "total": 15,
-      "loss_pct": 0.0,
+      "filtered": 1,
+      "total": 17,
+      "loss_pct": 5.9,
       "verdict": "PASS"
     },
     "affine_sanity": {
-      "scale_xy": 0.9131,
-      "scale_z": 1.5034,
-      "translate_z": -6.0175,
-      "verdict": "WARN"
+      "scale_xy": 1.1461,
+      "scale_z": 1.051,
+      "translate_z": -2.2469,
+      "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 73,
-      "contaminants": 2,
-      "rate_pct": 2.7,
+      "raw_objects": 74,
+      "contaminants": 0,
+      "rate_pct": 0.0,
       "verdict": "PASS"
     }
   }

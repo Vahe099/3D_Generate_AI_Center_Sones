@@ -3499,94 +3499,6 @@
     "last_strike": "2026-06-02T17:50:49",
     "first_strike": "2026-06-02T12:29:11"
   },
-  "TS35|PE|TS8": {
-    "strikes": 2,
-    "status": "temporary_blacklist",
-    "history": [
-      {
-        "timestamp": "2026-06-02T12:29:14",
-        "rejection_point": "post_synthesis",
-        "validator_verdict": "FAIL",
-        "checks_failed": [
-          "stone_centered"
-        ],
-        "check_details": {
-          "stone_centered": {
-            "cx": 4.143,
-            "cy": 0.0,
-            "dist": 4.143
-          }
-        }
-      },
-      {
-        "timestamp": "2026-06-02T17:50:52",
-        "rejection_point": "post_synthesis",
-        "validator_verdict": "FAIL",
-        "checks_failed": [
-          "stone_centered"
-        ],
-        "check_details": {
-          "stone_centered": {
-            "cx": 4.143,
-            "cy": 0.0,
-            "dist": 4.143
-          }
-        }
-      }
-    ],
-    "last_strike": "2026-06-02T17:50:52",
-    "first_strike": "2026-06-02T12:29:14"
-  },
-  "TS35|PE|TS19": {
-    "strikes": 2,
-    "status": "temporary_blacklist",
-    "history": [
-      {
-        "timestamp": "2026-06-02T12:29:15",
-        "rejection_point": "post_synthesis",
-        "validator_verdict": "FAIL",
-        "checks_failed": [
-          "object_count",
-          "contaminant_rate"
-        ],
-        "check_details": {
-          "object_count": {
-            "actual": 18,
-            "expected": 38.1,
-            "ratio": 0.472
-          },
-          "contaminant_rate": {
-            "raw_objects": 49,
-            "contaminants": 31,
-            "rate_pct": 63.3
-          }
-        }
-      },
-      {
-        "timestamp": "2026-06-02T17:50:52",
-        "rejection_point": "post_synthesis",
-        "validator_verdict": "FAIL",
-        "checks_failed": [
-          "object_count",
-          "contaminant_rate"
-        ],
-        "check_details": {
-          "object_count": {
-            "actual": 18,
-            "expected": 38.1,
-            "ratio": 0.472
-          },
-          "contaminant_rate": {
-            "raw_objects": 49,
-            "contaminants": 31,
-            "rate_pct": 63.3
-          }
-        }
-      }
-    ],
-    "last_strike": "2026-06-02T17:50:52",
-    "first_strike": "2026-06-02T12:29:15"
-  },
   "U5|PR|AD_10": {
     "strikes": 2,
     "status": "temporary_blacklist",
@@ -5897,8 +5809,8 @@
     "first_strike": "2026-06-02T17:48:34"
   },
   "AD_11|PE|TM9": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:35",
@@ -5926,14 +5838,22 @@
             "ratio": 12011.2
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:53:25",
+        "rejection_point": "manual_23b_pass1",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1_force"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:48:35",
+    "last_strike": "2026-06-03T09:53:25",
     "first_strike": "2026-06-02T17:48:35"
   },
   "AD_11|PE|AD_7": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:36",
@@ -5961,14 +5881,22 @@
             "ratio": 13915.5
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:58:45",
+        "rejection_point": "manual_23b_pass1b",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1b_force"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:48:36",
+    "last_strike": "2026-06-03T09:58:45",
     "first_strike": "2026-06-02T17:48:36"
   },
   "AD_11|PE|AD_10": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:36",
@@ -5996,14 +5924,22 @@
             "ratio": 37437.6
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:03:11",
+        "rejection_point": "manual_23b_pass1c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1c_force"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:48:36",
+    "last_strike": "2026-06-03T10:03:11",
     "first_strike": "2026-06-02T17:48:36"
   },
   "AD_11|PE|TS30": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:37",
@@ -6031,14 +5967,22 @@
             "ratio": 13364.5
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:48:37",
+    "last_strike": "2026-06-03T10:07:55",
     "first_strike": "2026-06-02T17:48:37"
   },
   "AD_11|PE|AD_8": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:37",
@@ -6054,14 +5998,29 @@
             "ratio": 18.0
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:08:02",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 4.718,
+            "expected": 10.767,
+            "ratio": 0.438
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:48:37",
+    "last_strike": "2026-06-03T10:08:02",
     "first_strike": "2026-06-02T17:48:37"
   },
   "AD_11|PE|TS20": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:38",
@@ -6089,9 +6048,17 @@
             "ratio": 12201.0
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:09:57",
+        "rejection_point": "manual_23b_pass1e",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1e_force"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:48:38",
+    "last_strike": "2026-06-03T10:09:57",
     "first_strike": "2026-06-02T17:48:38"
   },
   "AD_11|PE|TM1": {
@@ -6138,8 +6105,8 @@
     "first_strike": "2026-06-02T17:48:38"
   },
   "AD_11|PE|TS23": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:39",
@@ -6167,9 +6134,17 @@
             "ratio": 13397.7
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:13:03",
+        "rejection_point": "manual_23b_pass1f",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1f_force"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:48:39",
+    "last_strike": "2026-06-03T10:13:03",
     "first_strike": "2026-06-02T17:48:39"
   },
   "AD_11|PE|TS32": {
@@ -10640,8 +10615,8 @@
     "first_strike": "2026-06-02T17:49:53"
   },
   "ER3_Halo|RA|TS27": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:53",
@@ -10669,14 +10644,22 @@
             "ratio": 16692.7
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:19:54",
+        "rejection_point": "manual_23b_pass2",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:53",
+    "last_strike": "2026-06-03T10:19:54",
     "first_strike": "2026-06-02T17:49:53"
   },
   "ER3_Halo|RA|TS28": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:54",
@@ -10704,14 +10687,22 @@
             "ratio": 16692.7
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:25:32",
+        "rejection_point": "manual_23b_pass2b",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:54",
+    "last_strike": "2026-06-03T10:25:32",
     "first_strike": "2026-06-02T17:49:54"
   },
   "ER3_Halo|RA|TS29": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:54",
@@ -10739,14 +10730,22 @@
             "ratio": 16692.7
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:25:32",
+        "rejection_point": "manual_23b_pass2b",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:54",
+    "last_strike": "2026-06-03T10:25:32",
     "first_strike": "2026-06-02T17:49:54"
   },
   "ER3_Halo|RA|ER15_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:54",
@@ -10774,14 +10773,22 @@
             "ratio": 20863.9
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:54",
+    "last_strike": "2026-06-03T10:29:31",
     "first_strike": "2026-06-02T17:49:54"
   },
   "ER3_Halo|RA|ER13_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:55",
@@ -10809,14 +10816,22 @@
             "ratio": 20406.4
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:55",
+    "last_strike": "2026-06-03T10:29:31",
     "first_strike": "2026-06-02T17:49:55"
   },
   "ER3_Halo|RA|AD_8": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:55",
@@ -10844,14 +10859,22 @@
             "ratio": 20171.7
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:55",
+    "last_strike": "2026-06-03T10:29:31",
     "first_strike": "2026-06-02T17:49:55"
   },
   "ER3_Halo|RA|ER1_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:55",
@@ -10879,14 +10902,22 @@
             "ratio": 16794.6
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:55",
+    "last_strike": "2026-06-03T10:29:31",
     "first_strike": "2026-06-02T17:49:55"
   },
   "ER3_Halo|RA|ER2_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:56",
@@ -10914,14 +10945,22 @@
             "ratio": 16215.2
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:56",
+    "last_strike": "2026-06-03T10:29:31",
     "first_strike": "2026-06-02T17:49:56"
   },
   "ER3_Halo|RA|ER3_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:56",
@@ -10949,14 +10988,22 @@
             "ratio": 16215.2
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:56",
+    "last_strike": "2026-06-03T10:29:31",
     "first_strike": "2026-06-02T17:49:56"
   },
   "ER3_Halo|RA|TM2": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:57",
@@ -10978,14 +11025,22 @@
             "translate_z": -9.8848
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:57",
+    "last_strike": "2026-06-03T10:29:31",
     "first_strike": "2026-06-02T17:49:57"
   },
   "ER3_Halo|RA|ER7_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:57",
@@ -11019,14 +11074,22 @@
             "translate_z": -8.9763
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:57",
+    "last_strike": "2026-06-03T10:29:31",
     "first_strike": "2026-06-02T17:49:57"
   },
   "ER3_Halo|RA|ER8_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:58",
@@ -11054,14 +11117,22 @@
             "ratio": 20419.4
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:58",
+    "last_strike": "2026-06-03T10:29:31",
     "first_strike": "2026-06-02T17:49:58"
   },
   "ER3_Halo|RA|ER5_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:58",
@@ -11097,14 +11168,22 @@
             "translate_z": -7.0642
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:58",
+    "last_strike": "2026-06-03T10:29:31",
     "first_strike": "2026-06-02T17:49:58"
   },
   "ER3_Halo|RA|AD_7": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:59",
@@ -11132,14 +11211,22 @@
             "ratio": 6082.8
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:59",
+    "last_strike": "2026-06-03T10:29:31",
     "first_strike": "2026-06-02T17:49:59"
   },
   "ER3_Halo|RA|ER4_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:59",
@@ -11167,9 +11254,17 @@
             "ratio": 21502.7
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:59",
+    "last_strike": "2026-06-03T10:29:31",
     "first_strike": "2026-06-02T17:49:59"
   },
   "ER4_Halo|AS|AD_8": {
@@ -14271,5 +14366,1031 @@
     ],
     "last_strike": "2026-06-03T09:24:46",
     "first_strike": "2026-06-03T09:24:46"
+  },
+  "TS35|PE|TS33": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:53:25",
+        "rejection_point": "manual_23b_pass1",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T09:53:25",
+        "rejection_point": "manual_23b_pass1",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T09:53:25"
+  },
+  "TS31|PE|TS30": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:53:25",
+        "rejection_point": "manual_23b_pass1",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T09:53:25",
+        "rejection_point": "manual_23b_pass1",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T09:53:25"
+  },
+  "TS31|RD|TS20": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:53:25",
+        "rejection_point": "manual_23b_pass1",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T09:53:25",
+        "rejection_point": "manual_23b_pass1",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T09:53:25"
+  },
+  "TS31|RD|TS9": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:58:45",
+        "rejection_point": "manual_23b_pass1b",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1b_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T09:58:45",
+        "rejection_point": "manual_23b_pass1b",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1b_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T09:58:45"
+  },
+  "TS31|PE|AD_7": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:58:54",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "stone_centered"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 6.916,
+            "expected": 10.754,
+            "delta": -3.838
+          },
+          "stone_ar": {
+            "actual": 1.099,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "stone_centered": {
+            "cx": -5.454,
+            "cy": -0.0,
+            "dist": 5.454
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-03T10:03:18",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "stone_centered"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 6.916,
+            "expected": 10.754,
+            "delta": -3.838
+          },
+          "stone_ar": {
+            "actual": 1.099,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "stone_centered": {
+            "cx": -5.454,
+            "cy": -0.0,
+            "dist": 5.454
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T10:03:18",
+    "first_strike": "2026-06-03T09:58:54"
+  },
+  "TS35|PE|TS32": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:03:11",
+        "rejection_point": "manual_23b_pass1c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1c_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:03:11",
+        "rejection_point": "manual_23b_pass1c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1c_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:03:11"
+  },
+  "TS31|PE|TS18": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:03:11",
+        "rejection_point": "manual_23b_pass1c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1c_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:03:11",
+        "rejection_point": "manual_23b_pass1c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1c_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:03:11"
+  },
+  "TS31|PE|TS13": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS31|PE|TS15": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS31|PE|TS20": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS31|PE|TS23": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS31|PE|TS27": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS31|PE|TS28": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS31|PE|TS29": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS31|PE|TS7": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS31|PE|AD_8": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS31|PE|U4": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS31|PE|ER6_Hidden": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS31|PE|ER6_Pave_H_Shank": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS31|PE|SP6": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:07:55",
+        "rejection_point": "manual_23b_pass1d",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1d_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:07:55"
+  },
+  "TS35|PE|TS19": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:08:03",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 18,
+            "expected": 38.1,
+            "ratio": 0.472
+          },
+          "contaminant_rate": {
+            "raw_objects": 49,
+            "contaminants": 31,
+            "rate_pct": 63.3
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T10:08:03",
+    "first_strike": "2026-06-03T10:08:03"
+  },
+  "TS31|PE|TS9": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:09:57",
+        "rejection_point": "manual_23b_pass1e",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1e_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:09:57",
+        "rejection_point": "manual_23b_pass1e",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1e_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:09:57"
+  },
+  "TS31|PE|N4": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:13:03",
+        "rejection_point": "manual_23b_pass1f",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1f_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:13:03",
+        "rejection_point": "manual_23b_pass1f",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23b_pass1f_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:13:03"
+  },
+  "TS31|PE|ER13_Solitare": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:15:59",
+        "rejection_point": "manual_23b_pass1g",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "contaminant_rate",
+          "object_count"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:15:59",
+        "rejection_point": "manual_23b_pass1g",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "contaminant_rate",
+          "object_count"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:15:59"
+  },
+  "TS31|PE|ER1_Solitare": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:15:59",
+        "rejection_point": "manual_23b_pass1g",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "contaminant_rate",
+          "object_count"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:15:59",
+        "rejection_point": "manual_23b_pass1g",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "contaminant_rate",
+          "object_count"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:15:59"
+  },
+  "TS31|PE|AD_10": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:16:07",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "contaminant_rate": {
+            "raw_objects": 20,
+            "contaminants": 10,
+            "rate_pct": 50.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T10:16:07",
+    "first_strike": "2026-06-03T10:16:07"
+  },
+  "ER9_Solitare|RA|TS20": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:19:54",
+        "rejection_point": "manual_23b_pass2",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:19:54",
+        "rejection_point": "manual_23b_pass2",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:19:54"
+  },
+  "U12|PR|ER10_Solitare": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:19:54",
+        "rejection_point": "manual_23b_pass2",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "object_count",
+          "mutable_loss"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:19:54",
+        "rejection_point": "manual_23b_pass2",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "object_count",
+          "mutable_loss"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:19:54"
+  },
+  "U12|RA|ER10_Solitare": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:19:54",
+        "rejection_point": "manual_23b_pass2",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "object_count"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:19:54",
+        "rejection_point": "manual_23b_pass2",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "object_count"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:19:54"
+  },
+  "U8|PR|U11": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:19:54",
+        "rejection_point": "manual_23b_pass2",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "object_count",
+          "contaminant_rate"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:19:54",
+        "rejection_point": "manual_23b_pass2",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "object_count",
+          "contaminant_rate"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:19:54"
+  },
+  "U12|PR|TM3": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:20:05",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_centered"
+        ],
+        "check_details": {
+          "stone_centered": {
+            "cx": -4.353,
+            "cy": -0.635,
+            "dist": 4.399
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T10:20:05",
+    "first_strike": "2026-06-03T10:20:05"
+  },
+  "U12|PR|N4": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:20:05",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_centered",
+          "mutable_loss"
+        ],
+        "check_details": {
+          "stone_centered": {
+            "cx": 4.155,
+            "cy": -0.157,
+            "dist": 4.158
+          },
+          "mutable_loss": {
+            "filtered": 3,
+            "total": 9,
+            "loss_pct": 33.3
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T10:20:05",
+    "first_strike": "2026-06-03T10:20:05"
+  },
+  "U12|RA|U11": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:20:06",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "affine_sanity"
+        ],
+        "check_details": {
+          "affine_sanity": {
+            "scale_xy": 1.4529,
+            "scale_z": 0.9346,
+            "translate_z": 1.8291
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T10:20:06",
+    "first_strike": "2026-06-03T10:20:06"
+  },
+  "U12|RA|N4": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:20:06",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_centered"
+        ],
+        "check_details": {
+          "stone_centered": {
+            "cx": 4.152,
+            "cy": 0.049,
+            "dist": 4.153
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T10:20:06",
+    "first_strike": "2026-06-03T10:20:06"
+  },
+  "ER9_Solitare|RA|TS27": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:25:32",
+        "rejection_point": "manual_23b_pass2b",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:25:32",
+        "rejection_point": "manual_23b_pass2b",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:25:32"
+  },
+  "ER9_Solitare|RA|TS28": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:29:31"
+  },
+  "ER9_Solitare|RA|TS29": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T10:29:31",
+        "rejection_point": "manual_23b_pass2c",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity_or_basket"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T10:29:31"
+  },
+  "ER3_Halo|RA|ER6_Solitare": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:29:41",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "object_count",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 2.944,
+            "expected_range": [
+              1.25,
+              1.8
+            ]
+          },
+          "object_count": {
+            "actual": 6,
+            "expected": 13.0,
+            "ratio": 0.462
+          },
+          "affine_sanity": {
+            "scale_xy": 0.9375,
+            "scale_z": 1.5737,
+            "translate_z": -7.6713
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T10:29:41",
+    "first_strike": "2026-06-03T10:29:41"
+  },
+  "ER9_Solitare|RA|TM1": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:29:42",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "affine_sanity"
+        ],
+        "check_details": {
+          "affine_sanity": {
+            "scale_xy": 0.8919,
+            "scale_z": 1.7125,
+            "translate_z": -8.9993
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T10:29:42",
+    "first_strike": "2026-06-03T10:29:42"
+  },
+  "ER9_Solitare|RA|AD_8": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:29:43",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 7.929,
+            "expected": 18.084,
+            "ratio": 0.438
+          },
+          "affine_sanity": {
+            "scale_xy": 1.0302,
+            "scale_z": 1.6623,
+            "translate_z": -8.934
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T10:29:43",
+    "first_strike": "2026-06-03T10:29:43"
+  },
+  "ER9_Solitare|RA|U13": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T10:29:44",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "affine_sanity"
+        ],
+        "check_details": {
+          "affine_sanity": {
+            "scale_xy": 0.9812,
+            "scale_z": 1.7321,
+            "translate_z": -9.2818
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T10:29:44",
+    "first_strike": "2026-06-03T10:29:44"
   }
 }
