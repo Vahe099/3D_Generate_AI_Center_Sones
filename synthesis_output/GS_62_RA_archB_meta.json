@@ -2,7 +2,7 @@
   "target_family": "GS_62",
   "target_shape": "RA",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T11:31:41",
+  "synthesis_date": "2026-06-03T09:24:45",
   "donor_family": "ER1_Solitare",
   "donor_score": 0.4842,
   "expected_confidence": "LOW",
@@ -47,8 +47,8 @@
   "status": "OK",
   "output_file": "synthesis_output\\GS_62_RA_archB.3dm",
   "fallback_mode": true,
-  "attempt_number": 2,
-  "pre_rejected_count": 2,
+  "attempt_number": 1,
+  "pre_rejected_count": 3,
   "elevated_setting_mode": true,
   "validation_verdict": "WARN",
   "validation_checks": {
@@ -68,14 +68,14 @@
     },
     "object_count": {
       "actual": 12,
-      "expected": 7.8,
-      "ratio": 1.548,
+      "expected": 8.0,
+      "ratio": 1.5,
       "verdict": "WARN"
     },
     "basket_depth": {
       "actual": 3.404,
-      "expected": 4.657,
-      "ratio": 0.731,
+      "expected": 4.727,
+      "ratio": 0.72,
       "verdict": "WARN"
     },
     "stone_centered": {

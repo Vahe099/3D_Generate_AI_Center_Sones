@@ -1,26 +1,22 @@
 {
-  "batch_date": "2026-06-03T02:13:23",
-  "total_families": 6,
-  "done": 6,
+  "batch_date": "2026-06-03T09:24:47",
+  "total_families": 9,
+  "done": 9,
   "complete": 0,
   "no_missing": 0,
   "no_library": 0,
   "error": 0,
   "results": [
     {
-      "family": "ER9_Halo",
+      "family": "AD_12",
       "status": "DONE",
       "shapes": {
-        "AS": {
-          "arch": "A",
-          "verdict": "WARN"
+        "OV": {
+          "arch": "B",
+          "verdict": "PASS"
         },
         "PE": {
           "arch": "A",
-          "verdict": "PASS"
-        },
-        "PR": {
-          "arch": "B",
           "verdict": "PASS"
         },
         "RD": {
@@ -29,12 +25,12 @@
         }
       },
       "n_pass": 3,
-      "n_warn": 1,
+      "n_warn": 0,
       "n_fail": 0,
       "error": null
     },
     {
-      "family": "N3",
+      "family": "TS22",
       "status": "DONE",
       "shapes": {
         "PE": {
@@ -44,55 +40,51 @@
       },
       "n_pass": 0,
       "n_warn": 1,
+      "n_fail": 0,
+      "error": null
+    },
+    {
+      "family": "AD_6",
+      "status": "DONE",
+      "shapes": {
+        "OV": {
+          "arch": "B",
+          "verdict": "PASS"
+        },
+        "PE": {
+          "arch": "A",
+          "verdict": "PASS"
+        }
+      },
+      "n_pass": 2,
+      "n_warn": 0,
+      "n_fail": 0,
+      "error": null
+    },
+    {
+      "family": "AD_11",
+      "status": "DONE",
+      "shapes": {
+        "OV": {
+          "arch": "B",
+          "verdict": "PASS"
+        },
+        "PE": {
+          "arch": "A",
+          "verdict": "WARN"
+        },
+        "RD": {
+          "arch": "A",
+          "verdict": "WARN"
+        }
+      },
+      "n_pass": 1,
+      "n_warn": 2,
       "n_fail": 0,
       "error": null
     },
     {
       "family": "AD_13",
-      "status": "DONE",
-      "shapes": {
-        "OV": {
-          "arch": "B",
-          "verdict": "WARN"
-        },
-        "PE": {
-          "arch": "A",
-          "verdict": "WARN"
-        },
-        "RD": {
-          "arch": "A",
-          "verdict": "WARN"
-        }
-      },
-      "n_pass": 0,
-      "n_warn": 3,
-      "n_fail": 0,
-      "error": null
-    },
-    {
-      "family": "AD_9",
-      "status": "DONE",
-      "shapes": {
-        "OV": {
-          "arch": "B",
-          "verdict": "WARN"
-        },
-        "PE": {
-          "arch": "A",
-          "verdict": "WARN"
-        },
-        "RD": {
-          "arch": "A",
-          "verdict": "WARN"
-        }
-      },
-      "n_pass": 0,
-      "n_warn": 3,
-      "n_fail": 0,
-      "error": null
-    },
-    {
-      "family": "AD_1",
       "status": "DONE",
       "shapes": {
         "OV": {
@@ -123,7 +115,7 @@
         },
         "PE": {
           "arch": "A",
-          "verdict": "WARN"
+          "verdict": "PASS"
         },
         "PR": {
           "arch": "B",
@@ -138,11 +130,85 @@
           "verdict": "WARN"
         }
       },
-      "n_pass": 1,
+      "n_pass": 2,
+      "n_warn": 3,
+      "n_fail": 0,
+      "error": null
+    },
+    {
+      "family": "AD_1",
+      "status": "DONE",
+      "shapes": {
+        "OV": {
+          "arch": "B",
+          "verdict": "WARN"
+        },
+        "PE": {
+          "arch": "A",
+          "verdict": "WARN"
+        },
+        "RD": {
+          "arch": "A",
+          "verdict": "WARN"
+        }
+      },
+      "n_pass": 0,
+      "n_warn": 3,
+      "n_fail": 0,
+      "error": null
+    },
+    {
+      "family": "GS_62",
+      "status": "DONE",
+      "shapes": {
+        "OV": {
+          "arch": "B",
+          "verdict": "PASS"
+        },
+        "PE": {
+          "arch": "A",
+          "verdict": "WARN"
+        },
+        "RA": {
+          "arch": "B",
+          "verdict": "WARN"
+        },
+        "RD": {
+          "arch": "A",
+          "verdict": "PASS"
+        }
+      },
+      "n_pass": 2,
+      "n_warn": 2,
+      "n_fail": 0,
+      "error": null
+    },
+    {
+      "family": "TS21",
+      "status": "DONE",
+      "shapes": {
+        "AS": {
+          "arch": "B",
+          "verdict": "WARN"
+        },
+        "PE": {
+          "arch": "B",
+          "verdict": "WARN"
+        },
+        "PR": {
+          "arch": "B",
+          "verdict": "WARN"
+        },
+        "RD": {
+          "arch": "B",
+          "verdict": "WARN"
+        }
+      },
+      "n_pass": 0,
       "n_warn": 4,
       "n_fail": 0,
       "error": null
     }
   ],
-  "elapsed_s": 16.3
+  "elapsed_s": 17.7
 }

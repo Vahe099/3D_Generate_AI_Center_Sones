@@ -2,8 +2,8 @@
   "target_family": "Warren",
   "target_shape": "AS",
   "architecture": "A",
-  "synthesis_date": "2026-06-03T02:13:16",
-  "donor_family": "ER6_Hidden",
+  "synthesis_date": "2026-06-03T09:24:35",
+  "donor_family": "ER6_Pave_H_Shank",
   "donor_score": 0.5503,
   "expected_confidence": "LOW",
   "risk_factors": [
@@ -24,15 +24,15 @@
   "result": {
     "ok": true,
     "static_added": 1,
-    "mutable_added": 18,
-    "mutable_filtered": 2,
-    "total": 19
+    "mutable_added": 17,
+    "mutable_filtered": 3,
+    "total": 18
   },
   "status": "OK",
   "output_file": "synthesis_output\\Warren_AS_archA.3dm",
   "fallback_mode": true,
   "attempt_number": 1,
-  "pre_rejected_count": 4,
+  "pre_rejected_count": 5,
   "elevated_setting_mode": true,
   "validation_verdict": "WARN",
   "validation_checks": {
@@ -43,7 +43,7 @@
       "verdict": "PASS"
     },
     "stone_ar": {
-      "actual": 1.001,
+      "actual": 1.0,
       "expected_range": [
         0.92,
         1.1
@@ -51,31 +51,31 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 18,
+      "actual": 17,
       "expected": 16.5,
-      "ratio": 1.091,
+      "ratio": 1.03,
       "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 3.598,
+      "actual": 4.065,
       "expected": 3.235,
-      "ratio": 1.112,
+      "ratio": 1.257,
       "verdict": "PASS"
     },
     "stone_centered": {
-      "cx": -0.0,
-      "cy": -0.0,
+      "cx": 0.0,
+      "cy": 0.0,
       "dist": 0.0,
       "verdict": "PASS"
     },
     "mutable_loss": {
-      "filtered": 2,
+      "filtered": 3,
       "total": 20,
-      "loss_pct": 10.0,
+      "loss_pct": 15.0,
       "verdict": "WARN"
     },
     "contaminant_rate": {
-      "raw_objects": 19,
+      "raw_objects": 18,
       "contaminants": 0,
       "rate_pct": 0.0,
       "verdict": "PASS"

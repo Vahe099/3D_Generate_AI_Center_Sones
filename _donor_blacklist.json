@@ -403,8 +403,8 @@
     "first_strike": "2026-06-01T16:36:20"
   },
   "Warren|PE|ER6_Pave_H_Shank": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-01T16:46:24",
@@ -420,9 +420,17 @@
             "delta": 3.032
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
       }
     ],
-    "last_strike": "2026-06-01T16:46:24",
+    "last_strike": "2026-06-03T09:24:23",
     "first_strike": "2026-06-01T16:46:24"
   },
   "TS21|AS|TM7": {
@@ -4965,8 +4973,8 @@
     "first_strike": "2026-06-02T17:48:21"
   },
   "AD_1|PE|AD_7": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:22",
@@ -4994,14 +5002,22 @@
             "ratio": 13915.5
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:48:22",
+    "last_strike": "2026-06-03T09:24:23",
     "first_strike": "2026-06-02T17:48:22"
   },
   "AD_1|PE|TM2": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:22",
@@ -5037,9 +5053,26 @@
             "ratio": 11332.3
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:39",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 1.109,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:48:22",
+    "last_strike": "2026-06-03T09:24:39",
     "first_strike": "2026-06-02T17:48:22"
   },
   "AD_1|PE|TS30": {
@@ -6350,8 +6383,8 @@
     "first_strike": "2026-06-02T17:48:41"
   },
   "AD_11|RD|AD_8": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:42",
@@ -6379,14 +6412,22 @@
             "ratio": 11962.0
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:48:42",
+    "last_strike": "2026-06-03T09:24:23",
     "first_strike": "2026-06-02T17:48:42"
   },
   "AD_11|RD|TS20": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:42",
@@ -6414,9 +6455,24 @@
             "ratio": 12210.1
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:32",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 4.505,
+            "expected": 10.767,
+            "ratio": 0.418
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:48:42",
+    "last_strike": "2026-06-03T09:24:32",
     "first_strike": "2026-06-02T17:48:42"
   },
   "AD_11|RD|AD_10": {
@@ -7383,8 +7439,8 @@
     "first_strike": "2026-06-02T17:48:57"
   },
   "AD_13|PE|TS23": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:58",
@@ -7412,14 +7468,22 @@
             "ratio": 13397.7
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:48:58",
+    "last_strike": "2026-06-03T09:24:23",
     "first_strike": "2026-06-02T17:48:58"
   },
   "AD_13|PE|TM2": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:48:58",
@@ -7455,9 +7519,26 @@
             "ratio": 11332.3
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:34",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 1.109,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:48:58",
+    "last_strike": "2026-06-03T09:24:34",
     "first_strike": "2026-06-02T17:48:58"
   },
   "AD_13|PE|TS30": {
@@ -7912,8 +7993,8 @@
     "first_strike": "2026-06-02T17:49:04"
   },
   "AD_13|RD|AD_8": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:08",
@@ -7941,9 +8022,17 @@
             "ratio": 11962.0
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:08",
+    "last_strike": "2026-06-03T09:24:23",
     "first_strike": "2026-06-02T17:49:08"
   },
   "AD_13|RD|TS30": {
@@ -12792,8 +12881,8 @@
     "first_strike": "2026-06-02T17:50:28"
   },
   "GS_62|PE|ER6_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:50:30",
@@ -12817,14 +12906,22 @@
             "ratio": 9.0
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:50:30",
+    "last_strike": "2026-06-03T09:24:23",
     "first_strike": "2026-06-02T17:50:30"
   },
   "GS_62|PE|TM8": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:50:30",
@@ -12860,14 +12957,37 @@
             "ratio": 13367.2
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:43",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "basket_depth"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 1.064,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "basket_depth": {
+            "actual": 1.627,
+            "expected": 4.727,
+            "ratio": 0.344
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:50:30",
+    "last_strike": "2026-06-03T09:24:43",
     "first_strike": "2026-06-02T17:50:30"
   },
   "GS_62|PE|N4": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:50:31",
@@ -12895,14 +13015,35 @@
             "ratio": 14625.5
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:44",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth",
+          "mutable_loss"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 0.435,
+            "expected": 4.727,
+            "ratio": 0.092
+          },
+          "mutable_loss": {
+            "filtered": 4,
+            "total": 11,
+            "loss_pct": 36.4
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:50:31",
+    "last_strike": "2026-06-03T09:24:44",
     "first_strike": "2026-06-02T17:50:31"
   },
   "GS_62|PE|U1": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:50:31",
@@ -12926,14 +13067,41 @@
             "ratio": 7.0
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:41",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "basket_depth",
+          "mutable_loss"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 22.898,
+            "expected": 13.137,
+            "delta": 9.761
+          },
+          "basket_depth": {
+            "actual": 1.097,
+            "expected": 4.727,
+            "ratio": 0.232
+          },
+          "mutable_loss": {
+            "filtered": 2,
+            "total": 7,
+            "loss_pct": 28.6
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:50:31",
+    "last_strike": "2026-06-03T09:24:41",
     "first_strike": "2026-06-02T17:50:31"
   },
   "GS_62|PE|U11": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:50:32",
@@ -12961,9 +13129,36 @@
             "ratio": 11047.1
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:41",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "basket_depth",
+          "mutable_loss"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 4,
+            "expected": 8.0,
+            "ratio": 0.5
+          },
+          "basket_depth": {
+            "actual": 1.59,
+            "expected": 4.727,
+            "ratio": 0.336
+          },
+          "mutable_loss": {
+            "filtered": 4,
+            "total": 8,
+            "loss_pct": 50.0
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:50:32",
+    "last_strike": "2026-06-03T09:24:41",
     "first_strike": "2026-06-02T17:50:32"
   },
   "GS_62|RA|ER6_Solitare": {
@@ -13567,8 +13762,8 @@
     "first_strike": "2026-06-02T17:56:25"
   },
   "Warren|PR|TS25": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-03T02:13:18",
@@ -13584,14 +13779,29 @@
             "ratio": 0.49
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:36",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 1.585,
+            "expected": 3.235,
+            "ratio": 0.49
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-03T02:13:18",
+    "last_strike": "2026-06-03T09:24:36",
     "first_strike": "2026-06-03T02:13:18"
   },
   "Warren|PR|V6": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-03T02:13:19",
@@ -13607,14 +13817,29 @@
             "loss_pct": 31.2
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:36",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "mutable_loss"
+        ],
+        "check_details": {
+          "mutable_loss": {
+            "filtered": 5,
+            "total": 16,
+            "loss_pct": 31.2
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-03T02:13:19",
+    "last_strike": "2026-06-03T09:24:36",
     "first_strike": "2026-06-03T02:13:19"
   },
   "Warren|PR|ER1_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-03T02:13:19",
@@ -13630,9 +13855,24 @@
             "ratio": 0.385
           }
         }
+      },
+      {
+        "timestamp": "2026-06-03T09:24:37",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 1.244,
+            "expected": 3.235,
+            "ratio": 0.385
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-03T02:13:19",
+    "last_strike": "2026-06-03T09:24:37",
     "first_strike": "2026-06-03T02:13:19"
   },
   "Warren|RA|ER6_Hidden": {
@@ -13711,5 +13951,325 @@
     ],
     "last_strike": "2026-06-03T02:13:22",
     "first_strike": "2026-06-03T02:13:22"
+  },
+  "AD_12|PE|TS11": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T09:24:23"
+  },
+  "AD_12|RD|TS11": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T09:24:23"
+  },
+  "TS22|PE|TS11": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T09:24:23"
+  },
+  "AD_6|OV|AD_3": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T09:24:23"
+  },
+  "Warren|AS|ER6_Hidden": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T09:24:23"
+  },
+  "Warren|RD|ER6_Hidden": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T09:24:23"
+  },
+  "TS21|PR|N1": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      },
+      {
+        "timestamp": "2026-06-03T09:24:23",
+        "rejection_point": "manual_23a",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "phase_23a_force"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-03T09:24:23"
+  },
+  "Warren|RD|U6": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:24:38",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 0.564,
+            "expected": 3.235,
+            "ratio": 0.174
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T09:24:38",
+    "first_strike": "2026-06-03T09:24:38"
+  },
+  "GS_62|PE|ER6_Hidden": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:24:42",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 20,
+            "expected": 8.0,
+            "ratio": 2.5
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T09:24:42",
+    "first_strike": "2026-06-03T09:24:42"
+  },
+  "GS_62|PE|ER6_Pave_H_Shank": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:24:42",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 16,
+            "expected": 8.0,
+            "ratio": 2.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T09:24:42",
+    "first_strike": "2026-06-03T09:24:42"
+  },
+  "GS_62|PE|V6": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:24:43",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "stone_ar",
+          "mutable_loss"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 27.76,
+            "expected": 13.137,
+            "delta": 14.622
+          },
+          "stone_ar": {
+            "actual": 1.097,
+            "expected_range": [
+              1.35,
+              2.1
+            ]
+          },
+          "mutable_loss": {
+            "filtered": 8,
+            "total": 19,
+            "loss_pct": 42.1
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T09:24:43",
+    "first_strike": "2026-06-03T09:24:43"
+  },
+  "TS21|PR|V6": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-03T09:24:46",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_cz",
+          "object_count",
+          "basket_depth",
+          "stone_centered",
+          "mutable_loss",
+          "contaminant_rate"
+        ],
+        "check_details": {
+          "stone_cz": {
+            "actual": 412.692,
+            "expected": 1.74,
+            "delta": 410.953
+          },
+          "object_count": {
+            "actual": 4,
+            "expected": 8.6,
+            "ratio": 0.465
+          },
+          "basket_depth": {
+            "actual": 415.167,
+            "expected": 5.145,
+            "ratio": 80.689
+          },
+          "stone_centered": {
+            "cx": 2.33,
+            "cy": 488.215,
+            "dist": 488.221
+          },
+          "mutable_loss": {
+            "filtered": 6,
+            "total": 16,
+            "loss_pct": 37.5
+          },
+          "contaminant_rate": {
+            "raw_objects": 12,
+            "contaminants": 6,
+            "rate_pct": 50.0
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-03T09:24:46",
+    "first_strike": "2026-06-03T09:24:46"
   }
 }

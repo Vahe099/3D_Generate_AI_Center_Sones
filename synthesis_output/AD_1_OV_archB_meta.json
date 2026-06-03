@@ -2,7 +2,7 @@
   "target_family": "AD_1",
   "target_shape": "OV",
   "architecture": "B",
-  "synthesis_date": "2026-06-03T02:13:14",
+  "synthesis_date": "2026-06-03T09:24:39",
   "donor_family": "N1",
   "donor_score": 0.898,
   "expected_confidence": "LOW",

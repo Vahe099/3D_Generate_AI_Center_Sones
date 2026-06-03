@@ -2,20 +2,20 @@
   "target_family": "AD_13",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-06-03T02:13:10",
-  "donor_family": "TS23",
-  "donor_score": 0.9037,
+  "synthesis_date": "2026-06-03T09:24:34",
+  "donor_family": "TS30",
+  "donor_score": 0.6943,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
       "factor": "Z_OFFSET_MODERATE",
       "severity": "MEDIUM",
-      "detail": "Z translation +2.23mm -- verify prong alignment"
+      "detail": "Z translation +1.97mm -- verify prong alignment"
     },
     {
       "factor": "COUNT_MISMATCH_HIGH",
       "severity": "HIGH",
-      "detail": "Donor has 24 mutable objects vs HM ~15 (delta=9)"
+      "detail": "Donor has 26 mutable objects vs HM ~15 (delta=11)"
     },
     {
       "factor": "STYLE_THREE_STONE",
@@ -25,19 +25,19 @@
   ],
   "affine_params": null,
   "static_hashes_count": 2,
-  "mutable_indices_count": 24,
+  "mutable_indices_count": 26,
   "result": {
     "ok": true,
     "static_added": 0,
-    "mutable_added": 20,
+    "mutable_added": 23,
     "mutable_filtered": 1,
-    "total": 20
+    "total": 23
   },
   "status": "OK",
   "output_file": "synthesis_output\\AD_13_PE_archA.3dm",
   "fallback_mode": true,
-  "attempt_number": 1,
-  "pre_rejected_count": 16,
+  "attempt_number": 2,
+  "pre_rejected_count": 17,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {
@@ -56,33 +56,33 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 18,
+      "actual": 21,
       "expected": 13.3,
-      "ratio": 1.35,
-      "verdict": "PASS"
+      "ratio": 1.575,
+      "verdict": "WARN"
     },
     "basket_depth": {
-      "actual": 11.791,
+      "actual": 11.946,
       "expected": 9.635,
-      "ratio": 1.224,
+      "ratio": 1.24,
       "verdict": "PASS"
     },
     "stone_centered": {
       "cx": 0.0,
-      "cy": -0.442,
-      "dist": 0.442,
+      "cy": -0.469,
+      "dist": 0.469,
       "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 1,
-      "total": 21,
-      "loss_pct": 4.8,
+      "total": 24,
+      "loss_pct": 4.2,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 20,
+      "raw_objects": 23,
       "contaminants": 2,
-      "rate_pct": 10.0,
+      "rate_pct": 8.7,
       "verdict": "WARN"
     }
   }

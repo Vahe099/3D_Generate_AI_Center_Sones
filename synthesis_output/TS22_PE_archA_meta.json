@@ -2,37 +2,37 @@
   "target_family": "TS22",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T17:50:50",
-  "donor_family": "TS11",
-  "donor_score": 0.9095,
-  "expected_confidence": "MEDIUM",
+  "synthesis_date": "2026-06-03T09:24:31",
+  "donor_family": "AD_3",
+  "donor_score": 0.8977,
+  "expected_confidence": "LOW",
   "risk_factors": [
     {
       "factor": "Z_OFFSET_MODERATE",
       "severity": "MEDIUM",
-      "detail": "Z translation +2.19mm -- verify prong alignment"
+      "detail": "Z translation +1.62mm -- verify prong alignment"
     },
     {
-      "factor": "STYLE_THREE_STONE",
-      "severity": "LOW",
-      "detail": "Three-stone family -- side settings may introduce extra objects"
+      "factor": "COUNT_MISMATCH_HIGH",
+      "severity": "HIGH",
+      "detail": "Donor has 40 mutable objects vs HM ~28 (delta=12)"
     }
   ],
   "affine_params": null,
   "static_hashes_count": 0,
-  "mutable_indices_count": 28,
+  "mutable_indices_count": 40,
   "result": {
     "ok": true,
     "static_added": 0,
-    "mutable_added": 24,
+    "mutable_added": 36,
     "mutable_filtered": 0,
-    "total": 24
+    "total": 36
   },
   "status": "OK",
   "output_file": "synthesis_output\\TS22_PE_archA.3dm",
   "fallback_mode": true,
-  "attempt_number": 4,
-  "pre_rejected_count": 26,
+  "attempt_number": 1,
+  "pre_rejected_count": 30,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {
@@ -43,7 +43,7 @@
       "verdict": "PASS"
     },
     "stone_ar": {
-      "actual": 1.538,
+      "actual": 1.603,
       "expected_range": [
         1.35,
         2.1
@@ -51,33 +51,33 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 21,
+      "actual": 31,
       "expected": 27.2,
-      "ratio": 0.771,
+      "ratio": 1.139,
       "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 11.342,
+      "actual": 12.827,
       "expected": 13.23,
-      "ratio": 0.857,
+      "ratio": 0.97,
       "verdict": "PASS"
     },
     "stone_centered": {
       "cx": 0.0,
-      "cy": -0.897,
-      "dist": 0.897,
+      "cy": -1.033,
+      "dist": 1.033,
       "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 0,
-      "total": 24,
+      "total": 36,
       "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 24,
-      "contaminants": 3,
-      "rate_pct": 12.5,
+      "raw_objects": 36,
+      "contaminants": 5,
+      "rate_pct": 13.9,
       "verdict": "WARN"
     }
   }

@@ -2,7 +2,7 @@
   "target_family": "AD_11",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T12:28:35",
+  "synthesis_date": "2026-06-03T09:24:32",
   "donor_family": "TM9",
   "donor_score": 0.872,
   "expected_confidence": "MEDIUM",
@@ -31,15 +31,15 @@
   "status": "OK",
   "output_file": "synthesis_output\\AD_11_PE_archA.3dm",
   "fallback_mode": true,
-  "attempt_number": 2,
-  "pre_rejected_count": 16,
+  "attempt_number": 1,
+  "pre_rejected_count": 17,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 12.011,
-      "expected": 11.094,
-      "delta": 0.918,
+      "actual": 11.021,
+      "expected": 11.021,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -52,14 +52,14 @@
     },
     "object_count": {
       "actual": 18,
-      "expected": 16.8,
-      "ratio": 1.075,
+      "expected": 17.0,
+      "ratio": 1.059,
       "verdict": "PASS"
     },
     "basket_depth": {
       "actual": 12.011,
-      "expected": 10.839,
-      "ratio": 1.108,
+      "expected": 10.767,
+      "ratio": 1.116,
       "verdict": "PASS"
     },
     "stone_centered": {

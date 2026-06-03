@@ -2,38 +2,43 @@
   "target_family": "TS21",
   "target_shape": "PR",
   "architecture": "B",
-  "synthesis_date": "2026-06-02T17:50:47",
-  "donor_family": "N1",
-  "donor_score": 0.6764,
-  "expected_confidence": "MEDIUM",
+  "synthesis_date": "2026-06-03T09:24:46",
+  "donor_family": "AD_7",
+  "donor_score": 0.6128,
+  "expected_confidence": "LOW",
   "risk_factors": [
     {
-      "factor": "Z_OFFSET_MODERATE",
-      "severity": "MEDIUM",
-      "detail": "Z translation +1.25mm -- verify prong alignment"
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +3.22mm -- stone height mismatch"
+    },
+    {
+      "factor": "COUNT_MISMATCH_HIGH",
+      "severity": "HIGH",
+      "detail": "Donor has 18 mutable objects vs HM ~10 (delta=8)"
     }
   ],
   "affine_params": {
-    "scale_xy": 1.0399,
-    "scale_z": 0.9322,
-    "translate_x": -0.0369,
-    "translate_y": 0.2563,
-    "translate_z": -10.5168
+    "scale_xy": 1.0635,
+    "scale_z": 0.7395,
+    "translate_x": 0.3694,
+    "translate_y": 0.2829,
+    "translate_z": -7.2981
   },
   "static_hashes_count": 3,
-  "mutable_indices_count": 13,
+  "mutable_indices_count": 18,
   "result": {
     "ok": true,
     "static_added": 2,
-    "mutable_added": 10,
-    "mutable_filtered": 3,
-    "total": 12
+    "mutable_added": 12,
+    "mutable_filtered": 1,
+    "total": 14
   },
   "status": "OK",
   "output_file": "synthesis_output\\TS21_PR_archB.3dm",
   "fallback_mode": true,
-  "attempt_number": 7,
-  "pre_rejected_count": 16,
+  "attempt_number": 2,
+  "pre_rejected_count": 23,
   "elevated_setting_mode": true,
   "validation_verdict": "WARN",
   "validation_checks": {
@@ -52,37 +57,37 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 10,
+      "actual": 12,
       "expected": 8.6,
-      "ratio": 1.163,
+      "ratio": 1.395,
       "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 4.508,
+      "actual": 3.511,
       "expected": 5.145,
-      "ratio": 0.876,
-      "verdict": "PASS"
+      "ratio": 0.682,
+      "verdict": "WARN"
     },
     "stone_centered": {
-      "cx": -0.037,
-      "cy": 0.256,
-      "dist": 0.259,
+      "cx": 0.369,
+      "cy": 0.283,
+      "dist": 0.465,
       "verdict": "PASS"
     },
     "mutable_loss": {
-      "filtered": 3,
+      "filtered": 1,
       "total": 13,
-      "loss_pct": 23.1,
-      "verdict": "WARN"
+      "loss_pct": 7.7,
+      "verdict": "PASS"
     },
     "affine_sanity": {
-      "scale_xy": 1.0399,
-      "scale_z": 0.9322,
-      "translate_z": -10.5168,
+      "scale_xy": 1.0635,
+      "scale_z": 0.7395,
+      "translate_z": -7.2981,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 12,
+      "raw_objects": 14,
       "contaminants": 0,
       "rate_pct": 0.0,
       "verdict": "PASS"
