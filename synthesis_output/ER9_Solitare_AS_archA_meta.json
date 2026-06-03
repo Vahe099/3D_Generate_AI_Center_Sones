@@ -2,15 +2,15 @@
   "target_family": "ER9_Solitare",
   "target_shape": "AS",
   "architecture": "A",
-  "synthesis_date": "2026-06-03T10:29:42",
-  "donor_family": "TS20",
-  "donor_score": 0.8666,
+  "synthesis_date": "2026-06-03T11:25:42",
+  "donor_family": "TS30",
+  "donor_score": 0.7895,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
       "factor": "Z_OFFSET_HIGH",
       "severity": "HIGH",
-      "detail": "Z translation -10.86mm -- stone height mismatch"
+      "detail": "Z translation -7.26mm -- stone height mismatch"
     },
     {
       "factor": "STYLE_THREE_STONE",
@@ -20,19 +20,19 @@
   ],
   "affine_params": null,
   "static_hashes_count": 14,
-  "mutable_indices_count": 21,
+  "mutable_indices_count": 25,
   "result": {
     "ok": true,
     "static_added": 13,
-    "mutable_added": 21,
+    "mutable_added": 22,
     "mutable_filtered": 0,
-    "total": 34
+    "total": 35
   },
   "status": "OK",
   "output_file": "synthesis_output\\ER9_Solitare_AS_archA.3dm",
   "fallback_mode": true,
-  "attempt_number": 1,
-  "pre_rejected_count": 28,
+  "attempt_number": 2,
+  "pre_rejected_count": 30,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {
@@ -51,31 +51,31 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 21,
+      "actual": 22,
       "expected": 19.3,
-      "ratio": 1.086,
+      "ratio": 1.138,
       "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 13.492,
+      "actual": 12.832,
       "expected": 18.084,
-      "ratio": 0.746,
+      "ratio": 0.71,
       "verdict": "WARN"
     },
     "stone_centered": {
-      "cx": -0.0,
+      "cx": 0.0,
       "cy": 0.0,
       "dist": 0.0,
       "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 0,
-      "total": 21,
+      "total": 22,
       "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 34,
+      "raw_objects": 35,
       "contaminants": 0,
       "rate_pct": 0.0,
       "verdict": "PASS"

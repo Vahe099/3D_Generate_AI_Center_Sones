@@ -2,15 +2,20 @@
   "target_family": "AD_1",
   "target_shape": "RD",
   "architecture": "A",
-  "synthesis_date": "2026-06-03T09:24:40",
-  "donor_family": "AD_7",
-  "donor_score": 0.8567,
+  "synthesis_date": "2026-06-03T11:25:40",
+  "donor_family": "TS9",
+  "donor_score": 0.8089,
   "expected_confidence": "MEDIUM",
   "risk_factors": [
     {
       "factor": "Z_OFFSET_MODERATE",
       "severity": "MEDIUM",
-      "detail": "Z translation +1.21mm -- verify prong alignment"
+      "detail": "Z translation +2.45mm -- verify prong alignment"
+    },
+    {
+      "factor": "STYLE_THREE_STONE",
+      "severity": "LOW",
+      "detail": "Three-stone family -- side settings may introduce extra objects"
     }
   ],
   "affine_params": null,
@@ -19,15 +24,15 @@
   "result": {
     "ok": true,
     "static_added": 0,
-    "mutable_added": 15,
-    "mutable_filtered": 2,
-    "total": 15
+    "mutable_added": 20,
+    "mutable_filtered": 1,
+    "total": 20
   },
   "status": "OK",
   "output_file": "synthesis_output\\AD_1_RD_archA.3dm",
   "fallback_mode": true,
   "attempt_number": 1,
-  "pre_rejected_count": 30,
+  "pre_rejected_count": 33,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {
@@ -46,15 +51,15 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 15,
+      "actual": 18,
       "expected": 20.3,
-      "ratio": 0.738,
-      "verdict": "WARN"
+      "ratio": 0.885,
+      "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 11.887,
+      "actual": 12.538,
       "expected": 11.293,
-      "ratio": 1.053,
+      "ratio": 1.11,
       "verdict": "PASS"
     },
     "stone_centered": {
@@ -64,16 +69,16 @@
       "verdict": "PASS"
     },
     "mutable_loss": {
-      "filtered": 2,
-      "total": 17,
-      "loss_pct": 11.8,
-      "verdict": "WARN"
+      "filtered": 1,
+      "total": 21,
+      "loss_pct": 4.8,
+      "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 15,
-      "contaminants": 0,
-      "rate_pct": 0.0,
-      "verdict": "PASS"
+      "raw_objects": 20,
+      "contaminants": 2,
+      "rate_pct": 10.0,
+      "verdict": "WARN"
     }
   }
 }

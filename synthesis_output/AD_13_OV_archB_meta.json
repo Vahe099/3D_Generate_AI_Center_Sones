@@ -2,64 +2,59 @@
   "target_family": "AD_13",
   "target_shape": "OV",
   "architecture": "B",
-  "synthesis_date": "2026-06-03T09:24:34",
-  "donor_family": "TM1",
-  "donor_score": 0.676,
+  "synthesis_date": "2026-06-03T11:25:41",
+  "donor_family": "ER15_Solitare",
+  "donor_score": 0.5788,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
       "factor": "SCALE_Z_HIGH",
       "severity": "MEDIUM",
-      "detail": "Z scale factor 0.59 -- vertical geometry will be stretched"
+      "detail": "Z scale factor 0.58 -- vertical geometry will be stretched"
     },
     {
       "factor": "Z_OFFSET_HIGH",
       "severity": "HIGH",
-      "detail": "Z translation +5.55mm -- stone height mismatch"
+      "detail": "Z translation +4.43mm -- stone height mismatch"
     },
     {
-      "factor": "STONE_AR_MISMATCH",
+      "factor": "COUNT_MISMATCH_MODERATE",
       "severity": "MEDIUM",
-      "detail": "Donor stone AR 1.20 outside expected [1.25, 1.75] for OV"
-    },
-    {
-      "factor": "STYLE_TWO_STONE",
-      "severity": "MEDIUM",
-      "detail": "Toi Et Moi family -- dual-stone setting may not transfer cleanly"
+      "detail": "Object count off by 7 from HM average"
     }
   ],
   "affine_params": {
-    "scale_xy": 0.8891,
-    "scale_z": 0.5853,
-    "translate_x": -2.7019,
-    "translate_y": -0.6764,
-    "translate_z": 1.8226
+    "scale_xy": 1.031,
+    "scale_z": 0.5796,
+    "translate_x": -0.8277,
+    "translate_y": 0.2603,
+    "translate_z": 1.2529
   },
   "static_hashes_count": 2,
-  "mutable_indices_count": 18,
+  "mutable_indices_count": 22,
   "result": {
     "ok": true,
     "static_added": 0,
-    "mutable_added": 16,
+    "mutable_added": 21,
     "mutable_filtered": 0,
-    "total": 16
+    "total": 21
   },
   "status": "OK",
   "output_file": "synthesis_output\\AD_13_OV_archB.3dm",
   "fallback_mode": true,
   "attempt_number": 1,
-  "pre_rejected_count": 19,
+  "pre_rejected_count": 32,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 8.23,
+      "actual": 8.576,
       "expected": 8.576,
-      "delta": -0.346,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
-      "actual": 1.659,
+      "actual": 1.342,
       "expected_range": [
         1.25,
         1.75
@@ -67,40 +62,40 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 15,
+      "actual": 21,
       "expected": 13.3,
-      "ratio": 1.125,
-      "verdict": "PASS"
-    },
-    "basket_depth": {
-      "actual": 6.469,
-      "expected": 9.635,
-      "ratio": 0.671,
+      "ratio": 1.575,
       "verdict": "WARN"
     },
+    "basket_depth": {
+      "actual": 7.323,
+      "expected": 9.635,
+      "ratio": 0.76,
+      "verdict": "PASS"
+    },
     "stone_centered": {
-      "cx": 0.0,
-      "cy": 0.0,
-      "dist": 0.0,
+      "cx": -0.828,
+      "cy": 0.26,
+      "dist": 0.868,
       "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 0,
-      "total": 16,
+      "total": 21,
       "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "affine_sanity": {
-      "scale_xy": 0.8891,
-      "scale_z": 0.5853,
-      "translate_z": 1.8226,
+      "scale_xy": 1.031,
+      "scale_z": 0.5796,
+      "translate_z": 1.2529,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 16,
-      "contaminants": 1,
-      "rate_pct": 6.2,
-      "verdict": "WARN"
+      "raw_objects": 21,
+      "contaminants": 0,
+      "rate_pct": 0.0,
+      "verdict": "PASS"
     }
   }
 }
