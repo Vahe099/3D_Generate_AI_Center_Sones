@@ -2,8 +2,8 @@
   "target_family": "ER4_Halo",
   "target_shape": "OV",
   "architecture": "B",
-  "synthesis_date": "2026-06-04T17:49:19",
-  "donor_family": "TS27",
+  "synthesis_date": "2026-06-04T18:00:32",
+  "donor_family": "TS28",
   "donor_score": 0.8678,
   "expected_confidence": "LOW",
   "risk_factors": [
@@ -23,7 +23,7 @@
     "scale_z": 1.027,
     "translate_x": 0.1523,
     "translate_y": 0.2308,
-    "translate_z": 0.1035
+    "translate_z": 0.1412
   },
   "static_hashes_count": 52,
   "mutable_indices_count": 23,
@@ -38,13 +38,13 @@
   "output_file": "synthesis_output\\ER4_Halo_OV_archB.3dm",
   "fallback_mode": true,
   "attempt_number": 1,
-  "pre_rejected_count": 22,
+  "pre_rejected_count": 23,
   "elevated_setting_mode": false,
-  "validation_verdict": "WARN",
+  "validation_verdict": "PASS",
   "validation_checks": {
     "stone_cz": {
-      "actual": 13.179,
-      "expected": 13.179,
+      "actual": 13.217,
+      "expected": 13.217,
       "delta": 0.0,
       "verdict": "PASS"
     },
@@ -58,15 +58,15 @@
     },
     "object_count": {
       "actual": 18,
-      "expected": 23.0,
-      "ratio": 0.783,
+      "expected": 16.5,
+      "ratio": 1.091,
       "verdict": "PASS"
     },
     "basket_depth": {
       "actual": 14.706,
-      "expected": 22.54,
-      "ratio": 0.652,
-      "verdict": "WARN"
+      "expected": 17.898,
+      "ratio": 0.822,
+      "verdict": "PASS"
     },
     "stone_centered": {
       "cx": 0.152,
@@ -83,7 +83,7 @@
     "affine_sanity": {
       "scale_xy": 0.9131,
       "scale_z": 1.027,
-      "translate_z": 0.1035,
+      "translate_z": 0.1412,
       "verdict": "PASS"
     },
     "contaminant_rate": {

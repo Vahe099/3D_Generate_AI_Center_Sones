@@ -10583,8 +10583,8 @@
     "first_strike": "2026-06-02T17:49:47"
   },
   "ER3_Halo|PR|ER1_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:47",
@@ -10612,14 +10612,22 @@
             "ratio": 17814.0
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T17:59:02",
+        "rejection_point": "manual_23h",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:47",
+    "last_strike": "2026-06-04T17:59:02",
     "first_strike": "2026-06-02T17:49:47"
   },
   "ER3_Halo|PR|TM3": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:48",
@@ -10647,9 +10655,24 @@
             "ratio": 12081.8
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T18:00:42",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 7,
+            "expected": 13.0,
+            "ratio": 0.538
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:49:48",
+    "last_strike": "2026-06-04T18:00:42",
     "first_strike": "2026-06-02T17:49:48"
   },
   "ER3_Halo|PR|TM9": {
@@ -10688,8 +10711,8 @@
     "first_strike": "2026-06-02T17:49:48"
   },
   "ER3_Halo|PR|ER2_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:48",
@@ -10717,9 +10740,17 @@
             "ratio": 17101.2
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T18:12:51",
+        "rejection_point": "manual_23h_r2",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "affine_sanity"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:49:48",
+    "last_strike": "2026-06-04T18:12:51",
     "first_strike": "2026-06-02T17:49:48"
   },
   "ER3_Halo|PR|TM2": {
@@ -10758,8 +10789,8 @@
     "first_strike": "2026-06-02T17:49:49"
   },
   "ER3_Halo|PR|TS24": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:49",
@@ -10787,14 +10818,29 @@
             "ratio": 15815.8
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T18:13:07",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 4,
+            "expected": 13.0,
+            "ratio": 0.308
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:49:49",
+    "last_strike": "2026-06-04T18:13:07",
     "first_strike": "2026-06-02T17:49:49"
   },
   "ER3_Halo|PR|ER8_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:50",
@@ -10830,14 +10876,43 @@
             "ratio": 22084.5
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T18:13:07",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "basket_depth",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 2.346,
+            "expected_range": [
+              0.92,
+              1.1
+            ]
+          },
+          "basket_depth": {
+            "actual": 7.318,
+            "expected": 20.013,
+            "ratio": 0.366
+          },
+          "affine_sanity": {
+            "scale_xy": 0.9357,
+            "scale_z": 1.5971,
+            "translate_z": -9.2562
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:49:50",
+    "last_strike": "2026-06-04T18:13:07",
     "first_strike": "2026-06-02T17:49:50"
   },
   "ER3_Halo|PR|ER7_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:50",
@@ -10885,14 +10960,55 @@
             "translate_z": -8.9763
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T18:13:08",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "object_count",
+          "basket_depth",
+          "stone_centered",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 2.268,
+            "expected_range": [
+              0.92,
+              1.1
+            ]
+          },
+          "object_count": {
+            "actual": 6,
+            "expected": 13.0,
+            "ratio": 0.462
+          },
+          "basket_depth": {
+            "actual": 7.064,
+            "expected": 20.013,
+            "ratio": 0.353
+          },
+          "stone_centered": {
+            "cx": 0.635,
+            "cy": 3.956,
+            "dist": 4.006
+          },
+          "affine_sanity": {
+            "scale_xy": 0.9375,
+            "scale_z": 1.6134,
+            "translate_z": -8.9763
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:49:50",
+    "last_strike": "2026-06-04T18:13:08",
     "first_strike": "2026-06-02T17:49:50"
   },
   "ER3_Halo|PR|ER5_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:51",
@@ -10926,14 +11042,35 @@
             "translate_z": -7.0642
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T18:13:08",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 6,
+            "expected": 13.0,
+            "ratio": 0.462
+          },
+          "affine_sanity": {
+            "scale_xy": 0.9779,
+            "scale_z": 1.6211,
+            "translate_z": -9.107
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:49:51",
+    "last_strike": "2026-06-04T18:13:08",
     "first_strike": "2026-06-02T17:49:51"
   },
   "ER3_Halo|PR|ER4_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:51",
@@ -10961,14 +11098,41 @@
             "ratio": 42486.4
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T18:13:09",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "mutable_loss",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 7,
+            "expected": 13.0,
+            "ratio": 0.538
+          },
+          "mutable_loss": {
+            "filtered": 3,
+            "total": 10,
+            "loss_pct": 30.0
+          },
+          "affine_sanity": {
+            "scale_xy": 0.9299,
+            "scale_z": 1.8383,
+            "translate_z": -12.093
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:49:51",
+    "last_strike": "2026-06-04T18:13:09",
     "first_strike": "2026-06-02T17:49:51"
   },
   "ER3_Halo|PR|V6": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:52",
@@ -11008,14 +11172,41 @@
             "translate_z": -7.9944
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T18:13:09",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_centered",
+          "mutable_loss",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "stone_centered": {
+            "cx": -3.849,
+            "cy": 3.719,
+            "dist": 5.353
+          },
+          "mutable_loss": {
+            "filtered": 5,
+            "total": 16,
+            "loss_pct": 31.2
+          },
+          "affine_sanity": {
+            "scale_xy": 1.0847,
+            "scale_z": 1.7526,
+            "translate_z": -10.7678
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:49:52",
+    "last_strike": "2026-06-04T18:13:09",
     "first_strike": "2026-06-02T17:49:52"
   },
   "ER3_Halo|PR|ER6_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:52",
@@ -11057,14 +11248,55 @@
             "dist": 4.048
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T18:13:09",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "stone_ar",
+          "object_count",
+          "basket_depth",
+          "stone_centered",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "stone_ar": {
+            "actual": 2.261,
+            "expected_range": [
+              0.92,
+              1.1
+            ]
+          },
+          "object_count": {
+            "actual": 5,
+            "expected": 13.0,
+            "ratio": 0.385
+          },
+          "basket_depth": {
+            "actual": 6.889,
+            "expected": 20.013,
+            "ratio": 0.344
+          },
+          "stone_centered": {
+            "cx": 0.635,
+            "cy": 3.998,
+            "dist": 4.048
+          },
+          "affine_sanity": {
+            "scale_xy": 0.9375,
+            "scale_z": 1.5737,
+            "translate_z": -8.4081
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:49:52",
+    "last_strike": "2026-06-04T18:13:09",
     "first_strike": "2026-06-02T17:49:52"
   },
   "ER3_Halo|PR|AD_7": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:49:53",
@@ -11092,9 +11324,30 @@
             "ratio": 7406.4
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T18:13:10",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "basket_depth"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 5,
+            "expected": 13.0,
+            "ratio": 0.385
+          },
+          "basket_depth": {
+            "actual": 7.406,
+            "expected": 20.013,
+            "ratio": 0.37
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-02T17:49:53",
+    "last_strike": "2026-06-04T18:13:10",
     "first_strike": "2026-06-02T17:49:53"
   },
   "ER3_Halo|RA|TS27": {
@@ -12295,8 +12548,8 @@
     "first_strike": "2026-06-02T17:50:07"
   },
   "ER4_Halo|OV|TS27": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:50:07",
@@ -12324,9 +12577,17 @@
             "ratio": 14705.8
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T17:59:02",
+        "rejection_point": "manual_23h",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "basket_depth"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:50:07",
+    "last_strike": "2026-06-04T17:59:02",
     "first_strike": "2026-06-02T17:50:07"
   },
   "ER4_Halo|OV|TS28": {
@@ -13017,8 +13278,8 @@
     "first_strike": "2026-06-02T17:50:15"
   },
   "ER4_Halo|RA|TS20": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-02T17:50:16",
@@ -13046,9 +13307,17 @@
             "ratio": 14636.0
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T17:59:02",
+        "rejection_point": "manual_23h",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "basket_depth"
+        ]
       }
     ],
-    "last_strike": "2026-06-02T17:50:16",
+    "last_strike": "2026-06-04T17:59:02",
     "first_strike": "2026-06-02T17:50:16"
   },
   "ER4_Halo|RA|AD_8": {
@@ -19510,8 +19779,8 @@
     "first_strike": "2026-06-04T17:49:33"
   },
   "TS21|PR|ER2_Solitare": {
-    "strikes": 1,
-    "status": "warning",
+    "strikes": 2,
+    "status": "temporary_blacklist",
     "history": [
       {
         "timestamp": "2026-06-04T17:49:35",
@@ -19527,9 +19796,242 @@
             "ratio": 0.397
           }
         }
+      },
+      {
+        "timestamp": "2026-06-04T18:00:43",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 2.041,
+            "expected": 5.145,
+            "ratio": 0.397
+          }
+        }
       }
     ],
-    "last_strike": "2026-06-04T17:49:35",
+    "last_strike": "2026-06-04T18:00:43",
     "first_strike": "2026-06-04T17:49:35"
+  },
+  "TS21|PR|ER1_Solitare": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-04T17:59:02",
+        "rejection_point": "manual_23h",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "basket_depth"
+        ]
+      },
+      {
+        "timestamp": "2026-06-04T17:59:02",
+        "rejection_point": "manual_23h",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "basket_depth"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-04T17:59:02"
+  },
+  "TS21|PR|TM3": {
+    "strikes": 2,
+    "status": "temporary_blacklist",
+    "history": [
+      {
+        "timestamp": "2026-06-04T18:00:43",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth",
+          "mutable_loss",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 2.223,
+            "expected": 5.145,
+            "ratio": 0.432
+          },
+          "mutable_loss": {
+            "filtered": 4,
+            "total": 10,
+            "loss_pct": 40.0
+          },
+          "affine_sanity": {
+            "scale_xy": 0.8268,
+            "scale_z": 10.0268,
+            "translate_z": -102.4841
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-04T18:13:12",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth",
+          "mutable_loss",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 2.223,
+            "expected": 5.145,
+            "ratio": 0.432
+          },
+          "mutable_loss": {
+            "filtered": 4,
+            "total": 10,
+            "loss_pct": 40.0
+          },
+          "affine_sanity": {
+            "scale_xy": 0.8268,
+            "scale_z": 10.0268,
+            "translate_z": -102.4841
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-04T18:13:12",
+    "first_strike": "2026-06-04T18:00:43"
+  },
+  "TS21|PR|ER13_Solitare": {
+    "strikes": 2,
+    "history": [
+      {
+        "timestamp": "2026-06-04T18:12:51",
+        "rejection_point": "manual_23h_r2",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "object_count"
+        ]
+      },
+      {
+        "timestamp": "2026-06-04T18:12:51",
+        "rejection_point": "manual_23h_r2",
+        "validator_verdict": "WARN",
+        "checks_failed": [
+          "object_count"
+        ]
+      }
+    ],
+    "status": "temporary_blacklist",
+    "last_strike": "2026-06-04T18:12:51"
+  },
+  "ER3_Halo|PR|U11": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-04T18:13:10",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 7,
+            "expected": 13.0,
+            "ratio": 0.538
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-04T18:13:10",
+    "first_strike": "2026-06-04T18:13:10"
+  },
+  "ER3_Halo|PR|ER6_Pave_H_Shank": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-04T18:13:11",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "object_count",
+          "basket_depth",
+          "stone_centered"
+        ],
+        "check_details": {
+          "object_count": {
+            "actual": 4,
+            "expected": 13.0,
+            "ratio": 0.308
+          },
+          "basket_depth": {
+            "actual": 3.919,
+            "expected": 20.013,
+            "ratio": 0.196
+          },
+          "stone_centered": {
+            "cx": -5.426,
+            "cy": 3.766,
+            "dist": 6.605
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-04T18:13:11",
+    "first_strike": "2026-06-04T18:13:11"
+  },
+  "ER3_Halo|PR|ER6_Hidden": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-04T18:13:11",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth",
+          "affine_sanity"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 5.469,
+            "expected": 20.013,
+            "ratio": 0.273
+          },
+          "affine_sanity": {
+            "scale_xy": 1.1319,
+            "scale_z": 1.4668,
+            "translate_z": -9.4145
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-04T18:13:11",
+    "first_strike": "2026-06-04T18:13:11"
+  },
+  "TS21|PR|TS24": {
+    "strikes": 1,
+    "status": "warning",
+    "history": [
+      {
+        "timestamp": "2026-06-04T18:13:12",
+        "rejection_point": "post_synthesis",
+        "validator_verdict": "FAIL",
+        "checks_failed": [
+          "basket_depth"
+        ],
+        "check_details": {
+          "basket_depth": {
+            "actual": 2.774,
+            "expected": 5.145,
+            "ratio": 0.539
+          }
+        }
+      }
+    ],
+    "last_strike": "2026-06-04T18:13:12",
+    "first_strike": "2026-06-04T18:13:12"
   }
 }

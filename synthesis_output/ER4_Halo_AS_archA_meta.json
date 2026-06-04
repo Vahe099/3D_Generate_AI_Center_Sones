@@ -2,33 +2,44 @@
   "target_family": "ER4_Halo",
   "target_shape": "AS",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T12:29:00",
-  "donor_family": "AD_8",
-  "donor_score": 0.8532,
-  "expected_confidence": "HIGH",
-  "risk_factors": [],
+  "synthesis_date": "2026-06-04T18:00:31",
+  "donor_family": "TS20",
+  "donor_score": 0.8502,
+  "expected_confidence": "LOW",
+  "risk_factors": [
+    {
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +2.99mm -- stone height mismatch"
+    },
+    {
+      "factor": "STYLE_THREE_STONE",
+      "severity": "LOW",
+      "detail": "Three-stone family -- side settings may introduce extra objects"
+    }
+  ],
   "affine_params": null,
   "static_hashes_count": 52,
   "mutable_indices_count": 21,
   "result": {
     "ok": true,
     "static_added": 26,
-    "mutable_added": 19,
+    "mutable_added": 21,
     "mutable_filtered": 0,
-    "total": 45
+    "total": 47
   },
   "status": "OK",
   "output_file": "synthesis_output\\ER4_Halo_AS_archA.3dm",
   "fallback_mode": true,
-  "attempt_number": 2,
-  "pre_rejected_count": 18,
+  "attempt_number": 1,
+  "pre_rejected_count": 21,
   "elevated_setting_mode": false,
-  "validation_verdict": "WARN",
+  "validation_verdict": "PASS",
   "validation_checks": {
     "stone_cz": {
-      "actual": 12.293,
+      "actual": 13.217,
       "expected": 13.217,
-      "delta": -0.924,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -46,27 +57,27 @@
       "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 12.503,
+      "actual": 13.492,
       "expected": 17.898,
-      "ratio": 0.699,
-      "verdict": "WARN"
+      "ratio": 0.754,
+      "verdict": "PASS"
     },
     "stone_centered": {
-      "cx": 0.0,
+      "cx": -0.0,
       "cy": 0.0,
       "dist": 0.0,
       "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 0,
-      "total": 19,
+      "total": 21,
       "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 45,
-      "contaminants": 0,
-      "rate_pct": 0.0,
+      "raw_objects": 47,
+      "contaminants": 2,
+      "rate_pct": 4.3,
       "verdict": "PASS"
     }
   }
