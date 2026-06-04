@@ -2,53 +2,63 @@
   "target_family": "N6",
   "target_shape": "AS",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T17:50:40",
-  "donor_family": "ER3_Pave_H_Shank",
-  "donor_score": 0.6723,
+  "synthesis_date": "2026-06-04T17:41:55",
+  "donor_family": "TS14",
+  "donor_score": 0.5948,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
+      "factor": "SCALE_XY_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "XY scale factor 0.76 -- moderate distortion risk"
+    },
+    {
       "factor": "SCALE_Z_HIGH",
       "severity": "MEDIUM",
-      "detail": "Z scale factor 3.40 -- vertical geometry will be stretched"
+      "detail": "Z scale factor 0.64 -- vertical geometry will be stretched"
     },
     {
       "factor": "Z_OFFSET_HIGH",
       "severity": "HIGH",
-      "detail": "Z translation -31.93mm -- stone height mismatch"
+      "detail": "Z translation +4.01mm -- stone height mismatch"
     },
     {
       "factor": "COUNT_MISMATCH_HIGH",
       "severity": "HIGH",
-      "detail": "Donor has 48 mutable objects vs HM ~76 (delta=28)"
+      "detail": "Donor has 47 mutable objects vs HM ~76 (delta=29)"
+    },
+    {
+      "factor": "STYLE_THREE_STONE",
+      "severity": "LOW",
+      "detail": "Three-stone family -- side settings may introduce extra objects"
     }
   ],
   "affine_params": null,
   "static_hashes_count": 4,
-  "mutable_indices_count": 48,
+  "mutable_indices_count": 47,
   "result": {
     "ok": true,
     "static_added": 0,
-    "mutable_added": 42,
-    "mutable_filtered": 0,
-    "total": 42
+    "mutable_added": 39,
+    "mutable_filtered": 7,
+    "total": 39
   },
   "status": "OK",
   "output_file": "synthesis_output\\N6_AS_archA.3dm",
   "fallback_mode": true,
   "attempt_number": 1,
-  "pre_rejected_count": 32,
+  "pre_rejected_count": 35,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 9.073,
-      "expected": 9.073,
+      "actual": 9.03,
+      "expected": 9.03,
       "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
-      "actual": 1.0,
+      "actual": 1.009,
       "expected_range": [
         0.92,
         1.1
@@ -56,33 +66,33 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 42,
-      "expected": 68.6,
-      "ratio": 0.613,
+      "actual": 38,
+      "expected": 69.0,
+      "ratio": 0.551,
       "verdict": "WARN"
     },
     "basket_depth": {
-      "actual": 7.164,
-      "expected": 10.663,
-      "ratio": 0.672,
-      "verdict": "WARN"
+      "actual": 14.126,
+      "expected": 10.652,
+      "ratio": 1.326,
+      "verdict": "PASS"
     },
     "stone_centered": {
       "cx": 0.0,
-      "cy": -0.0,
-      "dist": 0.001,
+      "cy": 0.0,
+      "dist": 0.0,
       "verdict": "PASS"
     },
     "mutable_loss": {
-      "filtered": 0,
-      "total": 42,
-      "loss_pct": 0.0,
-      "verdict": "PASS"
+      "filtered": 7,
+      "total": 46,
+      "loss_pct": 15.2,
+      "verdict": "WARN"
     },
     "contaminant_rate": {
-      "raw_objects": 42,
-      "contaminants": 0,
-      "rate_pct": 0.0,
+      "raw_objects": 39,
+      "contaminants": 1,
+      "rate_pct": 2.6,
       "verdict": "PASS"
     }
   }

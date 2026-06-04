@@ -1,17 +1,17 @@
 # Project Status
 
-## Current Phase: Phase 23D (committed) → Phase 23E (planning)
+## Current Phase: Phase 23F (committed) → Phase 23G (planning)
 
-**Last successful commit:** 8f93dde — Phase 23C (blacklist + re-synthesis, WARN→PASS +4, total 42)
+**Last successful commit:** 13dc24d — Phase 23D (V5+plan-patch, WARN→PASS +3, total 45)
 
 ---
 
-## Synthesis Scorecard (as of 2026-06-03 Phase 23D)
+## Synthesis Scorecard (as of 2026-06-04 Phase 23F)
 
 | Verdict | Count |
 |---------|-------|
-| PASS    | 45    |
-| WARN    | 28    |
+| PASS    | 49    |
+| WARN    | 24    |
 | FAIL    | 4     |
 | UNK     | 5 (old partial-format files, ignore) |
 
@@ -26,20 +26,51 @@
 **Phase 23D result restored (Warren shapes)**:
 - Warren_AS/PR/RD: further synthesis attempts degraded to FAIL — restored to Phase 23C best state (all WARN)
 
+**Phase 23E — no PASS gain (structural contamination confirmed)**:
+- AD_1_PE and AD_1_RD: re-analyzed (40-candidate pool), re-synthesized with max-attempts=20
+- Result unchanged: TS20/TS30 remain best donors, contaminant_rate=9.1% (2/22) in both cases
+- Diagnosis: 2 objects permanently misclassified — all geometry-compatible donors produce
+  exactly 2 contaminants; low-rank fresh donors fail on geometry checks first
+- Conclusion: STRUCTURAL WARN — accept, do not re-target
+
+**Phase 23F lifted +4 to PASS** (relative to Phase 23D commit):
+- AD_13_OV:  WARN → PASS (donor: ER1_Solitare)
+- ER9_Halo_AS: WARN → PASS (donor: SP2)
+- GS_62_RA:  WARN → PASS (donor: U11)
+- TS35_PE:   WARN → PASS (donor: TS16)
+
+**Phase 23F new donors, still WARN**:
+- AD_11_RD: new donor AD_7, mutable_loss=11.8% (was AD_10 14.3%)
+- AD_5_PE:  new donor TS16, basket_depth=0.579 (unchanged ratio, structural)
+- N6_AS:    new donor TS14, obj_count=0.551 + mutable_loss=15.2%
+
+**Phase 23F regression avoided**:
+- GS_62_PE: attempted re-synthesis produced FAIL (AD_7, mutable_loss FAIL) — restored to
+  committed state (ER6_Solitare, mutable_loss=22.2% WARN)
+
 ---
 
 ## Active Issues
 
-### Remaining WARNs — actionable targets for Phase 23E
+### Structural WARNs (investigated, no path to PASS without code changes)
 
-| Target    | Donor (current)    | Failing check       | Status / Note                          |
-|-----------|--------------------|---------------------|----------------------------------------|
-| AD_9_PE   | ER7_Pave_H_Shank   | mutable_loss 13.1%  | V5 (rank 2) already tried; structural  |
-| Warren_AS | ER6_Pave_H_Shank   | mutable_loss 15.0%  | Structural; pool exhausted             |
-| Warren_PR | ER2_Solitare       | object_count 0.667  | Structural; many donors at FAIL        |
-| Warren_RD | ER1_Solitare       | object_count 0.606  | Structural; many donors at FAIL        |
-| AD_1_PE   | TS20               | contaminant 9.1%    | Threshold is 5%; near-structural       |
-| AD_1_RD   | TS30               | contaminant 9.1%    | Same — 2/22 contaminants               |
+| Target    | Donor (current)    | Failing check          | Root cause                                          |
+|-----------|--------------------|------------------------|-----------------------------------------------------|
+| AD_1_PE   | TS20               | contaminant 9.1%       | 2 objects permanently misclassified in AD_1 context |
+| AD_1_RD   | TS30               | contaminant 9.1%       | Same — identical 2/22 pattern across all donors     |
+| AD_5_PE   | TS16               | basket_depth 0.579     | AD_5 basket expected=33.4mm; 8 attempts, all FAIL/WARN |
+| AD_9_PE   | ER7_Pave_H_Shank   | mutable_loss 13.1%     | Z-range mismatch; V5 also tried, same result        |
+| GS_62_PE  | ER6_Solitare       | mutable_loss 22.2%     | Very small ring (~9 objects); high filter rate      |
+| N6_AS     | TS14               | obj_count+mutable_loss | Pool mostly exhausted; expected=69 objs, pool tops at 62 |
+| Warren_AS | ER6_Pave_H_Shank   | mutable_loss 15.0%     | Pool exhausted; unusual ring geometry               |
+| Warren_PR | ER2_Solitare       | object_count 0.667     | All adequate-count donors fail on geometry checks   |
+| Warren_RD | ER1_Solitare       | object_count 0.606     | Same                                                |
+
+### Borderline WARNs (close to PASS threshold, may be solvable)
+
+| Target   | Donor   | Failing check    | Gap to PASS                                      |
+|----------|---------|------------------|--------------------------------------------------|
+| AD_11_RD | AD_7    | mutable_loss 11.8% | Need ≤ 10%; 2/17 objects filtered — next donor may clear |
 
 ### Other WARNs (not yet targeted — likely structural or need separate investigation)
 
@@ -62,27 +93,29 @@ TS35_PE, U5_PR
 
 ---
 
-## Next Action — Phase 23E
+## Next Action — Phase 23G
 
-### Remaining tractable WARNs
+Phase 23F resolved 4 of 8 targets (+4 PASS). Remaining:
 
-**AD_9_PE (mutable_loss 13.1%)**: V5 was already tried by retry-warn (no improvement). Both ER7_Pave_H_Shank and V5 filter ~13-17% of objects due to Z-range mismatch in AD_9 geometry. No clear path without changing the Z-filter tolerance.
+### Borderline worth pursuing
 
-**Warren AS/PR/RD**: Structural — pool exhausted. Warren ring has unusual geometry. Attempting more donors degrades to FAIL. Accept WARN.
-
-**AD_1_PE/RD (contaminant 9.1%)**: Contaminant threshold is 5%. Need donor with ≤1 contaminant out of ~22 objects. TS20/TS30 both give exactly 2 contaminants. Could try re-analyzing AD_1 for a larger donor pool.
-
-### Suggested next synthesis
+**AD_11_RD (mutable_loss 11.8%)**: Best donor found is AD_7 (2/17 filtered). Need donor
+where ≤1 object is filtered. Pool has fresh candidates TM2, TM9, TS18, TS3 that gave FAIL
+during Phase 23F — investigate why (likely basket_depth or stone_cz mismatch for AD_11).
 
 ```powershell
-# Re-analyze AD_1 to expand donor pool
-python cross_family_transfer.py analyze AD_1 --out ad_1_transfer_plan.json
-
-# Synthesize with fresh pool
-python cross_family_transfer.py synthesize AD_1 --plan ad_1_transfer_plan.json --auto-fallback --retry-warn --shapes PE,RD --max-attempts 20
+python cross_family_transfer.py analyze AD_11 --out ad_11_transfer_plan.json
+python cross_family_transfer.py synthesize AD_11 --plan ad_11_transfer_plan.json \
+  --auto-fallback --retry-warn --shapes RD --max-attempts 20
 ```
 
-Check results with `python _check_23c.py`. If AD_1 PE/RD get PASS → commit as Phase 23E.
+### Untargeted WARNs — investigate next
+
+```
+AD_11_RD (mutable_loss borderline)
+```
+
+All others now confirmed structural. Scorecard target: PASS ≥ 50.
 
 ---
 
@@ -114,4 +147,6 @@ Check results with `python _check_23c.py`. If AD_1 PE/RD get PASS → commit as 
 | 23A | f4d5023 | Donor retry for contaminant_rate and mutable_loss groups |
 | 23B | 5e2d694 | Targeted donor blacklist + retry → WARN→PASS (+8) |
 | 23C | 8f93dde | Blacklist 23B WARN donors → +4 PASS (42 total) |
-| 23D | (this commit) | V5+plan-patch for AD_9_RD + new donors → +3 PASS (45 total) |
+| 23D | 13dc24d | V5+plan-patch for AD_9_RD + new donors → +3 PASS (45 total) |
+| 23E | (no commit) | AD_1_PE/RD re-analyzed: structural contamination confirmed, WARN stays |
+| 23F | (this commit) | Blacklist + re-synthesis 8 targets → +4 PASS (49 total) |

@@ -2,25 +2,25 @@
   "target_family": "AD_5",
   "target_shape": "PE",
   "architecture": "A",
-  "synthesis_date": "2026-06-02T16:16:02",
-  "donor_family": "TS14",
-  "donor_score": 0.6947,
-  "expected_confidence": "MEDIUM",
+  "synthesis_date": "2026-06-04T17:35:25",
+  "donor_family": "TS16",
+  "donor_score": 0.6661,
+  "expected_confidence": "LOW",
   "risk_factors": [
     {
-      "factor": "SCALE_XY_MODERATE",
-      "severity": "MEDIUM",
-      "detail": "XY scale factor 1.25 -- moderate distortion risk"
+      "factor": "SCALE_XY_HIGH",
+      "severity": "HIGH",
+      "detail": "Donor needs 1.50x scale-up -- geometry distortion likely"
     },
     {
       "factor": "SCALE_Z_HIGH",
       "severity": "MEDIUM",
-      "detail": "Z scale factor 1.89 -- vertical geometry will be stretched"
+      "detail": "Z scale factor 0.67 -- vertical geometry will be stretched"
     },
     {
-      "factor": "COUNT_MISMATCH_MODERATE",
-      "severity": "MEDIUM",
-      "detail": "Object count off by 5 from HM average"
+      "factor": "Z_OFFSET_HIGH",
+      "severity": "HIGH",
+      "detail": "Z translation +6.95mm -- stone height mismatch"
     },
     {
       "factor": "STYLE_THREE_STONE",
@@ -30,7 +30,7 @@
   ],
   "affine_params": null,
   "static_hashes_count": 7,
-  "mutable_indices_count": 47,
+  "mutable_indices_count": 49,
   "result": {
     "ok": true,
     "static_added": 7,
@@ -41,15 +41,15 @@
   "status": "OK",
   "output_file": "synthesis_output\\AD_5_PE_archA.3dm",
   "fallback_mode": true,
-  "attempt_number": 7,
-  "pre_rejected_count": 21,
+  "attempt_number": 8,
+  "pre_rejected_count": 28,
   "elevated_setting_mode": false,
   "validation_verdict": "WARN",
   "validation_checks": {
     "stone_cz": {
-      "actual": 12.586,
+      "actual": 11.427,
       "expected": 11.427,
-      "delta": 1.158,
+      "delta": 0.0,
       "verdict": "PASS"
     },
     "stone_ar": {
@@ -67,15 +67,15 @@
       "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 19.321,
+      "actual": 19.349,
       "expected": 33.439,
-      "ratio": 0.578,
+      "ratio": 0.579,
       "verdict": "WARN"
     },
     "stone_centered": {
       "cx": -0.0,
-      "cy": -0.111,
-      "dist": 0.111,
+      "cy": 0.586,
+      "dist": 0.586,
       "verdict": "PASS"
     },
     "mutable_loss": {

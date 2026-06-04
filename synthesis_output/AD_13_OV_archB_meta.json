@@ -2,54 +2,38 @@
   "target_family": "AD_13",
   "target_shape": "OV",
   "architecture": "B",
-  "synthesis_date": "2026-06-03T11:25:41",
-  "donor_family": "ER15_Solitare",
-  "donor_score": 0.5788,
-  "expected_confidence": "LOW",
-  "risk_factors": [
-    {
-      "factor": "SCALE_Z_HIGH",
-      "severity": "MEDIUM",
-      "detail": "Z scale factor 0.58 -- vertical geometry will be stretched"
-    },
-    {
-      "factor": "Z_OFFSET_HIGH",
-      "severity": "HIGH",
-      "detail": "Z translation +4.43mm -- stone height mismatch"
-    },
-    {
-      "factor": "COUNT_MISMATCH_MODERATE",
-      "severity": "MEDIUM",
-      "detail": "Object count off by 7 from HM average"
-    }
-  ],
+  "synthesis_date": "2026-06-04T17:34:25",
+  "donor_family": "ER1_Solitare",
+  "donor_score": 0.5651,
+  "expected_confidence": "MEDIUM",
+  "risk_factors": [],
   "affine_params": {
-    "scale_xy": 1.031,
-    "scale_z": 0.5796,
-    "translate_x": -0.8277,
-    "translate_y": 0.2603,
-    "translate_z": 1.2529
+    "scale_xy": 1.1423,
+    "scale_z": 0.763,
+    "translate_x": -0.6974,
+    "translate_y": 0.6136,
+    "translate_z": -1.3664
   },
   "static_hashes_count": 2,
-  "mutable_indices_count": 22,
+  "mutable_indices_count": 14,
   "result": {
     "ok": true,
     "static_added": 0,
-    "mutable_added": 21,
+    "mutable_added": 13,
     "mutable_filtered": 0,
-    "total": 21
+    "total": 13
   },
   "status": "OK",
   "output_file": "synthesis_output\\AD_13_OV_archB.3dm",
   "fallback_mode": true,
   "attempt_number": 1,
-  "pre_rejected_count": 32,
+  "pre_rejected_count": 33,
   "elevated_setting_mode": false,
-  "validation_verdict": "WARN",
+  "validation_verdict": "PASS",
   "validation_checks": {
     "stone_cz": {
-      "actual": 8.576,
-      "expected": 8.576,
+      "actual": 8.805,
+      "expected": 8.805,
       "delta": 0.0,
       "verdict": "PASS"
     },
@@ -62,37 +46,37 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 21,
-      "expected": 13.3,
-      "ratio": 1.575,
-      "verdict": "WARN"
+      "actual": 13,
+      "expected": 12.5,
+      "ratio": 1.04,
+      "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 7.323,
-      "expected": 9.635,
-      "ratio": 0.76,
+      "actual": 10.172,
+      "expected": 9.728,
+      "ratio": 1.046,
       "verdict": "PASS"
     },
     "stone_centered": {
-      "cx": -0.828,
-      "cy": 0.26,
-      "dist": 0.868,
+      "cx": -0.697,
+      "cy": 0.614,
+      "dist": 0.929,
       "verdict": "PASS"
     },
     "mutable_loss": {
       "filtered": 0,
-      "total": 21,
+      "total": 13,
       "loss_pct": 0.0,
       "verdict": "PASS"
     },
     "affine_sanity": {
-      "scale_xy": 1.031,
-      "scale_z": 0.5796,
-      "translate_z": 1.2529,
+      "scale_xy": 1.1423,
+      "scale_z": 0.763,
+      "translate_z": -1.3664,
       "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 21,
+      "raw_objects": 13,
       "contaminants": 0,
       "rate_pct": 0.0,
       "verdict": "PASS"
