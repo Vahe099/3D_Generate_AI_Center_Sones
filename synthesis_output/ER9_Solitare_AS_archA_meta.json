@@ -2,15 +2,20 @@
   "target_family": "ER9_Solitare",
   "target_shape": "AS",
   "architecture": "A",
-  "synthesis_date": "2026-06-03T11:25:42",
-  "donor_family": "TS30",
-  "donor_score": 0.7895,
+  "synthesis_date": "2026-06-03T15:48:22",
+  "donor_family": "TS27",
+  "donor_score": 0.7842,
   "expected_confidence": "LOW",
   "risk_factors": [
     {
       "factor": "Z_OFFSET_HIGH",
       "severity": "HIGH",
-      "detail": "Z translation -7.26mm -- stone height mismatch"
+      "detail": "Z translation -11.22mm -- stone height mismatch"
+    },
+    {
+      "factor": "COUNT_MISMATCH_MODERATE",
+      "severity": "MEDIUM",
+      "detail": "Object count off by 6 from HM average"
     },
     {
       "factor": "STYLE_THREE_STONE",
@@ -20,7 +25,7 @@
   ],
   "affine_params": null,
   "static_hashes_count": 14,
-  "mutable_indices_count": 25,
+  "mutable_indices_count": 27,
   "result": {
     "ok": true,
     "static_added": 13,
@@ -31,10 +36,10 @@
   "status": "OK",
   "output_file": "synthesis_output\\ER9_Solitare_AS_archA.3dm",
   "fallback_mode": true,
-  "attempt_number": 2,
-  "pre_rejected_count": 30,
+  "attempt_number": 1,
+  "pre_rejected_count": 32,
   "elevated_setting_mode": false,
-  "validation_verdict": "WARN",
+  "validation_verdict": "PASS",
   "validation_checks": {
     "stone_cz": {
       "actual": 11.261,
@@ -57,10 +62,10 @@
       "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 12.832,
+      "actual": 14.184,
       "expected": 18.084,
-      "ratio": 0.71,
-      "verdict": "WARN"
+      "ratio": 0.784,
+      "verdict": "PASS"
     },
     "stone_centered": {
       "cx": 0.0,

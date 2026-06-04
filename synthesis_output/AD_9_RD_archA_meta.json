@@ -2,34 +2,28 @@
   "target_family": "AD_9",
   "target_shape": "RD",
   "architecture": "A",
-  "synthesis_date": "2026-06-03T14:44:46",
-  "donor_family": "ER7_Pave_H_Shank",
-  "donor_score": 0.6831,
+  "synthesis_date": "2026-06-03T15:47:32",
+  "donor_family": "V5",
+  "donor_score": 0.5248,
   "expected_confidence": "LOW",
-  "risk_factors": [
-    {
-      "factor": "BASKET_DEPTH_MISMATCH",
-      "severity": "HIGH",
-      "detail": "dn_basket=20.45 hm_basket=12.34 ratio=1.66"
-    }
-  ],
+  "risk_factors": [],
   "affine_params": null,
   "static_hashes_count": 182,
   "mutable_indices_count": 189,
   "result": {
     "ok": true,
     "static_added": 64,
-    "mutable_added": 152,
-    "mutable_filtered": 32,
-    "total": 216
+    "mutable_added": 188,
+    "mutable_filtered": 0,
+    "total": 252
   },
   "status": "OK",
   "output_file": "synthesis_output\\AD_9_RD_archA.3dm",
   "fallback_mode": true,
   "attempt_number": 1,
-  "pre_rejected_count": 40,
+  "pre_rejected_count": 41,
   "elevated_setting_mode": false,
-  "validation_verdict": "WARN",
+  "validation_verdict": "PASS",
   "validation_checks": {
     "stone_cz": {
       "actual": 11.59,
@@ -38,7 +32,7 @@
       "verdict": "PASS"
     },
     "stone_ar": {
-      "actual": 1.0,
+      "actual": 1.014,
       "expected_range": [
         0.92,
         1.08
@@ -46,31 +40,31 @@
       "verdict": "PASS"
     },
     "object_count": {
-      "actual": 152,
+      "actual": 188,
       "expected": 170.2,
-      "ratio": 0.893,
+      "ratio": 1.104,
       "verdict": "PASS"
     },
     "basket_depth": {
-      "actual": 14.717,
+      "actual": 10.723,
       "expected": 13.163,
-      "ratio": 1.118,
+      "ratio": 0.815,
       "verdict": "PASS"
     },
     "stone_centered": {
-      "cx": 0.0,
+      "cx": -0.067,
       "cy": -0.0,
-      "dist": 0.0,
+      "dist": 0.067,
       "verdict": "PASS"
     },
     "mutable_loss": {
-      "filtered": 32,
-      "total": 184,
-      "loss_pct": 17.4,
-      "verdict": "WARN"
+      "filtered": 0,
+      "total": 188,
+      "loss_pct": 0.0,
+      "verdict": "PASS"
     },
     "contaminant_rate": {
-      "raw_objects": 216,
+      "raw_objects": 252,
       "contaminants": 0,
       "rate_pct": 0.0,
       "verdict": "PASS"
